@@ -21,3 +21,25 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# exclude webstorm and idea files
+.idea
+
+# exclude cypress
+cypress
+
+# exclude environment variables
+.env*
+
+# include encrypted environment variables
+!.env*.encrypted
+
+# exclude keys
+*.aes
+
+# exclude coverage
+/coverage
+.nyc_output
+
+# exclude local database
+db.json
