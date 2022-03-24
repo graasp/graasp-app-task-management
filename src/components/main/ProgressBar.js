@@ -1,32 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
 const ProgressBar = ({
-  completionRatio,
-  progress,
   height,
   numberOfCompletedTasks,
   totalNumberOfTasks,
 }) => {
-  // const completionRatioColor = (completionRatio) => {
-  //   if (completionRatio >= 0 && completionRatio < 25) {
-  //     return "orangered"; //'palegreen'; 
-  //   }
-  //   if (completionRatio >= 25 && completionRatio < 50) {
-  //     return "orange"; // 'greenyellow';
-  //   }
-  //   if (completionRatio === 50) {
-  //     return 'yellow';
-  //   }
-  //   if (completionRatio > 50 && completionRatio < 75) {
-  //     return 'mediumseagreen'; //"yellow";
-  //   }
-  //   if (completionRatio >= 75 && completionRatio < 100) {
-  //     return 'olivedrab'; //"dodgerblue";
-  //   }
-  //   if (completionRatio === 100) {
-  //     return 'darkgreen'; //"green";
-  //   }
-  // };
+  
+
+  let completionRatio = Math.floor(
+    (numberOfCompletedTasks / totalNumberOfTasks) * 100,
+  );
+  let progress=completionRatio ? completionRatio : 0;
+  
   const Parentdiv = {
     height: height,
     width: '300px',
@@ -38,11 +23,7 @@ const ProgressBar = ({
   const Childdiv = {
     height: '100%',
     width: `${progress}%`,
-    // backgroundColor: completionRatioColor(completionRatio),
-    // borderRadius: 40,
-    // textAlign: 'center',
     background: 'linear-gradient(to left,#0a5510, #0ba746)',
-    //boxShadow:'0 3px 3px -5px #F2909C, 0 2px 5px #18cf62',
     borderRadius: '20px',
     color: '#fff',
     display: 'flex',

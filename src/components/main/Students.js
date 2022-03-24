@@ -1,47 +1,18 @@
-import { MdPlayCircleOutline, MdSupervisedUserCircle } from 'react-icons/md';
+import { useState, useEffect } from 'react';
+import { MdSupervisedUserCircle } from 'react-icons/md';
 import _ from 'lodash';
-import { v4 } from 'uuid';
-
-const options = [
-  {
-    id: v4(),
-    value: 'john',
-    label: 'John',
-    icon: <MdPlayCircleOutline style={{ color: 'blue' }} />,
-  },
-  {
-    id: v4(),
-    value: 'anna',
-    label: 'Anna',
-    icon: <MdPlayCircleOutline style={{ color: 'red' }} />,
-  },
-  {
-    id: v4(),
-    value: 'james',
-    label: 'James',
-    icon: <MdPlayCircleOutline style={{ color: 'black' }} />,
-  },
-  {
-    id: v4(),
-    value: 'mary',
-    label: 'Mary',
-    icon: <MdPlayCircleOutline style={{ color: 'green' }} />,
-  },
-  {
-    id: v4(),
-    value: 'jason',
-    label: 'Jason',
-    icon: <MdPlayCircleOutline style={{ color: 'orange' }} />,
-  },
-  {
-    id: v4(),
-    value: 'dana',
-    label: 'Dana',
-    icon: <MdPlayCircleOutline style={{ color: 'purple' }} />,
-  },
-];
+import { useAppContext /* useAppActions */ } from '../context/appData';
 
 const Students = () => {
+  const [avStudents, setAvStudents] = useState([]);
+  const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
+
+  useEffect(() => {
+    if (isAppContextSuccess) {
+      setAvStudents(appContext?.get('members'));
+    }
+  }, [appContext, isAppContextSuccess]);
+
   const onDragStart = (ev, member) => {
     ev.dataTransfer.setData('member', member);
   };
@@ -58,15 +29,15 @@ const Students = () => {
         <MdSupervisedUserCircle />
       </h3>
 
-      {options.map((option) => (
+      {avStudents.map((avStudent) => (
         <div>
           <li
-            key={option.value}
+            key={avStudent.name}
             draggable
             style={{ listStyleType: 'none' }}
-            onDragStart={(e) => onDragStart(e, option.label)}
+            onDragStart={(e) => onDragStart(e, avStudent.name)}
           >
-            {option.label}
+            {avStudent.name}
           </li>
           <br />
         </div>
@@ -74,26 +45,5 @@ const Students = () => {
     </div>
   );
 };
-
-{
-  /* <li style={{marginTop:"10px"}}>
-          <MdPlayCircleOutline />
-        </li>
-        <li style={{marginTop:"10px"}}>
-          <MdPlayCircleOutline />
-        </li>
-        <li style={{marginTop:"10px"}}>
-          <MdPlayCircleOutline />
-        </li>
-        <li style={{marginTop:"10px"}}>
-          <MdPlayCircleOutline />
-        </li>
-        <li style={{marginTop:"10px"}}>
-          <MdPlayCircleOutline />
-        </li>
-        <li style={{marginTop:"10px"}}>
-          <MdPlayCircleOutline />
-        </li> */
-}
 
 export default Students;

@@ -1,5 +1,5 @@
 import React, { Component, useState, useCallback } from 'react';
-import Popup from '../main/Popup';
+import Popup from '../Popup';
 import { MdCancel, MdOutlineDone } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';

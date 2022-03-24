@@ -1,23 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import {
-  useAppData,
-  useAppContext /* useAppActions */,
-} from './context/appData';
 import Task from './main/Task';
 import Students from './main/Students';
 import Footer from './main/Footer';
 import { MdAddCircle } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
-import { APP_DATA_TYPES } from '../config/appDataTypes';
-import { ACTION_TYPES } from '../config/actionTypes';
-import { useMutation, MUTATION_KEYS } from '../config/queryClient';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { MUTATION_KEYS, useMutation } from '../config/queryClient';
+import { ACTION_TYPES } from '../config/actionTypes';
+import { APP_DATA_TYPES } from '../config/appDataTypes';
+
 import _ from 'lodash';
 import { v4 } from 'uuid';
 
 const App = () => {
-  const { t } = useTranslation();
 
+  const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
+  const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
+  const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
+
+  const { t } = useTranslation();
+  const [state, setState] = useState({
+    todo: {
+      title: 'To Do',
+      items: [],
+    },
+    inProgress: {
+      title: 'In Progress',
+      items: [],
+    },
+    done: {
+      title: 'Completed',
+      items: [],
+    },
+  });
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({
     title: '',
@@ -33,32 +48,6 @@ const App = () => {
   const [isEditingDescription, setIsEditingDescription] = useState(null);
   const [editingTitle, setEditingTitle] = useState('');
   const [editingDescription, setEditingDescription] = useState('');
-  const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
-  const [avStudents, setAvStudents] = useState([]);
-  const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
-
-  const {
-    data: appData,
-    /* eslint-disable-next-line no-unused-vars */
-    isLoading: isAppDataLoading,
-    isSuccess: isAppDataSuccess,
-  } = useAppData();
-
-  useEffect(() => {
-    if (isAppContextSuccess) {
-      setAvStudents(appContext?.get('members'));
-      console.log(appContext?.get('members'));
-    }
-  }, [appContext, isAppContextSuccess]);
-
-  useEffect(() => {
-    if (isAppDataSuccess && !appData.isEmpty()) {
-      setTasks(appData.filter(({ type }) => type === APP_DATA_TYPES.TASK));
-    } else if (isAppDataSuccess && appData.isEmpty()) {
-      setTasks(null);
-    }
-  }, [appData, isAppDataSuccess, postAppData]);
-
 
   useEffect(() => {
     const json = localStorage.getItem('tasks');
@@ -121,72 +110,115 @@ const App = () => {
         },
       };
     });
-    console.log(tasks);
     setTaskInput((prev) => {
       return { ...prev, title: '' };
     });
+    if (newTask?.id) {
+      patchAppData({
+        data: newTask,
+        id: task.id,
+      });
+    } else {
+      postAppData({
+        data: newTask,
+        type: APP_DATA_TYPES.TASK,
+        visibility: 'item',
+      });
+    }
+    postAction({
+      type: ACTION_TYPES.ADD,
+      data: {
+        note: newTask,
+        id: newTask.id,
+      },
+    });
+  };
+
+  const itemsCategory = (title) => {
+    if (title === 'To Do') {
+      return 'todo';
+    }
+    if (title === 'In Progress') {
+      return 'inProgress';
+    }
+    if (title === 'Completed') {
+      return 'done';
+    }
   };
 
   //Delete task
 
   const deleteTask = (id, title) => {
-    if (title === 'To Do') {
-      let updatedTasks = [...state.todo.items].filter((task) => task.id !== id);
-      setTasks(updatedTasks);
-      setState((prev) => {
+    let updatedTasks = [...state[itemsCategory(title)].items].filter(
+      (task) => task.id !== id,
+    );
+    setTasks(updatedTasks);
+    setState((prev) => {
+      if (title === 'To Do') {
         return {
           ...prev,
           todo: {
-            title: title,
+            title,
             items: updatedTasks,
           },
         };
-      });
-    }
-    if (title === 'In Progress') {
-      let updatedTasks = [...state.inProgress.items].filter(
-        (task) => task.id !== id,
-      );
-      setTasks(updatedTasks);
-      setState((prev) => {
+      }
+      if (title === 'In Progress') {
         return {
           ...prev,
           inProgress: {
-            title: title,
+            title,
             items: updatedTasks,
           },
         };
-      });
-    }
-    if (title === 'Completed') {
-      let updatedTasks = [...state.done.items].filter((task) => task.id !== id);
-      setTasks(updatedTasks);
-      setState((prev) => {
+      }
+      if (title === 'Completed') {
         return {
           ...prev,
           done: {
-            title: title,
+            title,
             items: updatedTasks,
           },
         };
-      });
-    }
+      }
+    });
+
+    postAction({
+      type: ACTION_TYPES.DELETE,
+      data: id ,
+    })
   };
 
   //Edit title
   const submitTitleEdits = (id, listTitle) => {
-    if (listTitle === 'To Do') {
-      const updatedTasks = [...state.todo.items].map((task) => {
+    const updatedTasks = [...state[itemsCategory(listTitle)].items].map(
+      (task) => {
         if (task.id === id) {
           if (editingTitle.trim().length !== 0) {
             task.title = editingTitle;
           }
+
+          postAppData({
+            data: task,
+            type: APP_DATA_TYPES.TASK,
+            visibility: 'item',
+          });
+        
+        postAction({
+          type: ACTION_TYPES.EDIT,
+          data: {
+            note: task,
+            id: task.id,
+          },
+        });
         }
         return task;
-      });
-      setTasks(updatedTasks);
-      setIsEditingTitle(null);
-      setState((prev) => {
+      },
+    );
+    setTasks(updatedTasks);
+    setIsEditingTitle(null);
+    setState((prev) => {
+      if (listTitle === 'To Do') {
         return {
           ...prev,
           todo: {
@@ -194,20 +226,8 @@ const App = () => {
             items: updatedTasks,
           },
         };
-      });
-    }
-    if (listTitle === 'In Progress') {
-      const updatedTasks = [...state.inProgress.items].map((task) => {
-        if (task.id === id) {
-          if (editingTitle.trim().length !== 0) {
-            task.title = editingTitle;
-          }
-        }
-        return task;
-      });
-      setTasks(updatedTasks);
-      setIsEditingTitle(null);
-      setState((prev) => {
+      }
+      if (listTitle === 'In Progress') {
         return {
           ...prev,
           inProgress: {
@@ -215,20 +235,8 @@ const App = () => {
             items: updatedTasks,
           },
         };
-      });
-    }
-    if (listTitle === 'Completed') {
-      const updatedTasks = [...state.done.items].map((task) => {
-        if (task.id === id) {
-          if (editingTitle.trim().length !== 0) {
-            task.title = editingTitle;
-          }
-        }
-        return task;
-      });
-      setTasks(updatedTasks);
-      setIsEditingTitle(null);
-      setState((prev) => {
+      }
+      if (listTitle === 'Completed') {
         return {
           ...prev,
           done: {
@@ -236,25 +244,42 @@ const App = () => {
             items: updatedTasks,
           },
         };
-      });
-    }
+      }
+    });
+
+   
   };
 
   //Edit description
 
   const submitDescriptionEdits = (id, listTitle) => {
-    if (listTitle === 'To Do') {
-      const updatedTasks = [...state.todo.items].map((task) => {
+    const updatedTasks = [...state[itemsCategory(listTitle)].items].map(
+      (task) => {
         if (task.id === id) {
           if (editingDescription.trim().length !== 0) {
             task.description = editingDescription;
           }
+          postAppData({
+            data: task,
+            type: APP_DATA_TYPES.TASK,
+            visibility: 'item',
+          });
+        
+        postAction({
+          type: ACTION_TYPES.EDIT,
+          data: {
+            note: task,
+            id: task.id,
+          },
+        });
         }
         return task;
-      });
-      setTasks(updatedTasks);
-      setIsEditingDescription(null);
-      setState((prev) => {
+      },
+    );
+    setTasks(updatedTasks);
+    setIsEditingDescription(null);
+    setState((prev) => {
+      if (listTitle === 'To Do') {
         return {
           ...prev,
           todo: {
@@ -262,20 +287,8 @@ const App = () => {
             items: updatedTasks,
           },
         };
-      });
-    }
-    if (listTitle === 'In Progress') {
-      const updatedTasks = [...state.inProgress.items].map((task) => {
-        if (task.id === id) {
-          if (editingDescription.trim().length !== 0) {
-            task.description = editingDescription;
-          }
-        }
-        return task;
-      });
-      setTasks(updatedTasks);
-      setIsEditingDescription(null);
-      setState((prev) => {
+      }
+      if (listTitle === 'In Progress') {
         return {
           ...prev,
           inProgress: {
@@ -283,20 +296,8 @@ const App = () => {
             items: updatedTasks,
           },
         };
-      });
-    }
-    if (listTitle === 'Completed') {
-      const updatedTasks = [...state.done.items].map((task) => {
-        if (task.id === id) {
-          if (editingDescription.trim().length !== 0) {
-            task.description = editingDescription;
-          }
-        }
-        return task;
-      });
-      setTasks(updatedTasks);
-      setIsEditingDescription(null);
-      setState((prev) => {
+      }
+      if (listTitle === 'Completed') {
         return {
           ...prev,
           done: {
@@ -304,24 +305,12 @@ const App = () => {
             items: updatedTasks,
           },
         };
-      });
-    }
+      }
+    });
   };
 
-  const [state, setState] = useState({
-    todo: {
-      title: 'To Do',
-      items: [],
-    },
-    inProgress: {
-      title: 'In Progress',
-      items: [],
-    },
-    done: {
-      title: 'Completed',
-      items: [],
-    },
-  });
+ 
+
   useEffect(() => {
     const json = localStorage.getItem('state');
     const loadedTasks = JSON.parse(json);
@@ -366,22 +355,14 @@ const App = () => {
     });
   };
 
-  let completionRatio = 0;
-  let numberOfCompletedTasks = state.done.items.length;
   let totalNumberOfTasks = 0;
 
   _.map(state, (data) => (totalNumberOfTasks += data.items.length));
 
-  completionRatio = Math.floor(
-    (numberOfCompletedTasks / totalNumberOfTasks) * 100,
-  );
-
-
   return (
-    
     <div class="row">
       <div class="column" className="members-column">
-        <Students />
+        <Students tasks={tasks} setTasks={setTasks} />
       </div>
       <div className="App" class="column">
         <div className="row jc-space-between">
@@ -463,8 +444,6 @@ const App = () => {
                                   draggableId={task.id}
                                 >
                                   {(provided, snapshot) => {
-                                    //console.log(snapshot)
-                                    //console.log(task)
                                     return (
                                       <div
                                         ref={provided.innerRef}
@@ -475,6 +454,7 @@ const App = () => {
                                           className={
                                             snapshot.isDragging && 'dragging'
                                           }
+                                          itemsCategory={itemsCategory}
                                           task={task}
                                           setTask={setTask}
                                           tasks={tasks}
@@ -525,16 +505,13 @@ const App = () => {
         <div className="clear"></div>
 
         <Footer
-          progress={completionRatio ? completionRatio : 0}
           height={20}
-          numberOfCompletedTasks={numberOfCompletedTasks}
+          numberOfCompletedTasks={state.done.items.length}
           totalNumberOfTasks={totalNumberOfTasks}
-          completionRatio={completionRatio}
         />
       </div>
     </div>
-  ) 
+  );
 };
 
 export default App;
-
