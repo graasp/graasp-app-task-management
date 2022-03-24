@@ -35,7 +35,7 @@ const App = () => {
   const [editingDescription, setEditingDescription] = useState('');
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const [avStudents, setAvStudents] = useState([]);
-  const { data: appContext, isLoading: isAppContextLoading } = useAppContext();
+  const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
 
   const {
     data: appData,
@@ -45,12 +45,11 @@ const App = () => {
   } = useAppData();
 
   useEffect(() => {
-    if (isAppContextLoading) {
-      setAvStudents([]);
-    } else {
+    if (isAppContextSuccess) {
       setAvStudents(appContext?.get('members'));
+      console.log(appContext?.get('members'));
     }
-  }, [appContext, isAppContextLoading]);
+  }, [appContext, isAppContextSuccess]);
 
   useEffect(() => {
     if (isAppDataSuccess && !appData.isEmpty()) {
@@ -60,7 +59,6 @@ const App = () => {
     }
   }, [appData, isAppDataSuccess, postAppData]);
 
-  console.log(avStudents);
 
   useEffect(() => {
     const json = localStorage.getItem('tasks');
@@ -378,28 +376,9 @@ const App = () => {
     (numberOfCompletedTasks / totalNumberOfTasks) * 100,
   );
 
-  const completionRatioText = (completionRatio) => {
-    if (completionRatio > 0 && completionRatio < 25) {
-      return t('There you go!');
-    }
-    if (completionRatio >= 25 && completionRatio < 50) {
-      return t('Nice!');
-    }
-    if (completionRatio === 50) {
-      return t('Halfway through!');
-    }
-    if (completionRatio > 50 && completionRatio < 75) {
-      return t('More than halfway through!');
-    }
-    if (completionRatio >= 75 && completionRatio < 100) {
-      return t('Almost done!');
-    }
-    if (completionRatio == 100) {
-      return t('Done!');
-    }
-  };
 
   return (
+    
     <div class="row">
       <div class="column" className="members-column">
         <Students />
@@ -551,65 +530,11 @@ const App = () => {
           numberOfCompletedTasks={numberOfCompletedTasks}
           totalNumberOfTasks={totalNumberOfTasks}
           completionRatio={completionRatio}
-          completionRatioText={completionRatioText}
         />
       </div>
     </div>
-  );
+  ) 
 };
 
 export default App;
 
-// no items text color: #c1c3c4;
-
-// max width 600
-// .text-input {
-//   border: #f54f1c 1px solid;
-//   outline: none;
-//   border-radius: 25px;
-//   width: 200px;
-//   font-size: 16px;
-//   padding: 8px 12px;
-//   margin: auto 8px;
-//   font-weight: bold;
-// }
-
-// .text-input-out {
-//   border: #b8ced1 1px solid;
-//   box-shadow: 0 0 7px #b8ced1;
-//   outline: none;
-//   border-radius: 25px;
-//   width: 200px;
-//   font-size: 16px;
-//   padding: 8px 12px;
-//   margin: auto 8px;
-//   font-weight: bold;
-// }
-
-// .list-item {
-//   border: none;
-//   border-radius: 25px;
-//   width: 290px;
-//   font-size: 18px;
-//   padding: 4px 15px;
-//   margin: 10px 0;
-//   margin-left: 10px;
-//   color: #131a28;
-//   font-weight: bold;
-//   text-align: start;
-//   align-items: center;
-// }
-// .list-item-out {
-//   border-color: #8ea3b4;
-//   box-shadow: 0 0 10px #8ea3b4;
-//   border-radius: 25px;
-//   width: 290px;
-//   font-size: 18px;
-//   padding: 4px 15px;
-//   margin: 10px 0;
-//   margin-left: 10px;
-//   color: #131a28;
-//   font-weight: bold;
-//   text-align: start;
-//   align-items: center;
-// }

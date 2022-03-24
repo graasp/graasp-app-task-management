@@ -7,26 +7,26 @@ const ProgressBar = ({
   numberOfCompletedTasks,
   totalNumberOfTasks,
 }) => {
-  const completionRatioColor = (completionRatio) => {
-    if (completionRatio >= 0 && completionRatio < 25) {
-      return "orangered"; //'palegreen'; 
-    }
-    if (completionRatio >= 25 && completionRatio < 50) {
-      return "orange"; // 'greenyellow';
-    }
-    if (completionRatio === 50) {
-      return 'yellow';
-    }
-    if (completionRatio > 50 && completionRatio < 75) {
-      return 'mediumseagreen'; //"yellow";
-    }
-    if (completionRatio >= 75 && completionRatio < 100) {
-      return 'olivedrab'; //"dodgerblue";
-    }
-    if (completionRatio === 100) {
-      return 'darkgreen'; //"green";
-    }
-  };
+  // const completionRatioColor = (completionRatio) => {
+  //   if (completionRatio >= 0 && completionRatio < 25) {
+  //     return "orangered"; //'palegreen'; 
+  //   }
+  //   if (completionRatio >= 25 && completionRatio < 50) {
+  //     return "orange"; // 'greenyellow';
+  //   }
+  //   if (completionRatio === 50) {
+  //     return 'yellow';
+  //   }
+  //   if (completionRatio > 50 && completionRatio < 75) {
+  //     return 'mediumseagreen'; //"yellow";
+  //   }
+  //   if (completionRatio >= 75 && completionRatio < 100) {
+  //     return 'olivedrab'; //"dodgerblue";
+  //   }
+  //   if (completionRatio === 100) {
+  //     return 'darkgreen'; //"green";
+  //   }
+  // };
   const Parentdiv = {
     height: height,
     width: '300px',

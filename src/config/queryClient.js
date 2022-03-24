@@ -7,6 +7,8 @@ import { REACT_APP_GRAASP_APP_ID } from './env';
 import  { mockContext }  from '../data/db';
 import { MOCK_API } from './settings';
 
+console.log(REACT_APP_GRAASP_APP_ID)
+
 const {
   queryClient,
   QueryClientProvider,

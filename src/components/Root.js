@@ -17,6 +17,7 @@ import i18nConfig from '../config/i18n';
 import App from './App';
 
 import { ContextProvider } from './context/ContextContext';
+import { TokenProvider } from './context/TokenContext';
 import {
   queryClient,
   QueryClientProvider,
@@ -84,7 +85,9 @@ const Root = () => {
         <I18nextProvider i18n={i18nConfig}>
           <QueryClientProvider client={queryClient}>  
             <ContextProvider>
+            <TokenProvider>
               <App />
+            </TokenProvider>
             </ContextProvider>
             {process.env.NODE_ENV === 'development' && (
               <ReactQueryDevtools initialIsOpen />
