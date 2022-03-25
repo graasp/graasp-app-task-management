@@ -8,6 +8,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { ACTION_TYPES } from '../config/actionTypes';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
+import { useAppData, /* useAppActions */ } from './context/appData';
+
 
 import _ from 'lodash';
 import { v4 } from 'uuid';
@@ -17,6 +19,26 @@ const App = () => {
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
+
+
+  const {
+    data: appData,
+    /* eslint-disable-next-line no-unused-vars */
+    isLoading: isAppDataLoading,
+    isSuccess: isAppDataSuccess,
+  } = useAppData();
+
+
+
+  useEffect(() => {
+    if (isAppDataSuccess && !appData.isEmpty()) {
+      setTasks(appData.filter(({ type }) => type === APP_DATA_TYPES.TASK));
+    } else if (isAppDataSuccess && appData.isEmpty()) {
+      setTasks(null);
+    }
+  }, [appData, isAppDataSuccess, postAppData]);
+
+
 
   const { t } = useTranslation();
   const [state, setState] = useState({
@@ -128,7 +150,7 @@ const App = () => {
     postAction({
       type: ACTION_TYPES.ADD,
       data: {
-        note: newTask,
+        task: newTask,
         id: newTask.id,
       },
     });
@@ -207,7 +229,7 @@ const App = () => {
         postAction({
           type: ACTION_TYPES.EDIT,
           data: {
-            note: task,
+            task: task,
             id: task.id,
           },
         });
@@ -268,7 +290,7 @@ const App = () => {
         postAction({
           type: ACTION_TYPES.EDIT,
           data: {
-            note: task,
+            task: task,
             id: task.id,
           },
         });

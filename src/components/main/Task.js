@@ -38,7 +38,7 @@ const Task = (props) => {
         postAction({
           type: ACTION_TYPES.SAVE,
           data: {
-            note: task,
+            task: task,
             id: task.id,
           },
         });
