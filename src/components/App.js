@@ -16,6 +16,8 @@ import { v4 } from 'uuid';
 
 const App = () => {
 
+  //window.localStorage.clear()
+
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
@@ -34,7 +36,7 @@ const App = () => {
     if (isAppDataSuccess && !appData.isEmpty()) {
       setTasks(appData.filter(({ type }) => type === APP_DATA_TYPES.TASK));
      } else if (isAppDataSuccess && appData.isEmpty()) {
-       setTasks(null);
+       setTasks(tasks);
     }
     
   }, [appData, isAppDataSuccess, postAppData]);
@@ -113,8 +115,8 @@ const App = () => {
       members: task.members,
     };
     if (!task.title || !task.title.length || !task.title.trim().length) return;
-    let newTasks=Object.entries(tasks).concat(newTask)
-    setTasks(newTasks);
+    //.concat(newTask)
+    setTasks([...tasks,newTask]);
     setTask({ title: '', description: '', members: [] });
     setState((prev) => {
       return {
