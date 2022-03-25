@@ -33,9 +33,10 @@ const App = () => {
   useEffect(() => {
     if (isAppDataSuccess && !appData.isEmpty()) {
       setTasks(appData.filter(({ type }) => type === APP_DATA_TYPES.TASK));
-    } else if (isAppDataSuccess && appData.isEmpty()) {
-      setTasks(null);
+     } else if (isAppDataSuccess && appData.isEmpty()) {
+       setTasks(null);
     }
+    
   }, [appData, isAppDataSuccess, postAppData]);
 
 
@@ -105,7 +106,6 @@ const App = () => {
 
   const handleAdd = (e) => {
     e.preventDefault();
-    //window.localStorage.clear();
     const newTask = {
       id: v4(),
       title: task.title,
@@ -113,7 +113,8 @@ const App = () => {
       members: task.members,
     };
     if (!task.title || !task.title.length || !task.title.trim().length) return;
-    setTasks([...tasks].concat(newTask));
+    let newTasks=Object.entries(tasks).concat(newTask)
+    setTasks(newTasks);
     setTask({ title: '', description: '', members: [] });
     setState((prev) => {
       return {
@@ -385,7 +386,7 @@ const App = () => {
     });
   
   postAction({
-    type: ACTION_TYPES.EDIT,
+    type: ACTION_TYPES.MOVE,
     data: {
       task: task,
       id: task.id,
@@ -487,7 +488,7 @@ const App = () => {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
-                                        onDrag={onDragTask(task)}
+                                        onDrag={()=>onDragTask(task)}
                                       >
                                         <Task
                                           className={
