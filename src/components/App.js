@@ -377,6 +377,22 @@ const App = () => {
     });
   };
 
+  const onDragTask=(task)=>{
+    postAppData({
+      data: task,
+      type: APP_DATA_TYPES.TASK,
+      visibility: 'item',
+    });
+  
+  postAction({
+    type: ACTION_TYPES.EDIT,
+    data: {
+      task: task,
+      id: task.id,
+    },
+  });
+  }
+
   let totalNumberOfTasks = 0;
 
   _.map(state, (data) => (totalNumberOfTasks += data.items.length));
@@ -471,6 +487,7 @@ const App = () => {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
+                                        onDrag={onDragTask(task)}
                                       >
                                         <Task
                                           className={
