@@ -378,9 +378,6 @@ const App = () => {
 
       return prev;
     });
-  };
-
-  const onDragTask=(task)=>{
     postAppData({
       data: task,
       type: APP_DATA_TYPES.TASK,
@@ -394,7 +391,8 @@ const App = () => {
       id: task.id,
     },
   });
-  }
+  };
+
 
   let totalNumberOfTasks = 0;
 
@@ -490,7 +488,7 @@ const App = () => {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
-                                        onDrag={()=>onDragTask(task)}
+
                                       >
                                         <Task
                                           className={
