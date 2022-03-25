@@ -4,4 +4,3 @@ export * from './appInstance';
 export * from './users';
 export * from './layout';
 export * from './action';
-export * from './canvas';
