@@ -662,3 +662,11 @@ sup {
 .remove-member-button:hover{
   color:black;
  }
+ .draggable {
+  cursor: move; /* fallback: no `url()` support or images disabled */
+  cursor: grab; /* W3C standards syntax, all modern browser */
+  list-style-type: none;
+}
+.draggable:active {
+  cursor: grabbing;
+}
