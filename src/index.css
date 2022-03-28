@@ -20,24 +20,11 @@ input {
 input:focus {
   outline: none;
 }
-.task {
-  background-color: #67d7cc;
-  border-radius: 10px;
-  padding: 1rem;
-  min-height: 170px;
-  display: flex;
-  width: 150px;
-  flex-direction: column;
-  justify-content: space-between;
-  white-space: pre-wrap;
-  border-radius: 40px;
-}
-
 .droppable-col {
-  width: 450px;
+  width: 28.125em;
   background-color: #ebecf0;
-  padding: 10px 10px 0px 10px;
-  border-radius: 25px;
+  padding: 0.625em 0.625em 0px 0.625em;
+  border-radius: 1.5625em;
   display: flex;
   flex-direction: column;
   max-width: 70vh;
@@ -50,36 +37,6 @@ input:focus {
   margin-right: 50px;
 }
 
-.container {
-  max-width: 960px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 15px;
-  padding-left: 15px;
-  min-height: 100vh;
-}
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: #232d52;
-}
-
-.tasks-list {
-  display: grid;
-  grid-gap: 1rem;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-}
-.task-header {
-  align-items: center;
-  justify-content: space-between;
-  height: 15px;
-}
-.task-footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
 .app-background {
   display: flex;
   min-height: 100vh;
@@ -89,16 +46,6 @@ input:focus {
   justify-content: flex-start;
   align-items: center;
 }
-
-.footer-text {
-  color: #131a28;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  margin: auto;
-  height: 1px;
-}
-
 .row {
   display: flex;
   flex-direction: row;
@@ -113,24 +60,6 @@ input:focus {
   justify-content: space-between;
 }
 
-.check-task-complete {
-  text-decoration: line-through;
-  color: #c1c3c4;
-}
-.check-task-complete:hover {
-  text-decoration: line-through;
-  color: #54595c;
-}
-.check-task-incomplete {
-  color: rgb(111, 196, 111);
-}
-.check-task-incomplete:hover {
-  color: green;
-}
-.text-task-complete {
-  color: #c1c3c4;
-  font-weight: 500;
-}
 .text-task {
   color: black;
   font-weight: 500;
@@ -143,35 +72,35 @@ input:focus {
   outline: none;
   border: none;
   color: #201328;
-  font-size: 17px;
+  font-size: 1.0625em;
   font-weight: bolder;
-  padding: 10px 15px;
-  border-radius: 8px;
+  padding: 10px 0.9375em;
+  border-radius: 0.5em;
   text-align: center;
-  margin: 0 15px 15px 15px;
+  margin: 0 0.9375em 0.9375em 0.9375em;
   cursor: pointer;
 }
 
 .text-input {
   border: #c3c9ca 1px solid;
   outline: none;
-  border-radius: 25px;
-  width: 310px;
-  font-size: 18px;
-  padding: 10px 15px;
-  margin: 0 15px 15px 15px;
+  border-radius: 1.5625em;
+  width: 19.375em;
+  font-size: 1.125em;
+  padding: 10px 0.9375em;
+  margin: 0 0.9375em 0.9375em 0.9375em;
   font-weight: bold;
   font-weight: 500;
 }
 .text-input-out {
   border: #c3c9ca 1px solid;
-  box-shadow: 0 0 7px #c3c9ca;
+  box-shadow: 0 0 0.4375em #c3c9ca;
   outline: none;
-  border-radius: 25px;
-  width: 310px;
-  font-size: 18px;
-  padding: 10px 15px;
-  margin: 0 15px 15px 15px;
+  border-radius: 1.5625em;
+  width: 19.375em;
+  font-size: 1.125em;
+  padding: 10px 0.9375em;
+  margin: 0 0.9375em 0.9375em 0.9375em;
   font-weight: bold;
   font-weight: 500;
 }
@@ -179,35 +108,38 @@ input:focus {
 .list-item {
   background-color: white;
   border: none;
-  border-radius: 25px;
-  width: 400px;
-  font-size: 18px;
-  padding: 4px 15px;
+  border-radius: 1.5625em;
+  width: 22em;
+  font-size: 1.125em;
+  padding: 0.625em 0.9375em;
   margin: 10px 0;
   color: black;
   font-weight: bold;
   text-align: start;
   align-items: center;
+  height:2em;
 }
 
 .list-item:hover {
   border-color: #8ea3b4;
-  box-shadow: 0 0 10px #8ea3b4;
+  box-shadow: 0 0 0.625em #8ea3b4;
 }
 
 .list-item-out {
   background-color: white;
   border-color: #8ea3b4;
-  box-shadow: 0 0 10px #8ea3b4;
-  border-radius: 25px;
-  width: 400px;
-  font-size: 18px;
-  padding: 4px 15px;
-  margin: 10px 0;
+  box-shadow: 0 0 0.625em #8ea3b4;
+  border-radius: 1.5625em;
+  width: 22em;
+  font-size: 1.125em;
+  padding: 0.625em 0.9375em;
+  margin: 0.625em 0;
   color: black;
   font-weight: bold;
   text-align: start;
   align-items: center;
+  height:2em;
+
 }
 
 .delete-icon-incomplete {
@@ -218,18 +150,9 @@ input:focus {
   cursor: pointer;
   color: red;
 }
-.delete-icon-complete {
-  height: 26px;
-  cursor: pointer;
-  color: #c1c3c4;
-}
-.delete-icon-incomplete:hover {
-  cursor: pointer;
-  color: red;
-}
 .no-item-text {
   color: gainsboro;
-  font-size: 17px;
+  font-size: 1.0625em;
   font-weight: bolder;
   text-align: center;
   margin: 50px;
@@ -237,13 +160,13 @@ input:focus {
 
 @media only screen and (max-width: 600px) {
   .delete-icon {
-    height: 18px;
+    height: 1.125em;
     cursor: pointer;
   }
   .droppable-col {
     width: 22em;
     background-color: #ebecf0;
-    border-radius: 25px;
+    border-radius: 1.5625em;
     display: flex;
     flex-direction: column;
     text-align: center;
@@ -256,9 +179,11 @@ input:focus {
   }
   .list-item {
     width: 16em;
+    height:2em;
   }
   .list-item-out {
     width: 16em;
+    height:2em;
   }
   .text-input{
     width: 11.5em;
@@ -272,34 +197,35 @@ input:focus {
   .text-input {
     border: #7a3c29 1px solid;
     outline: none;
-    border-radius: 25px;
-    width: 200px;
-    font-size: 16px;
-    padding: 8px 12px;
-    margin: auto 8px;
+    border-radius: 1.5625em;
+    width: 12.5em;
+    font-size: 1em;
+    padding: 0.5em 0.75em;
+    margin: auto 0.5em;
     font-weight: bold;
   }
 
   .text-input-out {
     border: #b8ced1 1px solid;
-    box-shadow: 0 0 7px #b8ced1;
+    box-shadow: 0 0 0.4375em #b8ced1;
     outline: none;
-    border-radius: 25px;
-    width: 200px;
-    font-size: 16px;
-    padding: 8px 12px;
-    margin: auto 8px;
+    border-radius: 1.5625em;
+    width: 12.5em;
+    font-size: 1em;
+    padding: 0.5em 0.75em;
+    margin: auto 0.5em;
+   
     font-weight: bold;
   }
 
   .list-item {
     border: none;
-    border-radius: 25px;
-    width: 290px;
-    height: 25px;
-    font-size: 18px;
-    padding: 4px 15px;
-    margin: 10px 0;
+    border-radius: 1.5625em;
+    width: 17.5em;
+    height: 1.5625em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
+    margin: 0.625em 0;
     color: #131a28;
     font-weight: bold;
     text-align: start;
@@ -307,13 +233,13 @@ input:focus {
   }
   .list-item-out {
     border-color: #8ea3b4;
-    box-shadow: 0 0 10px #8ea3b4;
-    border-radius: 25px;
-    width: 290px;
-    height: 25px;
-    font-size: 18px;
-    padding: 4px 15px;
-    margin: 10px 0;
+    box-shadow: 0 0 0.625em #8ea3b4;
+    border-radius: 1.5625em;
+    width: 17.5em;
+    height: 1.5625em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
+    margin: 0.625em 0;
     color: #131a28;
     font-weight: bold;
     text-align: start;
@@ -321,7 +247,7 @@ input:focus {
   }
 
   .delete-icon {
-    height: 18px;
+    height: 1.125em;
     cursor: pointer;
   }
 }
@@ -330,82 +256,32 @@ input:focus {
   .text-input {
     border: #1c32f5 1px solid;
     outline: none;
-    border-radius: 25px;
-    width: 200px;
-    font-size: 16px;
-    padding: 8px 12px;
+    border-radius: 1.5625em;
+    width: 12.5em;
+    font-size: 1em;
+    padding: 0.5em 0.75em;
     margin: auto 6px;
     font-weight: bold;
   }
   .text-input-out {
     border: #b8ced1 1px solid;
-    box-shadow: 0 0 7px #b8ced1;
+    box-shadow: 0 0 0.4375em #b8ced1;
     outline: none;
-    border-radius: 25px;
-    width: 200px;
-    font-size: 16px;
-    padding: 8px 12px;
+    border-radius: 1.5625em;
+    width: 12.5em;
+    font-size: 1em;
+    padding: 0.5em 0.75em;
     margin: auto 6px;
     font-weight: bold;
   }
 
   .list-item {
     border: none;
-    border-radius: 25px;
-    width: 270px;
-    font-size: 18px;
-    padding: 4px 15px;
-    margin: 10px 0;
-    color: #131a28;
-    font-weight: bold;
-    text-align: start;
-    align-items: center;
-    height: 40px;
-  }
-  .list-item-out {
-    border-color: #8ea3b4;
-    box-shadow: 0 0 10px #8ea3b4;
-    border-radius: 25px;
-    width: 270px;
-    font-size: 18px;
-    padding: 4px 15px;
-    margin: 10px 0;
-    color: #131a28;
-    font-weight: bold;
-    text-align: start;
-    align-items: center;
-    height: 40px;
-  }
-}
-@media only screen and (max-height: 410px) {
-  .text-input {
-    border: #1c32f5 1px solid;
-    outline: none;
-    border-radius: 25px;
-    width: 200px;
-    font-size: 16px;
-    padding: 8px 12px;
-    margin: auto 6px;
-    font-weight: bold;
-  }
-  .text-input-out {
-    border: #b8ced1 1px solid;
-    box-shadow: 0 0 7px #b8ced1;
-    outline: none;
-    border-radius: 25px;
-    width: 200px;
-    font-size: 16px;
-    padding: 8px 12px;
-    margin: auto 6px;
-    font-weight: bold;
-  }
-  .list-item {
-    border: none;
-    border-radius: 25px;
-    width: 270px;
-    font-size: 18px;
-    padding: 4px 15px;
-    margin: 10px 0;
+    border-radius: 1.5625em;
+    width: 16.875em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
+    margin: 0.625em 0;
     color: #131a28;
     font-weight: bold;
     text-align: start;
@@ -413,12 +289,12 @@ input:focus {
   }
   .list-item-out {
     border-color: #8ea3b4;
-    box-shadow: 0 0 10px #8ea3b4;
-    border-radius: 25px;
-    width: 270px;
-    font-size: 18px;
-    padding: 4px 15px;
-    margin: 10px 0;
+    box-shadow: 0 0 0.625em #8ea3b4;
+    border-radius: 1.5625em;
+    width: 16.875em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
+    margin: 0.625em 0;
     color: #131a28;
     font-weight: bold;
     text-align: start;
@@ -430,46 +306,62 @@ input:focus {
   .text-input {
     border: #9b543e 1px solid;
     outline: none;
-    border-radius: 25px;
-    width: 150px;
-    font-size: 16px;
-    padding: 8px 12px;
+    border-radius: 1.5625em;
+    width: 9.375em;
+    font-size: 1em;
+    padding: 0.5em 0.75em;
     margin: auto 6px;
     font-weight: bold;
   }
+  .droppable-col {
+    width: 22em;
+    background-color: #ebecf0;
+    border-radius: 1.5625em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 30px 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
   .text-input-out {
     border: #b8ced1 1px solid;
-    box-shadow: 0 0 7px #b8ced1;
+    box-shadow: 0 0 0.4375em #b8ced1;
     outline: none;
-    border-radius: 25px;
-    width: 150px;
-    font-size: 16px;
-    padding: 8px 12px;
+    border-radius: 1.5625em;
+    width: 9.375em;
+    font-size: 1em;
+    padding: 0.5em 0.75em;
     margin: auto 6px;
     font-weight: bold;
   }
 
   .list-item {
     border: none;
-    border-radius: 25px;
-    width: 230px;
-    height: 20px;
-    font-size: 18px;
-    padding: 4px 15px;
+    border-radius: 1.5625em;
+    width: 14.375em;
+    height: 1.25em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
     margin: 10px 0;
     color: #131a28;
     font-weight: bold;
     text-align: start;
+    margin-left: 1.8em;
+    margin-right: 1.8em;
     align-items: center;
   }
   .list-item-out {
     border-color: #8ea3b4;
     box-shadow: 0 0 10px #8ea3b4;
-    border-radius: 25px;
-    width: 230px;
+    border-radius: 1.5625em;
+    width: 14.375em;
     height: 20px;
-    font-size: 18px;
-    padding: 4px 15px;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
     margin: 10px 0;
     color: #131a28;
     font-weight: bold;
@@ -481,20 +373,20 @@ input:focus {
   .text-input {
     border: #59a503 1px solid;
     outline: none;
-    border-radius: 25px;
-    width: 150px;
-    font-size: 14px;
-    padding: 8px 12px;
+    border-radius: 1.5625em;
+    width: 9.375em;
+    font-size: 0.875em;
+    padding: 0.5em 0.75em;
     margin: auto 6px;
     font-weight: bold;
   }
 
   .list-item {
     border: none;
-    border-radius: 25px;
-    width: 200px;
-    font-size: 18px;
-    padding: 4px 15px;
+    border-radius: 1.5625em;
+    width: 12.5em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
     margin: 10px 0;
     color: #131a28;
     font-weight: bold;
@@ -504,10 +396,10 @@ input:focus {
   .list-item-out {
     border-color: #8ea3b4;
     box-shadow: 0 0 10px #8ea3b4;
-    border-radius: 25px;
-    width: 220px;
-    font-size: 18px;
-    padding: 4px 15px;
+    border-radius: 1.5625em;
+    width: 12.5em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
     margin: 10px 0;
     color: #131a28;
     font-weight: bold;
@@ -518,12 +410,12 @@ input:focus {
   .add-button {
     outline: none;
     border: none;
-    font-size: 17px;
+    font-size: 1.0625em;
     font-weight: bolder;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 10px 0.9375em;
+    border-radius: 0.5em;
     text-align: center;
-    margin: 15px;
+    margin: 0.9375em;
     cursor: pointer;
   }
 }
@@ -531,20 +423,20 @@ input:focus {
   .text-input {
     border: #59a503 1px solid;
     outline: none;
-    border-radius: 25px;
-    width: 150px;
-    font-size: 14px;
-    padding: 8px 12px;
+    border-radius: 1.5625em;
+    width: 9.375em;
+    font-size: 0.875em;
+    padding: 0.5em 0.75em;
     margin: auto 6px;
     font-weight: bold;
   }
 
   .list-item {
     border: none;
-    border-radius: 25px;
-    width: 200px;
-    font-size: 18px;
-    padding: 4px 15px;
+    border-radius: 1.5625em;
+    width: 12.5em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
     margin: 10px 0;
     color: #131a28;
     font-weight: bold;
@@ -554,26 +446,26 @@ input:focus {
   .list-item-out {
     border-color: #8ea3b4;
     box-shadow: 0 0 10px #8ea3b4;
-    border-radius: 25px;
-    width: 200px;
-    font-size: 18px;
-    padding: 4px 15px;
+    border-radius: 1.5625em;
+    width: 12.5em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
     margin: 10px 0;
     color: #131a28;
     font-weight: bold;
     text-align: start;
     align-items: center;
   }
-
+ 
   .add-button {
     outline: none;
     border: none;
-    font-size: 17px;
+    font-size: 1.0625em;
     font-weight: bolder;
-    padding: 10px 15px;
-    border-radius: 8px;
+    padding: 10px 0.9375em;
+    border-radius: 0.5em;
     text-align: center;
-    margin: 15px;
+    margin: 0.9375em;
     cursor: pointer;
   }
 }
@@ -585,12 +477,12 @@ input:focus {
 }
 
 .add-icon {
-  font-size: 40px;
+  font-size: 2.5em;
   cursor: pointer;
   color: rgb(190, 187, 187);
 }
 .active-add-icon {
-  font-size: 40px;
+  font-size: 2.5em;
   cursor: pointer;
   color: #2f4766;
 }
@@ -607,7 +499,7 @@ input:focus {
 .content {
   display: flex;
   justify-content: space-between;
-  max-width: 400px;
+  max-width: 25em;
   margin: 0 auto;
   padding: 10px 0;
   margin-right: 0px;
@@ -631,7 +523,7 @@ input:focus {
   color: #c1c3c4;
 }
 .modal {
-  border-radius: 15px;
+  border-radius: 0.9375em;
   background-color: #dee0e2a2;
 }
 .edit-text-box {
@@ -663,7 +555,8 @@ input:focus {
   border: 1px rgb(175, 173, 173);
   border: 1px solid rgb(218, 213, 213);
   background: transparent;
-  width: 200px;
+  width: 18.75em;
+  height:6.5em;
 }
 .description-text-box:hover {
   border: 1px rgb(175, 173, 173);
@@ -679,7 +572,7 @@ input:focus {
 }
 
 input[type='text'] {
-  font-size: 15px;
+  font-size: 0.9375em;
 }
 
 .parent {
@@ -714,16 +607,6 @@ input[type='text'] {
 .App .column {
   width: 30%;
 }
-.item {
-  margin-bottom: 10px;
-  background-color: linear-gradient(to left, #0a5510, #0ba746);
-  color: white;
-  border: 1px solid white;
-  padding: 5px;
-  border-radius: 7px;
-  width: 100%;
-}
-
 .dragging {
   background-color: rgb(168, 214, 245);
 }
@@ -739,7 +622,7 @@ sup {
   background-color: white;
   border:  1px solid rgb(209, 200, 200) ;
   padding: 5px;
-  border-radius: 25px;
+  border-radius: 1.5625em;
   height: 100%;
   margin-top: 60px;
   margin-left: 10px;
@@ -760,16 +643,6 @@ sup {
   height: 105px;
   text-align: center;
 }
-
-.footer-text {
-  color: #131a28;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  margin: auto;
-  height: 1px;
-}
-
 .clear {
   clear: both;
   height: 180px;
