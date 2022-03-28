@@ -3,9 +3,12 @@ import Popup from '../Popup';
 import { MdCancel, MdOutlineDone } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
+import { ACTION_TYPES } from '../../../config/actionTypes';
+import { MUTATION_KEYS, useMutation } from '../../../config/queryClient';
 
 const Modal = (props) => {
   const { t } = useTranslation();
+  const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
 
   const [buttonPopup, setButtonPopup] = useState(false);
 
@@ -42,6 +45,10 @@ const Modal = (props) => {
     handleMembers(props.members.filter((e) => e !== member));
 
     props.removeMembers(props.task.id, props.listTitle, member);
+    postAction({
+      type: ACTION_TYPES.DELETE,
+      data: props.task.id ,
+    })
   };
   
 
