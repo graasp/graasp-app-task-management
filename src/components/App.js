@@ -138,18 +138,18 @@ const App = () => {
     setTaskInput((prev) => {
       return { ...prev, title: '' };
     });
-    if (newTask?.id) {
-      patchAppData({
-        data: newTask,
-        id: task.id,
-      });
-    } else {
+    // if (newTask?.id) {
+    //   patchAppData({
+    //     data: newTask,
+    //     id: task.id,
+    //   });
+    // } else {
       postAppData({
         data: newTask,
         type: APP_DATA_TYPES.TASK,
         visibility: 'item',
       });
-    }
+    
     postAction({
       type: ACTION_TYPES.ADD,
       data: {
