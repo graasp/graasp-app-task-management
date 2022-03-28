@@ -37,7 +37,9 @@ const Students = () => {
             style={{ listStyleType: 'none' }}
             onDragStart={(e) => onDragStart(e, avStudent.name)}
           >
+            <div style={{backgroundColor:"rgb(224, 210, 210)",borderRadius:"20px",padding:"10px"}}>
             {avStudent.name}
+            </div>
           </li>
           <br />
         </div>
