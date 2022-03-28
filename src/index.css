@@ -33,7 +33,6 @@ input:focus {
   border-radius: 40px;
 }
 
-
 .droppable-col {
   width: 450px;
   background-color: #ebecf0;
@@ -90,8 +89,6 @@ input:focus {
   justify-content: flex-start;
   align-items: center;
 }
-
-
 
 .footer-text {
   color: #131a28;
@@ -239,13 +236,12 @@ input:focus {
 }
 
 @media only screen and (max-width: 600px) {
- 
   .delete-icon {
     height: 18px;
     cursor: pointer;
   }
   .droppable-col {
-    width: 400px;
+    width: 350px;
     background-color: #ebecf0;
     border-radius: 25px;
     display: flex;
@@ -259,13 +255,20 @@ input:focus {
     margin-right: 50px;
   }
   .list-item {
-    width: 370px;
+    width: 330px;
   }
-
+  .list-item-out {
+    width: 330px;
+  }
+  .text-input{
+    width: 250px;
+  }
+  .text-input-out{
+    width: 250px;
+  }
 }
 
 @media only screen and (max-height: 600px) {
- 
   .text-input {
     border: #7a3c29 1px solid;
     outline: none;
@@ -345,8 +348,6 @@ input:focus {
     margin: auto 6px;
     font-weight: bold;
   }
-
-  
 
   .list-item {
     border: none;
@@ -735,7 +736,9 @@ sup {
 .members-column {
   color: black;
   width: max-content;
-  background-color: rgb(224, 210, 210);
+  background-color: white;
+  border:  1px solid rgb(209, 200, 200) ;
+  padding: 5px;
   border-radius: 25px;
   height: 100%;
   margin-top: 60px;
