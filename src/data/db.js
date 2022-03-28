@@ -41,7 +41,15 @@ const buildDatabase = (appContext) => ({
     },
     {
       id: v4(),
-      name: 'Bob',
+      name: 'Jean-Paul',
+    },
+    {
+      id: v4(),
+      name: 'Jean-Pierre',
+    },
+    {
+      id: v4(),
+      name: 'Anne-Marie',
     },
  
   ],

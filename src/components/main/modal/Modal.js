@@ -141,12 +141,9 @@ const Modal = (props) => {
                               <sup>
                                 {' '}
                                   <MdCancel
-                                    style={{
-                                      color: 'GrayText',
-                                      cursor: 'pointer',
-                                      size:'0.8em'
-                                    }}
+                                    className='remove-member-button'
                                     onClick={() => handleRemoveMembers(member)}
+                                    title={`Remove ${member}`}
                                   />
                                   &nbsp;&nbsp;
                               </sup>

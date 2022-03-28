@@ -241,7 +241,7 @@ input:focus {
     cursor: pointer;
   }
   .droppable-col {
-    width: 350px;
+    width: 22em;
     background-color: #ebecf0;
     border-radius: 25px;
     display: flex;
@@ -255,16 +255,16 @@ input:focus {
     margin-right: 50px;
   }
   .list-item {
-    width: 330px;
+    width: 16em;
   }
   .list-item-out {
-    width: 330px;
+    width: 16em;
   }
   .text-input{
-    width: 250px;
+    width: 11.5em;
   }
   .text-input-out{
-    width: 250px;
+    width: 11.5em;
   }
 }
 
@@ -774,3 +774,18 @@ sup {
   clear: both;
   height: 180px;
 }
+.member-container{
+    background-color:rgb(224, 210, 210);
+    border-radius:20px;
+    padding:5px;
+    word-break:normal;
+
+}
+.remove-member-button{
+ color:GrayText;
+ cursor: pointer;
+ size:0.5em;
+}
+.remove-member-button:hover{
+  color:black;
+ }
