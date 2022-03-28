@@ -1,5 +1,4 @@
 import React, { Component, useState, useCallback } from 'react';
-import Popup from '../Popup';
 import { MdCancel, MdOutlineDone } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
@@ -160,18 +159,6 @@ const Modal = (props) => {
                     </div>{' '}
                   </div>
 
-                  <Popup
-                    task={props.task}
-                    trigger={buttonPopup}
-                    setTrigger={setButtonPopup}
-                    addMembers={props.addMembers}
-                    setMembers={props.setMembers}
-                    members={props.members}
-                    listTitle={props.listTitle}
-                    removeMembers={props.removeMembers}
-                  >
-                    <h3 style={{ color: 'black' }}>{t('Task Members')}</h3>
-                  </Popup>
                 </div>
 
                 <br />

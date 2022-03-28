@@ -1,6 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
 import Modal from './modal/Modal';
-import Popup from './Popup';
 import { useTranslation } from 'react-i18next';
 import {
   MdDelete,
