@@ -9,8 +9,6 @@ const Modal = (props) => {
   const { t } = useTranslation();
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
 
-  const [buttonPopup, setButtonPopup] = useState(false);
-
   const handleDescriptionChange = useCallback(
     (event) => {
       props.setEditingDescription(event.target.value);
@@ -46,10 +44,9 @@ const Modal = (props) => {
     props.removeMembers(props.task.id, props.listTitle, member);
     postAction({
       type: ACTION_TYPES.DELETE,
-      data: props.task.id ,
-    })
+      data: props.task.id,
+    });
   };
-  
 
   return (
     <div
@@ -146,19 +143,18 @@ const Modal = (props) => {
                               {member}
                               <sup>
                                 {' '}
-                                  <MdCancel
-                                    className='remove-member-button'
-                                    onClick={() => handleRemoveMembers(member)}
-                                    title={`Remove ${member}`}
-                                  />
-                                  &nbsp;&nbsp;
+                                <MdCancel
+                                  className="remove-member-button"
+                                  onClick={() => handleRemoveMembers(member)}
+                                  title={`Remove ${member}`}
+                                />
+                                &nbsp;&nbsp;
                               </sup>
                             </small>
                           ))
                         : 'No members yet'}
                     </div>{' '}
                   </div>
-
                 </div>
 
                 <br />
