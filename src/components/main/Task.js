@@ -257,18 +257,7 @@ const Task = (props) => {
         </div>
       </div>
       {props.task.completed ? ' ' : renderConditional()}
-      <Popup
-        task={props.task}
-        trigger={buttonPopup}
-        setTrigger={setButtonPopup}
-        addMembers={addMembers}
-        setMembers={setMembers}
-        members={members}
-        listTitle={props.listTitle}
-        removeMembers={removeMembers}
-      >
-        <h3 style={{ color: 'black' }}>{t('Task Members')}</h3>
-      </Popup>
+     
     </div>
   );
 };
