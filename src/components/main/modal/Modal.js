@@ -79,8 +79,8 @@ const Modal = (props) => {
                         onChange={handleDescriptionChange}
                         defaultValue={props.task.description}
                         multiline
-                        inputProps={{ style: { fontSize: '0.8vw' } }}
-                        rows={2}
+                        inputProps={{ style: { fontSize: '0.8em' } }}
+                        rows={5}
                         // eslint-disable-next-line react/jsx-no-duplicate-props
                         InputProps={{ disableUnderline: true }}
                         autoFocus
@@ -108,8 +108,8 @@ const Modal = (props) => {
                       InputProps={{ disableUnderline: true }}
                       style={{ border: '1px solid rgb(218, 213, 213)' }}
                       multiline
-                      rows={2}
-                      inputProps={{ style: { fontSize: '0.8vw' } }}
+                      rows={5}
+                      inputProps={{ style: { fontSize: '0.8em' } }}
                       placeholder={t(' Task Description')}
                       onClick={() =>
                         props.setIsEditingDescription(props.task.id)
