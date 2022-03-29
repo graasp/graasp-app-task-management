@@ -8,43 +8,29 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { ACTION_TYPES } from '../config/actionTypes';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
-import { useAppData, /* useAppActions */ } from './context/appData';
-
+import { useAppData } from './context/appData';
 
 import _ from 'lodash';
 import { v4 } from 'uuid';
 
 const App = () => {
-
-  //window.localStorage.clear()
-
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
-  const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
-
 
   const {
     data: appData,
-    /* eslint-disable-next-line no-unused-vars */
     isLoading: isAppDataLoading,
     isSuccess: isAppDataSuccess,
   } = useAppData();
 
-
-
   useEffect(() => {
-    if (isAppDataSuccess && !appData.isEmpty()) {
+    if (isAppDataSuccess ) {
       setTasks(appData.filter(({ type }) => type === APP_DATA_TYPES.TASK));
-     } else if (isAppDataSuccess && appData.isEmpty()) {
-       setTasks(tasks);
-    }
-    
-  }, [appData, isAppDataSuccess, postAppData]);
-
-
+    } 
+  }, [appData, isAppDataSuccess]);
 
   const { t } = useTranslation();
-  const [state, setState] = useState({
+  const [itemsList, setItemsList] = useState({
     todo: {
       title: 'To Do',
       items: [],
@@ -115,10 +101,9 @@ const App = () => {
       members: task.members,
     };
     if (!task.title || !task.title.length || !task.title.trim().length) return;
-    //.concat(newTask)
-    setTasks([...tasks,newTask]);
+    setTasks([...tasks, newTask]);
     setTask({ title: '', description: '', members: [] });
-    setState((prev) => {
+    setItemsList((prev) => {
       return {
         ...prev,
         todo: {
@@ -138,18 +123,19 @@ const App = () => {
     setTaskInput((prev) => {
       return { ...prev, title: '' };
     });
-    // if (newTask?.id) {
-    //   patchAppData({
-    //     data: newTask,
-    //     id: task.id,
-    //   });
-    // } else {
-      postAppData({
-        data: newTask,
-        type: APP_DATA_TYPES.TASK,
-        visibility: 'item',
-      });
+
+    postAppData({
+      data: newTask,
+      type: APP_DATA_TYPES.TASK,
+      visibility: 'item',
+    });
     
+    postAppData({
+      data: itemsList,
+      type: APP_DATA_TYPES.TASKSLIST,
+      visibility: 'item',
+    });
+
     postAction({
       type: ACTION_TYPES.ADD,
       data: {
@@ -174,11 +160,11 @@ const App = () => {
   //Delete task
 
   const deleteTask = (id, title) => {
-    let updatedTasks = [...state[itemsCategory(title)].items].filter(
+    let updatedTasks = [...itemsList[itemsCategory(title)].items].filter(
       (task) => task.id !== id,
     );
     setTasks(updatedTasks);
-    setState((prev) => {
+    setItemsList((prev) => {
       if (title === 'To Do') {
         return {
           ...prev,
@@ -210,13 +196,13 @@ const App = () => {
 
     postAction({
       type: ACTION_TYPES.DELETE,
-      data: id ,
-    })
+      data: id,
+    });
   };
 
   //Edit title
   const submitTitleEdits = (id, listTitle) => {
-    const updatedTasks = [...state[itemsCategory(listTitle)].items].map(
+    const updatedTasks = [...itemsList[itemsCategory(listTitle)].items].map(
       (task) => {
         if (task.id === id) {
           if (editingTitle.trim().length !== 0) {
@@ -228,21 +214,21 @@ const App = () => {
             type: APP_DATA_TYPES.TASK,
             visibility: 'item',
           });
-        
-        postAction({
-          type: ACTION_TYPES.EDIT,
-          data: {
-            task: task,
-            id: task.id,
-          },
-        });
+
+          postAction({
+            type: ACTION_TYPES.EDIT,
+            data: {
+              task: task,
+              id: task.id,
+            },
+          });
         }
         return task;
       },
     );
     setTasks(updatedTasks);
     setIsEditingTitle(null);
-    setState((prev) => {
+    setItemsList((prev) => {
       if (listTitle === 'To Do') {
         return {
           ...prev,
@@ -271,14 +257,12 @@ const App = () => {
         };
       }
     });
-
-   
   };
 
   //Edit description
 
   const submitDescriptionEdits = (id, listTitle) => {
-    const updatedTasks = [...state[itemsCategory(listTitle)].items].map(
+    const updatedTasks = [...itemsList[itemsCategory(listTitle)].items].map(
       (task) => {
         if (task.id === id) {
           if (editingDescription.trim().length !== 0) {
@@ -289,21 +273,21 @@ const App = () => {
             type: APP_DATA_TYPES.TASK,
             visibility: 'item',
           });
-        
-        postAction({
-          type: ACTION_TYPES.EDIT,
-          data: {
-            task: task,
-            id: task.id,
-          },
-        });
+
+          postAction({
+            type: ACTION_TYPES.EDIT,
+            data: {
+              task: task,
+              id: task.id,
+            },
+          });
         }
         return task;
       },
     );
     setTasks(updatedTasks);
     setIsEditingDescription(null);
-    setState((prev) => {
+    setItemsList((prev) => {
       if (listTitle === 'To Do') {
         return {
           ...prev,
@@ -334,20 +318,18 @@ const App = () => {
     });
   };
 
- 
-
   useEffect(() => {
-    const json = localStorage.getItem('state');
+    const json = localStorage.getItem('itemsList');
     const loadedTasks = JSON.parse(json);
     if (loadedTasks) {
-      setState(loadedTasks);
+      setItemsList(loadedTasks);
     }
   }, []);
 
   useEffect(() => {
-    const json = JSON.stringify(state);
-    localStorage.setItem('state', json);
-  }, [state]);
+    const json = JSON.stringify(itemsList);
+    localStorage.setItem('itemsList', json);
+  }, [itemsList]);
 
   const handleDragEnd = ({ destination, source }) => {
     if (!destination) {
@@ -361,10 +343,10 @@ const App = () => {
       return;
     }
 
-    // Creating a copy of item before removing it from state
-    const itemCopy = { ...state[source.droppableId].items[source.index] };
+    // Creating a copy of item before removing it from itemsList
+    const itemCopy = { ...itemsList[source.droppableId].items[source.index] };
 
-    setState((prev) => {
+    setItemsList((prev) => {
       prev = { ...prev };
       // Remove from previous items array
       prev[source.droppableId].items.splice(source.index, 1);
@@ -378,25 +360,24 @@ const App = () => {
 
       return prev;
     });
-    postAppData({
-      data: task,
-      type: APP_DATA_TYPES.TASK,
-      visibility: 'item',
-    });
-  
-  postAction({
-    type: ACTION_TYPES.MOVE,
-    data: {
-      task: task,
-      id: task.id,
-    },
-  });
-  };
+    // postAppData({
+    //   data: itemCopy,
+    //   type: APP_DATA_TYPES.TASK,
+    //   visibility: 'item',
+    // });
 
+    postAction({
+      type: ACTION_TYPES.MOVE,
+      data: {
+        task: itemCopy,
+        id: itemCopy.id,
+      },
+    });
+  };
 
   let totalNumberOfTasks = 0;
 
-  _.map(state, (data) => (totalNumberOfTasks += data.items.length));
+  _.map(itemsList, (data) => (totalNumberOfTasks += data.items.length));
 
   return (
     <div class="row">
@@ -406,7 +387,7 @@ const App = () => {
       <div className="App" class="column">
         <div className="row jc-space-between">
           <DragDropContext onDragEnd={handleDragEnd}>
-            {_.map(state, (data, key) => {
+            {_.map(itemsList, (data, key) => {
               return (
                 <div key={key} className={'column'}>
                   <div>
@@ -488,7 +469,6 @@ const App = () => {
                                         ref={provided.innerRef}
                                         {...provided.draggableProps}
                                         {...provided.dragHandleProps}
-
                                       >
                                         <Task
                                           className={
@@ -496,11 +476,9 @@ const App = () => {
                                           }
                                           itemsCategory={itemsCategory}
                                           task={task}
-                                          setTask={setTask}
-                                          tasks={tasks}
                                           setTasks={setTasks}
-                                          state={state}
-                                          setState={setState}
+                                          itemsList={itemsList}
+                                          setItemsList={setItemsList}
                                           listTitle={data.title}
                                           handleAdd={handleAdd}
                                           deleteTask={deleteTask}
@@ -546,7 +524,7 @@ const App = () => {
 
         <Footer
           height={20}
-          numberOfCompletedTasks={state.done.items.length}
+          numberOfCompletedTasks={itemsList.done.items.length}
           totalNumberOfTasks={totalNumberOfTasks}
         />
       </div>
