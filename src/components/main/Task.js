@@ -136,24 +136,6 @@ const Task = (props) => {
     [props.setEditingTitle],
   );
 
-  const handleMembers = useCallback(
-    (value) => {
-      setMembers(value);
-    },
-    [setMembers],
-  );
-
-  const onDragOver = (ev) => {
-    ev.preventDefault();
-  };
-  const onDrop = (ev) => {
-    let member = ev.dataTransfer.getData('member');
-    members.push(member);
-    handleMembers(members);
-    addMembers(props.task.id, props.listTitle);
-    console.log(props.task.members);
-  };
-
   const renderConditional = () => {
     return (
       <div>
@@ -177,15 +159,13 @@ const Task = (props) => {
 
   return (
     <div>
-      <div class="row" className="container-drag">
+      <div class="row">
         <div
           className={
             focused
               ? `list-item-out row jc-space-between ${props.className} droppable`
               : `list-item row jc-space-between ${props.className}`
           }
-          onDragOver={(e) => onDragOver(e)}
-          onDrop={(e) => onDrop(e)}
         >
           {props.task.id === props.isEditingTitle && !props.task.completed ? (
             <input
