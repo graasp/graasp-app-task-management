@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react';
 import { MdSupervisedUserCircle } from 'react-icons/md';
-import { useAppContext} from '../context/appData';
+import { useAppContext } from '../context/appData';
 import { t } from 'i18next';
 
 const Students = () => {
-
   const [students, setStudents] = useState([]);
   const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
 
@@ -27,20 +26,18 @@ const Students = () => {
       }}
     >
       <h3>
-        <MdSupervisedUserCircle title={t('Students')}/>
+        <MdSupervisedUserCircle title={t('Students')} />
       </h3>
 
       {students.map((student) => (
         <div>
           <li
-            className='draggable'
+            className="draggable"
             key={student.name}
             draggable
             onDragStart={(e) => onDragStart(e, student.name)}
           >
-            <div className='member-container'>
-            {student.name}
-            </div>
+            <div className="member-container">{student.name}</div>
           </li>
           <br />
         </div>

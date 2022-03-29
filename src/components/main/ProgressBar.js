@@ -1,16 +1,11 @@
 import React from 'react';
 
-const ProgressBar = ({
-  numberOfCompletedTasks,
-  totalNumberOfTasks,
-}) => {
-  
-
+const ProgressBar = ({ numberOfCompletedTasks, totalNumberOfTasks }) => {
   let completionRatio = Math.floor(
     (numberOfCompletedTasks / totalNumberOfTasks) * 100,
   );
-  let progress=completionRatio ? completionRatio : 0;
-  
+  let progress = completionRatio ? completionRatio : 0;
+
   const Parentdiv = {
     height: 20,
     width: '300px',
@@ -34,7 +29,7 @@ const ProgressBar = ({
     padding: 10,
     color: 'black',
     fontWeight: 700,
-    marginLeft: completionRatio<11?"20px":0,
+    marginLeft: completionRatio < 11 ? '20px' : 0,
   };
 
   return (
@@ -49,4 +44,3 @@ const ProgressBar = ({
 };
 
 export default ProgressBar;
-

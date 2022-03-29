@@ -1,10 +1,7 @@
 import React from 'react';
 import ProgressBar from './ProgressBar';
 
-const Footer = ({
-  totalNumberOfTasks,
-  numberOfCompletedTasks,
-}) => {
+const Footer = ({ totalNumberOfTasks, numberOfCompletedTasks }) => {
   return (
     <div className="main-footer">
       <h4 style={{ color: 'black' }}>
