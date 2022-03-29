@@ -117,7 +117,7 @@ input:focus {
   font-weight: bold;
   text-align: start;
   align-items: center;
-  height:2em;
+  height: 2em;
 }
 
 .list-item:hover {
@@ -138,11 +138,10 @@ input:focus {
   font-weight: bold;
   text-align: start;
   align-items: center;
-  height:2em;
-
+  height: 2em;
 }
 
-.delete-icon{
+.delete-icon {
   height: 1.625em;
   cursor: pointer;
 }
@@ -177,16 +176,16 @@ input:focus {
   }
   .list-item {
     width: 16em;
-    height:2em;
+    height: 2em;
   }
   .list-item-out {
     width: 16em;
-    height:2em;
+    height: 2em;
   }
-  .text-input{
+  .text-input {
     width: 11.5em;
   }
-  .text-input-out{
+  .text-input-out {
     width: 11.5em;
   }
 }
@@ -212,7 +211,7 @@ input:focus {
     font-size: 1em;
     padding: 0.5em 0.75em;
     margin: auto 0.5em;
-   
+
     font-weight: bold;
   }
 
@@ -246,56 +245,6 @@ input:focus {
 
   .delete-icon {
     height: 1.125em;
-  }
-}
-
-@media only screen and (max-width: 410px) {
-  .text-input {
-    border: #1c32f5 1px solid;
-    outline: none;
-    border-radius: 1.5625em;
-    width: 12.5em;
-    font-size: 1em;
-    padding: 0.5em 0.75em;
-    margin: auto 6px;
-    font-weight: bold;
-  }
-  .text-input-out {
-    border: #b8ced1 1px solid;
-    box-shadow: 0 0 0.4375em #b8ced1;
-    outline: none;
-    border-radius: 1.5625em;
-    width: 12.5em;
-    font-size: 1em;
-    padding: 0.5em 0.75em;
-    margin: auto 6px;
-    font-weight: bold;
-  }
-
-  .list-item {
-    border: none;
-    border-radius: 1.5625em;
-    width: 16.875em;
-    font-size: 1.125em;
-    padding: 0.625em 0.9375em;
-    margin: 0.625em 0;
-    color: #131a28;
-    font-weight: bold;
-    text-align: start;
-    align-items: center;
-  }
-  .list-item-out {
-    border-color: #8ea3b4;
-    box-shadow: 0 0 0.625em #8ea3b4;
-    border-radius: 1.5625em;
-    width: 16.875em;
-    font-size: 1.125em;
-    padding: 0.625em 0.9375em;
-    margin: 0.625em 0;
-    color: #131a28;
-    font-weight: bold;
-    text-align: start;
-    align-items: center;
   }
 }
 
@@ -366,56 +315,7 @@ input:focus {
     align-items: center;
   }
 }
-@media only screen and (max-width: 320px) {
-  .text-input {
-    border: #59a503 1px solid;
-    outline: none;
-    border-radius: 1.5625em;
-    width: 9.375em;
-    font-size: 0.875em;
-    padding: 0.5em 0.75em;
-    margin: auto 6px;
-    font-weight: bold;
-  }
 
-  .list-item {
-    border: none;
-    border-radius: 1.5625em;
-    width: 12.5em;
-    font-size: 1.125em;
-    padding: 0.625em 0.9375em;
-    margin: 10px 0;
-    color: #131a28;
-    font-weight: bold;
-    text-align: start;
-    align-items: center;
-  }
-  .list-item-out {
-    border-color: #8ea3b4;
-    box-shadow: 0 0 10px #8ea3b4;
-    border-radius: 1.5625em;
-    width: 12.5em;
-    font-size: 1.125em;
-    padding: 0.625em 0.9375em;
-    margin: 10px 0;
-    color: #131a28;
-    font-weight: bold;
-    text-align: start;
-    align-items: center;
-  }
-
-  .add-button {
-    outline: none;
-    border: none;
-    font-size: 1.0625em;
-    font-weight: bolder;
-    padding: 10px 0.9375em;
-    border-radius: 0.5em;
-    text-align: center;
-    margin: 0.9375em;
-    cursor: pointer;
-  }
-}
 @media only screen and (max-height: 320px) {
   .text-input {
     border: #59a503 1px solid;
@@ -453,7 +353,7 @@ input:focus {
     text-align: start;
     align-items: center;
   }
- 
+
   .add-button {
     outline: none;
     border: none;
@@ -488,7 +388,6 @@ input:focus {
   -webkit-transform: scale(1.1, 1.1);
   -moz-transform: scale(1.1, 1.1);
 }
-
 
 .content {
   display: flex;
@@ -548,7 +447,7 @@ input:focus {
   border: 1px solid rgb(218, 213, 213);
   background: transparent;
   width: 18.75em;
-  height:6.5em;
+  height: 6.5em;
 }
 .description-text-box:hover {
   border: 1px rgb(175, 173, 173);
@@ -612,7 +511,7 @@ sup {
   color: black;
   width: max-content;
   background-color: white;
-  border:  1px solid rgb(209, 200, 200) ;
+  border: 1px solid rgb(209, 200, 200);
   padding: 5px;
   border-radius: 1.5625em;
   height: 100%;
@@ -639,22 +538,21 @@ sup {
   clear: both;
   height: 180px;
 }
-.member-container{
-    background-color:rgb(224, 210, 210);
-    border-radius:20px;
-    padding:5px;
-    word-break:normal;
-
+.member-container {
+  background-color: rgb(224, 210, 210);
+  border-radius: 20px;
+  padding: 5px;
+  word-break: normal;
 }
-.remove-member-button{
- color:GrayText;
- cursor: pointer;
- size:0.5em;
+.remove-member-button {
+  color: GrayText;
+  cursor: pointer;
+  size: 0.5em;
 }
-.remove-member-button:hover{
-  color:black;
- }
- .draggable {
+.remove-member-button:hover {
+  color: black;
+}
+.draggable {
   cursor: move; /* fallback: no `url()` support or images disabled */
   cursor: grab; /* W3C standards syntax, all modern browser */
   list-style-type: none;
