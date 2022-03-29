@@ -204,6 +204,11 @@ const App = () => {
         };
       }
     });
+    postAppData({
+      data: itemsList,
+      type: APP_DATA_TYPES.TASKSLIST,
+      visibility: 'item',
+    });
 
     postAction({
       type: ACTION_TYPES.DELETE,
