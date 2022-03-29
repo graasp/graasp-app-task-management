@@ -1,10 +1,7 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback } from 'react';
 import Modal from './Modal';
 import { useTranslation } from 'react-i18next';
-import {
-  MdDelete,
-  MdOutlineSubject,
-} from 'react-icons/md';
+import { MdDelete, MdOutlineSubject } from 'react-icons/md';
 import { MUTATION_KEYS, useMutation } from '../../config/queryClient';
 import { ACTION_TYPES } from '../../config/actionTypes';
 import { APP_DATA_TYPES } from '../../config/appDataTypes';
@@ -20,19 +17,20 @@ const Task = (props) => {
   const [members, setMembers] = useState([]);
 
   const addMembers = (id, listTitle) => {
-    
-      const updatedTasks = [...props.itemsList[props.itemsCategory(listTitle)].items].map((task) => {
-        if (task.id === id) {
-          if (members) {
-            task.members = task.members.concat(members);
-            task.members = [...new Set(task.members)];
-          }
-          postAppData({
-            data: task,
-            type: APP_DATA_TYPES.TASK,
-            visibility: 'item',
-          });
-        
+    const updatedTasks = [
+      ...props.itemsList[props.itemsCategory(listTitle)].items,
+    ].map((task) => {
+      if (task.id === id) {
+        if (members) {
+          task.members = task.members.concat(members);
+          task.members = [...new Set(task.members)];
+        }
+        postAppData({
+          data: task,
+          type: APP_DATA_TYPES.TASK,
+          visibility: 'item',
+        });
+
         postAction({
           type: ACTION_TYPES.SAVE,
           data: {
@@ -40,86 +38,84 @@ const Task = (props) => {
             id: task.id,
           },
         });
-        }
-        return task;
-      });
-      props.setTasks(updatedTasks);
-      props.setItemsList((prev) => {
-        if (listTitle === 'To Do') {
-          return {
-            ...prev,
-            todo: {
-              title: listTitle,
-              items: updatedTasks,
-            },
-          };
-        }
-        if (listTitle === 'In Progress') {
-          return {
-            ...prev,
-            inProgress: {
-              title: listTitle,
-              items: updatedTasks,
-            },
-          };
-        }
-        if (listTitle === 'Completed') {
-          return {
-            ...prev,
-            done: {
-              title: listTitle,
-              items: updatedTasks,
-            },
-          };
-        }
-      });
-    
+      }
+      return task;
+    });
+    props.setTasks(updatedTasks);
+    props.setItemsList((prev) => {
+      if (listTitle === 'To Do') {
+        return {
+          ...prev,
+          todo: {
+            title: listTitle,
+            items: updatedTasks,
+          },
+        };
+      }
+      if (listTitle === 'In Progress') {
+        return {
+          ...prev,
+          inProgress: {
+            title: listTitle,
+            items: updatedTasks,
+          },
+        };
+      }
+      if (listTitle === 'Completed') {
+        return {
+          ...prev,
+          done: {
+            title: listTitle,
+            items: updatedTasks,
+          },
+        };
+      }
+    });
   };
 
   const removeMembers = (id, listTitle, member) => {
-   
-      const updatedTasks = [...props.itemsList[props.itemsCategory(listTitle)].items].map((task) => {
-        if (task.id === id) {
-          if (members) {
-            task.members = task.members.filter((e) => e !== member);
-            task.members = [...new Set(task.members)];
-          }
+    const updatedTasks = [
+      ...props.itemsList[props.itemsCategory(listTitle)].items,
+    ].map((task) => {
+      if (task.id === id) {
+        if (members) {
+          task.members = task.members.filter((e) => e !== member);
+          task.members = [...new Set(task.members)];
         }
-        return task;
-      });
-      props.setTasks(updatedTasks);
-      props.setItemsList((prev) => {
-        if (listTitle === 'To Do') {
-          return {
-            ...prev,
-            todo: {
-              title: listTitle,
-              items: updatedTasks,
-            },
-          };
-        }
-        if (listTitle === 'In Progress') {
-          return {
-            ...prev,
-            inProgress: {
-              title: listTitle,
-              items: updatedTasks,
-            },
-          };
-        }
-        if (listTitle === 'Completed') {
-          return {
-            ...prev,
-            done: {
-              title: listTitle,
-              items: updatedTasks,
-            },
-          };
-        }
-      });
-    
+      }
+      return task;
+    });
+    props.setTasks(updatedTasks);
+    props.setItemsList((prev) => {
+      if (listTitle === 'To Do') {
+        return {
+          ...prev,
+          todo: {
+            title: listTitle,
+            items: updatedTasks,
+          },
+        };
+      }
+      if (listTitle === 'In Progress') {
+        return {
+          ...prev,
+          inProgress: {
+            title: listTitle,
+            items: updatedTasks,
+          },
+        };
+      }
+      if (listTitle === 'Completed') {
+        return {
+          ...prev,
+          done: {
+            title: listTitle,
+            items: updatedTasks,
+          },
+        };
+      }
+    });
   };
-
 
   const togglePop = () => {
     setSeen(!seen);
@@ -138,10 +134,7 @@ const Task = (props) => {
       props.setEditingTitle(event.target.value);
     },
     [props.setEditingTitle],
-    
   );
-
-
 
   const handleMembers = useCallback(
     (value) => {
@@ -218,7 +211,6 @@ const Task = (props) => {
 
           <div className="content">
             <div className="row">
-              
               <MdOutlineSubject
                 size="1.3em"
                 data-toggle="tooltip"
@@ -229,24 +221,16 @@ const Task = (props) => {
                   cursor: 'pointer',
                   alignContent: 'center',
                 }}
-                className={
-                  props.task.completed
-                    ? 'details-task-complete'
-                    : 'details-task-incomplete'
-                }
+                className="task-details"
                 onClick={togglePop}
               />
 
               <MdDelete
-                className={
-                  props.task.completed
-                    ? 'delete-icon-complete'
-                    : 'delete-icon-incomplete'
-                }
+                className="delete-icon"
                 size="1.3em"
                 data-toggle="tooltip"
                 data-placement="left"
-                title={t("Delete Task")}
+                title={t('Delete Task')}
                 alt="delete-task"
                 onClick={() => props.deleteTask(props.task.id, props.listTitle)}
               />
@@ -255,7 +239,6 @@ const Task = (props) => {
         </div>
       </div>
       {props.task.completed ? ' ' : renderConditional()}
-     
     </div>
   );
 };
