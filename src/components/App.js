@@ -18,7 +18,7 @@ const App = () => {
 
   const {
     data: appData,
-    isLoading: isAppDataLoading,
+   // isLoading: isAppDataLoading,
     isSuccess: isAppDataSuccess,
   } = useAppData();
 
