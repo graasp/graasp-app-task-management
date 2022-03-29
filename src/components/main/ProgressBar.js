@@ -50,4 +50,3 @@ const ProgressBar = ({
 
 export default ProgressBar;
 
-//{`${progress}%`}
