@@ -2,14 +2,15 @@ import { useState, useEffect } from 'react';
 import { MdSupervisedUserCircle } from 'react-icons/md';
 import _ from 'lodash';
 import { useAppContext /* useAppActions */ } from '../context/appData';
+import { t } from 'i18next';
 
 const Students = () => {
-  const [avStudents, setAvStudents] = useState([]);
+  const [students, setStudents] = useState([]);
   const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
 
   useEffect(() => {
     if (isAppContextSuccess) {
-      setAvStudents(appContext?.get('members'));
+      setStudents(appContext?.get('members'));
     }
   }, [appContext, isAppContextSuccess]);
 
@@ -26,19 +27,19 @@ const Students = () => {
       }}
     >
       <h3>
-        <MdSupervisedUserCircle />
+        <MdSupervisedUserCircle title={t('Students')}/>
       </h3>
 
-      {avStudents.map((avStudent) => (
+      {students.map((student) => (
         <div>
           <li
-            key={avStudent.name}
+            className='draggable'
+            key={student.name}
             draggable
-            style={{ listStyleType: 'none' }}
-            onDragStart={(e) => onDragStart(e, avStudent.name)}
+            onDragStart={(e) => onDragStart(e, student.name)}
           >
             <div className='member-container'>
-            {avStudent.name}
+            {student.name}
             </div>
           </li>
           <br />

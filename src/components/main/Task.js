@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from 'react';
-import Modal from './modal/Modal';
+import Modal from './Modal';
 import { useTranslation } from 'react-i18next';
 import {
   MdDelete,
@@ -18,11 +18,10 @@ const Task = (props) => {
   const [focused, setFocused] = useState(false);
   const [seen, setSeen] = useState(false);
   const [members, setMembers] = useState([]);
-  const [buttonPopup, setButtonPopup] = useState(false);
 
   const addMembers = (id, listTitle) => {
     
-      const updatedTasks = [...props.state[props.itemsCategory(listTitle)].items].map((task) => {
+      const updatedTasks = [...props.itemsList[props.itemsCategory(listTitle)].items].map((task) => {
         if (task.id === id) {
           if (members) {
             task.members = task.members.concat(members);
@@ -45,7 +44,7 @@ const Task = (props) => {
         return task;
       });
       props.setTasks(updatedTasks);
-      props.setState((prev) => {
+      props.setItemsList((prev) => {
         if (listTitle === 'To Do') {
           return {
             ...prev,
@@ -79,7 +78,7 @@ const Task = (props) => {
 
   const removeMembers = (id, listTitle, member) => {
    
-      const updatedTasks = [...props.state[props.itemsCategory(listTitle)].items].map((task) => {
+      const updatedTasks = [...props.itemsList[props.itemsCategory(listTitle)].items].map((task) => {
         if (task.id === id) {
           if (members) {
             task.members = task.members.filter((e) => e !== member);
@@ -89,7 +88,7 @@ const Task = (props) => {
         return task;
       });
       props.setTasks(updatedTasks);
-      props.setState((prev) => {
+      props.setItemsList((prev) => {
         if (listTitle === 'To Do') {
           return {
             ...prev,
