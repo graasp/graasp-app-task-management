@@ -9,7 +9,6 @@ import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { ACTION_TYPES } from '../config/actionTypes';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { useAppData } from './context/appData';
-
 import _ from 'lodash';
 import { v4 } from 'uuid';
 
@@ -39,7 +38,7 @@ const App = () => {
       title: 'In Progress',
       items: [],
     },
-    done: {
+    completed: {
       title: 'Completed',
       items: [],
     },
@@ -89,6 +88,18 @@ const App = () => {
       handleAdd(event);
     }
   };
+  useEffect(() => {
+    const json = localStorage.getItem('itemsList');
+    const loadedTasks = JSON.parse(json);
+    if (loadedTasks) {
+      setItemsList(loadedTasks);
+    }
+  }, []);
+
+  useEffect(() => {
+    const json = JSON.stringify(itemsList);
+    localStorage.setItem('itemsList', json);
+  }, [itemsList]);
 
   //Add task
 
@@ -153,7 +164,7 @@ const App = () => {
       return 'inProgress';
     }
     if (title === 'Completed') {
-      return 'done';
+      return 'completed';
     }
   };
 
@@ -186,7 +197,7 @@ const App = () => {
       if (title === 'Completed') {
         return {
           ...prev,
-          done: {
+          completed: {
             title,
             items: updatedTasks,
           },
@@ -250,7 +261,7 @@ const App = () => {
       if (listTitle === 'Completed') {
         return {
           ...prev,
-          done: {
+          completed: {
             title: listTitle,
             items: updatedTasks,
           },
@@ -309,7 +320,7 @@ const App = () => {
       if (listTitle === 'Completed') {
         return {
           ...prev,
-          done: {
+          completed: {
             title: listTitle,
             items: updatedTasks,
           },
@@ -318,18 +329,7 @@ const App = () => {
     });
   };
 
-  useEffect(() => {
-    const json = localStorage.getItem('itemsList');
-    const loadedTasks = JSON.parse(json);
-    if (loadedTasks) {
-      setItemsList(loadedTasks);
-    }
-  }, []);
-
-  useEffect(() => {
-    const json = JSON.stringify(itemsList);
-    localStorage.setItem('itemsList', json);
-  }, [itemsList]);
+ 
 
   const handleDragEnd = ({ destination, source }) => {
     if (!destination) {
@@ -524,7 +524,7 @@ const App = () => {
 
         <Footer
           height={20}
-          numberOfCompletedTasks={itemsList.done.items.length}
+          numberOfCompletedTasks={itemsList.completed.items.length}
           totalNumberOfTasks={totalNumberOfTasks}
         />
       </div>
