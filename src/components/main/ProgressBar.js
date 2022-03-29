@@ -1,7 +1,6 @@
 import React from 'react';
 
 const ProgressBar = ({
-  height,
   numberOfCompletedTasks,
   totalNumberOfTasks,
 }) => {
@@ -13,7 +12,7 @@ const ProgressBar = ({
   let progress=completionRatio ? completionRatio : 0;
   
   const Parentdiv = {
-    height: height,
+    height: 20,
     width: '300px',
     backgroundColor: 'whitesmoke',
     borderRadius: 40,

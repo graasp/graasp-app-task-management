@@ -13,7 +13,6 @@ const Footer = ({
           : 'Your Progress'}
       </h4>
       <ProgressBar
-        height={20}
         numberOfCompletedTasks={numberOfCompletedTasks}
         totalNumberOfTasks={totalNumberOfTasks}
       />
