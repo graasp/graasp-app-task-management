@@ -5,7 +5,7 @@ const Footer = ({ totalNumberOfTasks, numberOfCompletedTasks }) => {
   return (
     <div className="main-footer">
       <h4 style={{ color: 'black' }}>
-        {totalNumberOfTasks === numberOfCompletedTasks
+        {totalNumberOfTasks/numberOfCompletedTasks===1
           ? 'Done!'
           : 'Your Progress'}
       </h4>
