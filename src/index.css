@@ -21,12 +21,14 @@ input:focus {
   outline: none;
 }
 .droppable-col {
+  position:sticky;
   width: 28.125em;
   background-color: #ebecf0;
   border-radius: 1.5625em;
   display: flex;
   flex-direction: column;
-  max-width: 70vh;
+  min-height: 50vh;
+  min-width: 44vh;
   text-align: center;
   color: white;
   justify-content: flex-start;
@@ -84,7 +86,7 @@ input:focus {
   border: #c3c9ca 1px solid;
   outline: none;
   border-radius: 1.5625em;
-  width: 19.375em;
+  width: 17em;
   font-size: 1.125em;
   padding: 10px 0.9375em;
   margin: 0 0.9375em 0.9375em 0.9375em;
@@ -96,7 +98,7 @@ input:focus {
   box-shadow: 0 0 0.4375em #c3c9ca;
   outline: none;
   border-radius: 1.5625em;
-  width: 19.375em;
+  width: 17em;
   font-size: 1.125em;
   padding: 10px 0.9375em;
   margin: 0 0.9375em 0.9375em 0.9375em;
@@ -154,7 +156,6 @@ input:focus {
   text-align: center;
   margin: 50px;
 }
-
 @media only screen and (max-width: 600px) {
   .delete-icon {
     height: 1.125em;
@@ -167,35 +168,21 @@ input:focus {
     flex-direction: column;
     text-align: center;
     color: white;
+    min-height: 50vh;
+    min-width: 10vh;
     justify-content: flex-start;
     align-items: center;
     padding: 30px 20px;
-    
-  }
-  .list-item {
-    width: 16em;
-    height: 2em;
-  }
-  .list-item-out {
-    width: 16em;
-    height: 2em;
+    margin-left: 50px;
+    margin-right: 50px;
   }
   .text-input {
-    width: 11.5em;
-  }
-  .text-input-out {
-    width: 11.5em;
-  }
-}
-
-@media only screen and (max-height: 600px) {
-  .text-input {
-    border: #7a3c29 1px solid;
+    border: #d1e756 1px solid;
     outline: none;
     border-radius: 1.5625em;
-    width: 12.5em;
+    width: 13em;
     font-size: 1em;
-    padding: 0.5em 0.75em;
+    padding: 0.em 0.75em;
     margin: auto 0.5em;
     font-weight: bold;
   }
@@ -205,7 +192,7 @@ input:focus {
     box-shadow: 0 0 0.4375em #b8ced1;
     outline: none;
     border-radius: 1.5625em;
-    width: 12.5em;
+    width: 13em;
     font-size: 1em;
     padding: 0.5em 0.75em;
     margin: auto 0.5em;
@@ -216,11 +203,11 @@ input:focus {
   .list-item {
     border: none;
     border-radius: 1.5625em;
-    width: 17.5em;
+    width: 17em;
     height: 1.5625em;
     font-size: 1.125em;
     padding: 0.625em 0.9375em;
-    margin: 0.625em 0;
+    margin: 0.em 0;
     color: #131a28;
     font-weight: bold;
     text-align: start;
@@ -230,7 +217,7 @@ input:focus {
     border-color: #8ea3b4;
     box-shadow: 0 0 0.625em #8ea3b4;
     border-radius: 1.5625em;
-    width: 17.5em;
+    width: 17em;
     height: 1.5625em;
     font-size: 1.125em;
     padding: 0.625em 0.9375em;
@@ -240,18 +227,90 @@ input:focus {
     text-align: start;
     align-items: center;
   }
+  
+}
 
+@media only screen and (max-width: 600px) and (max-height: 600px){
   .delete-icon {
     height: 1.125em;
   }
+  .droppable-col {
+    width: 22em;
+    background-color: #ebecf0;
+    border-radius: 1.5625em;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    min-height: 50vh;
+    min-width: 10vh;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 30px 20px;
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  .text-input {
+    border: #d1e756 1px solid;
+    outline: none;
+    border-radius: 1.5625em;
+    width: 13em;
+    font-size: 1em;
+    padding: 0.em 0.75em;
+    margin: auto 0.5em;
+    font-weight: bold;
+  }
+
+  .text-input-out {
+    border: #b8ced1 1px solid;
+    box-shadow: 0 0 0.4375em #b8ced1;
+    outline: none;
+    border-radius: 1.5625em;
+    width: 13em;
+    font-size: 1em;
+    padding: 0.5em 0.75em;
+    margin: auto 0.5em;
+
+    font-weight: bold;
+  }
+
+  .list-item {
+    border: none;
+    border-radius: 1.5625em;
+    width: 17em;
+    height: 1.5625em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
+    margin: 0.em 0;
+    color: #131a28;
+    font-weight: bold;
+    text-align: start;
+    align-items: center;
+  }
+  .list-item-out {
+    border-color: #8ea3b4;
+    box-shadow: 0 0 0.625em #8ea3b4;
+    border-radius: 1.5625em;
+    width: 17em;
+    height: 1.5625em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
+    margin: 0.625em 0;
+    color: #131a28;
+    font-weight: bold;
+    text-align: start;
+    align-items: center;
+  }
+  
 }
+
 
 @media only screen and (max-height: 410px) {
   .text-input {
     border: #9b543e 1px solid;
     outline: none;
     border-radius: 1.5625em;
-    width: 9.375em;
+    width: 12em;
     font-size: 1em;
     padding: 0.5em 0.75em;
     margin: auto 6px;
@@ -265,6 +324,8 @@ input:focus {
     flex-direction: column;
     text-align: center;
     color: white;
+    min-height: 50vh;
+   min-width: 10vh;
     justify-content: flex-start;
     align-items: center;
     padding: 30px 20px;
@@ -276,7 +337,7 @@ input:focus {
     box-shadow: 0 0 0.4375em #b8ced1;
     outline: none;
     border-radius: 1.5625em;
-    width: 9.375em;
+    width: 12em;
     font-size: 1em;
     padding: 0.5em 0.75em;
     margin: auto 6px;
@@ -286,7 +347,7 @@ input:focus {
   .list-item {
     border: none;
     border-radius: 1.5625em;
-    width: 14.375em;
+    width: 17em;
     height: 1.25em;
     font-size: 1.125em;
     padding: 0.625em 0.9375em;
@@ -302,7 +363,7 @@ input:focus {
     border-color: #8ea3b4;
     box-shadow: 0 0 10px #8ea3b4;
     border-radius: 1.5625em;
-    width: 14.375em;
+    width: 17em;
     height: 20px;
     font-size: 1.125em;
     padding: 0.625em 0.9375em;
@@ -319,8 +380,8 @@ input:focus {
     border: #59a503 1px solid;
     outline: none;
     border-radius: 1.5625em;
-    width: 9.375em;
-    font-size: 0.875em;
+    width: 12em;
+    font-size: 1em;
     padding: 0.5em 0.75em;
     margin: auto 6px;
     font-weight: bold;
@@ -329,20 +390,24 @@ input:focus {
   .list-item {
     border: none;
     border-radius: 1.5625em;
-    width: 12.5em;
+    width: 17em;
+    height: 1.25em;
     font-size: 1.125em;
     padding: 0.625em 0.9375em;
     margin: 10px 0;
     color: #131a28;
     font-weight: bold;
     text-align: start;
+    margin-left: 1.8em;
+    margin-right: 1.8em;
     align-items: center;
   }
   .list-item-out {
     border-color: #8ea3b4;
     box-shadow: 0 0 10px #8ea3b4;
     border-radius: 1.5625em;
-    width: 12.5em;
+    width: 17em;
+    height: 20px;
     font-size: 1.125em;
     padding: 0.625em 0.9375em;
     margin: 10px 0;
