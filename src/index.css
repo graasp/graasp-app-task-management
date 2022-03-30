@@ -23,7 +23,6 @@ input:focus {
 .droppable-col {
   width: 28.125em;
   background-color: #ebecf0;
-  padding: 0.625em 0.625em 0px 0.625em;
   border-radius: 1.5625em;
   display: flex;
   flex-direction: column;
@@ -32,9 +31,9 @@ input:focus {
   color: white;
   justify-content: flex-start;
   align-items: center;
-  padding: 30px 20px;
-  margin-left: 50px;
-  margin-right: 50px;
+  padding: 1.875em 1.25em;
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 .app-background {
@@ -171,8 +170,7 @@ input:focus {
     justify-content: flex-start;
     align-items: center;
     padding: 30px 20px;
-    margin-left: 50px;
-    margin-right: 50px;
+    
   }
   .list-item {
     width: 16em;
