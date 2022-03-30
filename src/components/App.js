@@ -390,7 +390,7 @@ const App = () => {
         <Students tasks={tasks} setTasks={setTasks} />
       </div>
       <div className="App" class="column">
-        <div className="row jc-space-between">
+        <div className="row">
           <DragDropContext onDragEnd={handleDragEnd}>
             {_.map(itemsList, (data, key) => {
               return (
@@ -528,7 +528,6 @@ const App = () => {
         <div className="clear"></div>
 
         <Footer
-          height={20}
           numberOfCompletedTasks={itemsList.completed.items.length}
           totalNumberOfTasks={totalNumberOfTasks}
         />
