@@ -135,6 +135,25 @@ const Task = (props) => {
     },
     [props.setEditingTitle],
   );
+  const onDragOver = (ev) => {
+    setFocused(true);
+    ev.preventDefault();
+  };
+  const onDrop = (ev) => {
+    setFocused(false);
+    let member = ev.dataTransfer.getData('member');
+    members.push(member);
+    handleMembers(members);
+    addMembers(props.task.id, props.listTitle);
+    console.log(props.task.members);
+  };
+
+  const handleMembers = useCallback(
+    (value) => {
+      setMembers(value);
+    },
+    [setMembers],
+  );
 
   const renderConditional = () => {
     return (
@@ -164,10 +183,12 @@ const Task = (props) => {
           className={
             focused
               ? `list-item-out row jc-space-between ${props.className} droppable`
-              : `list-item row jc-space-between ${props.className}`
+              : `list-item row jc-space-between ${props.className} droppable`
           }
+          onDragOver={(e) => onDragOver(e)}
+          onDrop={(e) => onDrop(e)}
         >
-          {props.task.id === props.isEditingTitle && !props.task.completed ? (
+          {props.task.id === props.isEditingTitle ? (
             <input
               type="text"
               onChange={handleTitleChange}
@@ -176,9 +197,7 @@ const Task = (props) => {
             />
           ) : (
             <span
-              className={
-                props.task.completed ? 'text-task-complete' : 'text-task'
-              }
+              className="text-task"
               onClick={() => props.setIsEditingTitle(props.task.id)}
               style={{
                 cursor: 'pointer',
@@ -190,12 +209,12 @@ const Task = (props) => {
           )}
 
           <div className="content">
-            <div className="row">
+            <div className="row" style={{ alignItems: 'center' }}>
               <MdOutlineSubject
                 size="1.3em"
                 data-toggle="tooltip"
                 data-placement="left"
-                title={props.task.completed ? null : 'Task Details'}
+                title={t('Task Details')}
                 alt="task-details"
                 style={{
                   cursor: 'pointer',
