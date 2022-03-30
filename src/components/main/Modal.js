@@ -73,8 +73,7 @@ const Modal = (props) => {
                 <br />
 
                 <div>
-                  {props.task.id === props.isEditingDescription &&
-                  !props.task.completed ? (
+                  {props.task.id === props.isEditingDescription ? (
                     <div>
                       <TextField
                         className="description-text-box"
