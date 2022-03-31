@@ -21,7 +21,6 @@ input:focus {
   outline: none;
 }
 .droppable-col {
-  position:sticky;
   width: 28.125em;
   background-color: #ebecf0;
   border-radius: 1.5625em;
@@ -247,17 +246,17 @@ input:focus {
     justify-content: flex-start;
     align-items: center;
     padding: 30px 20px;
-    margin-left: 50px;
+    margin-left: 20px;
     margin-right: 50px;
   }
   .text-input {
     border: #d1e756 1px solid;
     outline: none;
     border-radius: 1.5625em;
-    width: 13em;
+    width: 12em;
     font-size: 1em;
-    padding: 0.em 0.75em;
-    margin: auto 0.5em;
+    padding: 0.5em 0.75em;
+    margin: auto 6px;
     font-weight: bold;
   }
 
@@ -329,7 +328,7 @@ input:focus {
     justify-content: flex-start;
     align-items: center;
     padding: 30px 20px;
-    margin-left: 50px;
+    margin-left: 20px;
     margin-right: 50px;
   }
   .text-input-out {
@@ -348,26 +347,24 @@ input:focus {
     border: none;
     border-radius: 1.5625em;
     width: 17em;
-    height: 1.25em;
+    height: 1.5625em;
     font-size: 1.125em;
     padding: 0.625em 0.9375em;
-    margin: 10px 0;
+    margin: 0.em 0;
     color: #131a28;
     font-weight: bold;
     text-align: start;
-    margin-left: 1.8em;
-    margin-right: 1.8em;
     align-items: center;
   }
   .list-item-out {
     border-color: #8ea3b4;
-    box-shadow: 0 0 10px #8ea3b4;
+    box-shadow: 0 0 0.625em #8ea3b4;
     border-radius: 1.5625em;
     width: 17em;
-    height: 20px;
+    height: 1.5625em;
     font-size: 1.125em;
     padding: 0.625em 0.9375em;
-    margin: 10px 0;
+    margin: 0.625em 0;
     color: #131a28;
     font-weight: bold;
     text-align: start;
@@ -386,6 +383,7 @@ input:focus {
     margin: auto 6px;
     font-weight: bold;
   }
+  
 
   .list-item {
     border: none;
