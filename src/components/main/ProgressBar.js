@@ -29,7 +29,7 @@ const ProgressBar = ({ numberOfCompletedTasks, totalNumberOfTasks }) => {
     padding: 10,
     color: 'black',
     fontWeight: 700,
-    marginLeft: completionRatio < 11 ? '20px' : 0,
+    marginLeft: !completionRatio || completionRatio < 11 ? '30px' : 0,
   };
 
   return (
