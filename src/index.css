@@ -21,7 +21,7 @@ input:focus {
   outline: none;
 }
 .droppable-col {
-  width: 28.125em;
+  width: 27em;
   background-color: #ebecf0;
   border-radius: 1.5625em;
   display: flex;
@@ -155,6 +155,137 @@ input:focus {
   text-align: center;
   margin: 50px;
 }
+
+.v-generated-body {
+  min-width: 1000px;
+  overflow: auto;
+}
+@media only screen and (max-width: 1920px) and (min-width: 1620px) {
+
+  .droppable-col {
+    width: 27em;
+    background-color: #ebecf0;
+    border-radius: 1.5625em;
+    display: flex;
+    flex-direction: column;
+    min-height: 50vh;
+    min-width: 44vh;
+    text-align: center;
+    color: white;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 1.875em 1.25em;
+    margin-left: 3em;
+    margin-right: 3em;
+  }
+  
+  .app-background {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    justify-content: flex-start;
+    align-items: center;
+  }
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .column {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .jc-space-between {
+    justify-content: space-between;
+  }
+  
+  .text-task {
+    color: black;
+    font-weight: 500;
+  }
+  .text-task:hover {
+    font-weight: 700;
+  }
+  
+  .add-button {
+    outline: none;
+    border: none;
+    color: #201328;
+    font-size: 1.0625em;
+    font-weight: bolder;
+    padding: 10px 0.9375em;
+    border-radius: 0.5em;
+    text-align: center;
+    margin: 0 0.9375em 0.9375em 0.9375em;
+    cursor: pointer;
+  }
+  
+  .text-input {
+    border: #c3c9ca 1px solid;
+    outline: none;
+    border-radius: 1.5625em;
+    width: 17em;
+    font-size: 1.125em;
+    padding: 10px 0.9375em;
+    margin: 0 0.9375em 0.9375em 0.9375em;
+    font-weight: bold;
+    font-weight: 500;
+  }
+  .text-input-out {
+    border: #c3c9ca 1px solid;
+    box-shadow: 0 0 0.4375em #c3c9ca;
+    outline: none;
+    border-radius: 1.5625em;
+    width: 17em;
+    font-size: 1.125em;
+    padding: 10px 0.9375em;
+    margin: 0 0.9375em 0.9375em 0.9375em;
+    font-weight: bold;
+    font-weight: 500;
+  }
+  
+  .list-item {
+    background-color: white;
+    border: none;
+    border-radius: 1.5625em;
+    width: 22em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
+    margin: 10px 0;
+    color: black;
+    font-weight: bold;
+    text-align: start;
+    align-items: center;
+    height: 2em;
+  }
+  
+  .list-item:hover {
+    border-color: #8ea3b4;
+    box-shadow: 0 0 0.625em #8ea3b4;
+  }
+  
+  .list-item-out {
+    background-color: white;
+    border-color: #8ea3b4;
+    box-shadow: 0 0 0.625em #8ea3b4;
+    border-radius: 1.5625em;
+    width: 22em;
+    font-size: 1.125em;
+    padding: 0.625em 0.9375em;
+    margin: 0.625em 0;
+    color: black;
+    font-weight: bold;
+    text-align: start;
+    align-items: center;
+    height: 2em;
+  }
+  
+}
+
+
 @media only screen and (max-width: 600px) {
   .delete-icon {
     height: 1.125em;
@@ -250,7 +381,7 @@ input:focus {
     margin-right: 50px;
   }
   .text-input {
-    border: #d1e756 1px solid;
+    border: #4181bd 1px solid;
     outline: none;
     border-radius: 1.5625em;
     width: 13em;
@@ -303,147 +434,6 @@ input:focus {
   
 }
 
-
-@media only screen and (max-height: 410px) {
-  
-  .droppable-col {
-    width: 22em;
-    background-color: #ebecf0;
-    border-radius: 1.5625em;
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    color: white;
-    min-height: 50vh;
-   min-width: 10vh;
-    justify-content: flex-start;
-    align-items: center;
-    padding: 30px 20px;
-    margin-left: 20px;
-    margin-right: 50px;
-  }
-  .text-input {
-    border: #9b543e 1px solid;
-    outline: none;
-    border-radius: 1.5625em;
-    width: 13em;
-    font-size: 1em;
-    padding: 0.em 0.75em;
-    margin: auto 0.5em;
-    font-weight: bold;
-  }
-
-  .text-input-out {
-    border: #b8ced1 1px solid;
-    box-shadow: 0 0 0.4375em #b8ced1;
-    outline: none;
-    border-radius: 1.5625em;
-    width: 13em;
-    font-size: 1em;
-    padding: 0.5em 0.75em;
-    margin: auto 0.5em;
-
-    font-weight: bold;
-  }
-
-  .list-item {
-    border: none;
-    border-radius: 1.5625em;
-    width: 17em;
-    height: 1.5625em;
-    font-size: 1.125em;
-    padding: 0.625em 0.9375em;
-    margin: 0.em 0;
-    color: #131a28;
-    font-weight: bold;
-    text-align: start;
-    align-items: center;
-  }
-  .list-item-out {
-    border-color: #8ea3b4;
-    box-shadow: 0 0 0.625em #8ea3b4;
-    border-radius: 1.5625em;
-    width: 17em;
-    height: 1.5625em;
-    font-size: 1.125em;
-    padding: 0.625em 0.9375em;
-    margin: 0.625em 0;
-    color: #131a28;
-    font-weight: bold;
-    text-align: start;
-    align-items: center;
-  }
-}
-
-@media only screen and (max-height: 320px) {
-  
-  .text-input {
-    border: #59a503 1px solid;
-    outline: none;
-    border-radius: 1.5625em;
-    width: 13em;
-    font-size: 1em;
-    padding: 0.em 0.75em;
-    margin: auto 0.5em;
-    font-weight: bold;
-  }
-
-  .text-input-out {
-    border: #b8ced1 1px solid;
-    box-shadow: 0 0 0.4375em #b8ced1;
-    outline: none;
-    border-radius: 1.5625em;
-    width: 13em;
-    font-size: 1em;
-    padding: 0.5em 0.75em;
-    margin: auto 0.5em;
-
-    font-weight: bold;
-  }
-  
-
-  .list-item {
-    border: none;
-    border-radius: 1.5625em;
-    width: 17em;
-    height: 1.25em;
-    font-size: 1.125em;
-    padding: 0.625em 0.9375em;
-    margin: 10px 0;
-    color: #131a28;
-    font-weight: bold;
-    text-align: start;
-    margin-left: 1.8em;
-    margin-right: 1.8em;
-    align-items: center;
-  }
-  .list-item-out {
-    border-color: #8ea3b4;
-    box-shadow: 0 0 10px #8ea3b4;
-    border-radius: 1.5625em;
-    width: 17em;
-    height: 20px;
-    font-size: 1.125em;
-    padding: 0.625em 0.9375em;
-    margin: 10px 0;
-    color: #131a28;
-    font-weight: bold;
-    text-align: start;
-    align-items: center;
-  }
-
-  .add-button {
-    outline: none;
-    border: none;
-    font-size: 1.0625em;
-    font-weight: bolder;
-    padding: 10px 0.9375em;
-    border-radius: 0.5em;
-    text-align: center;
-    margin: 0.9375em;
-    cursor: pointer;
-  }
-}
 
 .tasks-list {
   display: grid;
