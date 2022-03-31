@@ -160,7 +160,7 @@ input:focus {
   min-width: 1000px;
   overflow: auto;
 }
-@media only screen and (max-width: 1920px) and (min-width: 1620px) {
+@media only screen and (max-width: 1920px) and (min-width: 1700px) {
 
   .droppable-col {
     width: 27em;
