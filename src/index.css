@@ -172,7 +172,7 @@ input:focus {
     justify-content: flex-start;
     align-items: center;
     padding: 30px 20px;
-    margin-left: 50px;
+    margin-left: 20px;
     margin-right: 50px;
   }
   .text-input {
@@ -253,10 +253,10 @@ input:focus {
     border: #d1e756 1px solid;
     outline: none;
     border-radius: 1.5625em;
-    width: 12em;
+    width: 13em;
     font-size: 1em;
-    padding: 0.5em 0.75em;
-    margin: auto 6px;
+    padding: 0.em 0.75em;
+    margin: auto 0.5em;
     font-weight: bold;
   }
 
@@ -305,16 +305,7 @@ input:focus {
 
 
 @media only screen and (max-height: 410px) {
-  .text-input {
-    border: #9b543e 1px solid;
-    outline: none;
-    border-radius: 1.5625em;
-    width: 12em;
-    font-size: 1em;
-    padding: 0.5em 0.75em;
-    margin: auto 6px;
-    font-weight: bold;
-  }
+  
   .droppable-col {
     width: 22em;
     background-color: #ebecf0;
@@ -331,15 +322,27 @@ input:focus {
     margin-left: 20px;
     margin-right: 50px;
   }
+  .text-input {
+    border: #9b543e 1px solid;
+    outline: none;
+    border-radius: 1.5625em;
+    width: 13em;
+    font-size: 1em;
+    padding: 0.em 0.75em;
+    margin: auto 0.5em;
+    font-weight: bold;
+  }
+
   .text-input-out {
     border: #b8ced1 1px solid;
     box-shadow: 0 0 0.4375em #b8ced1;
     outline: none;
     border-radius: 1.5625em;
-    width: 12em;
+    width: 13em;
     font-size: 1em;
     padding: 0.5em 0.75em;
-    margin: auto 6px;
+    margin: auto 0.5em;
+
     font-weight: bold;
   }
 
@@ -373,14 +376,28 @@ input:focus {
 }
 
 @media only screen and (max-height: 320px) {
+  
   .text-input {
     border: #59a503 1px solid;
     outline: none;
     border-radius: 1.5625em;
-    width: 12em;
+    width: 13em;
+    font-size: 1em;
+    padding: 0.em 0.75em;
+    margin: auto 0.5em;
+    font-weight: bold;
+  }
+
+  .text-input-out {
+    border: #b8ced1 1px solid;
+    box-shadow: 0 0 0.4375em #b8ced1;
+    outline: none;
+    border-radius: 1.5625em;
+    width: 13em;
     font-size: 1em;
     padding: 0.5em 0.75em;
-    margin: auto 6px;
+    margin: auto 0.5em;
+
     font-weight: bold;
   }
   
@@ -577,7 +594,7 @@ sup {
   border-radius: 1.5625em;
   height: 100%;
   margin-top: 60px;
-  margin-left: 10px;
+  margin-left: 1px;
 }
 .members-text {
   color: black;
@@ -587,11 +604,11 @@ sup {
 }
 
 .main-footer {
-  padding-top: 3em;
+  background-color:rgb(249, 249, 249);
   position: fixed;
   bottom: 0;
   width: 100%;
-  height: 105px;
+  height: 90px;
   text-align: center;
 }
 .clear {
