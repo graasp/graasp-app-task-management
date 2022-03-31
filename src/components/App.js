@@ -13,10 +13,10 @@ import _ from 'lodash';
 import { v4 } from 'uuid';
 
 const App = () => {
+
+
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
-
-
 
   const {
     data: appData,
@@ -138,16 +138,16 @@ const App = () => {
     });
 
     postAppData({
-      data: newTask,
+      data: task,
       type: APP_DATA_TYPES.TASK,
       visibility: 'item',
     });
 
-    postAppData({
-      data: itemsList,
-      type: APP_DATA_TYPES.TASKSLIST,
-      visibility: 'item',
-    });
+    // postAppData({
+    //   data: itemsList,
+    //   type: APP_DATA_TYPES.TASKSLIST,
+    //   visibility: 'item',
+    // });
 
     postAction({
       type: ACTION_TYPES.ADD,
