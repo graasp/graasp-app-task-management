@@ -18,14 +18,14 @@ const App = () => {
 
   const {
     data: appData,
-   // isLoading: isAppDataLoading,
+    // isLoading: isAppDataLoading,
     isSuccess: isAppDataSuccess,
   } = useAppData();
 
   useEffect(() => {
-    if (isAppDataSuccess ) {
+    if (isAppDataSuccess) {
       setTasks(appData.filter(({ type }) => type === APP_DATA_TYPES.TASK));
-    } 
+    }
   }, [appData, isAppDataSuccess]);
 
   const { t } = useTranslation();
@@ -140,7 +140,7 @@ const App = () => {
       type: APP_DATA_TYPES.TASK,
       visibility: 'item',
     });
-    
+
     postAppData({
       data: itemsList,
       type: APP_DATA_TYPES.TASKSLIST,
@@ -334,8 +334,6 @@ const App = () => {
     });
   };
 
- 
-
   const handleDragEnd = ({ destination, source }) => {
     if (!destination) {
       return;
@@ -526,12 +524,11 @@ const App = () => {
           </DragDropContext>
         </div>
         <div className="clear"></div>
-
-        <Footer
-          numberOfCompletedTasks={itemsList.completed.items.length}
-          totalNumberOfTasks={totalNumberOfTasks}
-        />
       </div>
+      <Footer
+        numberOfCompletedTasks={itemsList.completed.items.length}
+        totalNumberOfTasks={totalNumberOfTasks}
+      />
     </div>
   );
 };
