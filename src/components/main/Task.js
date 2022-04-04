@@ -25,19 +25,19 @@ const Task = (props) => {
           task.members = task.members.concat(members);
           task.members = [...new Set(task.members)];
         }
-        postAppData({
-          data: task,
-          type: APP_DATA_TYPES.TASK,
-          visibility: 'item',
-        });
+        // postAppData({
+        //   data: task,
+        //   type: APP_DATA_TYPES.TASK,
+        //   visibility: 'item',
+        // });
 
-        postAction({
-          type: ACTION_TYPES.SAVE,
-          data: {
-            task: task,
-            id: task.id,
-          },
-        });
+        // postAction({
+        //   type: ACTION_TYPES.SAVE,
+        //   data: {
+        //     task: task,
+        //     id: task.id,
+        //   },
+        // });
       }
       return task;
     });

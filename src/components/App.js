@@ -13,26 +13,20 @@ import _ from 'lodash';
 import { v4 } from 'uuid';
 
 const App = () => {
-
-
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
+  const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
+  const [tasks, setTasks] = useState([]);
+  const [tmpCopy, setTmpCopy] = useState({});
 
   const {
     data: appData,
-    // isLoading: isAppDataLoading,
+    isLoading: isAppDataLoading,
     isSuccess: isAppDataSuccess,
   } = useAppData();
 
-  useEffect(() => {
-    if (isAppDataSuccess) {
-      setTasks(appData.filter(({ type }) => type === APP_DATA_TYPES.TASK));
-    }
-  }, [appData, isAppDataSuccess]);
-
-  const { t } = useTranslation();
-  const [itemsList, setItemsList] = useState({
-    todo: {
+  const defaultList={
+    todo:{
       title: 'To Do',
       items: [],
     },
@@ -44,8 +38,37 @@ const App = () => {
       title: 'Completed',
       items: [],
     },
-  });
-  const [tasks, setTasks] = useState([]);
+  };
+
+  const [itemsList, setItemsList] = useState(defaultList);
+  
+  let id_patch=0;
+
+  
+
+  useEffect(() => {
+    let tmp={};
+    if (isAppDataSuccess) {
+      
+      tmp=appData.filter(({ type }) => type === APP_DATA_TYPES.TASKSLIST);
+      if (tmp.size===0) {
+        setItemsList(defaultList);
+        postAppData({
+          data: itemsList,
+          type: APP_DATA_TYPES.TASKSLIST,
+          visibility: 'item',
+        });
+      }
+      else{
+        setItemsList(tmp._tail.array[tmp._tail.array.length-1].data);
+        }
+    }
+    
+  }, [appData, isAppDataSuccess]);
+
+
+  const { t } = useTranslation();
+
   const [task, setTask] = useState({
     title: '',
     description: '',
@@ -61,57 +84,24 @@ const App = () => {
   const [editingTitle, setEditingTitle] = useState('');
   const [editingDescription, setEditingDescription] = useState('');
 
-  useEffect(() => {
-    const json = localStorage.getItem('tasks');
-    const loadedtasks = JSON.parse(json);
-    if (loadedtasks) {
-      setTasks(loadedtasks);
-    }
-  }, []);
-
-  useEffect(() => {
-    const json = JSON.stringify(tasks);
-    localStorage.setItem('tasks', json);
-  }, [tasks]);
-
-  useEffect(() => {
-    const dataFormLocalStorage = localStorage.getItem('task-input');
-    if (dataFormLocalStorage) {
-      setTaskInput(JSON.parse(dataFormLocalStorage));
-    }
-  }, [setTaskInput]);
-
-  useEffect(() => {
-    localStorage.setItem('task-input', JSON.stringify(taskInput));
-  }, [taskInput]);
 
   const inputKeyDown = (event) => {
     if (event.keyCode === 13) {
       handleAdd(event);
     }
   };
-  useEffect(() => {
-    const json = localStorage.getItem('itemsList');
-    const loadedTasks = JSON.parse(json);
-    if (loadedTasks) {
-      setItemsList(loadedTasks);
-    }
-  }, []);
-
-  useEffect(() => {
-    const json = JSON.stringify(itemsList);
-    localStorage.setItem('itemsList', json);
-  }, [itemsList]);
 
   //Add task
 
   const handleAdd = (e) => {
     e.preventDefault();
+
     const newTask = {
       id: v4(),
       title: task.title,
       description: task.description,
       members: task.members,
+      label: 'To Do',
     };
     if (!task.title || !task.title.length || !task.title.trim().length) return;
     setTasks([...tasks, newTask]);
@@ -133,29 +123,32 @@ const App = () => {
         },
       };
     });
+
     setTaskInput((prev) => {
       return { ...prev, title: '' };
     });
-
-    postAppData({
-      data: task,
-      type: APP_DATA_TYPES.TASK,
-      visibility: 'item',
-    });
-
+    const updatedList = {
+      ...itemsList,
+    };
+  
     // postAppData({
-    //   data: itemsList,
+    //   data: updatedList,
     //   type: APP_DATA_TYPES.TASKSLIST,
     //   visibility: 'item',
     // });
 
-    postAction({
-      type: ACTION_TYPES.ADD,
-      data: {
-        task: newTask,
-        id: newTask.id,
-      },
-    });
+    // patchAppData({
+    //   data: updatedList,
+    //   id: id,
+    // });
+
+    // postAction({
+    //   type: ACTION_TYPES.ADD,
+    //   data: {
+    //     task: newTask,
+    //     id: newTask.id,
+    //   },
+    // });
   };
 
   const itemsCategory = (title) => {
@@ -206,16 +199,25 @@ const App = () => {
         };
       }
     });
-    postAppData({
-      data: itemsList,
-      type: APP_DATA_TYPES.TASKSLIST,
-      visibility: 'item',
-    });
+    const updatedList = {
+      ...itemsList,
+    };
+    // patchAppData({
+    //   ...tmpCopy,
+    //   data: updatedList,
+    //   id:id_patch
+    // });
+   
+    // postAppData({
+    //   data: updatedList,
+    //   type: APP_DATA_TYPES.TASKSLIST,
+    //   visibility: 'item',
+    // });
 
-    postAction({
-      type: ACTION_TYPES.DELETE,
-      data: id,
-    });
+    // postAction({
+    //   type: ACTION_TYPES.DELETE,
+    //   data: id,
+    // });
   };
 
   //Edit title
@@ -226,20 +228,21 @@ const App = () => {
           if (editingTitle.trim().length !== 0) {
             task.title = editingTitle;
           }
-
-          postAppData({
-            data: task,
-            type: APP_DATA_TYPES.TASK,
-            visibility: 'item',
-          });
-
-          postAction({
-            type: ACTION_TYPES.EDIT,
-            data: {
-              task: task,
-              id: task.id,
-            },
-          });
+          const updatedList = {
+            ...itemsList,
+            task,
+          };
+          // patchAppData({
+          //   data: updatedList,
+          //   id: updatedList.id,
+          // });
+          // postAction({
+          //   type: ACTION_TYPES.EDIT,
+          //   data: {
+          //     task: task,
+          //     id: task.id,
+          //   },
+          // });
         }
         return task;
       },
@@ -286,19 +289,18 @@ const App = () => {
           if (editingDescription.trim().length !== 0) {
             task.description = editingDescription;
           }
-          postAppData({
-            data: task,
-            type: APP_DATA_TYPES.TASK,
-            visibility: 'item',
-          });
+          // patchAppData({
+          //   data: task,
+          //   id: task.id,
+          // });
 
-          postAction({
-            type: ACTION_TYPES.EDIT,
-            data: {
-              task: task,
-              id: task.id,
-            },
-          });
+          // postAction({
+          //   type: ACTION_TYPES.EDIT,
+          //   data: {
+          //     task: task,
+          //     id: task.id,
+          //   },
+          // });
         }
         return task;
       },
@@ -362,12 +364,40 @@ const App = () => {
         0,
         itemCopy,
       );
+      // itemCopy.label=prev[destination.droppableId].title;
+      // console.log(itemCopy);
+
+      // const updatedTasks = [...itemsList[source.droppableId].items].map(
+      //   (task) => {
+      //     if (task.id === itemCopy.id) {
+
+      //         itemCopy.label=prev[destination.droppableId].title;
+
+      //     }
+      //     return task;
+      //   },
+      // );
+      // setTasks(updatedTasks);
 
       return prev;
     });
+
     // postAppData({
-    //   data: itemCopy,
+    //   data: task,
     //   type: APP_DATA_TYPES.TASK,
+    //   visibility: 'item',
+    // });
+    const updatedList = {
+      ...itemsList,
+    };
+    // patchAppData({
+    //   ...itemsList,
+    //   data: updatedList,
+    //   id: itemsList.id,
+    // });
+    // postAppData({
+    //   data: updatedList,
+    //   type: APP_DATA_TYPES.TASKSLIST,
     //   visibility: 'item',
     // });
 
@@ -380,14 +410,25 @@ const App = () => {
     });
   };
 
+  const saveAction=()=>{
+    const updatedList = {
+      ...itemsList,
+    };
+    postAppData({
+      data: updatedList,
+      type: APP_DATA_TYPES.TASKSLIST,
+      visibility: 'item',
+    });
+  }
+
   let totalNumberOfTasks = 0;
-
+ 
   _.map(itemsList, (data) => (totalNumberOfTasks += data.items.length));
-
   return (
     <div class="row">
       <div class="column" className="members-column">
         <Students tasks={tasks} setTasks={setTasks} />
+        <button onClick={()=>saveAction()}>Save</button>
       </div>
       <div className="App" class="column">
         <div className="row">

@@ -42,10 +42,10 @@ const Modal = (props) => {
     handleMembers(props.members.filter((e) => e !== member));
 
     props.removeMembers(props.task.id, props.listTitle, member);
-    postAction({
-      type: ACTION_TYPES.DELETE,
-      data: props.task.id,
-    });
+    // postAction({
+    //   type: ACTION_TYPES.DELETE,
+    //   data: props.task.id,
+    // });
   };
 
   return (
