@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { MdDelete, MdOutlineSubject } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import Modal from './Modal';
+import { itemsListProp, taskProp } from '../../types/props_types';
 
 const Task = ({
   itemsList,
@@ -250,21 +251,16 @@ const Task = ({
 };
 
 Task.propTypes = {
-  itemsList: PropTypes.arrayOf(PropTypes.string).isRequired,
-  itemsCategory: PropTypes.arrayOf(PropTypes.string).isRequired,
-  task: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    members: PropTypes.arrayOf(PropTypes.string).isRequired,
-    completed: PropTypes.bool,
-  }).isRequired,
+  itemsList: itemsListProp.isRequired,
+  itemsCategory: PropTypes.func.isRequired,
+  task: taskProp.isRequired,
   setTasks: PropTypes.func.isRequired,
   setItemsList: PropTypes.func.isRequired,
   submitTitleEdits: PropTypes.func.isRequired,
   listTitle: PropTypes.string.isRequired,
   setEditingTitle: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
-  className: PropTypes.string.isRequired,
+  className: PropTypes.oneOf([PropTypes.bool, PropTypes.string]).isRequired,
   isEditingTitle: PropTypes.bool,
   submitDescriptionEdits: PropTypes.func.isRequired,
   setIsEditingDescription: PropTypes.func.isRequired,
