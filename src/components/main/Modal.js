@@ -1,51 +1,57 @@
 import React, { useCallback } from 'react';
 import { MdCancel, MdOutlineDone } from 'react-icons/md';
+import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
-import { ACTION_TYPES } from '../../config/actionTypes';
-import { MUTATION_KEYS, useMutation } from '../../config/queryClient';
 
-const Modal = (props) => {
+const Modal = ({
+  task,
+  listTitle,
+  submitDescriptionEdits,
+  setIsEditingDescription,
+  isEditingDescription,
+  setEditingDescription,
+  members,
+  addMembers,
+  removeMembers,
+  setMembers,
+}) => {
   const { t } = useTranslation();
-  const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
 
   const handleDescriptionChange = useCallback(
     (event) => {
-      props.setEditingDescription(event.target.value);
+      setEditingDescription(event.target.value);
     },
-    [props.setEditingDescription],
+    [setEditingDescription],
   );
 
   const saveDescription = () => {
-    props.submitDescriptionEdits(props.task.id, props.listTitle);
+    submitDescriptionEdits(task.id, listTitle);
   };
 
   const onDragOver = (ev) => {
     ev.preventDefault();
   };
-  const onDrop = (ev) => {
-    let member = ev.dataTransfer.getData('member');
-    props.members.push(member);
-    handleMembers(props.members);
-    props.addMembers(props.task.id, props.listTitle);
-    console.log(props.task.members);
-  };
 
   const handleMembers = useCallback(
     (value) => {
-      props.setMembers(value);
+      setMembers(value);
     },
-    [props.setMembers],
+    [setMembers],
   );
 
-  const handleRemoveMembers = (member) => {
-    handleMembers(props.members.filter((e) => e !== member));
+  const onDrop = (ev) => {
+    const member = ev.dataTransfer.getData('member');
+    members.push(member);
+    handleMembers(members);
+    addMembers(task.id, listTitle);
+    console.log(task.members);
+  };
 
-    props.removeMembers(props.task.id, props.listTitle, member);
-    // postAction({
-    //   type: ACTION_TYPES.DELETE,
-    //   data: props.task.id,
-    // });
+  const handleRemoveMembers = (member) => {
+    handleMembers(members.filter((e) => e !== member));
+
+    removeMembers(task.id, listTitle, member);
   };
 
   return (
@@ -55,14 +61,15 @@ const Modal = (props) => {
       onDrop={(e) => onDrop(e)}
     >
       <div className="modal_content">
-        <div class="row" className="date-footer">
+        <div className="date-footer row">
           <div className="col-md-6">
             <div className="col-md-12">
               <div className="date-footer">
                 <br />
+                {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                 <label
                   className={
-                    props.isEditingDescription
+                    isEditingDescription
                       ? 'task-description-label-edit'
                       : 'task-description-label'
                   }
@@ -73,13 +80,13 @@ const Modal = (props) => {
                 <br />
 
                 <div>
-                  {props.task.id === props.isEditingDescription ? (
+                  {task.id === isEditingDescription ? (
                     <div>
                       <TextField
                         className="description-text-box"
                         placeholder={t(' Task Description')}
                         onChange={handleDescriptionChange}
-                        defaultValue={props.task.description}
+                        defaultValue={task.description}
                         multiline
                         inputProps={{ style: { fontSize: '0.8em' } }}
                         rows={5}
@@ -111,12 +118,13 @@ const Modal = (props) => {
                       style={{ border: '1px solid rgb(218, 213, 213)' }}
                       multiline
                       rows={5}
+                      /* eslint-disable-next-line react/jsx-no-duplicate-props */
                       inputProps={{ style: { fontSize: '0.8em' } }}
                       placeholder={t(' Task Description')}
                       onClick={() =>
-                        props.setIsEditingDescription(props.task.id)
+                        setIsEditingDescription(task.id)
                       }
-                      value={props.task.description}
+                      value={task.description}
                     />
                   )}
                 </div>
@@ -131,13 +139,13 @@ const Modal = (props) => {
                   <div>
                     <div
                       className={
-                        props.task.members.length
+                        task.members.length
                           ? 'members-text '
                           : 'no-members-text'
                       }
                     >
-                      {props.task.members.length
-                        ? props.task.members.map((member) => (
+                      {task.members.length
+                        ? task.members.map((member) => (
                             <small>
                               {member}
                               <sup>
@@ -165,5 +173,28 @@ const Modal = (props) => {
     </div>
   );
 };
+
+Modal.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    members: PropTypes.arrayOf(PropTypes.string).isRequired,
+    completed: PropTypes.bool,
+    description: PropTypes.string,
+  }).isRequired,
+  listTitle: PropTypes.string.isRequired,
+  submitDescriptionEdits: PropTypes.func.isRequired,
+  setIsEditingDescription: PropTypes.func.isRequired,
+  isEditingDescription: PropTypes.bool,
+  setEditingDescription: PropTypes.func.isRequired,
+  members: PropTypes.arrayOf(PropTypes.string).isRequired,
+  addMembers: PropTypes.func.isRequired,
+  removeMembers: PropTypes.func.isRequired,
+  setMembers: PropTypes.func.isRequired,
+};
+
+Modal.defaultProps = {
+  isEditingDescription: false,
+}
 
 export default Modal;

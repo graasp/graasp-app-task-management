@@ -1,48 +1,50 @@
-import { useState, useCallback } from 'react';
-import Modal from './Modal';
+import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete, MdOutlineSubject } from 'react-icons/md';
-import { MUTATION_KEYS, useMutation } from '../../config/queryClient';
-import { ACTION_TYPES } from '../../config/actionTypes';
-import { APP_DATA_TYPES } from '../../config/appDataTypes';
+import PropTypes from 'prop-types';
+import Modal from './Modal';
 
-const Task = (props) => {
+const Task = ({
+  itemsList,
+  itemsCategory,
+  setTasks,
+  setItemsList,
+  task,
+  submitTitleEdits,
+  listTitle,
+  setEditingTitle,
+  deleteTask,
+  className,
+  isEditingTitle,
+  submitDescriptionEdits,
+  setIsEditingDescription,
+  isEditingDescription,
+  setEditingDescription,
+  setIsEditingTitle,
+}) => {
   const { t } = useTranslation();
-
-  const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
-  const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
 
   const [focused, setFocused] = useState(false);
   const [seen, setSeen] = useState(false);
   const [members, setMembers] = useState([]);
 
-  const addMembers = (id, listTitle) => {
-    const updatedTasks = [
-      ...props.itemsList[props.itemsCategory(listTitle)].items,
-    ].map((task) => {
-      if (task.id === id) {
-        if (members) {
-          task.members = task.members.concat(members);
-          task.members = [...new Set(task.members)];
-        }
-        // postAppData({
-        //   data: task,
-        //   type: APP_DATA_TYPES.TASK,
-        //   visibility: 'item',
-        // });
+  const addMembers = (id, currentListTitle) => {
+    const { items } = itemsList[itemsCategory(currentListTitle)];
 
-        // postAction({
-        //   type: ACTION_TYPES.SAVE,
-        //   data: {
-        //     task: task,
-        //     id: task.id,
-        //   },
-        // });
+    const updatedTasks = [items].map((ta) => {
+      if (ta.id === id) {
+        if (members) {
+          const newTask = {
+            ...ta,
+            members: [... new Set(ta.members.concat(members))]
+          };
+          return newTask;
+        }
       }
-      return task;
+      return ta;
     });
-    props.setTasks(updatedTasks);
-    props.setItemsList((prev) => {
+    setTasks(updatedTasks);
+    setItemsList((prev) => {
       if (listTitle === 'To Do') {
         return {
           ...prev,
@@ -70,23 +72,26 @@ const Task = (props) => {
           },
         };
       }
+      return null;
     });
   };
 
-  const removeMembers = (id, listTitle, member) => {
-    const updatedTasks = [
-      ...props.itemsList[props.itemsCategory(listTitle)].items,
-    ].map((task) => {
-      if (task.id === id) {
+  const removeMembers = (id, currentListTitle, member) => {
+    const { items } = itemsList[itemsCategory(currentListTitle)];
+    const updatedTasks = [items].map((ta) => {
+      if (ta.id === id) {
         if (members) {
-          task.members = task.members.filter((e) => e !== member);
-          task.members = [...new Set(task.members)];
+          const newTask = {
+            ...ta,
+            members: [...new Set(ta.members.filter((e) => e !== member))],
+          };
+          return newTask;
         }
       }
-      return task;
+      return ta;
     });
-    props.setTasks(updatedTasks);
-    props.setItemsList((prev) => {
+    setTasks(updatedTasks);
+    setItemsList((prev) => {
       if (listTitle === 'To Do') {
         return {
           ...prev,
@@ -114,6 +119,7 @@ const Task = (props) => {
           },
         };
       }
+      return null;
     });
   };
 
@@ -124,28 +130,20 @@ const Task = (props) => {
 
   const onEditKeyDown = (event) => {
     if (event.keyCode === 13) {
-      props.submitTitleEdits(props.task.id, props.listTitle);
-      //After pressing the Enter key
+      submitTitleEdits(task.id, listTitle);
+      // After pressing the Enter key
     }
   };
 
   const handleTitleChange = useCallback(
     (event) => {
-      props.setEditingTitle(event.target.value);
+      setEditingTitle(event.target.value);
     },
-    [props.setEditingTitle],
+    [setEditingTitle],
   );
   const onDragOver = (ev) => {
     setFocused(true);
     ev.preventDefault();
-  };
-  const onDrop = (ev) => {
-    setFocused(false);
-    let member = ev.dataTransfer.getData('member');
-    members.push(member);
-    handleMembers(members);
-    addMembers(props.task.id, props.listTitle);
-    console.log(props.task.members);
   };
 
   const handleMembers = useCallback(
@@ -155,17 +153,25 @@ const Task = (props) => {
     [setMembers],
   );
 
-  const renderConditional = () => {
-    return (
+  const onDrop = (ev) => {
+    setFocused(false);
+    const member = ev.dataTransfer.getData('member');
+    members.push(member);
+    handleMembers(members);
+    addMembers(task.id, listTitle);
+    console.log(task.members);
+  };
+
+  const renderConditional = () => (
       <div>
         {seen ? (
           <Modal
-            task={props.task}
-            submitDescriptionEdits={props.submitDescriptionEdits}
-            isEditingDescription={props.isEditingDescription}
-            setIsEditingDescription={props.setIsEditingDescription}
-            setEditingDescription={props.setEditingDescription}
-            listTitle={props.listTitle}
+            task={task}
+            submitDescriptionEdits={submitDescriptionEdits}
+            isEditingDescription={isEditingDescription}
+            setIsEditingDescription={setIsEditingDescription}
+            setEditingDescription={setEditingDescription}
+            listTitle={listTitle}
             addMembers={addMembers}
             setMembers={setMembers}
             members={members}
@@ -174,37 +180,38 @@ const Task = (props) => {
         ) : null}
       </div>
     );
-  };
 
   return (
     <div>
-      <div class="row">
+      <div className="row">
         <div
           className={
             focused
-              ? `list-item-out row jc-space-between ${props.className} droppable`
-              : `list-item row jc-space-between ${props.className} droppable`
+              ? `list-item-out row jc-space-between ${className} droppable`
+              : `list-item row jc-space-between ${className} droppable`
           }
           onDragOver={(e) => onDragOver(e)}
           onDrop={(e) => onDrop(e)}
         >
-          {props.task.id === props.isEditingTitle ? (
+          {task.id === isEditingTitle ? (
             <input
               type="text"
               onChange={handleTitleChange}
-              defaultValue={props.task.title}
+              defaultValue={task.title}
               onKeyDown={onEditKeyDown}
             />
           ) : (
+            // TODO: DELETE
+            /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */
             <span
               className="text-task"
-              onClick={() => props.setIsEditingTitle(props.task.id)}
+              onClick={() => setIsEditingTitle(task.id)}
               style={{
                 cursor: 'pointer',
                 alignContent: 'center',
               }}
             >
-              {props.task.title}
+              {task.title}
             </span>
           )}
 
@@ -231,15 +238,44 @@ const Task = (props) => {
                 data-placement="left"
                 title={t('Delete Task')}
                 alt="delete-task"
-                onClick={() => props.deleteTask(props.task.id, props.listTitle)}
+                onClick={() => deleteTask(task.id, listTitle)}
               />
             </div>
           </div>
         </div>
       </div>
-      {props.task.completed ? ' ' : renderConditional()}
+      {task.completed ? ' ' : renderConditional()}
     </div>
   );
 };
+
+Task.propTypes = {
+  itemsList: PropTypes.arrayOf(PropTypes.string).isRequired,
+  itemsCategory: PropTypes.arrayOf(PropTypes.string).isRequired,
+  task: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    members: PropTypes.arrayOf(PropTypes.string).isRequired,
+    completed: PropTypes.bool,
+  }).isRequired,
+  setTasks: PropTypes.func.isRequired,
+  setItemsList: PropTypes.func.isRequired,
+  submitTitleEdits: PropTypes.func.isRequired,
+  listTitle: PropTypes.string.isRequired,
+  setEditingTitle: PropTypes.func.isRequired,
+  deleteTask: PropTypes.func.isRequired,
+  className: PropTypes.string.isRequired,
+  isEditingTitle: PropTypes.bool,
+  submitDescriptionEdits: PropTypes.func.isRequired,
+  setIsEditingDescription: PropTypes.func.isRequired,
+  isEditingDescription: PropTypes.bool,
+  setEditingDescription: PropTypes.func.isRequired,
+  setIsEditingTitle: PropTypes.func.isRequired,
+};
+
+Task.defaultProps = {
+  isEditingTitle: false,
+  isEditingDescription: false,
+}
 
 export default Task;

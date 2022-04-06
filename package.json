@@ -13,7 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "6.1.0",
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git",
-    "@graasp/ui": "git://github.com/graasp/graasp-ui.git",
+    "@graasp/ui": "github:graasp/graasp-ui.git",
     "@material-ui/core": "^4.12.3",
     "@progress/kendo-react-dropdowns": "^5.1.0",
     "@react-md/form": "^5.0.0",
@@ -21,7 +21,10 @@
     "@testing-library/react": "^12.0.0",
     "@testing-library/user-event": "^13.2.1",
     "i18next": "~21.6.14",
+    "lodash": "~4.17.21",
     "multiselect-react-dropdown": "^2.0.21",
+    "prop-types": "~15.8.1",
+    "qs": "~6.10.3",
     "react": "^17.0.2",
     "react-beautiful-dnd": "13.1.0",
     "react-dom": "^17.0.2",
@@ -60,12 +63,6 @@
     "report": "cat ./coverage/lcov.info | env-cmd -f ./.env.test codacy-coverage",
     "eject": "react-scripts eject",
     "release": "git fetch --tags && git add CHANGELOG.md && standard-version -a"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [

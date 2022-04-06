@@ -2032,9 +2032,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/ui@git://github.com/graasp/graasp-ui.git":
+"@graasp/ui@github:graasp/graasp-ui.git":
   version: 0.2.0
-  resolution: "@graasp/ui@git://github.com/graasp/graasp-ui.git#commit=15e422d016ad99e3b8cc5e4414a3d58d2e434db0"
+  resolution: "@graasp/ui@https://github.com/graasp/graasp-ui.git#commit=9f5f328331d8e4bf69c84bed8c46e5655dcc7694"
   dependencies:
     "@graasp/utils": "github:graasp/graasp-utils.git"
     clsx: 1.1.1
@@ -2054,7 +2054,7 @@ __metadata:
     i18next: 21.3.1
     react: ^16.13.1
     react-dom: 16.13.1
-  checksum: 94d4ed95a35bde2d8b3cf21f0077499663649703242d88e8edbfaa8521969d753ca49d1428e78316444c28e08e22986d0334b9744acab73705f62784b61aa2fe
+  checksum: 3bc477c53e94c077f9c4cd1cd9368cf58c6cd2e320b1d4d0d23be52c1a88b338843eaee854c970db18f95556ee09b26689cdd90e6776d831c691e1f0742d0291
   languageName: node
   linkType: hard
 
@@ -11685,7 +11685,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:4, lodash@npm:^4.17.11, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:^4.7.0":
+"lodash@npm:4, lodash@npm:^4.17.11, lodash@npm:^4.17.14, lodash@npm:^4.17.15, lodash@npm:^4.17.19, lodash@npm:^4.17.20, lodash@npm:^4.17.21, lodash@npm:^4.17.4, lodash@npm:^4.7.0, lodash@npm:~4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -14207,7 +14207,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.5.10, prop-types@npm:^15.5.6, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.5.10, prop-types@npm:^15.5.6, prop-types@npm:^15.6.0, prop-types@npm:^15.6.2, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1, prop-types@npm:~15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -14312,7 +14312,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:6.10.3":
+"qs@npm:6.10.3, qs@npm:~6.10.3":
   version: 6.10.3
   resolution: "qs@npm:6.10.3"
   dependencies:
@@ -16656,7 +16656,7 @@ __metadata:
     "@fortawesome/free-solid-svg-icons": 6.1.0
     "@fortawesome/react-fontawesome": ^0.1.17
     "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git"
-    "@graasp/ui": "git://github.com/graasp/graasp-ui.git"
+    "@graasp/ui": "github:graasp/graasp-ui.git"
     "@material-ui/core": ^4.12.3
     "@progress/kendo-react-dropdowns": ^5.1.0
     "@react-md/form": ^5.0.0
@@ -16679,10 +16679,13 @@ __metadata:
     i18next: ~21.6.14
     interpolate-html-plugin: 3.0.0
     json-server: 0.16.3
+    lodash: ~4.17.21
     multiselect-react-dropdown: ^2.0.21
     npm-run-all: 4.1.5
     prettier: ~2.5.1
     pretty-quick: ~3.1.3
+    prop-types: ~15.8.1
+    qs: ~6.10.3
     react: ^17.0.2
     react-beautiful-dnd: 13.1.0
     react-dom: ^17.0.2

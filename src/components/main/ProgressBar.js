@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const ProgressBar = ({ numberOfCompletedTasks, totalNumberOfTasks }) => {
-  let completionRatio = Math.floor(
+  const completionRatio = Math.floor(
     (numberOfCompletedTasks / totalNumberOfTasks) * 100,
   );
-  let progress = completionRatio ? completionRatio : 0;
+  const progress = completionRatio?? 0;
 
   const Parentdiv = {
     height: 20,
@@ -41,6 +42,11 @@ const ProgressBar = ({ numberOfCompletedTasks, totalNumberOfTasks }) => {
       </div>
     </div>
   );
+};
+
+ProgressBar.propTypes = {
+  totalNumberOfTasks: PropTypes.number.isRequired,
+  numberOfCompletedTasks: PropTypes.number.isRequired,
 };
 
 export default ProgressBar;
