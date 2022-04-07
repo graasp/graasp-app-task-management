@@ -62,7 +62,7 @@ const getUsers = async () => async (dispatch, getState) => {
           // eslint-disable-next-line no-await-in-loop
           const graaspUsersResponse = await fetch(
             graaspUserUrl,
-            DEFAULT_GET_REQUEST
+            DEFAULT_GET_REQUEST,
           );
 
           // eslint-disable-next-line no-await-in-loop

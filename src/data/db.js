@@ -51,7 +51,6 @@ const buildDatabase = (appContext) => ({
       id: v4(),
       name: 'Anne-Marie',
     },
- 
   ],
 });
 export const mockContext = { permission: 'write', context: 'builder' };

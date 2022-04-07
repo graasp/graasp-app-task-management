@@ -4,10 +4,10 @@ import {
   buildMockParentWindow,
 } from '@graasp/apps-query-client';
 import { REACT_APP_GRAASP_APP_ID } from './env';
-import  { mockContext }  from '../data/db';
+import { mockContext } from '../data/db';
 import { MOCK_API } from './settings';
 
-console.log(REACT_APP_GRAASP_APP_ID)
+console.log(REACT_APP_GRAASP_APP_ID);
 
 const {
   queryClient,
@@ -30,9 +30,11 @@ const {
   staleTime: 1000, // ms
   GRAASP_APP_ID: REACT_APP_GRAASP_APP_ID,
   targetWindow: MOCK_API
-  ? // build mock parent window given cypress context or mock data
-    buildMockParentWindow(buildMockLocalContext(window.appContext??   mockContext))
-  : window.parent,
+    ? // build mock parent window given cypress context or mock data
+      buildMockParentWindow(
+        buildMockLocalContext(window.appContext ?? mockContext),
+      )
+    : window.parent,
 });
 
 export {

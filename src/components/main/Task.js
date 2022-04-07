@@ -1,127 +1,32 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete, MdOutlineSubject } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import Modal from './Modal';
-import { itemsListProp, taskProp } from '../../types/props_types';
+import { taskProp } from '../../types/props_types';
+import { AppContext } from '../context/AppContext';
 
-const Task = ({
-  itemsList,
-  itemsCategory,
-  setTasks,
-  setItemsList,
-  task,
-  submitTitleEdits,
-  listTitle,
-  setEditingTitle,
-  deleteTask,
-  className,
-  isEditingTitle,
-  submitDescriptionEdits,
-  setIsEditingDescription,
-  isEditingDescription,
-  setEditingDescription,
-  setIsEditingTitle,
-}) => {
+const Task = ({ task, updateTask, deleteTask, className }) => {
   const { t } = useTranslation();
+
+  const { id, data } = task;
+
+  const { title, members } = data;
 
   const [focused, setFocused] = useState(false);
   const [seen, setSeen] = useState(false);
-  const [members, setMembers] = useState([]);
+  const [editedTitle, setEditedTitle] = useState();
+  const { isEditingTitle, setIsEditingTitle } = useContext(AppContext);
 
-  const addMembers = (id, currentListTitle) => {
-    const { items } = itemsList[itemsCategory(currentListTitle)];
-
-    const updatedTasks = [items].map((ta) => {
-      if (ta.id === id) {
-        if (members) {
-          const newTask = {
-            ...ta,
-            members: [... new Set(ta.members.concat(members))]
-          };
-          return newTask;
-        }
-      }
-      return ta;
-    });
-    setTasks(updatedTasks);
-    setItemsList((prev) => {
-      if (listTitle === 'To Do') {
-        return {
-          ...prev,
-          todo: {
-            title: listTitle,
-            items: updatedTasks,
-          },
-        };
-      }
-      if (listTitle === 'In Progress') {
-        return {
-          ...prev,
-          inProgress: {
-            title: listTitle,
-            items: updatedTasks,
-          },
-        };
-      }
-      if (listTitle === 'Completed') {
-        return {
-          ...prev,
-          done: {
-            title: listTitle,
-            items: updatedTasks,
-          },
-        };
-      }
-      return null;
-    });
-  };
-
-  const removeMembers = (id, currentListTitle, member) => {
-    const { items } = itemsList[itemsCategory(currentListTitle)];
-    const updatedTasks = [items].map((ta) => {
-      if (ta.id === id) {
-        if (members) {
-          const newTask = {
-            ...ta,
-            members: [...new Set(ta.members.filter((e) => e !== member))],
-          };
-          return newTask;
-        }
-      }
-      return ta;
-    });
-    setTasks(updatedTasks);
-    setItemsList((prev) => {
-      if (listTitle === 'To Do') {
-        return {
-          ...prev,
-          todo: {
-            title: listTitle,
-            items: updatedTasks,
-          },
-        };
-      }
-      if (listTitle === 'In Progress') {
-        return {
-          ...prev,
-          inProgress: {
-            title: listTitle,
-            items: updatedTasks,
-          },
-        };
-      }
-      if (listTitle === 'Completed') {
-        return {
-          ...prev,
-          done: {
-            title: listTitle,
-            items: updatedTasks,
-          },
-        };
-      }
-      return null;
-    });
+  const addMembers = (member) => {
+    const newTask = {
+      ...task,
+      data: {
+        ...data,
+        members: [...members, member],
+      },
+    };
+    updateTask(newTask);
   };
 
   const togglePop = () => {
@@ -131,56 +36,40 @@ const Task = ({
 
   const onEditKeyDown = (event) => {
     if (event.keyCode === 13) {
-      submitTitleEdits(task.id, listTitle);
-      // After pressing the Enter key
+      const newTask = {
+        ...task,
+        data: {
+          ...data,
+          title: editedTitle,
+        },
+      };
+      updateTask(newTask);
     }
   };
 
   const handleTitleChange = useCallback(
     (event) => {
-      setEditingTitle(event.target.value);
+      setEditedTitle(event.target.value);
     },
-    [setEditingTitle],
+    [setEditedTitle],
   );
   const onDragOver = (ev) => {
     setFocused(true);
     ev.preventDefault();
   };
 
-  const handleMembers = useCallback(
-    (value) => {
-      setMembers(value);
-    },
-    [setMembers],
-  );
-
   const onDrop = (ev) => {
+    console.log('⚙️ A member is being added...');
     setFocused(false);
     const member = ev.dataTransfer.getData('member');
-    members.push(member);
-    handleMembers(members);
-    addMembers(task.id, listTitle);
-    console.log(task.members);
+    console.debug('🧑 The added member is:', member);
+    addMembers(member);
+    console.log('☑️ A member was added: ', task.members);
   };
 
   const renderConditional = () => (
-      <div>
-        {seen ? (
-          <Modal
-            task={task}
-            submitDescriptionEdits={submitDescriptionEdits}
-            isEditingDescription={isEditingDescription}
-            setIsEditingDescription={setIsEditingDescription}
-            setEditingDescription={setEditingDescription}
-            listTitle={listTitle}
-            addMembers={addMembers}
-            setMembers={setMembers}
-            members={members}
-            removeMembers={removeMembers}
-          />
-        ) : null}
-      </div>
-    );
+    <div>{seen ? <Modal task={task} updateTask={updateTask} /> : null}</div>
+  );
 
   return (
     <div>
@@ -194,11 +83,11 @@ const Task = ({
           onDragOver={(e) => onDragOver(e)}
           onDrop={(e) => onDrop(e)}
         >
-          {task.id === isEditingTitle ? (
+          {id === isEditingTitle ? (
             <input
               type="text"
               onChange={handleTitleChange}
-              defaultValue={task.title}
+              defaultValue={title}
               onKeyDown={onEditKeyDown}
             />
           ) : (
@@ -206,7 +95,7 @@ const Task = ({
             /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */
             <span
               className="text-task"
-              onClick={() => setIsEditingTitle(task.id)}
+              onClick={() => setIsEditingTitle(id)}
               style={{
                 cursor: 'pointer',
                 alignContent: 'center',
@@ -239,7 +128,7 @@ const Task = ({
                 data-placement="left"
                 title={t('Delete Task')}
                 alt="delete-task"
-                onClick={() => deleteTask(task.id, listTitle)}
+                onClick={() => deleteTask(id)}
               />
             </div>
           </div>
@@ -251,27 +140,10 @@ const Task = ({
 };
 
 Task.propTypes = {
-  itemsList: itemsListProp.isRequired,
-  itemsCategory: PropTypes.func.isRequired,
   task: taskProp.isRequired,
-  setTasks: PropTypes.func.isRequired,
-  setItemsList: PropTypes.func.isRequired,
-  submitTitleEdits: PropTypes.func.isRequired,
-  listTitle: PropTypes.string.isRequired,
-  setEditingTitle: PropTypes.func.isRequired,
+  updateTask: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
   className: PropTypes.oneOf([PropTypes.bool, PropTypes.string]).isRequired,
-  isEditingTitle: PropTypes.bool,
-  submitDescriptionEdits: PropTypes.func.isRequired,
-  setIsEditingDescription: PropTypes.func.isRequired,
-  isEditingDescription: PropTypes.bool,
-  setEditingDescription: PropTypes.func.isRequired,
-  setIsEditingTitle: PropTypes.func.isRequired,
 };
-
-Task.defaultProps = {
-  isEditingTitle: false,
-  isEditingDescription: false,
-}
 
 export default Task;

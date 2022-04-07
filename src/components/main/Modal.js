@@ -1,22 +1,22 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { MdCancel, MdOutlineDone } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
+import { taskProp } from '../../types/props_types';
+import { AppContext } from '../context/AppContext';
 
-const Modal = ({
-  task,
-  listTitle,
-  submitDescriptionEdits,
-  setIsEditingDescription,
-  isEditingDescription,
-  setEditingDescription,
-  members,
-  addMembers,
-  removeMembers,
-  setMembers,
-}) => {
+const Modal = ({ task, updateTask }) => {
   const { t } = useTranslation();
+
+  const { id, data } = task;
+
+  const { description, members } = data;
+
+  const { isEditingDescription, setIsEditingDescription } =
+    useContext(AppContext);
+
+  const [editingDescription, setEditingDescription] = useState(description);
 
   const handleDescriptionChange = useCallback(
     (event) => {
@@ -26,32 +26,40 @@ const Modal = ({
   );
 
   const saveDescription = () => {
-    submitDescriptionEdits(task.id, listTitle);
+    const newTask = {
+      ...task,
+      description: editingDescription,
+    };
+    updateTask(newTask);
   };
 
   const onDragOver = (ev) => {
     ev.preventDefault();
   };
 
-  const handleMembers = useCallback(
-    (value) => {
-      setMembers(value);
-    },
-    [setMembers],
-  );
+  const addMembers = (member) => {
+    const newTask = {
+      ...task,
+      members: [...members, member],
+    };
+    updateTask(newTask);
+  };
+
+  const removeMembers = (member) => {
+    const newTask = {
+      ...task,
+      members: [...members.filter((m) => m !== member)],
+    };
+    updateTask(newTask);
+  };
 
   const onDrop = (ev) => {
     const member = ev.dataTransfer.getData('member');
-    members.push(member);
-    handleMembers(members);
-    addMembers(task.id, listTitle);
-    console.log(task.members);
+    addMembers(member);
   };
 
   const handleRemoveMembers = (member) => {
-    handleMembers(members.filter((e) => e !== member));
-
-    removeMembers(task.id, listTitle, member);
+    removeMembers(member);
   };
 
   return (
@@ -86,7 +94,7 @@ const Modal = ({
                         className="description-text-box"
                         placeholder={t(' Task Description')}
                         onChange={handleDescriptionChange}
-                        defaultValue={task.description}
+                        defaultValue={description}
                         multiline
                         inputProps={{ style: { fontSize: '0.8em' } }}
                         rows={5}
@@ -121,10 +129,8 @@ const Modal = ({
                       /* eslint-disable-next-line react/jsx-no-duplicate-props */
                       inputProps={{ style: { fontSize: '0.8em' } }}
                       placeholder={t(' Task Description')}
-                      onClick={() =>
-                        setIsEditingDescription(task.id)
-                      }
-                      value={task.description}
+                      onClick={() => setIsEditingDescription(id)}
+                      value={description}
                     />
                   )}
                 </div>
@@ -175,26 +181,8 @@ const Modal = ({
 };
 
 Modal.propTypes = {
-  task: PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired,
-    members: PropTypes.arrayOf(PropTypes.string).isRequired,
-    completed: PropTypes.bool,
-    description: PropTypes.string,
-  }).isRequired,
-  listTitle: PropTypes.string.isRequired,
-  submitDescriptionEdits: PropTypes.func.isRequired,
-  setIsEditingDescription: PropTypes.func.isRequired,
-  isEditingDescription: PropTypes.bool,
-  setEditingDescription: PropTypes.func.isRequired,
-  members: PropTypes.arrayOf(PropTypes.string).isRequired,
-  addMembers: PropTypes.func.isRequired,
-  removeMembers: PropTypes.func.isRequired,
-  setMembers: PropTypes.func.isRequired,
+  task: taskProp.isRequired,
+  updateTask: PropTypes.func.isRequired,
 };
-
-Modal.defaultProps = {
-  isEditingDescription: false,
-}
 
 export default Modal;

@@ -16,7 +16,7 @@ const flagGettingContext = flag(FLAG_GETTING_CONTEXT);
  * synchronously gets the context from the query string
  * @returns {Function}
  */
-const getContext = () => dispatch => {
+const getContext = () => (dispatch) => {
   dispatch(flagGettingContext(true));
   try {
     const {
