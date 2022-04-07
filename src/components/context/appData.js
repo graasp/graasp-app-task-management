@@ -4,7 +4,6 @@ import { TokenContext } from './TokenContext';
 import { hooks } from '../../config/queryClient';
 import { RE_FETCH_INTERVAL } from '../../constants/constants';
 
-
 export const useAppData = () => {
   const context = useContext(Context);
   const token = useContext(TokenContext);
@@ -15,7 +14,6 @@ export const useAppData = () => {
 
   return query;
 };
-
 
 export const useAppActions = () => {
   const context = useContext(Context);

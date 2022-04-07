@@ -6,7 +6,7 @@ import {
   MuiThemeProvider,
   createTheme,
   makeStyles,
-  withStyles
+  withStyles,
 } from '@material-ui/core/styles';
 import { ToastContainer } from 'react-toastify';
 import pink from '@material-ui/core/colors/pink';
@@ -31,6 +31,7 @@ import {
   REACT_APP_VERSION,
   REACT_APP_GOOGLE_ANALYTICS_ID,
 } from '../config/env';
+import { AppProvider } from './context/AppContext';
 
 // TODO: Change (somehow)
 ReactGa.initialize(REACT_APP_GOOGLE_ANALYTICS_ID);
@@ -83,11 +84,13 @@ const Root = () => {
     <div className={classes.root}>
       <MuiThemeProvider theme={theme}>
         <I18nextProvider i18n={i18nConfig}>
-          <QueryClientProvider client={queryClient}>  
+          <QueryClientProvider client={queryClient}>
             <ContextProvider>
-            <TokenProvider>
-              <App />
-            </TokenProvider>
+              <TokenProvider>
+                <AppProvider>
+                  <App />
+                </AppProvider>
+              </TokenProvider>
             </ContextProvider>
             {process.env.NODE_ENV === 'development' && (
               <ReactQueryDevtools initialIsOpen />

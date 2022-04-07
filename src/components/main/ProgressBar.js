@@ -5,7 +5,7 @@ const ProgressBar = ({ numberOfCompletedTasks, totalNumberOfTasks }) => {
   const completionRatio = Math.floor(
     (numberOfCompletedTasks / totalNumberOfTasks) * 100,
   );
-  const progress = completionRatio?? 0;
+  const progress = completionRatio ?? 0;
 
   const Parentdiv = {
     height: 20,
