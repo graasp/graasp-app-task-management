@@ -3,10 +3,10 @@ import { v4 } from 'uuid';
 const buildDatabase = (appContext) => ({
   appData: [],
   members: [
-    // {
-    //   id: appContext.memberId,
-    //   name: appContext.memberName,
-    // },
+    {
+      id: appContext.memberId,
+      name: appContext.memberName,
+    },
     {
       id: v4(),
       name: 'Alex',

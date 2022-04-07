@@ -1,22 +1,24 @@
+/* eslint-disable no-shadow */
 import React, { useState, useEffect } from 'react';
-import Task from './main/Task';
-import Students from './main/Students';
-import Footer from './main/Footer';
 import { MdAddCircle } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import _ from 'lodash';
+import { v4 } from 'uuid';
 import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { ACTION_TYPES } from '../config/actionTypes';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { useAppData } from './context/appData';
-import _ from 'lodash';
-import { v4 } from 'uuid';
+import Task from './main/Task';
+import Students from './main/Students';
+import Footer from './main/Footer';
 
 const App = () => {
-
-
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
+  // const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
+  const [tasks, setTasks] = useState([]);
+  // const [tmpCopy, setTmpCopy] = useState({});
 
   const {
     data: appData,
@@ -24,15 +26,8 @@ const App = () => {
     isSuccess: isAppDataSuccess,
   } = useAppData();
 
-  useEffect(() => {
-    if (isAppDataSuccess) {
-      setTasks(appData.filter(({ type }) => type === APP_DATA_TYPES.TASK));
-    }
-  }, [appData, isAppDataSuccess]);
-
-  const { t } = useTranslation();
-  const [itemsList, setItemsList] = useState({
-    todo: {
+  const defaultList={
+    todo:{
       title: 'To Do',
       items: [],
     },
@@ -44,8 +39,35 @@ const App = () => {
       title: 'Completed',
       items: [],
     },
-  });
-  const [tasks, setTasks] = useState([]);
+  };
+
+  const [itemsList, setItemsList] = useState(defaultList);
+
+  useEffect(() => {
+    let tmp={};
+    if (isAppDataSuccess) {
+      
+      tmp=appData.filter(({ type }) => type === APP_DATA_TYPES.TASKSLIST);
+      if (tmp.size===0) {
+        setItemsList(defaultList);
+        postAppData({
+          data: itemsList,
+          type: APP_DATA_TYPES.TASKSLIST,
+          visibility: 'item',
+        });
+      }
+      else{
+        // TODO: DELETE
+        /* eslint-disable-next-line no-underscore-dangle */
+        setItemsList(tmp._tail.array[tmp._tail.array.length-1].data);
+        }
+    }
+    
+  }, [appData, isAppDataSuccess]);
+
+
+  const { t } = useTranslation();
+
   const [task, setTask] = useState({
     title: '',
     description: '',
@@ -61,63 +83,21 @@ const App = () => {
   const [editingTitle, setEditingTitle] = useState('');
   const [editingDescription, setEditingDescription] = useState('');
 
-  useEffect(() => {
-    const json = localStorage.getItem('tasks');
-    const loadedtasks = JSON.parse(json);
-    if (loadedtasks) {
-      setTasks(loadedtasks);
-    }
-  }, []);
-
-  useEffect(() => {
-    const json = JSON.stringify(tasks);
-    localStorage.setItem('tasks', json);
-  }, [tasks]);
-
-  useEffect(() => {
-    const dataFormLocalStorage = localStorage.getItem('task-input');
-    if (dataFormLocalStorage) {
-      setTaskInput(JSON.parse(dataFormLocalStorage));
-    }
-  }, [setTaskInput]);
-
-  useEffect(() => {
-    localStorage.setItem('task-input', JSON.stringify(taskInput));
-  }, [taskInput]);
-
-  const inputKeyDown = (event) => {
-    if (event.keyCode === 13) {
-      handleAdd(event);
-    }
-  };
-  useEffect(() => {
-    const json = localStorage.getItem('itemsList');
-    const loadedTasks = JSON.parse(json);
-    if (loadedTasks) {
-      setItemsList(loadedTasks);
-    }
-  }, []);
-
-  useEffect(() => {
-    const json = JSON.stringify(itemsList);
-    localStorage.setItem('itemsList', json);
-  }, [itemsList]);
-
-  //Add task
-
+  // Add task
   const handleAdd = (e) => {
     e.preventDefault();
+
     const newTask = {
       id: v4(),
       title: task.title,
       description: task.description,
       members: task.members,
+      label: 'To Do',
     };
     if (!task.title || !task.title.length || !task.title.trim().length) return;
     setTasks([...tasks, newTask]);
     setTask({ title: '', description: '', members: [] });
-    setItemsList((prev) => {
-      return {
+    setItemsList((prev) => ({
         ...prev,
         todo: {
           title: 'To Do',
@@ -129,33 +109,17 @@ const App = () => {
               members: newTask.members,
             },
             ...prev.todo.items,
-          ],
-        },
-      };
-    });
-    setTaskInput((prev) => {
-      return { ...prev, title: '' };
-    });
+          ]
+        }
+      }));
 
-    postAppData({
-      data: task,
-      type: APP_DATA_TYPES.TASK,
-      visibility: 'item',
-    });
+  setTaskInput((prev) => ({ ...prev, title: '' }));
+  };
 
-    // postAppData({
-    //   data: itemsList,
-    //   type: APP_DATA_TYPES.TASKSLIST,
-    //   visibility: 'item',
-    // });
-
-    postAction({
-      type: ACTION_TYPES.ADD,
-      data: {
-        task: newTask,
-        id: newTask.id,
-      },
-    });
+  const inputKeyDown = (event) => {
+    if (event.keyCode === 13) {
+      handleAdd(event);
+    }
   };
 
   const itemsCategory = (title) => {
@@ -168,13 +132,14 @@ const App = () => {
     if (title === 'Completed') {
       return 'completed';
     }
+    return null;
   };
 
-  //Delete task
+  // Delete task
 
   const deleteTask = (id, title) => {
-    let updatedTasks = [...itemsList[itemsCategory(title)].items].filter(
-      (task) => task.id !== id,
+    const updatedTasks = [...itemsList[itemsCategory(title)].items].filter(
+      (ta) => ta.id !== id,
     );
     setTasks(updatedTasks);
     setItemsList((prev) => {
@@ -205,43 +170,24 @@ const App = () => {
           },
         };
       }
-    });
-    postAppData({
-      data: itemsList,
-      type: APP_DATA_TYPES.TASKSLIST,
-      visibility: 'item',
-    });
-
-    postAction({
-      type: ACTION_TYPES.DELETE,
-      data: id,
+      return null;
     });
   };
 
-  //Edit title
+  // Edit title
   const submitTitleEdits = (id, listTitle) => {
     const updatedTasks = [...itemsList[itemsCategory(listTitle)].items].map(
-      (task) => {
-        if (task.id === id) {
+      (ta) => {
+        if (ta.id === id) {
           if (editingTitle.trim().length !== 0) {
-            task.title = editingTitle;
+            const newTask = {
+              ...ta,
+              title: editingTitle,
+            };
+            return newTask;
           }
-
-          postAppData({
-            data: task,
-            type: APP_DATA_TYPES.TASK,
-            visibility: 'item',
-          });
-
-          postAction({
-            type: ACTION_TYPES.EDIT,
-            data: {
-              task: task,
-              id: task.id,
-            },
-          });
         }
-        return task;
+        return null;
       },
     );
     setTasks(updatedTasks);
@@ -274,33 +220,25 @@ const App = () => {
           },
         };
       }
+      return null;
     });
   };
 
-  //Edit description
+  // Edit description
 
   const submitDescriptionEdits = (id, listTitle) => {
     const updatedTasks = [...itemsList[itemsCategory(listTitle)].items].map(
-      (task) => {
-        if (task.id === id) {
+      (ta) => {
+        if (ta.id === id) {
           if (editingDescription.trim().length !== 0) {
-            task.description = editingDescription;
+            const newTask = {
+              ...ta,
+              description: editingDescription,
+            }
+            return newTask;
           }
-          postAppData({
-            data: task,
-            type: APP_DATA_TYPES.TASK,
-            visibility: 'item',
-          });
-
-          postAction({
-            type: ACTION_TYPES.EDIT,
-            data: {
-              task: task,
-              id: task.id,
-            },
-          });
         }
-        return task;
+        return null;
       },
     );
     setTasks(updatedTasks);
@@ -333,6 +271,7 @@ const App = () => {
           },
         };
       }
+      return null;
     });
   };
 
@@ -351,8 +290,8 @@ const App = () => {
     // Creating a copy of item before removing it from itemsList
     const itemCopy = { ...itemsList[source.droppableId].items[source.index] };
 
-    setItemsList((prev) => {
-      prev = { ...prev };
+    setItemsList((previousItemsList) => {
+      const prev = { ...previousItemsList };
       // Remove from previous items array
       prev[source.droppableId].items.splice(source.index, 1);
 
@@ -365,11 +304,6 @@ const App = () => {
 
       return prev;
     });
-    // postAppData({
-    //   data: itemCopy,
-    //   type: APP_DATA_TYPES.TASK,
-    //   visibility: 'item',
-    // });
 
     postAction({
       type: ACTION_TYPES.MOVE,
@@ -380,21 +314,37 @@ const App = () => {
     });
   };
 
+  const saveAction=()=>{
+    const updatedList = {
+      ...itemsList,
+    };
+    postAppData({
+      data: updatedList,
+      type: APP_DATA_TYPES.TASKSLIST,
+      visibility: 'item',
+    });
+  }
+
   let totalNumberOfTasks = 0;
-
+ 
+  /* eslint-disable-next-line no-return-assign */
   _.map(itemsList, (data) => (totalNumberOfTasks += data.items.length));
-
   return (
-    <div class="row">
-      <div class="column" className="members-column">
+    <div className="row">
+      <div className="members-column column">
         <Students tasks={tasks} setTasks={setTasks} />
+        <button
+        type='button'
+        onClick={saveAction}
+        >
+            Save
+          </button>
       </div>
-      <div className="App" class="column">
+      <div className="App column">
         <div className="row">
           <DragDropContext onDragEnd={handleDragEnd}>
-            {_.map(itemsList, (data, key) => {
-              return (
-                <div key={key} className={'column'}>
+            {_.map(itemsList, (data, key) => (
+                <div key={key} className='column'>
                   <div>
                     <h3 style={{ color: 'black', textAlign: 'center' }}>
                       {data.title}&nbsp;
@@ -405,12 +355,13 @@ const App = () => {
                   </div>
 
                   <Droppable droppableId={key}>
-                    {(provided, snapshot) => {
-                      return (
+                    {(provided,) => (
                         <div
                           ref={provided.innerRef}
+                          // TODO: DELETE
+                          /* eslint-disable-next-line react/jsx-props-no-spreading */
                           {...provided.droppableProps}
-                          className={'droppable-col'}
+                          className='droppable-col'
                         >
                           {data.title === 'To Do' ? (
                             <div>
@@ -461,18 +412,20 @@ const App = () => {
                           ) : null}
 
                           {data.items.length ? (
-                            data.items.map((task, index) => {
-                              return (
+                            data.items.map((task, index) => (
                                 <Draggable
                                   key={task.id}
                                   index={index}
                                   draggableId={task.id}
                                 >
-                                  {(provided, snapshot) => {
-                                    return (
+                                  {(provided, snapshot) => (
                                       <div
                                         ref={provided.innerRef}
+                                        // TODO: DELETE
+                                        /* eslint-disable-next-line react/jsx-props-no-spreading */
                                         {...provided.draggableProps}
+                                        // TODO: DELETE
+                                        /* eslint-disable-next-line react/jsx-props-no-spreading */
                                         {...provided.dragHandleProps}
                                       >
                                         <Task
@@ -505,11 +458,11 @@ const App = () => {
                                           }
                                         />
                                       </div>
-                                    );
-                                  }}
+                                    )
+                                  }
                                 </Draggable>
-                              );
-                            })
+                              )
+                            )
                           ) : (
                             <p className="no-item-text">
                               &nbsp;No Tasks {data.title}{' '}
@@ -517,15 +470,15 @@ const App = () => {
                           )}
                           {provided.placeholder}
                         </div>
-                      );
-                    }}
+                      )
+                    }
                   </Droppable>
                 </div>
-              );
-            })}
+              )
+            )}
           </DragDropContext>
         </div>
-        <div className="clear"></div>
+        <div className="clear" />
       </div>
       <Footer
         numberOfCompletedTasks={itemsList.completed.items.length}

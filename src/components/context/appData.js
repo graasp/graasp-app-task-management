@@ -12,6 +12,7 @@ export const useAppData = () => {
     { token, itemId: context?.get('itemId') },
     RE_FETCH_INTERVAL,
   );
+
   return query;
 };
 

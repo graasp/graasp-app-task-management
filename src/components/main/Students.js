@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { t } from 'i18next';
 import { MdSupervisedUserCircle } from 'react-icons/md';
 import { useAppContext } from '../context/appData';
-import { t } from 'i18next';
 
 const Students = () => {
   const [students, setStudents] = useState([]);

@@ -1,8 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ProgressBar from './ProgressBar';
 
-const Footer = ({ totalNumberOfTasks, numberOfCompletedTasks }) => {
-  return (
+const Footer = ({ totalNumberOfTasks, numberOfCompletedTasks }) => (
     <div className="main-footer">
       <h4 style={{ color: 'black' }}>
         {totalNumberOfTasks/numberOfCompletedTasks===1
@@ -15,6 +15,10 @@ const Footer = ({ totalNumberOfTasks, numberOfCompletedTasks }) => {
       />
     </div>
   );
+
+Footer.propTypes = {
+  totalNumberOfTasks: PropTypes.number.isRequired,
+  numberOfCompletedTasks: PropTypes.number.isRequired,
 };
 
 export default Footer;
