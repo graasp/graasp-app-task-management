@@ -160,7 +160,7 @@ input:focus {
   min-width: 1000px;
   overflow: auto;
 }
-@media only screen and (max-width: 1920px) and (min-width: 1700px) {
+@media only screen and (max-width: 1920px) and (min-width: 1500px) {
 
   .droppable-col {
     width: 27em;
@@ -377,8 +377,8 @@ input:focus {
     justify-content: flex-start;
     align-items: center;
     padding: 30px 20px;
-    margin-left: 20px;
-    margin-right: 50px;
+    margin-left: 3em;
+    margin-right: 3em;
   }
   .text-input {
     border: #4181bd 1px solid;
