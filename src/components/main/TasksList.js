@@ -41,17 +41,16 @@ const TasksList = ({
             {tasks.length ? (
               tasks.map((task, index) => (
                 <Draggable key={task.id} index={index} draggableId={task.id}>
-                    {console.debug("✏️ Display task:", task)}
-                  {/* eslint-disable-next-line no-shadow */}
-                  {(provided, snapshot) => (
+                    
+                  {(provided2, snapshot) => (
                     <div
-                      ref={provided.innerRef}
+                      ref={provided2.innerRef}
                       // TODO: DELETE
                       /* eslint-disable-next-line react/jsx-props-no-spreading */
-                      {...provided.draggableProps}
+                      {...provided2.draggableProps}
                       // TODO: DELETE
                       /* eslint-disable-next-line react/jsx-props-no-spreading */
-                      {...provided.dragHandleProps}
+                      {...provided2.dragHandleProps}
                     >
                       <Task
                         className={snapshot.isDragging && 'dragging'}

@@ -18,6 +18,7 @@ const AddTask = ({ addTask, label }) => {
       },
     };
     addTask(newTask);
+    setNewTaskTitle("");
   };
 
   const inputKeyDown = (event) => {

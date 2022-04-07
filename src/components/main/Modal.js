@@ -48,18 +48,18 @@ const Modal = ({ task, updateTask }) => {
   const removeMembers = (member) => {
     const newTask = {
       ...task,
-      members: [...members.filter((m) => m !== member)],
+      data: {
+        ...data,
+        members: [...members.filter((m) => m !== member)],
+      }
     };
+    console.debug("The task with a member removed is: ", newTask);
     updateTask(newTask);
   };
 
   const onDrop = (ev) => {
     const member = ev.dataTransfer.getData('member');
     addMembers(member);
-  };
-
-  const handleRemoveMembers = (member) => {
-    removeMembers(member);
   };
 
   return (
@@ -88,7 +88,7 @@ const Modal = ({ task, updateTask }) => {
                 <br />
 
                 <div>
-                  {task.id === isEditingDescription ? (
+                  {id === isEditingDescription ? (
                     <div>
                       <TextField
                         className="description-text-box"
@@ -130,7 +130,8 @@ const Modal = ({ task, updateTask }) => {
                       inputProps={{ style: { fontSize: '0.8em' } }}
                       placeholder={t(' Task Description')}
                       onClick={() => setIsEditingDescription(id)}
-                      value={description}
+                      onChange={handleDescriptionChange}
+                      value={editingDescription}
                     />
                   )}
                 </div>
@@ -145,20 +146,20 @@ const Modal = ({ task, updateTask }) => {
                   <div>
                     <div
                       className={
-                        task.members.length
+                        members.length
                           ? 'members-text '
                           : 'no-members-text'
                       }
                     >
-                      {task.members.length
-                        ? task.members.map((member) => (
+                      {members.length
+                        ? members.map((member) => (
                             <small>
                               {member}
                               <sup>
                                 {' '}
                                 <MdCancel
                                   className="remove-member-button"
-                                  onClick={() => handleRemoveMembers(member)}
+                                  onClick={() => removeMembers(member)}
                                   title={`Remove ${member}`}
                                 />
                                 &nbsp;&nbsp;

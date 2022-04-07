@@ -43,7 +43,7 @@ const App = () => {
   };
 
   const deleteTask = (id) => {
-    deleteAppData(id);
+    deleteAppData({id});
   };
 
   const handleDragEnd = ({ destination, source }) => {
@@ -58,17 +58,26 @@ const App = () => {
       return;
     }
 
-    const draggedTask = tasks.filter(
-      ({ data }) => data.label === source.droppableId,
-    )[source.index];
+    const labelledTasks = [...tasks.filter(({ data }) => data.label === source.droppableId)];
 
-    updateTask({
+    console.debug("The relevant tasks are:", labelledTasks);
+
+    const draggedTask = labelledTasks[source.index];
+
+    console.debug("Destination: ", destination);
+    console.debug("Source: ", source);
+
+    const newTask = {
       ...draggedTask,
       data: {
         ...draggedTask.data,
         label: destination.droppableId,
       },
-    });
+    };
+
+    console.debug("Newtask: ", newTask);
+
+    updateTask(newTask);
   };
 
   const totalNumberOfTasks = tasks.length;

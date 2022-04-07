@@ -11,7 +11,7 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
 
   const { id, data } = task;
 
-  const { title, members } = data;
+  const { title, members, completed } = data;
 
   const [focused, setFocused] = useState(false);
   const [seen, setSeen] = useState(false);
@@ -59,12 +59,12 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
   };
 
   const onDrop = (ev) => {
-    console.log('⚙️ A member is being added...');
+    // console.log('⚙️ A member is being added...');
     setFocused(false);
     const member = ev.dataTransfer.getData('member');
-    console.debug('🧑 The added member is:', member);
+    // console.debug('🧑 The added member is:', member);
     addMembers(member);
-    console.log('☑️ A member was added: ', task.members);
+    // console.log('☑️ A member was added: ', task.members);
   };
 
   const renderConditional = () => (
@@ -101,7 +101,7 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
                 alignContent: 'center',
               }}
             >
-              {task.title}
+              {title}
             </span>
           )}
 
@@ -134,7 +134,7 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
           </div>
         </div>
       </div>
-      {task.completed ? ' ' : renderConditional()}
+      {completed ? ' ' : renderConditional()}
     </div>
   );
 };
