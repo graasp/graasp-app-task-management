@@ -9,11 +9,13 @@ import Footer from './main/Footer';
 import TasksList from './main/TasksList';
 import { TASK_LABELS } from '../config/settings';
 
+let completedTasks=0;
 const App = () => {
   // const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: deleteAppData } = useMutation(MUTATION_KEYS.DELETE_APP_DATA);
+  
   const [tasks, setTasks] = useState([]);
 
   const {
@@ -33,6 +35,7 @@ const App = () => {
       }
     }
   }, [appData, isAppDataSuccess, isAppDataLoading]);
+
 
   const addTask = (newTask) => {
     postAppData(newTask);
@@ -80,10 +83,14 @@ const App = () => {
     updateTask(newTask);
   };
 
-  const totalNumberOfTasks = tasks.length;
+  const totalNumberOfTasks = tasks.size;
 
   const renderTasksList = (title, label, add = false) => {
     const tasksArray = [...tasks.filter(({ data }) => data.label === label)];
+
+    const completedTasksArray = [tasks.filter(({ data })=>(data.label ==="completed"))];
+    completedTasks=completedTasksArray[0].size;
+   
     console.debug("The tasks in ", label, " are: ", tasksArray);
     return (
       <TasksList
@@ -96,6 +103,9 @@ const App = () => {
         deleteTask={deleteTask}
       />
   )};
+  console.log('completed',completedTasks);
+  console.log('total',totalNumberOfTasks);
+
 
   return (
     <div className="row">
@@ -113,7 +123,7 @@ const App = () => {
         <div className="clear" />
       </div>
       <Footer
-        numberOfCompletedTasks={7}
+        numberOfCompletedTasks={completedTasks}
         totalNumberOfTasks={totalNumberOfTasks}
       />
     </div>

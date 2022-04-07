@@ -5,8 +5,15 @@ const ProgressBar = ({ numberOfCompletedTasks, totalNumberOfTasks }) => {
   const completionRatio = Math.floor(
     (numberOfCompletedTasks / totalNumberOfTasks) * 100,
   );
-  const progress = completionRatio ?? 0;
 
+  let progress = 0;
+
+  if (numberOfCompletedTasks === 0 && totalNumberOfTasks === 0) {
+    progress = 0;
+  } else {
+    progress = completionRatio;
+  }
+  
   const Parentdiv = {
     height: 20,
     width: '300px',
@@ -36,9 +43,9 @@ const ProgressBar = ({ numberOfCompletedTasks, totalNumberOfTasks }) => {
   return (
     <div style={Parentdiv}>
       <div style={Childdiv}>
-        <span
-          style={progresstext}
-        >{`${numberOfCompletedTasks}/${totalNumberOfTasks}`}</span>
+        <span style={progresstext}>{`${numberOfCompletedTasks}/${
+          totalNumberOfTasks ?? ''
+        }`}</span>
       </div>
     </div>
   );
