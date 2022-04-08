@@ -8,12 +8,16 @@ import Students from './main/Students';
 import Footer from './main/Footer';
 import TasksList from './main/TasksList';
 import { TASK_LABELS } from '../config/settings';
+import DownloadActions from './main/DownloadActions';
+import { ACTION_TYPES } from '../config/actionTypes';
+
 
 let completedTasks = 0;
 const App = () => {
-  // const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
+  
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
+  const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: deleteAppData } = useMutation(MUTATION_KEYS.DELETE_APP_DATA);
 
   const [tasks, setTasks] = useState([]);
@@ -38,14 +42,34 @@ const App = () => {
 
   const addTask = (newTask) => {
     postAppData(newTask);
+    postAction({
+      type: ACTION_TYPES.ADD,
+      data: {
+        note: newTask.data,
+        id: newTask.id,
+      },
+    });
   };
 
   const updateTask = (newTask) => {
     patchAppData(newTask);
+    postAction({
+      type: ACTION_TYPES.EDIT,
+      data: {
+        note: newTask.data,
+        id: newTask.id,
+      },
+    });
   };
 
   const deleteTask = (id) => {
     deleteAppData({ id });
+    postAction({
+      type: ACTION_TYPES.DELETE,
+      data: {
+        id,
+      },
+    });
   };
 
   const handleDragEnd = ({ destination, source }) => {
@@ -113,8 +137,9 @@ const App = () => {
   return (
     <div className="row">
       <div className="members-column column">
-        <Students tasks={tasks} setTasks={setTasks} />
+        <Students tasks={tasks} setTasks={setTasks} /> 
       </div>
+      <DownloadActions />
       <div className="App column">
         <div className="row" style={{ paddingLeft:'13em' }}>
           <DragDropContext onDragEnd={handleDragEnd}>
