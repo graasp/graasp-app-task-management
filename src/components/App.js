@@ -9,13 +9,13 @@ import Footer from './main/Footer';
 import TasksList from './main/TasksList';
 import { TASK_LABELS } from '../config/settings';
 
-let completedTasks=0;
+let completedTasks = 0;
 const App = () => {
   // const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: deleteAppData } = useMutation(MUTATION_KEYS.DELETE_APP_DATA);
-  
+
   const [tasks, setTasks] = useState([]);
 
   const {
@@ -36,7 +36,6 @@ const App = () => {
     }
   }, [appData, isAppDataSuccess, isAppDataLoading]);
 
-
   const addTask = (newTask) => {
     postAppData(newTask);
   };
@@ -46,7 +45,7 @@ const App = () => {
   };
 
   const deleteTask = (id) => {
-    deleteAppData({id});
+    deleteAppData({ id });
   };
 
   const handleDragEnd = ({ destination, source }) => {
@@ -61,14 +60,16 @@ const App = () => {
       return;
     }
 
-    const labelledTasks = [...tasks.filter(({ data }) => data.label === source.droppableId)];
+    const labelledTasks = [
+      ...tasks.filter(({ data }) => data.label === source.droppableId),
+    ];
 
-    console.debug("The relevant tasks are:", labelledTasks);
+    console.debug('The relevant tasks are:', labelledTasks);
 
     const draggedTask = labelledTasks[source.index];
 
-    console.debug("Destination: ", destination);
-    console.debug("Source: ", source);
+    console.debug('Destination: ', destination);
+    console.debug('Source: ', source);
 
     const newTask = {
       ...draggedTask,
@@ -78,7 +79,7 @@ const App = () => {
       },
     };
 
-    console.debug("Newtask: ", newTask);
+    console.debug('Newtask: ', newTask);
 
     updateTask(newTask);
   };
@@ -88,22 +89,26 @@ const App = () => {
   const renderTasksList = (title, label, add = false) => {
     const tasksArray = [...tasks.filter(({ data }) => data.label === label)];
 
-    const completedTasksArray = [tasks.filter(({ data })=>(data.label ==="completed"))];
-    completedTasks=completedTasksArray[0].size;
-   
-    console.debug("The tasks in ", label, " are: ", tasksArray);
-    return (
-      <TasksList
-        title={title}
-        label={label}
-        tasks={tasksArray}
-        addComponent={add}
-        addTask={addTask}
-        updateTask={updateTask}
-        deleteTask={deleteTask}
-      />
-  )};
+    const completedTasksArray = [
+      tasks.filter(({ data }) => data.label === 'completed'),
+    ];
+    completedTasks = completedTasksArray[0].size;
 
+    console.debug('The tasks in ', label, ' are: ', tasksArray);
+    return (
+      <div>
+        <TasksList
+          title={title}
+          label={label}
+          tasks={tasksArray}
+          addComponent={add}
+          addTask={addTask}
+          updateTask={updateTask}
+          deleteTask={deleteTask}
+        />
+      </div>
+    );
+  };
 
   return (
     <div className="row">
@@ -111,7 +116,7 @@ const App = () => {
         <Students tasks={tasks} setTasks={setTasks} />
       </div>
       <div className="App column">
-        <div className="row">
+        <div className="row" style={{ paddingLeft:'13em' }}>
           <DragDropContext onDragEnd={handleDragEnd}>
             {renderTasksList('To Do', TASK_LABELS.TODO, true)}
             {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}

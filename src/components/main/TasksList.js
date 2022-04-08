@@ -17,60 +17,59 @@ const TasksList = ({
   addComponent,
 }) => {
   return (
-    <div style={{alignItems: 'center'}}>
-    <div key={label} className="column">
-      <div>
-        <h3 style={{ color: 'black', alignItems:"self-end"}}>
-          {title}&nbsp;
-          <sup style={{ color: 'rgb(201, 59, 59)' }}>
-            <small>{tasks.length}</small>
-          </sup>
-        </h3>
+    <div>
+      <div key={label} className="column" style={{ alignItems: 'center' }}>
+        <div style={{alignItems:'center'}}>
+          <h3 style={{ color: 'black',textAlign:'center'}}>
+            {title}&nbsp;
+            <sup style={{ color: 'rgb(201, 59, 59)' }}>
+              <small>{tasks.length}</small>
+            </sup>
+          </h3>
+        </div>
+
+        <Droppable droppableId={label}>
+          {(provided) => (
+            <div
+              ref={provided.innerRef}
+              // TODO: DELETE
+              /* eslint-disable-next-line react/jsx-props-no-spreading */
+              {...provided.droppableProps}
+              className="droppable-col"
+            >
+              {addComponent && <AddTask addTask={addTask} label={label} />}
+
+              {tasks.length ? (
+                tasks.map((task, index) => (
+                  <Draggable key={task.id} index={index} draggableId={task.id}>
+                    {(provided2, snapshot) => (
+                      <div
+                        ref={provided2.innerRef}
+                        // TODO: DELETE
+                        /* eslint-disable-next-line react/jsx-props-no-spreading */
+                        {...provided2.draggableProps}
+                        // TODO: DELETE
+                        /* eslint-disable-next-line react/jsx-props-no-spreading */
+                        {...provided2.dragHandleProps}
+                      >
+                        <Task
+                          className={snapshot.isDragging && 'dragging'}
+                          task={task}
+                          updateTask={updateTask}
+                          deleteTask={deleteTask}
+                        />
+                      </div>
+                    )}
+                  </Draggable>
+                ))
+              ) : (
+                <p className="no-item-text">&nbsp;No Tasks {title} </p>
+              )}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
       </div>
-
-      <Droppable droppableId={label}>
-        {(provided) => (
-          <div
-            ref={provided.innerRef}
-            // TODO: DELETE
-            /* eslint-disable-next-line react/jsx-props-no-spreading */
-            {...provided.droppableProps}
-            className="droppable-col"
-          >
-            {addComponent && <AddTask addTask={addTask} label={label} />}
-
-            {tasks.length ? (
-              tasks.map((task, index) => (
-                <Draggable key={task.id} index={index} draggableId={task.id}>
-                    
-                  {(provided2, snapshot) => (
-                    <div
-                      ref={provided2.innerRef}
-                      // TODO: DELETE
-                      /* eslint-disable-next-line react/jsx-props-no-spreading */
-                      {...provided2.draggableProps}
-                      // TODO: DELETE
-                      /* eslint-disable-next-line react/jsx-props-no-spreading */
-                      {...provided2.dragHandleProps}
-                    >
-                      <Task
-                        className={snapshot.isDragging && 'dragging'}
-                        task={task}
-                        updateTask={updateTask}
-                        deleteTask={deleteTask}
-                      />
-                    </div>
-                  )}
-                </Draggable>
-              ))
-            ) : (
-              <p className="no-item-text">&nbsp;No Tasks {title} </p>
-            )}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
-    </div>
     </div>
   );
 };
