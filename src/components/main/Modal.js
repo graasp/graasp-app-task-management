@@ -42,7 +42,10 @@ const Modal = ({ task, updateTask }) => {
   const addMembers = (member) => {
     const newTask = {
       ...task,
-      members: [...members, member],
+      data: {
+        ...data,
+        members: [...members, member],
+      },
     };
     updateTask(newTask);
   };
@@ -66,15 +69,15 @@ const Modal = ({ task, updateTask }) => {
 
   return (
     <div
-      className="modal droppable"
+      className="modal droppable" 
       onDragOver={(e) => onDragOver(e)}
       onDrop={(e) => onDrop(e)}
+      
     >
-      <div className="modal_content">
-        <div className="date-footer row">
-          <div className="col-md-6">
-            <div className="col-md-12">
-              <div className="date-footer">
+        <div className="column"  >
+          <div>
+          <div className="row">
+              <div>
                 <br />
                 {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                 <label
@@ -138,14 +141,12 @@ const Modal = ({ task, updateTask }) => {
                   )}
                 </div>
               </div>
-            </div>
+            
           </div>
           <div className="col-md-6">
             <div className="col-md-12">
               <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
-              <div className="date-footer">
-                <div>
-                  <div>
+              <div>
                     <div
                       className={
                         members.length
@@ -172,14 +173,11 @@ const Modal = ({ task, updateTask }) => {
                     </div>{' '}
                   </div>
                 </div>
-
+                </div>
                 <br />
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
   );
 };
 
