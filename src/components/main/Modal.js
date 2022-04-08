@@ -1,10 +1,9 @@
-import React, { useCallback, useContext, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { MdCancel, MdOutlineDone } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import TextField from '@material-ui/core/TextField';
 import { taskProp } from '../../types/props_types';
-import { AppContext } from '../context/AppContext';
 
 const Modal = ({ task, updateTask }) => {
   const { t } = useTranslation();
@@ -12,9 +11,8 @@ const Modal = ({ task, updateTask }) => {
   const { id, data } = task;
 
   const { description, members } = data;
-
-  const { isEditingDescription, setIsEditingDescription } =
-    useContext(AppContext);
+  
+  const [isEditingDescription, setIsEditingDescription] = useState(null);
 
   const [editingDescription, setEditingDescription] = useState(description);
 
@@ -28,9 +26,13 @@ const Modal = ({ task, updateTask }) => {
   const saveDescription = () => {
     const newTask = {
       ...task,
-      description: editingDescription,
+      data: {
+        ...data,
+        description: editingDescription,
+      },
     };
     updateTask(newTask);
+    setIsEditingDescription(false)
   };
 
   const onDragOver = (ev) => {

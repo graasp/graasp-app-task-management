@@ -1,10 +1,9 @@
-import React, { useState, useCallback, useContext } from 'react';
+import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete, MdOutlineSubject } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import Modal from './Modal';
 import { taskProp } from '../../types/props_types';
-import { AppContext } from '../context/AppContext';
 
 const Task = ({ task, updateTask, deleteTask, className }) => {
   const { t } = useTranslation();
@@ -15,8 +14,9 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
 
   const [focused, setFocused] = useState(false);
   const [seen, setSeen] = useState(false);
-  const [editedTitle, setEditedTitle] = useState();
-  const { isEditingTitle, setIsEditingTitle } = useContext(AppContext);
+  const [editedTitle, setEditedTitle] = useState("");
+  const [isEditingTitle, setIsEditingTitle] = useState(null);
+  // const { isEditingTitle, setIsEditingTitle } = useContext(AppContext);
 
   const addMembers = (member) => {
     const newTask = {
@@ -44,6 +44,7 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
         },
       };
       updateTask(newTask);
+      setIsEditingTitle(false);
     }
   };
 
