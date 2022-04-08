@@ -160,7 +160,7 @@ input:focus {
   min-width: 1000px;
   overflow: auto;
 }
-@media only screen and (max-width: 1920px) and (min-width: 1500px) {
+@media only screen and (max-width: 2600px) and (min-width: 1500px) {
 
   .droppable-col {
     width: 27em;
@@ -169,7 +169,7 @@ input:focus {
     display: flex;
     flex-direction: column;
     min-height: 50vh;
-    min-width: 44vh;
+    min-width: 50vh;
     text-align: center;
     color: white;
     justify-content: flex-start;
