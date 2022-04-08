@@ -19,11 +19,12 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
   // const { isEditingTitle, setIsEditingTitle } = useContext(AppContext);
 
   const addMembers = (member) => {
+    const newMembers=[...members, member];
     const newTask = {
       ...task,
       data: {
         ...data,
-        members: [...members, member],
+        members : [...new Set(newMembers)]
       },
     };
     updateTask(newTask);
