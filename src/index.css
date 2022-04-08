@@ -564,6 +564,9 @@ input[type='text'] {
 .App .column {
   width: 30%;
 }
+.other-column{
+  width:100%;
+}
 .dragging {
   background-color: rgb(168, 214, 245);
 }
