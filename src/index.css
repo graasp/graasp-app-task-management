@@ -307,7 +307,6 @@ input:focus {
     margin-right: 50px;
   }
   .text-input {
-    border: #d1e756 1px solid;
     outline: none;
     border-radius: 1.5625em;
     width: 13em;
@@ -381,7 +380,6 @@ input:focus {
     margin-right: 3em;
   }
   .text-input {
-    border: #4181bd 1px solid;
     outline: none;
     border-radius: 1.5625em;
     width: 13em;
