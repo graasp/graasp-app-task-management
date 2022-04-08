@@ -103,8 +103,6 @@ const App = () => {
         deleteTask={deleteTask}
       />
   )};
-  console.log('completed',completedTasks);
-  console.log('total',totalNumberOfTasks);
 
 
   return (

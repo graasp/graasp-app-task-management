@@ -11,7 +11,7 @@ const Modal = ({ task, updateTask }) => {
   const { id, data } = task;
 
   const { description, members } = data;
-  
+
   const [isEditingDescription, setIsEditingDescription] = useState(null);
 
   const [editingDescription, setEditingDescription] = useState(description);

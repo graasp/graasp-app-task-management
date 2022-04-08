@@ -17,9 +17,10 @@ const TasksList = ({
   addComponent,
 }) => {
   return (
+    <div style={{alignItems: 'center'}}>
     <div key={label} className="column">
       <div>
-        <h3 style={{ color: 'black', textAlign: 'center' }}>
+        <h3 style={{ color: 'black', alignItems:"self-end"}}>
           {title}&nbsp;
           <sup style={{ color: 'rgb(201, 59, 59)' }}>
             <small>{tasks.length}</small>
@@ -69,6 +70,7 @@ const TasksList = ({
           </div>
         )}
       </Droppable>
+    </div>
     </div>
   );
 };
