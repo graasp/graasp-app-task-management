@@ -17,6 +17,8 @@ export const DEFAULT_IMAGE_SRC =
 
 export const ROOT_ID = 'root-id';
 
+export const CONTAINER_HEIGHT = 450;
+
 export const DRAWER_WIDTH = 300;
 export const DEFAULT_LOCALE = 'en-US';
 export const DEFAULT_LANG = 'en';
@@ -38,3 +40,11 @@ export const PERMISSION_LEVELS = {
 export const APP_DATA_TYPES = {
   FILE: 'file',
 };
+// strings used in components/custom/CustomTooltip to generate added tooltip text in ActionsByTimeOfDay
+export const LATE_NIGHT = 'Late night';
+export const EARLY_MORNING = 'Early morning';
+export const MORNING = 'Morning';
+export const AFTERNOON = 'Afternoon';
+export const EVENING = 'Evening';
+export const NIGHT = 'Night';
+

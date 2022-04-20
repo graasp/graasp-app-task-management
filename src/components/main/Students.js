@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+/* eslint-disable react/prop-types */
+import React, {  useEffect } from 'react';
 import { t } from 'i18next';
 import { MdSupervisedUserCircle } from 'react-icons/md';
 import { useAppContext } from '../context/appData';
 
-const Students = () => {
-  const [students, setStudents] = useState([]);
+const Students = ({students,setStudents}) => {
+  // const [students, setStudents] = useState([]);
+  
   const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
 
   useEffect(() => {

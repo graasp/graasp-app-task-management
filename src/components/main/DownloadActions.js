@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { makeStyles } from '@material-ui/core/styles';
-// import Typography from '@material-ui/core/Typography';
+import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Button } from '@material-ui/core';
 import { saveAs } from 'file-saver';
@@ -56,9 +56,9 @@ const DownloadActions = () => {
 
   return (
     <div className={classes.toggleContainer}>
-      {/* <Typography className={classes.headerText}>
+      <Typography className={classes.headerText}>
         {t('Download learning analytics.')}
-      </Typography> */}
+      </Typography>
       <FormControlLabel
         control={
           <Button
