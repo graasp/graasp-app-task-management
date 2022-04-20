@@ -2,15 +2,15 @@
 import React, { useContext, useState, useEffect } from 'react';
 
 import { DragDropContext } from 'react-beautiful-dnd';
-import Typography from '@material-ui/core/Typography';
-import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+// import Typography from '@material-ui/core/Typography';
+// import { useTranslation } from 'react-i18next';
+// import { makeStyles } from '@material-ui/core/styles';
 import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { useAppData } from './context/appData';
 import { Context } from './context/ContextContext';
 import Students from './main/Students';
-import MembersProgress from './main/MembersProgress';
+// import MembersProgress from './main/MembersProgress';
 import TasksList from './main/TasksList';
 import {
   TASK_LABELS,
@@ -18,16 +18,17 @@ import {
   PERMISSION_LEVELS,
 } from '../config/settings';
 import { ACTION_TYPES } from '../config/actionTypes';
-import ProgressPanel from './main/ProgressPanel';
+// import ProgressPanel from './main/ProgressPanel';
 import Settings from './main/Settings';
+import ChartsArea from './main/ChartsArea';
 
 let completedTasks = 0;
 
-const useStyles = makeStyles(() => ({
-  headerText: {
-    fontSize: '1.05vw',
-  },
-}));
+// const useStyles = makeStyles(() => ({
+//   headerText: {
+//     fontSize: '1.05vw',
+//   },
+// }));
 
 const App = () => {
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
@@ -35,8 +36,8 @@ const App = () => {
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: deleteAppData } = useMutation(MUTATION_KEYS.DELETE_APP_DATA);
 
-  const classes = useStyles();
-  const { t } = useTranslation();
+  // const classes = useStyles();
+  // const { t } = useTranslation();
 
   const [tasks, setTasks] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -184,18 +185,24 @@ const App = () => {
           </div>
         ) : (
           <div className="row" style={{ paddingLeft: '13em' }}>
-            <Typography className={classes.headerText}>
+            {/* <Typography className={classes.headerText}>
               {t(`Group's Progress`)}
             </Typography>
             <ProgressPanel
               completedTasks={completedTasks}
               totalNumberOfTasks={totalNumberOfTasks}
             />
-            
+
             <Typography className={classes.headerText}>
               {t(`Each Member's Contribution`)}
-            </Typography>
-            <MembersProgress
+            </Typography> */}
+            {/* <MembersProgress
+              tasks={tasks}
+              students={students}
+              completedTasks={completedTasks}
+              totalNumberOfTasks={totalNumberOfTasks}
+            /> */}
+            <ChartsArea
               tasks={tasks}
               students={students}
               completedTasks={completedTasks}

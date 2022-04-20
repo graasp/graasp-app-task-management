@@ -12,6 +12,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import { CONTAINER_HEIGHT } from '../../config/constants';
+
 
 const MembersProgress = ({ tasks, students, totalNumberOfTasks }) => {
   // in completed, I will see how many tasks are done by one student
@@ -46,7 +48,7 @@ const MembersProgress = ({ tasks, students, totalNumberOfTasks }) => {
   
 
   return (
-    <ResponsiveContainer width="100%" height="100%">
+    <ResponsiveContainer width="95%" height={CONTAINER_HEIGHT}>
       <BarChart
         width={500}
         height={300}
