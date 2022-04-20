@@ -2,6 +2,8 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import { makeStyles } from '@material-ui/core/styles';
 import {
   BarChart,
   Bar,
@@ -12,19 +14,37 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
+import Typography from '@material-ui/core/Typography';
 import { CONTAINER_HEIGHT } from '../../config/constants';
+
+const useStyles = makeStyles(() => ({
+  typography: { textAlign: 'center' },
+}));
+
+
+const CustomTooltip = ({ active, payload, label }) => {
+    if (active && payload && payload.length) {
+      return (
+        <div className="custom-tooltip">
+          <p className="label">{`${label} : ${payload[0].value}%`}</p>
+        </div>
+      );
+    }
+  
+    return null;
+  };
 
 
 const MembersProgress = ({ tasks, students, totalNumberOfTasks }) => {
-  // in completed, I will see how many tasks are done by one student
-  const st=students[0].name;
-  console.log(st)
+  const { t } = useTranslation();
+  const classes = useStyles();
+
   const map1 = new Map();
   students.map((student) => map1.set(student.name, 0));
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
       if (arr.includes(member.name)) {
-        map1.set(member.name, (map1.get(member.name) + 1 / arr.length));
+        map1.set(member.name, map1.get(member.name) + 1 / arr.length);
       }
     }
   };
@@ -35,39 +55,48 @@ const MembersProgress = ({ tasks, students, totalNumberOfTasks }) => {
         incrementCount(task.data.label, task.data.members, student);
       });
     }
-  } 
+  }
 
- 
-  
   // eslint-disable-next-line arrow-body-style
-  const arr = Array.from(map1, ([key, participation]) => {
-    return {'name':key,'participation':Math.floor((participation/totalNumberOfTasks)*100)};
+  const arr = Array.from(map1, ([key, contribution]) => {
+    return {
+      name: key,
+      contribution: Math.floor((contribution / totalNumberOfTasks) * 100),
+    };
   });
-  
+
   console.log(arr);
-  
 
   return (
-    <ResponsiveContainer width="95%" height={CONTAINER_HEIGHT}>
-      <BarChart
-        width={500}
-        height={300}
-        data={arr}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Bar dataKey="participation" fill="#8884d8" background={{ fill: '#eee' }} />
-      </BarChart>
-    </ResponsiveContainer>
+    <>
+      <Typography variant="h6" className={classes.typography}>
+        {t(`Members' Contribution`)}
+      </Typography>
+      <ResponsiveContainer width="95%" height={CONTAINER_HEIGHT}>
+        <BarChart
+          width={500}
+          height={300}
+          data={arr}
+          margin={{
+            top: 5,
+            right: 30,
+            left: 20,
+            bottom: 5,
+          }}
+        >
+          <CartesianGrid strokeDasharray="3 3" />
+          <XAxis dataKey="name" />
+          <YAxis />
+          <Tooltip content={<CustomTooltip />} />
+          <Legend />
+          <Bar
+            dataKey="contribution"
+            fill="#8884d8"
+            background={{ fill: '#eee' }}
+          />
+        </BarChart>
+      </ResponsiveContainer>
+    </>
   );
 };
 

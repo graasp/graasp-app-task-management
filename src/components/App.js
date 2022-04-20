@@ -10,7 +10,7 @@ import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { useAppData } from './context/appData';
 import { Context } from './context/ContextContext';
 import Students from './main/Students';
-// import MembersProgress from './main/MembersProgress';
+import Footer from './main/Footer';
 import TasksList from './main/TasksList';
 import {
   TASK_LABELS,
@@ -18,7 +18,6 @@ import {
   PERMISSION_LEVELS,
 } from '../config/settings';
 import { ACTION_TYPES } from '../config/actionTypes';
-// import ProgressPanel from './main/ProgressPanel';
 import Settings from './main/Settings';
 import ChartsArea from './main/ChartsArea';
 
@@ -185,23 +184,6 @@ const App = () => {
           </div>
         ) : (
           <div className="row" style={{ paddingLeft: '13em' }}>
-            {/* <Typography className={classes.headerText}>
-              {t(`Group's Progress`)}
-            </Typography>
-            <ProgressPanel
-              completedTasks={completedTasks}
-              totalNumberOfTasks={totalNumberOfTasks}
-            />
-
-            <Typography className={classes.headerText}>
-              {t(`Each Member's Contribution`)}
-            </Typography> */}
-            {/* <MembersProgress
-              tasks={tasks}
-              students={students}
-              completedTasks={completedTasks}
-              totalNumberOfTasks={totalNumberOfTasks}
-            /> */}
             <ChartsArea
               tasks={tasks}
               students={students}
@@ -212,10 +194,12 @@ const App = () => {
         )}
         <div className="clear" />
       </div>
-      {/* <Footer
+      <Footer
         numberOfCompletedTasks={completedTasks}
         totalNumberOfTasks={totalNumberOfTasks}
-      />  */}
+        setToggle={setToggle}
+        toggle={toggle}
+      />
 
       {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
         permissionLevel,
