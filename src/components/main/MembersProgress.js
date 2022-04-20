@@ -13,7 +13,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const MembersProgress = ({ tasks, students }) => {
+const MembersProgress = ({ tasks, students, totalNumberOfTasks }) => {
   // in completed, I will see how many tasks are done by one student
   const st=students[0].name;
   console.log(st)
@@ -22,7 +22,7 @@ const MembersProgress = ({ tasks, students }) => {
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
       if (arr.includes(member.name)) {
-        map1.set(member.name, map1.get(member.name) + 1 / arr.length);
+        map1.set(member.name, (map1.get(member.name) + 1 / arr.length));
       }
     }
   };
@@ -38,8 +38,8 @@ const MembersProgress = ({ tasks, students }) => {
  
   
   // eslint-disable-next-line arrow-body-style
-  const arr = Array.from(map1, ([key, value]) => {
-    return {'name':key,'value':value*100};
+  const arr = Array.from(map1, ([key, participation]) => {
+    return {'name':key,'participation':Math.floor((participation/totalNumberOfTasks)*100)};
   });
   
   console.log(arr);
@@ -63,7 +63,7 @@ const MembersProgress = ({ tasks, students }) => {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Bar dataKey="value" fill="#8884d8" background={{ fill: '#eee' }} />
+        <Bar dataKey="participation" fill="#8884d8" background={{ fill: '#eee' }} />
       </BarChart>
     </ResponsiveContainer>
   );

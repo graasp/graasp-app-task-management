@@ -10,7 +10,6 @@ import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { useAppData } from './context/appData';
 import { Context } from './context/ContextContext';
 import Students from './main/Students';
-import MyProgress from './main/MyProgress';
 import MembersProgress from './main/MembersProgress';
 import TasksList from './main/TasksList';
 import {
@@ -192,15 +191,7 @@ const App = () => {
               completedTasks={completedTasks}
               totalNumberOfTasks={totalNumberOfTasks}
             />
-            <Typography className={classes.headerText}>
-              {t('Your Contribution')}
-            </Typography>
-            <MyProgress
-              tasks={tasks}
-              students={students}
-              completedTasks={completedTasks}
-              totalNumberOfTasks={totalNumberOfTasks}
-            />
+            
             <Typography className={classes.headerText}>
               {t(`Each Member's Contribution`)}
             </Typography>
