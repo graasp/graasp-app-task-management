@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import ProgressBar from './ProgressBar';
 
@@ -11,6 +12,8 @@ const Footer = ({
 }) => (
   <div className="main-footer">
     <h4
+      data-tip="rthr thr"
+      data-for="test"
       style={{ color: 'black', cursor: 'pointer' }}
       onClick={() => setToggle(!toggle)}
     >
@@ -18,6 +21,8 @@ const Footer = ({
         ? 'Done!'
         : 'Your Progress'}
     </h4>
+    <ReactTooltip id="test" />
+
     <ProgressBar
       numberOfCompletedTasks={numberOfCompletedTasks}
       totalNumberOfTasks={totalNumberOfTasks}
