@@ -13,10 +13,27 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const MembersProgress = ({
-  tasks,
-  students,
-}) => {
+const MembersProgress = ({ tasks, students }) => {
+  console.log(tasks, students);
+  // in completed, I will see how many tasks are done by one student
+
+  const map1 = new Map();
+  students.map((student) => map1.set(student.name, 0));
+  const incrementCount = (label, arr, member) => {
+    if (label === 'completed') {
+      if (arr.includes(member.name)) {
+        map1.set(member.name, map1.get(member.name) + 1 / arr.length);
+      }
+    }
+  };
+  // eslint-disable-next-line no-restricted-syntax
+  for (const student of students) {
+    if (tasks._tail) {
+      tasks._tail.array.forEach((task) => {
+        incrementCount(task.data.label, task.data.members, student);
+      });
+    }
+  } 
   const data = [
     {
       name: 'Page A',
@@ -61,54 +78,6 @@ const MembersProgress = ({
       amt: 2100,
     },
   ];
-
-  const members = [];
-
-  const incrementCount = (
-    label,
-    arr,
-    member,
-    contribution,
-    contributions,
-    nbOfAssignements,
-  ) => {
-    if (label === 'completed') {
-      if (arr.includes(member.name)) {
-        nbOfAssignements += 1;
-        contribution = 1 / arr.length;
-        contributions += contribution;
-        console.log(nbOfAssignements)
-      }
-    }
-  };
-  
-
-  // eslint-disable-next-line no-restricted-syntax
-  for (const student of students) {
-    const nbOfAssignements = 0;
-    const contribution = 0;
-    const contributions = 0;
-    if (tasks._tail) {
-      tasks._tail.array.forEach((task) => {
-        incrementCount(
-          task.data.label,
-          task.data.members,
-          student,
-          contribution,
-          contributions,
-          nbOfAssignements,
-        );
-        const newStudent={
-            name:student.name,
-            total:nbOfAssignements,
-            contributions
-
-        }
-        members.push(newStudent)
-      });
-    }
-  }
- 
 
   return (
     <ResponsiveContainer width="100%" height="100%">
