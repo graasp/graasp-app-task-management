@@ -55,9 +55,11 @@ const ProgressBar = ({
     }
   };
 
-  const completionRatio = Math.floor(
-    (numberOfCompletedTasks / totalNumberOfTasks) * 100,
-  );
+  const completionRatio = Number.isNaN(
+    Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
+  )
+    ? 0
+    : Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
 
   let progress = 0;
 
@@ -67,17 +69,23 @@ const ProgressBar = ({
     progress = completionRatio;
   }
 
-  console.log(
-    'number',
-    Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
-  );
-
   console.log(progress);
+  const contt = contributions.map((cont) =>
+    Number.isNaN(cont.contribution) ? 0 : cont.contribution,
+  );
+  let total = contt.reduce((a, b) => a + b, 0);
+  total = Number.isNaN(total) ? 0 : total;
 
-  const contt = contributions.map((cont) => cont.contribution);
-  const total = contt.reduce((a, b) => a + b, 0);
   console.log('total', total);
+  const contsOnly = [];
+  contributions.map((contrib) =>
+    Number.isNaN(contrib.contribution)
+      ? contsOnly.push(0)
+      : contsOnly.push(contrib.contribution),
+  );
+  console.log(contsOnly);
 
+  console.log(completionRatio);
   //   const checkTotal=(tot)=>{
   //   if(total<100 && numberOfCompletedTasks===totalNumberOfTasks){
   //      const diffToAdd=Math.floor((100-tot)/contributions.length);
@@ -151,11 +159,11 @@ const ProgressBar = ({
           className="progress-bar"
           aria-valuenow="25"
           aria-valuemin="0"
-          aria-valuemax={Math.floor(
-            (numberOfCompletedTasks / totalNumberOfTasks) * 100,
-          )}
+          aria-valuemax="100"
           style={{
-            width: `${contrib.contribution}%`,
+            width: `${
+              Number.isNaN(contrib.contribution) ? 0 : contrib.contribution
+            }%`,
             backgroundColor: `rgb(${Math.floor(
               Math.random() * 10,
             )}, ${Math.floor(Math.random() * 200)}, ${Math.floor(
@@ -163,23 +171,41 @@ const ProgressBar = ({
             )})`,
           }}
         >
-          {`${contrib.name}${' '}${contrib.contribution}%`}
+          {`${contrib.name}${' '}${
+            Number.isNaN(contrib.contribution) ? 0 : contrib.contribution
+          }%`}
         </div>
       ))}
-      {numberOfCompletedTasks===totalNumberOfTasks?
-      <div
+      {completionRatio !==
+      total? (
+        <div
           className="progress-bar"
-          aria-valuenow="25"
           aria-valuemin="0"
-          aria-valuemax={Math.floor(
-            (numberOfCompletedTasks / totalNumberOfTasks) * 100,
-          )}
+          aria-valuemax="100"
           style={{
-            width: `${100-total}%`,
-            backgroundColor:'green'
+            width: `${
+              Number.isNaN(
+                completionRatio - total,
+              )
+                ? 0
+                : completionRatio - total
+            }%`,
+            backgroundColor: 'green',
           }}
-        />
-        :''}
+        >
+          {' '}
+          {`${
+            Number.isNaN(
+              completionRatio -
+                total,
+            )
+              ? 0
+              : completionRatio - total
+          }%`}
+        </div>
+      ) : (
+        ''
+      )}
       {/* <div
         className="progress-bar progress-bar-info"
         aria-valuenow="25"
