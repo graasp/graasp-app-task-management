@@ -11,7 +11,6 @@ const Footer = ({
   toggle,
   setToggle,
   contributions,
-  setContributions,
 }) => (
   <div className="main-footer">
     <h4
@@ -30,7 +29,6 @@ const Footer = ({
       numberOfCompletedTasks={numberOfCompletedTasks}
       totalNumberOfTasks={totalNumberOfTasks}
       contributions={contributions}
-      setContributions={setContributions}
     />
   </div>
 );

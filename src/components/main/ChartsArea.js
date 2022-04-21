@@ -22,7 +22,7 @@ const ChartsArea = ({
           contributions={contributions}
         />
       </Grid>
-      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+      <Grid item xs={6} sm={6} md={3} lg={3} xl={3}>
         <ProgressPanel
           tasks={tasks}
           students={students}

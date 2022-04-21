@@ -14654,6 +14654,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ngx-stacked-progressbar@npm:0.0.10":
+  version: 0.0.10
+  resolution: "ngx-stacked-progressbar@npm:0.0.10"
+  dependencies:
+    tslib: ^1.10.0
+  checksum: 7e3268dafd739b3c1f6cb2bfe023734606c22eeec307cea2401b3959ebe50be5d997d0e2f61d33821803e0b55221f766d199e323a1668fd54119ab5cf9a059ce
+  languageName: node
+  linkType: hard
+
 "nice-try@npm:^1.0.4":
   version: 1.0.5
   resolution: "nice-try@npm:1.0.5"
@@ -19338,6 +19347,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"stacked-progress-bar@npm:1.0.0":
+  version: 1.0.0
+  resolution: "stacked-progress-bar@npm:1.0.0"
+  checksum: 3a7dbc003c3af5e0617ef23647f9c931868f96180795420bb7a232e2a543398ac964e659273922f54bc862ff811495509295668034920b657fad57551628c603
+  languageName: node
+  linkType: hard
+
 "stackframe@npm:^1.1.1":
   version: 1.2.1
   resolution: "stackframe@npm:1.2.1"
@@ -19980,6 +19996,7 @@ __metadata:
     jss-plugin-rule-value-function: 10.9.0
     lodash: ~4.17.21
     multiselect-react-dropdown: ^2.0.21
+    ngx-stacked-progressbar: 0.0.10
     node-jose-browserify: 1.1.14
     npm-run-all: 4.1.5
     prettier: ~2.5.1
@@ -20010,6 +20027,7 @@ __metadata:
     sass: 1.50.1
     script-ext-html-webpack-plugin: ~2.1.5
     stack-trace: 1.0.0-pre1
+    stacked-progress-bar: 1.0.0
     standard-version: ~9.3.2
     stream: 0.0.2
     stream-browserify: 3.0.0
@@ -20412,7 +20430,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"tslib@npm:^1.7.0, tslib@npm:^1.8.1":
+"tslib@npm:^1.10.0, tslib@npm:^1.7.0, tslib@npm:^1.8.1":
   version: 1.14.1
   resolution: "tslib@npm:1.14.1"
   checksum: dbe628ef87f66691d5d2959b3e41b9ca0045c3ee3c7c7b906cc1e328b39f199bb1ad9e671c39025bd56122ac57dfbf7385a94843b1cc07c60a4db74795829acd

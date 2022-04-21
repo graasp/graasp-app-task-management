@@ -29,7 +29,7 @@ const ProgressPanel = ({ completedTasks, totalNumberOfTasks }) => {
   return (
     <>
     <Typography variant="h6" className={classes.typography}>
-    {t('Actions by Time of Day')}
+    {t(`Team's Progress`)}
   </Typography>
     <ResponsiveContainer width="95%" height={CONTAINER_HEIGHT}>
       <CircularProgressbar
