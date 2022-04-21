@@ -1,10 +1,9 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-shadow */
 import React, { useContext, useState, useEffect } from 'react';
-
+import '../index.css';
 import { DragDropContext } from 'react-beautiful-dnd';
-// import Typography from '@material-ui/core/Typography';
-// import { useTranslation } from 'react-i18next';
-// import { makeStyles } from '@material-ui/core/styles';
 import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { useAppData } from './context/appData';
@@ -23,20 +22,12 @@ import ChartsArea from './main/ChartsArea';
 
 let completedTasks = 0;
 
-// const useStyles = makeStyles(() => ({
-//   headerText: {
-//     fontSize: '1.05vw',
-//   },
-// }));
-
 const App = () => {
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: deleteAppData } = useMutation(MUTATION_KEYS.DELETE_APP_DATA);
 
-  // const classes = useStyles();
-  // const { t } = useTranslation();
 
   const [tasks, setTasks] = useState([]);
   const [toggle, setToggle] = useState(false);
@@ -159,6 +150,33 @@ const App = () => {
     );
   };
 
+  const contributionMap = new Map();
+  students.map((student) => contributionMap.set(student.name, 0));
+  const incrementCount = (label, arr, member) => {
+    if (label === 'completed') {
+      if (arr.includes(member.name)) {
+        contributionMap.set(member.name, contributionMap.get(member.name) + 1 / arr.length);
+      }
+    }
+  };
+  for (const student of students) {
+    if (tasks._tail) {
+      tasks._tail.array.forEach((task) => {
+        incrementCount(task.data.label, task.data.members, student);
+      });
+    }
+  }
+
+  // eslint-disable-next-line arrow-body-style
+  const contributions=Array.from(contributionMap, ([key, contribution]) => {
+    return {
+      name: key,
+      contribution: Math.floor((contribution / totalNumberOfTasks) * 100),
+    };
+  });
+
+
+
   return (
     <div className="row">
       {!toggle ? (
@@ -189,6 +207,7 @@ const App = () => {
               students={students}
               completedTasks={completedTasks}
               totalNumberOfTasks={totalNumberOfTasks}
+              contributions={contributions}
             />
           </div>
         )}
@@ -199,6 +218,7 @@ const App = () => {
         totalNumberOfTasks={totalNumberOfTasks}
         setToggle={setToggle}
         toggle={toggle}
+        contributions={contributions}
       />
 
       {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(

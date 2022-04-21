@@ -5,7 +5,13 @@ import { Grid } from '@material-ui/core';
 import MembersProgress from './MembersProgress';
 import ProgressPanel from './ProgressPanel';
 
-const ChartsArea = ({ tasks, students, totalNumberOfTasks,completedTasks }) => {
+const ChartsArea = ({
+  tasks,
+  students,
+  totalNumberOfTasks,
+  completedTasks,
+  contributions,
+}) => {
   return (
     <Grid container>
       <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -13,6 +19,7 @@ const ChartsArea = ({ tasks, students, totalNumberOfTasks,completedTasks }) => {
           tasks={tasks}
           students={students}
           totalNumberOfTasks={totalNumberOfTasks}
+          contributions={contributions}
         />
       </Grid>
       <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
@@ -21,7 +28,6 @@ const ChartsArea = ({ tasks, students, totalNumberOfTasks,completedTasks }) => {
           students={students}
           totalNumberOfTasks={totalNumberOfTasks}
           completedTasks={completedTasks}
-
         />
       </Grid>
     </Grid>

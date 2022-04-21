@@ -1,3 +1,4 @@
+/* eslint-disable no-import-assign */
 /* eslint-disable no-param-reassign */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable react/prop-types */
@@ -23,6 +24,7 @@ const useStyles = makeStyles(() => ({
 
 
 const CustomTooltip = ({ active, payload, label }) => {
+  
     if (active && payload && payload.length) {
       return (
         <div className="custom-tooltip">
@@ -35,48 +37,23 @@ const CustomTooltip = ({ active, payload, label }) => {
   };
 
 
-const MembersProgress = ({ tasks, students, totalNumberOfTasks }) => {
+const MembersProgress = ({contributions}) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
-  const map1 = new Map();
-  students.map((student) => map1.set(student.name, 0));
-  const incrementCount = (label, arr, member) => {
-    if (label === 'completed') {
-      if (arr.includes(member.name)) {
-        map1.set(member.name, map1.get(member.name) + 1 / arr.length);
-      }
-    }
-  };
-  // eslint-disable-next-line no-restricted-syntax
-  for (const student of students) {
-    if (tasks._tail) {
-      tasks._tail.array.forEach((task) => {
-        incrementCount(task.data.label, task.data.members, student);
-      });
-    }
-  }
-
-  // eslint-disable-next-line arrow-body-style
-  const arr = Array.from(map1, ([key, contribution]) => {
-    return {
-      name: key,
-      contribution: Math.floor((contribution / totalNumberOfTasks) * 100),
-    };
-  });
-
-  console.log(arr);
+ 
 
   return (
     <>
       <Typography variant="h6" className={classes.typography}>
         {t(`Members' Contribution`)}
       </Typography>
+
       <ResponsiveContainer width="95%" height={CONTAINER_HEIGHT}>
         <BarChart
           width={500}
           height={300}
-          data={arr}
+          data={contributions}
           margin={{
             top: 5,
             right: 30,

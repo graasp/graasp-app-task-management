@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
@@ -9,6 +10,8 @@ const Footer = ({
   numberOfCompletedTasks,
   toggle,
   setToggle,
+  contributions,
+  setContributions,
 }) => (
   <div className="main-footer">
     <h4
@@ -26,6 +29,8 @@ const Footer = ({
     <ProgressBar
       numberOfCompletedTasks={numberOfCompletedTasks}
       totalNumberOfTasks={totalNumberOfTasks}
+      contributions={contributions}
+      setContributions={setContributions}
     />
   </div>
 );
