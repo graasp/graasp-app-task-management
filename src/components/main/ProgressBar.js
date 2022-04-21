@@ -1,8 +1,8 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import PropTypes from 'prop-types';
-
 // import StepsProgressBar from 'react-line-progress-bar-steps';
 // import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
 
@@ -67,13 +67,24 @@ const ProgressBar = ({
     progress = completionRatio;
   }
 
-  console.log('number',Math.floor((numberOfCompletedTasks/totalNumberOfTasks)*100))
+  console.log(
+    'number',
+    Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
+  );
 
   console.log(progress);
 
-  const contt=contributions.map((cont)=>cont.contribution)
-  const total=contt.reduce((a, b) => a + b, 0)
-  console.log('total',total)
+  const contt = contributions.map((cont) => cont.contribution);
+  const total = contt.reduce((a, b) => a + b, 0);
+  console.log('total', total);
+
+  //   const checkTotal=(tot)=>{
+  //   if(total<100 && numberOfCompletedTasks===totalNumberOfTasks){
+  //      const diffToAdd=Math.floor((100-tot)/contributions.length);
+  //      console.log('diff',diffToAdd)
+
+  //   }
+  // }
   // const checkContribution=(cont)=>{
   //   if(cont.isNaN){
   //     return 0;
@@ -127,14 +138,22 @@ const ProgressBar = ({
     //   </div>
     // </div>
     // <StepsProgressBar colorSet='dark' partialValue='55' showPrecentage='end'/>
-
-    <div className="progress" onClick={() => toggleTheme()} style={{marginLeft:25,marginRight:25}}>
+    <div
+      className="progress"
+      onClick={() => toggleTheme()}
+      style={{ marginLeft: 25, marginRight: 25 }}
+    >
+      {/* <style>
+        @import '//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css';
+      </style> */}
       {contributions.map((contrib) => (
         <div
           className="progress-bar"
           aria-valuenow="25"
           aria-valuemin="0"
-          aria-valuemax={Math.floor((numberOfCompletedTasks/totalNumberOfTasks)*100)}
+          aria-valuemax={Math.floor(
+            (numberOfCompletedTasks / totalNumberOfTasks) * 100,
+          )}
           style={{
             width: `${contrib.contribution}%`,
             backgroundColor: `rgb(${Math.floor(
@@ -144,9 +163,23 @@ const ProgressBar = ({
             )})`,
           }}
         >
-          {contrib.name}
+          {`${contrib.name}${' '}${contrib.contribution}%`}
         </div>
       ))}
+      {numberOfCompletedTasks===totalNumberOfTasks?
+      <div
+          className="progress-bar"
+          aria-valuenow="25"
+          aria-valuemin="0"
+          aria-valuemax={Math.floor(
+            (numberOfCompletedTasks / totalNumberOfTasks) * 100,
+          )}
+          style={{
+            width: `${100-total}%`,
+            backgroundColor:'green'
+          }}
+        />
+        :''}
       {/* <div
         className="progress-bar progress-bar-info"
         aria-valuenow="25"
@@ -188,40 +221,6 @@ const ProgressBar = ({
         Process4
       </div> */}
     </div>
-
-    // <div className="container">
-    //   <ResponsiveContainer>
-    //     <BarChart
-    //       data={data}
-    //       layout="vertical"
-    //       barCategoryGap={1}
-    //       margin={{ top: 0, right: 50, left: 0, bottom: 0 }}
-    //     >
-    //       <XAxis type="number" hide />
-    //       <YAxis
-    //         type="category"
-    //         width={150}
-    //         padding={{ left: 20 }}
-    //         hide
-    //       />
-    //       <Bar
-    //         dataKey="contribution"
-    //         fill="#323232"
-    //         stackId="a"
-    //       />
-    //       <Bar
-    //         dataKey="help"
-    //         fill="#35232"
-    //         stackId="a"
-    //       />
-    //       <Bar
-    //         dataKey="contribution"
-    //         fill="#328232"
-    //         stackId="a"
-    //       />
-    //     </BarChart>
-    //   </ResponsiveContainer>
-    // </div>
   );
 };
 

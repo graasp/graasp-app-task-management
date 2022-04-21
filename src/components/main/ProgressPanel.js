@@ -46,6 +46,7 @@ const ProgressPanel = ({ completedTasks, totalNumberOfTasks }) => {
           textColor: 'black',
           trailColor: 'whitesmoke',
         })}
+        counterClockwise='true'
       />
     </ResponsiveContainer>
     </>
