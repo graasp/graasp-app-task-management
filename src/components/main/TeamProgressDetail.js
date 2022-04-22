@@ -16,7 +16,7 @@ const useStyles = makeStyles(() => ({
 }));
 
 // eslint-disable-next-line no-unused-vars
-const ProgressPanel = ({ completedTasks, totalNumberOfTasks }) => {
+const TeamProgressDetail = ({ completedTasks, totalNumberOfTasks }) => {
 
   const { t } = useTranslation();
   const classes = useStyles();
@@ -42,7 +42,7 @@ const ProgressPanel = ({ completedTasks, totalNumberOfTasks }) => {
           // How long animation takes to go from one percentage to another, in seconds
           pathTransitionDuration: 0.5,
           // Colors
-          pathColor: `rgba(62, 152, 199, ${percentage / 100})`,
+          pathColor: `rgba(25, 140, 99, ${percentage / 100})`,
           textColor: 'black',
           trailColor: 'whitesmoke',
         })}
@@ -53,4 +53,4 @@ const ProgressPanel = ({ completedTasks, totalNumberOfTasks }) => {
   );
 };
 
-export default ProgressPanel;
+export default TeamProgressDetail;
