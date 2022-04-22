@@ -167,7 +167,7 @@ const App = () => {
     }
   }
 
-  const availableColors=['#0000FF','#FFFF00','#FF00FF','#FF0000','#00FFFF']
+  const availableColors=['#CAF0F6','#EDFFEF','#EBF8FF','#DDF1FF','#D3EAFF']
   // eslint-disable-next-line arrow-body-style
   const contributions=Array.from(contributionMap, ([key, contribution],index) => {
     return {
