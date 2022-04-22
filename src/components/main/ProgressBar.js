@@ -44,15 +44,17 @@ const ProgressBar1 = ({
   console.log('contr', membersContributions);
 
   const data = [0];
-  const back = ["whitesmoke"];
+  const back = ['whitesmoke'];
   membersContributions.map((cont) => data.push(cont));
-  membersContributions.map(() =>
-    back.push(
-      `rgb(${Math.floor(Math.random() * 230)},${Math.floor(
-        Math.random() * 70,
-      )},${Math.floor(Math.random() * 100)})`,
-    ),
+  contributions.map((cont) =>
+    // back.push(
+    //   `rgb(${Math.floor(Math.random() * 230)},${Math.floor(
+    //     Math.random() * 70,
+    //   )},${Math.floor(Math.random() * 100)})`,
+    // ),
+    back.push(cont.color)
   );
+  console.log('back',back)
 
   let total = membersContributions.reduce((a, b) => a + b, 0);
   total = Number.isNaN(total) ? 0 : total;
@@ -66,24 +68,24 @@ const ProgressBar1 = ({
     }
     return false;
   };
-  let count=0;
+  let count = 0;
   const containsNonAssignedTask = (arr) => {
     if (arr._tail) {
       if (arr._tail.array.map((task) => isNotAssigned(task))) {
-        count+=1;
+        count += 1;
       }
     }
     return count;
   };
-  const counter=containsNonAssignedTask(tasks)
+  const counter = containsNonAssignedTask(tasks);
 
-  if (completionRatio !== 100 || counter!==0) {
+  if (completionRatio !== 100 || counter !== 0) {
     data.push(completionRatio - total);
     back.push('green');
     data.push(100 - completionRatio);
     back.push(completionRatio === 100 ? 'green' : 'whitesmoke');
   }
-  console.log('data',data);
+  console.log('data', data);
   console.log(back);
 
   return (

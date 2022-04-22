@@ -6,42 +6,45 @@ import PropTypes from 'prop-types';
 // import ProgressBar2 from './ProgressBar2';
 import ProgressBar1 from './ProgressBar';
 
-
 const Footer = ({
   totalNumberOfTasks,
   numberOfCompletedTasks,
   toggle,
   setToggle,
   contributions,
-  tasks
-}) => (
-  <div className="main-footer">
-    <h4
-      data-tip="rthr thr"
-      data-for="test"
-      style={{ color: 'black', cursor: 'pointer' }}
-      onClick={() => setToggle(!toggle)}
-    >
-      {totalNumberOfTasks / numberOfCompletedTasks === 1
-        ? 'Done!'
-        : 'Your Progress'}
-    </h4>
-    <ReactTooltip id="test" />
+  tasks,
+}) => {
+  const text = 'hello <br />how <br /> is <br />eveything';
 
-    {/* <ProgressBar2
+  return (
+    <div className="main-footer">
+      <h4
+        data-tip={text}
+        data-for="test"
+        style={{ color: 'black', cursor: 'pointer' }}
+        onClick={() => setToggle(!toggle)}
+      >
+        {totalNumberOfTasks / numberOfCompletedTasks === 1
+          ? 'Done!'
+          : 'Your Progress'}
+      </h4>
+      <ReactTooltip id="test" backgroundColor="white" textColor="black" multiline='true' />
+
+      {/* <ProgressBar2
       numberOfCompletedTasks={numberOfCompletedTasks}
       totalNumberOfTasks={totalNumberOfTasks}
       contributions={contributions}
       tasks={tasks}
     /> */}
-    <ProgressBar1
-      numberOfCompletedTasks={numberOfCompletedTasks}
-      totalNumberOfTasks={totalNumberOfTasks}
-      contributions={contributions}
-      tasks={tasks}
-    />
-  </div>
-);
+      <ProgressBar1
+        numberOfCompletedTasks={numberOfCompletedTasks}
+        totalNumberOfTasks={totalNumberOfTasks}
+        contributions={contributions}
+        tasks={tasks}
+      />
+    </div>
+  );
+};
 
 Footer.propTypes = {
   totalNumberOfTasks: PropTypes.number.isRequired,

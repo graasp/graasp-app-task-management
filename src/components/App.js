@@ -167,11 +167,13 @@ const App = () => {
     }
   }
 
+  const availableColors=['#0000FF','#FFFF00','#FF00FF','#FF0000','#00FFFF']
   // eslint-disable-next-line arrow-body-style
   const contributions=Array.from(contributionMap, ([key, contribution]) => {
     return {
       name: key,
       contribution: Math.floor((contribution / totalNumberOfTasks) * 100),
+      color:availableColors[Math.floor(Math.random()*availableColors.length)]
     };
   });
 
