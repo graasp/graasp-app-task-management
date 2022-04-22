@@ -48,9 +48,9 @@ const ProgressBar1 = ({
   membersContributions.map((cont) => data.push(cont));
   membersContributions.map(() =>
     back.push(
-      `rgb(${Math.floor(Math.random() * 130)},${Math.floor(
-        Math.random() * 200,
-      )},${Math.floor(Math.random() * 230)})`,
+      `rgb(${Math.floor(Math.random() * 230)},${Math.floor(
+        Math.random() * 70,
+      )},${Math.floor(Math.random() * 100)})`,
     ),
   );
 
