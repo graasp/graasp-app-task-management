@@ -52,9 +52,9 @@ const ProgressBar1 = ({
     //     Math.random() * 70,
     //   )},${Math.floor(Math.random() * 100)})`,
     // ),
-    back.push(cont.color)
+    back.push(cont.color),
   );
-  console.log('back',back)
+  console.log('back', back);
 
   let total = membersContributions.reduce((a, b) => a + b, 0);
   total = Number.isNaN(total) ? 0 : total;

@@ -69,17 +69,15 @@ const Footer = ({
           />
         </div>
       ) : (
-        
-          <button
-           type="button"
-            onClick={() => {
-              setToggle(!toggle);
-              setToggleFooter(false);
-            }}
-          >
-            Show Tasks
-          </button>
-        
+        <button
+          type="button"
+          onClick={() => {
+            setToggle(!toggle);
+            setToggleFooter(false);
+          }}
+        >
+          Show Tasks
+        </button>
       )}
     </div>
   );

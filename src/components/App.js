@@ -28,7 +28,6 @@ const App = () => {
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: deleteAppData } = useMutation(MUTATION_KEYS.DELETE_APP_DATA);
 
-
   const [tasks, setTasks] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [students, setStudents] = useState([]);
@@ -155,7 +154,10 @@ const App = () => {
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
       if (arr.includes(member.name)) {
-        contributionMap.set(member.name, contributionMap.get(member.name) + 1 / arr.length);
+        contributionMap.set(
+          member.name,
+          contributionMap.get(member.name) + 1 / arr.length,
+        );
       }
     }
   };
@@ -167,17 +169,22 @@ const App = () => {
     }
   }
 
-  const availableColors=['#0000FF','#FFFF00','#FF00FF','#FF0000','#00FFFF']
+  const availableColors = [
+    '#0000FF',
+    '#FFFF00',
+    '#FF00FF',
+    '#FF0000',
+    '#00FFFF',
+  ];
   // eslint-disable-next-line arrow-body-style
-  const contributions=Array.from(contributionMap, ([key, contribution]) => {
+  const contributions = Array.from(contributionMap, ([key, contribution]) => {
     return {
       name: key,
       contribution: Math.floor((contribution / totalNumberOfTasks) * 100),
-      color:availableColors[Math.floor(Math.random()*availableColors.length)]
+      color:
+        availableColors[Math.floor(Math.random() * availableColors.length)],
     };
   });
-
-
 
   return (
     <div className="row">
