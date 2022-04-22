@@ -1,9 +1,10 @@
+/* eslint-disable no-lone-blocks */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
 import { StackedHorizontalBarChart } from 'react-stacked-horizontal-bar-chart';
- 
+
 // import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
 
 // const CustomizedLabel = (props) => {
@@ -23,103 +24,131 @@ import { StackedHorizontalBarChart } from 'react-stacked-horizontal-bar-chart';
 // };
 
 const ProgressBar1 = ({
-  // numberOfCompletedTasks,
-  // totalNumberOfTasks,
+  numberOfCompletedTasks,
+  totalNumberOfTasks,
   contributions,
+  tasks,
 }) => {
   // const data = [{ name: 'Graasp', contribution: 0.33,help:0.2 }];
 
-  // const completionRatio = Number.isNaN(
-  //   Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
-  // )
-  //   ? 0
-  //   : Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
+  const completionRatio = Number.isNaN(
+    Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
+  )
+    ? 0
+    : Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
 
   const contt = contributions.map((cont) =>
     Number.isNaN(cont.contribution) ? 0 : cont.contribution,
   );
-  contributions.map((cont) => console.log(cont.name, cont.contribution));
+  console.log('contr', contributions);
+
+  const data = [];
+  const back = [];
+  contributions.map(
+    (cont) => data.push(cont.contribution),
+    back.push(
+      `rgb(${Math.floor(Math.random() * 170)},${Math.floor(
+        Math.random() * 20,
+      )},${Math.floor(Math.random() * 50)})`,
+    ),
+  );
   let total = contt.reduce((a, b) => a + b, 0);
   total = Number.isNaN(total) ? 0 : total;
 
-  // const isNotAssigned = (task) => {
-  //   if (task.data.members.length === 0) {
-  //     return true;
-  //   }
-  //   return false;
-  // };
-  // const containsNonAssignedTask = (arr) => {
-  //   // eslint-disable-next-line no-underscore-dangle
-  //   if (arr._tail) {
-  //     // eslint-disable-next-line no-underscore-dangle
-  //     if (arr._tail.array.map((task) => isNotAssigned(task))) {
-  //       return true;
-  //     }
-  //   }
-  //   return false;
-  // };
-
-  // const Parentdiv = {
-  //   height: 20,
-  //   width: '300px',
-  //   backgroundColor: 'whitesmoke',
-  //   borderRadius: 40,
-  //   margin: 'auto',
-  // };
-
-  const Childdiv = {
-    height: '100%',
-    // width: `${total}%`,
-    // background: 'linear-gradient(to left,#0a5510, #0ba746)',
-    borderRadius: '20px',
-    color: '#fff',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
+  console.log(total);
+  const isNotAssigned = (task) => {
+    if (task.data.members.length === 0) {
+      return true;
+    }
+    return false;
   };
+  const containsNonAssignedTask = (arr) => {
+    // eslint-disable-next-line no-underscore-dangle
+    if (arr._tail) {
+      // eslint-disable-next-line no-underscore-dangle
+      if (arr._tail.array.map((task) => isNotAssigned(task))) {
+        return true;
+      }
+    }
+    return false;
+  };
+  if (completionRatio !== 100 || containsNonAssignedTask(tasks)) {
+    data.push(completionRatio-total);
+    back.push('green')
+    data.push(100 - completionRatio);
+    back.push(completionRatio===100?'green':'whitesmoke');
+  }
+  console.log(data);
+  console.log(back);
 
-  // // I can have an array of child divs where each child div begins at the end of the other
-
-  // const progresstext = {
-  //   padding: 10,
-  //   color: 'black',
-  //   fontWeight: 700,
-  //   marginLeft: !completionRatio || completionRatio < 11 ? '30px' : 0,
-  // };
-
-  Childdiv.width = `${total}%`;
-  Childdiv.background = `linear-gradient(to left,rgb(${Math.random() * 60},${
-    Math.random() * 20
-  },${Math.random() * 100}), #0ba746)`;
   return (
-    //   <div style={Parentdiv}>
-    //     <div style={Childdiv} width={`${total}%`} >
-    //       <span style={progresstext}>{`${numberOfCompletedTasks}/${
-    //         totalNumberOfTasks ?? ''
-    //       }`}</span>
-    //       <div style={Childdiv} width={`${100-total}%`} background='blue'/>
-    //     </div>
-
-    //   </div>
-    <div style={{ width: "50%",marginLeft:'auto',marginRight: 'auto'}}>
-        <StackedHorizontalBarChart
-          height={10}
-          ranges={[20, 40, 10]}
-          backgroundColors={["#4F81BD", "#C0504D", "#9BBB59"]}
-          points={[
-            {
-              value: 10,
-              // any marker can be used, the component will place the bottom of the marker on top of the bar
-            },
-            {
-              value: 30
-            }
-          ]}
-        />
-      </div>
-   
+    <div style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}>
+      <StackedHorizontalBarChart
+        height={10}
+        ranges={data}
+        backgroundColors={back}
+      />
+    </div>
   );
 };
 
-
 export default ProgressBar1;
+
+{
+  /* <div>
+      <div
+        className="progress"
+        onClick={() => toggleTheme()}
+        style={{ marginLeft: 25, marginRight: 25 }}
+      >
+        {contributions.map((contrib) => (
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+          <div
+            className="progress-bar"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style={{
+              width: `${
+                Number.isNaN(contrib.contribution) ? 0 : contrib.contribution
+              }%`,
+              backgroundColor: `rgb(${Math.floor(
+                Math.random() * 10,
+              )}, ${Math.floor(Math.random() * 200)}, ${Math.floor(
+                Math.random() * 100,
+              )})`,
+            }}
+          >
+            {`${contrib.name}${' '}${
+              Number.isNaN(contrib.contribution) ? 0 : contrib.contribution
+            }%`}
+          </div>
+        ))}
+        {completionRatio !== total && containsNonAssignedTask(tasks) ? (
+          <div
+            className="progress-bar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style={{
+              width: `${
+                Number.isNaN(completionRatio - total)
+                  ? 0
+                  : completionRatio - total
+              }%`,
+              backgroundColor: 'green',
+            }}
+          >
+            {' '}
+            {`${
+              Number.isNaN(completionRatio - total)
+                ? 0
+                : completionRatio - total
+            }%`}
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
+    </div>
+ */
+}

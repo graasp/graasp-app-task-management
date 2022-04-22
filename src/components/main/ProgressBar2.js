@@ -4,17 +4,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-
 const ProgressBar = ({
   numberOfCompletedTasks,
   totalNumberOfTasks,
   contributions,
   tasks,
 }) => {
-
-
   const toggleTheme = () => {
-  
     const theme = document.getElementsByTagName('link')[1];
 
     if (
@@ -39,7 +35,6 @@ const ProgressBar = ({
     ? 0
     : Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
 
-
   const contt = contributions.map((cont) =>
     Number.isNaN(cont.contribution) ? 0 : cont.contribution,
   );
@@ -47,20 +42,18 @@ const ProgressBar = ({
   let total = contt.reduce((a, b) => a + b, 0);
   total = Number.isNaN(total) ? 0 : total;
 
-
-
-  const isNotAssigned=(task)=>{
-    if(task.data.members.length===0){
+  const isNotAssigned = (task) => {
+    if (task.data.members.length === 0) {
       return true;
     }
-     return false;
-  }
+    return false;
+  };
 
   const containsNonAssignedTask = (arr) => {
     // eslint-disable-next-line no-underscore-dangle
     if (arr._tail) {
       // eslint-disable-next-line no-underscore-dangle
-      if (arr._tail.array.map((task)=>isNotAssigned(task))) {
+      if (arr._tail.array.map((task) => isNotAssigned(task))) {
         return true;
       }
     }
@@ -68,60 +61,60 @@ const ProgressBar = ({
   };
 
   return (
-      <div>
-         
-    <div
-      className="progress"
-      onClick={() => toggleTheme()}
-      style={{ marginLeft: 25, marginRight: 25 }}
-    >
-      {contributions.map((contrib) => (
-        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-        <div
-          className="progress-bar"
-          aria-valuenow="25"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          style={{
-            width: `${
+    <div>
+      <div
+        className="progress"
+        onClick={() => toggleTheme()}
+        style={{ marginLeft: 25, marginRight: 25 }}
+      >
+        {contributions.map((contrib) => (
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+          <div
+            className="progress-bar"
+            aria-valuenow="25"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style={{
+              width: `${
+                Number.isNaN(contrib.contribution) ? 0 : contrib.contribution
+              }%`,
+              backgroundColor: `rgb(${Math.floor(
+                Math.random() * 10,
+              )}, ${Math.floor(Math.random() * 200)}, ${Math.floor(
+                Math.random() * 100,
+              )})`,
+            }}
+          >
+            {`${contrib.name}${' '}${
               Number.isNaN(contrib.contribution) ? 0 : contrib.contribution
-            }%`,
-            backgroundColor: `rgb(${Math.floor(
-              Math.random() * 10,
-            )}, ${Math.floor(Math.random() * 200)}, ${Math.floor(
-              Math.random() * 100,
-            )})`,
-          }}
-        >
-          {`${contrib.name}${' '}${
-            Number.isNaN(contrib.contribution) ? 0 : contrib.contribution
-          }%`}
-        </div>
-      ))}
-      {completionRatio !== total && containsNonAssignedTask(tasks) ? (
-        <div
-          className="progress-bar"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          style={{
-            width: `${
+            }%`}
+          </div>
+        ))}
+        {completionRatio !== total && containsNonAssignedTask(tasks) ? (
+          <div
+            className="progress-bar"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style={{
+              width: `${
+                Number.isNaN(completionRatio - total)
+                  ? 0
+                  : completionRatio - total
+              }%`,
+              backgroundColor: 'green',
+            }}
+          >
+            {' '}
+            {`${
               Number.isNaN(completionRatio - total)
                 ? 0
                 : completionRatio - total
-            }%`,
-            backgroundColor: 'green',
-          }}
-        >
-          {' '}
-          {`${
-            Number.isNaN(completionRatio - total) ? 0 : completionRatio - total
-          }%`}
-        </div>
-      ) : (
-        ''
-      )}
- 
-    </div>
+            }%`}
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
     </div>
   );
 };
