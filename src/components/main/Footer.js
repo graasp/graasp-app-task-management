@@ -14,7 +14,18 @@ const Footer = ({
   contributions,
   tasks,
 }) => {
-  const text = 'hello <br />how <br /> is <br />eveything';
+  const legend = [];
+  contributions.map((cont) =>
+    legend.push({
+      description: `${cont.name}: ${cont.contribution}%`,
+      color: cont.color,
+    }),
+  );
+  console.log(legend);
+  // const text = 'hello <br />how <br /> is <br />eveything';
+  let text = legend.map((user) => `${user.description}`);
+  text = text.join('<br />');
+  console.log('txt', text);
 
   return (
     <div className="main-footer">
@@ -28,7 +39,13 @@ const Footer = ({
           ? 'Done!'
           : 'Your Progress'}
       </h4>
-      <ReactTooltip id="test" backgroundColor="white" textColor="black" multiline='true' />
+      <ReactTooltip
+        id="test"
+        backgroundColor="white"
+        multiline="true"
+        html="true"
+        textColor="black"
+      />
 
       {/* <ProgressBar2
       numberOfCompletedTasks={numberOfCompletedTasks}
