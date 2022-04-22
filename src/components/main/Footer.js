@@ -3,7 +3,9 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
-import ProgressBar from './ProgressBar';
+// import ProgressBar2 from './ProgressBar2';
+import ProgressBar1 from './ProgressBar';
+
 
 const Footer = ({
   totalNumberOfTasks,
@@ -26,7 +28,13 @@ const Footer = ({
     </h4>
     <ReactTooltip id="test" />
 
-    <ProgressBar
+    {/* <ProgressBar2
+      numberOfCompletedTasks={numberOfCompletedTasks}
+      totalNumberOfTasks={totalNumberOfTasks}
+      contributions={contributions}
+      tasks={tasks}
+    /> */}
+    <ProgressBar1
       numberOfCompletedTasks={numberOfCompletedTasks}
       totalNumberOfTasks={totalNumberOfTasks}
       contributions={contributions}

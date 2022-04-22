@@ -2664,6 +2664,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ramonak/react-progress-bar@npm:4.4.0":
+  version: 4.4.0
+  resolution: "@ramonak/react-progress-bar@npm:4.4.0"
+  peerDependencies:
+    react: ^16.0.0 || ^17
+    react-dom: ^16.0.0 || ^17
+  checksum: a77a5af0b3f81e0a9e0902dc0e70108382c21e8d4d9500ff0397dcf13f69d1a0c2935565b750c84b10834fb41b22a91338ea5cfc4144ffaded48a31ace1cabe9
+  languageName: node
+  linkType: hard
+
 "@react-aria/ssr@npm:^3.0.1":
   version: 3.1.2
   resolution: "@react-aria/ssr@npm:3.1.2"
@@ -4020,13 +4030,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/invariant@npm:^2.2.35":
-  version: 2.2.35
-  resolution: "@types/invariant@npm:2.2.35"
-  checksum: af1b624057c89789ed0917838fea3d42bb0c101cc22b829a24d8777c678be3bc79d6ae05992a13bdf607b94731262467a2e62a809602ea1f7eea5e8c2242660d
-  languageName: node
-  linkType: hard
-
 "@types/istanbul-lib-coverage@npm:*, @types/istanbul-lib-coverage@npm:^2.0.0, @types/istanbul-lib-coverage@npm:^2.0.1":
   version: 2.0.4
   resolution: "@types/istanbul-lib-coverage@npm:2.0.4"
@@ -4252,7 +4255,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:>=16.14.8, @types/react@npm:>=16.9.11":
+"@types/react@npm:>=16.9.11":
   version: 18.0.2
   resolution: "@types/react@npm:18.0.2"
   dependencies:
@@ -6713,7 +6716,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.3.1":
+"classnames@npm:^2.2.3, classnames@npm:^2.2.5, classnames@npm:^2.2.6, classnames@npm:^2.3.1":
   version: 2.3.1
   resolution: "classnames@npm:2.3.1"
   checksum: 14db8889d56c267a591f08b0834989fe542d47fac659af5a539e110cc4266694e8de86e4e3bbd271157dbd831361310a8293e0167141e80b0f03a0f175c80960
@@ -17177,18 +17180,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-bootstrap@npm:2.2.3":
-  version: 2.2.3
-  resolution: "react-bootstrap@npm:2.2.3"
+"react-bootstrap@npm:2.3.0":
+  version: 2.3.0
+  resolution: "react-bootstrap@npm:2.3.0"
   dependencies:
     "@babel/runtime": ^7.17.2
     "@restart/hooks": ^0.4.6
     "@restart/ui": ^1.2.0
-    "@types/invariant": ^2.2.35
-    "@types/prop-types": ^15.7.4
-    "@types/react": ">=16.14.8"
     "@types/react-transition-group": ^4.4.4
-    "@types/warning": ^3.0.0
     classnames: ^2.3.1
     dom-helpers: ^5.2.1
     invariant: ^2.2.4
@@ -17198,9 +17197,13 @@ __metadata:
     uncontrollable: ^7.2.1
     warning: ^4.0.3
   peerDependencies:
+    "@types/react": ">=16.14.8"
     react: ">=16.14.0"
     react-dom: ">=16.14.0"
-  checksum: 37daaf1430be7b96deb0e574eebafc74b500f654f55b73359f58dee37980d5753516695d2825ea1acf3c59d02b47ddc70c110672c711232e5a1ec947634c24a3
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 95b492ccbb5026bdd0c2f157561cfea4bdb6521fa6844c1b270bd8661b6540da6f59b7cc7b62b96011b3689615578cf2b55538f3bfd50908467eebc703c22cbe
   languageName: node
   linkType: hard
 
@@ -17298,7 +17301,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-fast-compare@npm:^3.0.1":
+"react-fast-compare@npm:^3.0.1, react-fast-compare@npm:^3.1.1":
   version: 3.2.0
   resolution: "react-fast-compare@npm:3.2.0"
   checksum: 8ef272c825ae329f61633ce4ce7f15aa5b84e5214d88bc0823880236e03e985a13195befa2c7a4eda7db3b017dc7985729152d88445823f652403cf36c2b86aa
@@ -17312,6 +17315,20 @@ __metadata:
     prop-types: ^15.6.0
     react: ^15.6.2 || ^16.0 || ^17
   checksum: b4f5b0ed3a5d7ea781397d6a1f8dacae2284fe7f03f72dde330958dd0a64732f8766c6fa26cf0f1a8fb1303fa02aa51f23cf0b261e52981d0275262b831c7fea
+  languageName: node
+  linkType: hard
+
+"react-helmet@npm:6.1.0":
+  version: 6.1.0
+  resolution: "react-helmet@npm:6.1.0"
+  dependencies:
+    object-assign: ^4.1.1
+    prop-types: ^15.7.2
+    react-fast-compare: ^3.1.1
+    react-side-effect: ^2.1.0
+  peerDependencies:
+    react: ">=16.3.0"
+  checksum: a4998479dab7fc1c2799eddefb1870a9d881b5f71cfdf97979a9882e42f4bb50402d55335f308f461e735e01a06f46b16cc7b4e6bcb22c7a4a6f85a753c5c106
   languageName: node
   linkType: hard
 
@@ -17606,6 +17623,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-side-effect@npm:^2.1.0":
+  version: 2.1.1
+  resolution: "react-side-effect@npm:2.1.1"
+  peerDependencies:
+    react: ^16.3.0 || ^17.0.0
+  checksum: 324511ea8f6669555e166b4af280cdf46034bf0e33c486711e3ce17f88f6f21fed17055098408be1347657d0cbcd614bca944cf9f8e4ecfa96a21d13893fe9fc
+  languageName: node
+  linkType: hard
+
 "react-smooth@npm:^2.0.0":
   version: 2.0.0
   resolution: "react-smooth@npm:2.0.0"
@@ -17618,6 +17644,19 @@ __metadata:
     react: ^15.0.0 || ^16.0.0 || ^17.0.0
     react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0
   checksum: 4eff3fb93067b538e046df2c56a2f99b25f4c3a2aafc1c59707d1a0150f7f0afab408afdc1a47ffa3556adbdb5c915d6035a9a28da878e68771dce7568cc6f69
+  languageName: node
+  linkType: hard
+
+"react-stacked-horizontal-bar-chart@npm:1.0.1":
+  version: 1.0.1
+  resolution: "react-stacked-horizontal-bar-chart@npm:1.0.1"
+  dependencies:
+    classnames: ^2.2.6
+  peerDependencies:
+    prop-types: ^15.5.0
+    react: ^16.8.0
+    react-dom: ^16.8.0
+  checksum: ee3495b60fa29d551b70fe27a0e178c911367ceadd81e3c540690f21dd18e70b7e2379032bd2b79f02850f9aa58364576b3bb6835293b0883bf680d84e627ab6
   languageName: node
   linkType: hard
 
@@ -20038,6 +20077,7 @@ __metadata:
     "@material-ui/icons": 4.11.3
     "@mui/icons-material": 5.6.1
     "@progress/kendo-react-dropdowns": ^5.1.0
+    "@ramonak/react-progress-bar": 4.4.0
     "@react-md/form": ^5.0.0
     "@react-pdf/renderer": 2.1.1
     "@sentry/browser": 6.19.6
@@ -20085,10 +20125,11 @@ __metadata:
     qs: ~6.10.3
     react: ^17.0.2
     react-beautiful-dnd: 13.1.0
-    react-bootstrap: 2.2.3
+    react-bootstrap: 2.3.0
     react-circular-progressbar: 2.0.4
     react-dom: ^17.0.2
     react-ga: ^3.3.0
+    react-helmet: 6.1.0
     react-i18next: ^11.15.7
     react-icon-checkbox: ^1.0.1
     react-icons: ^4.3.1
@@ -20097,6 +20138,7 @@ __metadata:
     react-redux: ^7.2.6
     react-scripts: 5.0.0
     react-select: ^5.2.2
+    react-stacked-horizontal-bar-chart: 1.0.1
     react-toastify: ~8.2.0
     react-tooltip: 4.2.21
     reactstrap: 9.0.2

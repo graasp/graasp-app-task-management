@@ -55,7 +55,7 @@ const ProgressBar = ({
     }
      return false;
   }
-  
+
   const containsNonAssignedTask = (arr) => {
     // eslint-disable-next-line no-underscore-dangle
     if (arr._tail) {
@@ -68,6 +68,8 @@ const ProgressBar = ({
   };
 
   return (
+      <div>
+         
     <div
       className="progress"
       onClick={() => toggleTheme()}
@@ -119,6 +121,7 @@ const ProgressBar = ({
         ''
       )}
  
+    </div>
     </div>
   );
 };
