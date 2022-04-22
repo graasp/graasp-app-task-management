@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/prop-types */
@@ -37,48 +38,52 @@ const ProgressBar1 = ({
     ? 0
     : Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
 
-  const contt = contributions.map((cont) =>
+  const membersContributions = contributions.map((cont) =>
     Number.isNaN(cont.contribution) ? 0 : cont.contribution,
   );
-  console.log('contr', contributions);
+  console.log('contr', membersContributions);
 
-  const data = [];
-  const back = [];
-  contributions.map(
-    (cont) => data.push(cont.contribution),
+  const data = [0];
+  const back = ["whitesmoke"];
+  membersContributions.map((cont) => data.push(cont));
+  membersContributions.map(() =>
     back.push(
-      `rgb(${Math.floor(Math.random() * 170)},${Math.floor(
-        Math.random() * 20,
-      )},${Math.floor(Math.random() * 50)})`,
+      `rgb(${Math.floor(Math.random() * 130)},${Math.floor(
+        Math.random() * 200,
+      )},${Math.floor(Math.random() * 230)})`,
     ),
   );
-  let total = contt.reduce((a, b) => a + b, 0);
+
+  let total = membersContributions.reduce((a, b) => a + b, 0);
   total = Number.isNaN(total) ? 0 : total;
 
   console.log(total);
   const isNotAssigned = (task) => {
-    if (task.data.members.length === 0) {
-      return true;
-    }
-    return false;
-  };
-  const containsNonAssignedTask = (arr) => {
-    // eslint-disable-next-line no-underscore-dangle
-    if (arr._tail) {
-      // eslint-disable-next-line no-underscore-dangle
-      if (arr._tail.array.map((task) => isNotAssigned(task))) {
+    if (task.data.label === 'completed') {
+      if (task.data.members.length === 0) {
         return true;
       }
     }
     return false;
   };
-  if (completionRatio !== 100 || containsNonAssignedTask(tasks)) {
-    data.push(completionRatio-total);
-    back.push('green')
+  let count=0;
+  const containsNonAssignedTask = (arr) => {
+    if (arr._tail) {
+      if (arr._tail.array.map((task) => isNotAssigned(task))) {
+        count+=1;
+      }
+    }
+    return count;
+  };
+  const counter=containsNonAssignedTask(tasks)
+
+  if (completionRatio !== 100 || counter!==0) {
+    data.push(completionRatio - total);
+    back.push('green');
     data.push(100 - completionRatio);
-    back.push(completionRatio===100?'green':'whitesmoke');
+    back.push(completionRatio === 100 ? 'green' : 'whitesmoke');
   }
-  console.log(data);
+  console.log('data',data);
   console.log(back);
 
   return (
