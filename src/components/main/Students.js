@@ -4,7 +4,7 @@ import { t } from 'i18next';
 import { MdSupervisedUserCircle } from 'react-icons/md';
 import { useAppContext } from '../context/appData';
 
-const Students = ({students,setStudents}) => {
+const Students = ({setStudents,contributions}) => {
   // const [students, setStudents] = useState([]);
   
   const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
@@ -19,6 +19,21 @@ const Students = ({students,setStudents}) => {
     ev.dataTransfer.setData('member', member);
   };
 
+  // const chooseColor=(name,cont)=>{
+
+  //   if(name===cont.name){
+
+  //     return cont.color;
+  //   }
+  //   return '';
+    
+  // }
+  // const chooseColorForMember=(name)=>{
+  //  contributions.forEach((cont)=>chooseColor(name,cont))
+   
+   
+  // }
+
   return (
     <div
       style={{
@@ -31,7 +46,7 @@ const Students = ({students,setStudents}) => {
         <MdSupervisedUserCircle title={t('Students')} />
       </h3>
 
-      {students.map((student) => (
+      {contributions.map((student) => (
         <div>
           <li
             className="draggable"
@@ -39,7 +54,7 @@ const Students = ({students,setStudents}) => {
             draggable
             onDragStart={(e) => onDragStart(e, student.name)}
           >
-            <div className="member-container">{student.name}</div>
+            <div className="member-container" style={{backgroundColor:student.color}}>{student.name}</div>
           </li>
           <br />
         </div>

@@ -169,11 +169,11 @@ const App = () => {
 
   const availableColors=['#0000FF','#FFFF00','#FF00FF','#FF0000','#00FFFF']
   // eslint-disable-next-line arrow-body-style
-  const contributions=Array.from(contributionMap, ([key, contribution]) => {
+  const contributions=Array.from(contributionMap, ([key, contribution],index) => {
     return {
       name: key,
       contribution: Math.floor((contribution / totalNumberOfTasks) * 100),
-      color:availableColors[Math.floor(Math.random()*availableColors.length)]
+      color:availableColors[index]
     };
   });
 
@@ -184,10 +184,9 @@ const App = () => {
       {!toggle ? (
         <div className="members-column column">
           <Students
-            tasks={tasks}
-            setTasks={setTasks}
             students={students}
             setStudents={setStudents}
+            contributions={contributions}
           />
         </div>
       ) : (
