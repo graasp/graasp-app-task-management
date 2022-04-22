@@ -26,6 +26,7 @@ const ProgressBar = ({
   numberOfCompletedTasks,
   totalNumberOfTasks,
   contributions,
+  tasks,
 }) => {
   // const data = [{ name: 'Graasp', contribution: 0.33,help:0.2 }];
 
@@ -85,7 +86,24 @@ const ProgressBar = ({
   );
   console.log(contsOnly);
 
-  console.log(completionRatio);
+  console.log('completion', completionRatio);
+
+  const isNotAssigned=(task)=>{
+    if(task.data.members.length===0){
+      return true;
+    }
+     return false;
+  }
+  const containsNonAssignedTask = (arr) => {
+    // eslint-disable-next-line no-underscore-dangle
+    if (arr._tail) {
+      // eslint-disable-next-line no-underscore-dangle
+      if (arr._tail.array.map((task)=>isNotAssigned(task))) {
+        return true;
+      }
+    }
+    return false;
+  };
   //   const checkTotal=(tot)=>{
   //   if(total<100 && numberOfCompletedTasks===totalNumberOfTasks){
   //      const diffToAdd=Math.floor((100-tot)/contributions.length);
@@ -155,6 +173,7 @@ const ProgressBar = ({
         @import '//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css';
       </style> */}
       {contributions.map((contrib) => (
+        // eslint-disable-next-line jsx-a11y/click-events-have-key-events
         <div
           className="progress-bar"
           aria-valuenow="25"
@@ -176,17 +195,14 @@ const ProgressBar = ({
           }%`}
         </div>
       ))}
-      {completionRatio !==
-      total? (
+      {completionRatio !== total && containsNonAssignedTask(tasks) ? (
         <div
           className="progress-bar"
           aria-valuemin="0"
           aria-valuemax="100"
           style={{
             width: `${
-              Number.isNaN(
-                completionRatio - total,
-              )
+              Number.isNaN(completionRatio - total)
                 ? 0
                 : completionRatio - total
             }%`,
@@ -195,12 +211,7 @@ const ProgressBar = ({
         >
           {' '}
           {`${
-            Number.isNaN(
-              completionRatio -
-                total,
-            )
-              ? 0
-              : completionRatio - total
+            Number.isNaN(completionRatio - total) ? 0 : completionRatio - total
           }%`}
         </div>
       ) : (

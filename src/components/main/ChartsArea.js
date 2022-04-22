@@ -2,8 +2,8 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Grid } from '@material-ui/core';
-import MembersProgress from './MembersProgress';
-import ProgressPanel from './ProgressPanel';
+import MembersProgress from './MembersProgressDetail';
+import TeamProgressDetail from './TeamProgressDetail';
 
 const ChartsArea = ({
   tasks,
@@ -23,7 +23,7 @@ const ChartsArea = ({
         />
       </Grid>
       <Grid item xs={6} sm={6} md={3} lg={3} xl={3}>
-        <ProgressPanel
+        <TeamProgressDetail
           tasks={tasks}
           students={students}
           totalNumberOfTasks={totalNumberOfTasks}

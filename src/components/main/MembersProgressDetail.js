@@ -37,7 +37,7 @@ const CustomTooltip = ({ active, payload, label }) => {
   };
 
 
-const MembersProgress = ({contributions}) => {
+const MembersProgressDetail = ({contributions}) => {
   const { t } = useTranslation();
   const classes = useStyles();
 
@@ -77,4 +77,4 @@ const MembersProgress = ({contributions}) => {
   );
 };
 
-export default MembersProgress;
+export default MembersProgressDetail;

@@ -219,6 +219,7 @@ const App = () => {
         setToggle={setToggle}
         toggle={toggle}
         contributions={contributions}
+        tasks={tasks}
       />
 
       {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
