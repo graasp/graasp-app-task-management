@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import DownloadActions from './DownloadActions';
 import ShowProgress from './ShowProgress';
-import Data from './Data';
+// import Data from './Data';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -96,7 +96,7 @@ const Settings = ({ toggle, setToggle, tasks }) => {
             <DownloadActions />
             <br />
 
-            <Data handleModalClose={handleModalClose} tasks={tasks} />
+            {/* <Data handleModalClose={handleModalClose} tasks={tasks} /> */}
             
             <Divider className={classes.divider} />
 

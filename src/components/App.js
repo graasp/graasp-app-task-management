@@ -150,6 +150,7 @@ const App = () => {
   };
 
   const contributionMap = new Map();
+ 
   students.map((student) => contributionMap.set(student.name, 0));
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
