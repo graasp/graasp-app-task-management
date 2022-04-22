@@ -81,9 +81,9 @@ const ProgressBar1 = ({
 
   if (completionRatio !== 100 || counter !== 0) {
     data.push(completionRatio - total);
-    back.push('green');
+    back.push('GrayText');
     data.push(100 - completionRatio);
-    back.push(completionRatio === 100 ? 'green' : 'whitesmoke');
+    back.push(completionRatio === 100 ? 'GrayText' : 'whitesmoke');
   }
   console.log('data', data);
   console.log(back);
