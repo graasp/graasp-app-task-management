@@ -3,8 +3,11 @@
 import React, { useState } from 'react';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { Button } from '@material-ui/core';
 // import ProgressBar2 from './ProgressBar2';
 import ProgressBar1 from './ProgressBar';
+
 
 const Footer = ({
   totalNumberOfTasks,
@@ -46,7 +49,7 @@ const Footer = ({
           >
             {totalNumberOfTasks / numberOfCompletedTasks === 1
               ? 'Done!'
-              : 'Show Progress'}
+              : 'Tasks Progress'}
           </h4>
           <ReactTooltip
             id="test"
@@ -70,15 +73,20 @@ const Footer = ({
         </div>
       ) : (
         
-          <button
-           type="button"
-            onClick={() => {
-              setToggle(!toggle);
-              setToggleFooter(false);
-            }}
-          >
-            Show Tasks
-          </button>
+          <FormControlLabel
+          control={
+            <Button
+              variant="contained"
+              color="#F6ECF5"
+              onClick={() => {
+                setToggle(!toggle);
+                setToggleFooter(false);
+              }}
+            >
+              Show Tasks
+            </Button>
+          }
+        />
         
       )}
     </div>
