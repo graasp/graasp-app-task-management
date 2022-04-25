@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MdDelete, MdOutlineSubject } from 'react-icons/md';
+import { MdDelete, MdOutlineSubject, MdAccountBox } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import Modal from './Modal';
 import { taskProp } from '../../types/props_types';
@@ -109,6 +109,14 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
 
           <div className="content">
             <div className="row" style={{ alignItems: 'center' }}>
+              {members.map((member) => 
+              <MdAccountBox size="1.3em"
+              data-toggle="tooltip"
+              data-placement="left"
+              title={member}
+              alt="member"
+              className="task-details"
+              />)}
               <MdOutlineSubject
                 size="1.3em"
                 data-toggle="tooltip"

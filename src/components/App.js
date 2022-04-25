@@ -20,6 +20,7 @@ import {
 import { ACTION_TYPES } from '../config/actionTypes';
 import Settings from './main/Settings';
 import ChartsArea from './main/ChartsArea';
+import { USER_AVAILABLE_COLORS } from '../constants/constants';
 
 let completedTasks = 0;
 
@@ -171,18 +172,8 @@ const App = () => {
     }
   }
 
-  const availableColors = [
-    '#CAF0F6',
-    '#FFDFD3',
-    '#B6EECF',
-    '#E0BBE4',
-    '#A5D6EA',
-    '#D7ECD9',
-    '#B4C6DD',
-    '#AE88F9',
-    '#DDF1FF',
-    '#D3EAFF',
-  ];
+  const availableColors = USER_AVAILABLE_COLORS;
+  
   const contributions = Array.from(
     contributionMap,
     // eslint-disable-next-line arrow-body-style

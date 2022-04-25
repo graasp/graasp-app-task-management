@@ -33,3 +33,16 @@ export const DEFAULT_TASK = {
 export const APP_SETTINGS = {
   PROGRESS_BAR_DISPLAY: 'progress_bar_display',
 };
+
+export const USER_AVAILABLE_COLORS = [
+  '#CAF0F6',
+  '#FFDFD3',
+  '#B6EECF',
+  '#E0BBE4',
+  '#A5D6EA',
+  '#D7ECD9',
+  '#B4C6DD',
+  '#AE88F9',
+  '#DDF1FF',
+  '#D3EAFF',
+];

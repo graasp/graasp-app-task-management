@@ -232,6 +232,9 @@ input:focus {
 .task-details:hover {
   color: rgb(79, 79, 235);
 }
+.task-member {
+  color: rgb(163, 163, 163);
+}
 
 .description-text-box {
   border-radius: 5px;
