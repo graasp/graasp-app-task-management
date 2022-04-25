@@ -233,10 +233,10 @@ input:focus {
   color: rgb(79, 79, 235);
 }
 .edit-title {
-  color: rgb(229, 214, 84);
+  color: rgb(193, 182, 85);
 }
 .edit-title:hover {
-  color: rgb(237, 198, 4);
+  color: rgb(249, 211, 20);
 }
 
 .description-text-box {
