@@ -22,26 +22,21 @@ const useStyles = makeStyles(() => ({
   typography: { textAlign: 'center' },
 }));
 
-
 const CustomTooltip = ({ active, payload, label }) => {
-  
-    if (active && payload && payload.length) {
-      return (
-        <div className="custom-tooltip">
-          <p className="label">{`${label} : ${payload[0].value}%`}</p>
-        </div>
-      );
-    }
-  
-    return null;
-  };
+  if (active && payload && payload.length) {
+    return (
+      <div className="custom-tooltip">
+        <p className="label">{`${label} : ${payload[0].value}%`}</p>
+      </div>
+    );
+  }
 
+  return null;
+};
 
-const MembersProgressDetail = ({contributions}) => {
+const MembersProgressDetail = ({ contributions }) => {
   const { t } = useTranslation();
   const classes = useStyles();
-
- 
 
   return (
     <>

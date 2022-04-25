@@ -41,9 +41,7 @@ const MyProgress = ({
     'total',
     totalNumberOfTasks,
   );
-  let percentage = Math.floor(
-    (contributions/ totalNumberOfTasks)* 100,
-  );
+  let percentage = Math.floor((contributions / totalNumberOfTasks) * 100);
 
   if (totalNumberOfTasks === 0 || completedTasks === 0) {
     percentage = 0;

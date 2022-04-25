@@ -9,23 +9,21 @@ import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import jsPDF from 'jspdf';
 
-
 const useStyles = makeStyles(() => ({
-    toggleContainer: {
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'space-between',
-      width: '100%',
-    },
-    headerText: {
-      fontSize: '1.05vw',
-    },
-  }));
+  toggleContainer: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  headerText: {
+    fontSize: '1.05vw',
+  },
+}));
 
 const Data = ({ tasks, handleModalClose }) => {
-
-    const classes = useStyles();
-    const { t } = useTranslation();
+  const classes = useStyles();
+  const { t } = useTranslation();
 
   const pdfGenerate = () => {
     const doc = new jsPDF('landscape', 'px', 'a4', 'false');
@@ -36,7 +34,7 @@ const Data = ({ tasks, handleModalClose }) => {
         doc.setFont('Helvertica', 'bold'),
         doc.text(60, 60 + index * 20, `Task: ${task.data.title}`),
         // doc.text(60+task.data.title.length*20, 60 + index * 20, `Members: ${task.data.members}`)
-        doc.setFont('Helvertica','Normal'),
+        doc.setFont('Helvertica', 'Normal'),
         doc.text(300, 60 + index * 20, `Members: ${task.data.members}`)
       );
     });
@@ -49,7 +47,7 @@ const Data = ({ tasks, handleModalClose }) => {
     // doc.text(120,100,': 54645656')
     doc.save('a.pdf');
   };
- 
+
   return (
     <div className={classes.toggleContainer}>
       <Typography className={classes.headerText}>
@@ -61,7 +59,7 @@ const Data = ({ tasks, handleModalClose }) => {
             variant="contained"
             color="secondary"
             onClick={() => {
-                pdfGenerate();
+              pdfGenerate();
               handleModalClose();
             }}
           >

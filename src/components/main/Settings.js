@@ -11,9 +11,10 @@ import SettingsIcon from '@material-ui/icons/Settings';
 // import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
-import DownloadActions from './DownloadActions';
+import DownloadActions from './settings/DownloadActions';
 import ShowProgress from './ShowProgress';
 // import Data from './Data';
+import SettingsProgressBar from './settings/SettingsProgressBar';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -94,10 +95,11 @@ const Settings = ({ toggle, setToggle, tasks }) => {
             />
             <br />
             <DownloadActions />
+            <SettingsProgressBar />
             <br />
 
             {/* <Data handleModalClose={handleModalClose} tasks={tasks} /> */}
-            
+
             <Divider className={classes.divider} />
 
             <div className={classes.buttonContainer}>
