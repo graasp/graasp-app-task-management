@@ -6,25 +6,7 @@
 import React from 'react';
 import { StackedHorizontalBarChart } from 'react-stacked-horizontal-bar-chart';
 
-// import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis } from 'recharts';
-
-// const CustomizedLabel = (props) => {
-//   const { x, y, fill, value } = props;
-//   return (
-//     <text
-//       x={x}
-//       y={y}
-//       fontSize="16"
-//       fontFamily="sans-serif"
-//       fill={fill}
-//       textAnchor="start"
-//     >
-//       {value}%
-//     </text>
-//   );
-// };
-
-const ProgressBar1 = ({
+const ProgressBar = ({
   numberOfCompletedTasks,
   totalNumberOfTasks,
   contributions,
@@ -33,7 +15,7 @@ const ProgressBar1 = ({
   // const data = [{ name: 'Graasp', contribution: 0.33,help:0.2 }];
 
   const completionRatio = Number.isNaN(
-   (numberOfCompletedTasks / totalNumberOfTasks) * 100,
+    (numberOfCompletedTasks / totalNumberOfTasks) * 100,
   )
     ? 0
     : (numberOfCompletedTasks / totalNumberOfTasks) * 100;
@@ -46,15 +28,8 @@ const ProgressBar1 = ({
   const data = [0];
   const back = ['whitesmoke'];
   membersContributions.map((cont) => data.push(cont));
-  contributions.map((cont) =>
-    // back.push(
-    //   `rgb(${Math.floor(Math.random() * 230)},${Math.floor(
-    //     Math.random() * 70,
-    //   )},${Math.floor(Math.random() * 100)})`,
-    // ),
-    back.push(cont.color)
-  );
-  console.log('back',back)
+  contributions.map((cont) => back.push(cont.color));
+  console.log('back', back);
 
   let total = membersContributions.reduce((a, b) => a + b, 0);
   total = Number.isNaN(total) ? 0 : total;
@@ -99,63 +74,4 @@ const ProgressBar1 = ({
   );
 };
 
-export default ProgressBar1;
-
-{
-  /* <div>
-      <div
-        className="progress"
-        onClick={() => toggleTheme()}
-        style={{ marginLeft: 25, marginRight: 25 }}
-      >
-        {contributions.map((contrib) => (
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-          <div
-            className="progress-bar"
-            aria-valuenow="25"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            style={{
-              width: `${
-                Number.isNaN(contrib.contribution) ? 0 : contrib.contribution
-              }%`,
-              backgroundColor: `rgb(${Math.floor(
-                Math.random() * 10,
-              )}, ${Math.floor(Math.random() * 200)}, ${Math.floor(
-                Math.random() * 100,
-              )})`,
-            }}
-          >
-            {`${contrib.name}${' '}${
-              Number.isNaN(contrib.contribution) ? 0 : contrib.contribution
-            }%`}
-          </div>
-        ))}
-        {completionRatio !== total && containsNonAssignedTask(tasks) ? (
-          <div
-            className="progress-bar"
-            aria-valuemin="0"
-            aria-valuemax="100"
-            style={{
-              width: `${
-                Number.isNaN(completionRatio - total)
-                  ? 0
-                  : completionRatio - total
-              }%`,
-              backgroundColor: 'green',
-            }}
-          >
-            {' '}
-            {`${
-              Number.isNaN(completionRatio - total)
-                ? 0
-                : completionRatio - total
-            }%`}
-          </div>
-        ) : (
-          ''
-        )}
-      </div>
-    </div>
- */
-}
+export default ProgressBar;

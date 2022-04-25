@@ -173,12 +173,12 @@ const App = () => {
   const availableColors = [
     '#CAF0F6',
     '#FFDFD3',
-    '#EDFFEF',
+    '#B6EECF',
     '#E0BBE4',
     '#D5D6EA',
     '#D7ECD9',
-    '#EBF8FF',
-    '#F6F6EB',
+    '#B4C6DD',
+    '#FEC8D8',
     '#DDF1FF',
     '#D3EAFF',
   ];

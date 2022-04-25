@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Button } from '@material-ui/core';
 // import ProgressBar2 from './ProgressBar2';
-import ProgressBar1 from './ProgressBar';
+import ProgressBar from './ProgressBar';
 
 
 const Footer = ({
@@ -58,13 +58,7 @@ const Footer = ({
             textColor="black"
           />
 
-          {/* <ProgressBar2
-      numberOfCompletedTasks={numberOfCompletedTasks}
-      totalNumberOfTasks={totalNumberOfTasks}
-      contributions={contributions}
-      tasks={tasks}
-    /> */}
-          <ProgressBar1
+          <ProgressBar
             numberOfCompletedTasks={numberOfCompletedTasks}
             totalNumberOfTasks={totalNumberOfTasks}
             contributions={contributions}
