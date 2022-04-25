@@ -188,7 +188,8 @@ const App = () => {
     ([key, contribution], index) => {
       return {
         name: key,
-        contribution: Math.floor((contribution / totalNumberOfTasks) * 100),
+        contribution: (contribution / totalNumberOfTasks) * 100,
+        flooredContribution:Math.floor((contribution / totalNumberOfTasks) * 100),
         color: availableColors[index % availableColors.length],
       };
     },

@@ -20,20 +20,20 @@ const Students = ({ students, setStudents, contributions }) => {
     ev.dataTransfer.setData('member', member);
   };
 // Check other names: Graciana, Jeremy, Denis... OR emails
-  const isChecked = (name) => {
-    if (name === 'Jason') {
+  // const isChecked = (name) => {
+  //   if (name === 'Jason') {
+  //     return false;
+  //   }
+  //   return true;
+  // };
+
+ const emails=['gracianaaad@hotmail.com','denis.gillet@epfl.ch','jeremy.lascala@epfl.ch']
+  const isChecked = (email) => {
+    if (emails.includes(email)) {
       return false;
     }
     return true;
   };
-
-//  const emails=['gracianaaad@hotmail.com','denis.gillet@epfl.ch','jeremy.lascala@epfl.ch']
-//   const isChecked = (email) => {
-//     if (emails.includes(email)) {
-//       return false;
-//     }
-//     return true;
-//   };
 
   return (
     <div
@@ -49,8 +49,7 @@ const Students = ({ students, setStudents, contributions }) => {
 
       {contributions.map((student) => (
         <div>
-          {isChecked(student.name) ? (
-            // isChecked(student.email) ? 
+          {isChecked(student.email) ? (
             <li
               className="draggable"
               key={student.name}

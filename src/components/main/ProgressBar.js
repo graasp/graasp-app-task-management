@@ -33,10 +33,10 @@ const ProgressBar1 = ({
   // const data = [{ name: 'Graasp', contribution: 0.33,help:0.2 }];
 
   const completionRatio = Number.isNaN(
-    Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
+   (numberOfCompletedTasks / totalNumberOfTasks) * 100,
   )
     ? 0
-    : Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
+    : (numberOfCompletedTasks / totalNumberOfTasks) * 100;
 
   const membersContributions = contributions.map((cont) =>
     Number.isNaN(cont.contribution) ? 0 : cont.contribution,
@@ -80,9 +80,9 @@ const ProgressBar1 = ({
   const counter = containsNonAssignedTask(tasks);
 
   if (completionRatio !== 100 || counter !== 0) {
-    data.push(completionRatio - total);
+    data.push(Math.floor(completionRatio - total));
     back.push('GrayText');
-    data.push(100 - completionRatio);
+    data.push(Math.floor(100 - completionRatio));
     back.push(completionRatio === 100 ? 'GrayText' : 'whitesmoke');
   }
   console.log('data', data);
