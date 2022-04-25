@@ -589,7 +589,7 @@ sup {
 }
 
 .main-footer {
-  background-color: rgb(249, 249, 249);
+  background-color: transparent;
   position: fixed;
   bottom: 0;
   width: 100%;

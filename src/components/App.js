@@ -196,7 +196,7 @@ const App = () => {
   );
 
   return (
-    <div className="row">
+    <div className="row" >
       {!toggle ? (
         <div className="members-column column">
           <Students
