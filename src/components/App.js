@@ -216,13 +216,13 @@ const App = () => {
             // <div className="row" style={{ paddingLeft: '13em' }}>
               <DragDropContext onDragEnd={handleDragEnd}>
                 <Grid container>
-                <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+                <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
                   {renderTasksList('To Do', TASK_LABELS.TODO, true)}
                 </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+                <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
                   {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
                 </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={4} xl={4}>
+                <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
                   {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
                 </Grid>
                 </Grid>
