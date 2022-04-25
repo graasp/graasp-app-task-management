@@ -30,7 +30,7 @@ const ProgressBar = ({
   };
 
   const completionRatio = Number.isNaN(
-    Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
+   (numberOfCompletedTasks / totalNumberOfTasks) * 100,
   )
     ? 0
     : Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
@@ -99,7 +99,7 @@ const ProgressBar = ({
               width: `${
                 Number.isNaN(completionRatio - total)
                   ? 0
-                  : completionRatio - total
+                  : Math.floor(completionRatio - total)
               }%`,
               backgroundColor: 'green',
             }}
