@@ -1,9 +1,10 @@
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-lone-blocks */
 /* eslint-disable react/no-unescaped-entities */
-/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StackedHorizontalBarChart } from 'react-stacked-horizontal-bar-chart';
 
 const ProgressBar = ({
@@ -12,7 +13,6 @@ const ProgressBar = ({
   contributions,
   tasks,
 }) => {
-  // const data = [{ name: 'Graasp', contribution: 0.33,help:0.2 }];
 
   const completionRatio = Number.isNaN(
     Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
@@ -80,6 +80,14 @@ console.log('contr', rawContributions);
       />
     </div>
   );
+};
+
+
+ProgressBar.propTypes = {
+  totalNumberOfTasks: PropTypes.number.isRequired,
+  numberOfCompletedTasks: PropTypes.number.isRequired,
+  contributions: PropTypes.array.isRequired,
+  tasks: PropTypes.array.isRequired,
 };
 
 export default ProgressBar;

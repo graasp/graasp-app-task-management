@@ -5,7 +5,6 @@ import { MdSupervisedUserCircle } from 'react-icons/md';
 import { useAppContext } from '../context/appData';
 
 const Students = ({ students, setStudents, contributions }) => {
-  // const [students, setStudents] = useState([]);
 
   const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
 
