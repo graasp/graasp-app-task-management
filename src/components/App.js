@@ -232,8 +232,6 @@ const App = () => {
             </Grid>
           </DragDropContext>
         ) : (
-          // </div>
-          <div className="row" style={{ paddingLeft: '13em' }}>
             <ChartsArea
               tasks={tasks}
               students={students}
@@ -241,7 +239,6 @@ const App = () => {
               totalNumberOfTasks={totalNumberOfTasks}
               contributions={contributions}
             />
-          </div>
         )}
         <div className="clear" />
       </div>
