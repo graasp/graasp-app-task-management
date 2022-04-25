@@ -14,17 +14,17 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
 
   const [focused, setFocused] = useState(false);
   const [seen, setSeen] = useState(false);
-  const [editedTitle, setEditedTitle] = useState("");
+  const [editedTitle, setEditedTitle] = useState('');
   const [isEditingTitle, setIsEditingTitle] = useState(null);
   // const { isEditingTitle, setIsEditingTitle } = useContext(AppContext);
 
   const addMembers = (member) => {
-    const newMembers=[...members, member];
+    const newMembers = [...members, member];
     const newTask = {
       ...task,
       data: {
         ...data,
-        members : [...new Set(newMembers)]
+        members: [...new Set(newMembers)],
       },
     };
     updateTask(newTask);

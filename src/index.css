@@ -161,7 +161,6 @@ input:focus {
   overflow: auto;
 }
 @media only screen and (max-width: 2600px) and (min-width: 1500px) {
-
   .droppable-col {
     width: 27em;
     background-color: #ebecf0;
@@ -178,7 +177,7 @@ input:focus {
     margin-left: 3em;
     margin-right: 3em;
   }
-  
+
   .app-background {
     display: flex;
     min-height: 100vh;
@@ -192,16 +191,16 @@ input:focus {
     display: flex;
     flex-direction: row;
   }
-  
+
   .column {
     display: flex;
     flex-direction: column;
   }
-  
+
   .jc-space-between {
     justify-content: space-between;
   }
-  
+
   .text-task {
     color: black;
     font-weight: 500;
@@ -209,7 +208,7 @@ input:focus {
   .text-task:hover {
     font-weight: 700;
   }
-  
+
   .add-button {
     outline: none;
     border: none;
@@ -222,7 +221,7 @@ input:focus {
     margin: 0 0.9375em 0.9375em 0.9375em;
     cursor: pointer;
   }
-  
+
   .text-input {
     border: #c3c9ca 1px solid;
     outline: none;
@@ -246,7 +245,7 @@ input:focus {
     font-weight: bold;
     font-weight: 500;
   }
-  
+
   .list-item {
     background-color: white;
     border: none;
@@ -261,12 +260,12 @@ input:focus {
     align-items: center;
     height: 2em;
   }
-  
+
   .list-item:hover {
     border-color: #8ea3b4;
     box-shadow: 0 0 0.625em #8ea3b4;
   }
-  
+
   .list-item-out {
     background-color: white;
     border-color: #8ea3b4;
@@ -282,9 +281,7 @@ input:focus {
     align-items: center;
     height: 2em;
   }
-  
 }
-
 
 .tasks-list {
   display: grid;
@@ -417,8 +414,8 @@ input[type='text'] {
 .App .column {
   width: 30%;
 }
-.other-column{
-  width:100%;
+.other-column {
+  width: 100%;
 }
 .dragging {
   background-color: rgb(168, 214, 245);
@@ -448,12 +445,13 @@ sup {
 }
 
 .main-footer {
-  background-color:rgb(249, 249, 249);
+  background-color: transparent;
   position: fixed;
   bottom: 0;
   width: 100%;
   height: 90px;
   text-align: center;
+  margin-left: 1em;
 }
 .clear {
   clear: both;
@@ -482,3 +480,26 @@ sup {
   cursor: grabbing;
 }
 
+.center {
+  margin: auto;
+  width: 60%;
+  padding: 10px;
+}
+
+#container {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  padding: 10px;
+  width: 900px;
+  height: 260px;
+  background-color: #fff;
+}
+.label {
+    font-family: sans-serif
+}
+.container {
+    border: 1px solid #f4f4f4;
+    width: 400px;
+    height: 40px;
+}
