@@ -1681,6 +1681,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@coreui/react@npm:4.1.2":
+  version: 4.1.2
+  resolution: "@coreui/react@npm:4.1.2"
+  peerDependencies:
+    react: ^17
+    react-dom: ^17
+  checksum: 3480a198f4c79c74be5eb4eebd7ecb69dc06794b96d5642c0146a2edf2717eeb94e4648b78f8e1f965336549e9864485ff445bd10131b229ea05886d82b77f8e
+  languageName: node
+  linkType: hard
+
 "@cspotcode/source-map-consumer@npm:0.8.0":
   version: 0.8.0
   resolution: "@cspotcode/source-map-consumer@npm:0.8.0"
@@ -2681,6 +2691,21 @@ __metadata:
     react: ^16.8.2 || ^17.0.0 || ^18.0.0
     react-dom: ^16.8.2 || ^17.0.0 || ^18.0.0
   checksum: b0b5fdbb09b3de49157da4e33a2e6e075b0d22376b1400930651924a1f15465fbe561350905b3fcf98838dc68202dc05c5b133e87dc949cbcefa1131fa7a9a7e
+  languageName: node
+  linkType: hard
+
+"@progress/kendo-react-progressbars@npm:5.2.0":
+  version: 5.2.0
+  resolution: "@progress/kendo-react-progressbars@npm:5.2.0"
+  dependencies:
+    "@progress/kendo-react-common": 5.2.0
+    prop-types: ^15.6.0
+  peerDependencies:
+    "@progress/kendo-licensing": ^1.0.1
+    "@progress/kendo-react-animation": ^5.0.0
+    react: ^16.8.2 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.8.2 || ^17.0.0 || ^18.0.0
+  checksum: 89522402cbbb8464af15c96b8a8bfff00ff061d84c18997216b90eff25becf95a0a38debf52a24c94c5a6a1d46bc8c0136db09741fca8df3e31d0b4145beba1b
   languageName: node
   linkType: hard
 
@@ -20117,6 +20142,7 @@ __metadata:
     "@babel/preset-react": ~7.16.7
     "@commitlint/cli": ~16.2.1
     "@commitlint/config-conventional": ~16.2.1
+    "@coreui/react": 4.1.2
     "@fortawesome/free-solid-svg-icons": 6.1.0
     "@fortawesome/react-fontawesome": ^0.1.17
     "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git"
@@ -20127,6 +20153,7 @@ __metadata:
     "@material-ui/lab": 4.0.0-alpha.61
     "@mui/icons-material": 5.6.1
     "@progress/kendo-react-dropdowns": ^5.1.0
+    "@progress/kendo-react-progressbars": 5.2.0
     "@ramonak/react-progress-bar": 4.4.0
     "@react-md/form": ^5.0.0
     "@react-pdf/renderer": 2.1.1

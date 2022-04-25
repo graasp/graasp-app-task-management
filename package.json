@@ -10,6 +10,7 @@
     "Jérémy La Scala"
   ],
   "dependencies": {
+    "@coreui/react": "4.1.2",
     "@fortawesome/free-solid-svg-icons": "6.1.0",
     "@fortawesome/react-fontawesome": "^0.1.17",
     "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git",
@@ -20,6 +21,7 @@
     "@material-ui/lab": "4.0.0-alpha.61",
     "@mui/icons-material": "5.6.1",
     "@progress/kendo-react-dropdowns": "^5.1.0",
+    "@progress/kendo-react-progressbars": "5.2.0",
     "@ramonak/react-progress-bar": "4.4.0",
     "@react-md/form": "^5.0.0",
     "@react-pdf/renderer": "2.1.1",

@@ -31,7 +31,7 @@ const Footer = ({
   if (contributions) {
     contributions.map((cont) =>
       legend.push({
-        description: `${cont.name}: ${cont.flooredContribution}%`,
+        description: `${cont.name}: ${cont.memberContribution}%`,
       }),
     );
   }
@@ -79,6 +79,7 @@ const Footer = ({
                 multiline="true"
                 textColor="black"
               />
+              <br />
 
               <ProgressBar
                 numberOfCompletedTasks={numberOfCompletedTasks}

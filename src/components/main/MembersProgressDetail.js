@@ -62,7 +62,7 @@ const MembersProgressDetail = ({ contributions }) => {
           <Tooltip content={<CustomTooltip />} />
           <Legend />
           <Bar
-            dataKey="flooredContribution"
+            dataKey="memberContribution"
             fill="#8884d8"
             background={{ fill: '#eee' }}
           />

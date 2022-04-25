@@ -189,10 +189,14 @@ const App = () => {
     ([key, contribution], index) => {
       return {
         name: key,
-        contribution: (contribution / totalNumberOfTasks) * 100,
-        flooredContribution: Math.floor(
-          (contribution / totalNumberOfTasks) * 100,
-        ),
+        contribution:
+          totalNumberOfTasks === 0
+            ? 0
+            : (contribution / totalNumberOfTasks) * 100,
+        memberContribution:
+          totalNumberOfTasks === 0
+            ? 0
+            : Math.floor((contribution / totalNumberOfTasks) * 100),
         color: availableColors[index % availableColors.length],
       };
     },
@@ -215,17 +219,14 @@ const App = () => {
         {!toggle ? (
           // <div className="row" style={{ paddingLeft: '13em' }}>
           <DragDropContext onDragEnd={handleDragEnd}>
-            <Grid
-              container
-            
-            >
+            <Grid container>
               <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
                 {renderTasksList('To Do', TASK_LABELS.TODO, true)}
               </Grid>
               <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
                 {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
               </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={6} xl={4} >
+              <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
                 {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
               </Grid>
             </Grid>
@@ -244,6 +245,7 @@ const App = () => {
         )}
         <div className="clear" />
       </div>
+
       <Footer
         numberOfCompletedTasks={completedTasks}
         totalNumberOfTasks={totalNumberOfTasks}

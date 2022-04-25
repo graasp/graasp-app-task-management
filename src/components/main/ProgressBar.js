@@ -21,7 +21,7 @@ const ProgressBar = ({
     :  Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
 
   const membersContributions = contributions.map((cont) =>
-    Number.isNaN(cont.flooredContribution) ? 0 : cont.flooredContribution,
+    Number.isNaN(cont.memberContribution) ? 0 : cont.memberContribution,
   );
   console.log('contr', membersContributions);
 
@@ -32,16 +32,11 @@ const ProgressBar = ({
   console.log('back', back);
 
 
-  const rawContributions = contributions.map((cont) =>
-  Number.isNaN(cont.contribution) ? 0 : cont.contribution,
-);
-console.log('contr', rawContributions);
 
   let total = membersContributions.reduce((a, b) => a + b, 0);
-  console.log(contributions)
   total = Number.isNaN(total) ? 0 : total;
 
-  console.log(total);
+  
   const isNotAssigned = (task) => {
     if (task.data.label === 'completed') {
       if (task.data.members.length === 0) {
