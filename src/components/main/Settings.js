@@ -13,7 +13,7 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import DownloadActions from './settings/DownloadActions';
 import ShowProgress from './ShowProgress';
-import Data from './Data';
+// import Data from './Data';
 import SettingsProgressBar from './settings/SettingsProgressBar';
 
 const useStyles = makeStyles((theme) => ({
@@ -98,8 +98,8 @@ const Settings = ({ toggle, setToggle, tasks }) => {
             <SettingsProgressBar />
             <br />
 
-            <Data handleModalClose={handleModalClose} tasks={tasks} />
-
+            {/* <Data handleModalClose={handleModalClose} tasks={tasks} /> */}
+            
             <Divider className={classes.divider} />
 
             <div className={classes.buttonContainer}>

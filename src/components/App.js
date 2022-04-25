@@ -150,6 +150,7 @@ const App = () => {
   };
 
   const contributionMap = new Map();
+ 
   students.map((student) => contributionMap.set(student.name, 0));
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
@@ -170,31 +171,38 @@ const App = () => {
   }
 
   const availableColors = [
-    '#0000FF',
-    '#FFFF00',
-    '#FF00FF',
-    '#FF0000',
-    '#00FFFF',
+    '#CAF0F6',
+    '#FFDFD3',
+    '#B6EECF',
+    '#E0BBE4',
+    '#D5D6EA',
+    '#D7ECD9',
+    '#B4C6DD',
+    '#FEC8D8',
+    '#DDF1FF',
+    '#D3EAFF',
   ];
-  // eslint-disable-next-line arrow-body-style
-  const contributions = Array.from(contributionMap, ([key, contribution]) => {
-    return {
-      name: key,
-      contribution: Math.floor((contribution / totalNumberOfTasks) * 100),
-      color:
-        availableColors[Math.floor(Math.random() * availableColors.length)],
-    };
-  });
+  const contributions = Array.from(
+    contributionMap,
+    // eslint-disable-next-line arrow-body-style
+    ([key, contribution], index) => {
+      return {
+        name: key,
+        contribution: (contribution / totalNumberOfTasks) * 100,
+        flooredContribution:Math.floor((contribution / totalNumberOfTasks) * 100),
+        color: availableColors[index % availableColors.length],
+      };
+    },
+  );
 
   return (
-    <div className="row">
+    <div className="row" >
       {!toggle ? (
         <div className="members-column column">
           <Students
-            tasks={tasks}
-            setTasks={setTasks}
             students={students}
             setStudents={setStudents}
+            contributions={contributions}
           />
         </div>
       ) : (
