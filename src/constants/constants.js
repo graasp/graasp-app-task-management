@@ -29,3 +29,7 @@ export const DEFAULT_TASK = {
   visibility: 'item',
   data: DEFAULT_TASK_DATA,
 };
+
+export const APP_SETTINGS = {
+  PROGRESS_BAR_DISPLAY: 'progress_bar_display',
+};

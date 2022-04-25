@@ -1,9 +1,12 @@
 const path = require('path');
 const glob = require('glob');
+const webpack = require("webpack");
+
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('interpolate-html-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
+
 
 // from: https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/config/env.js
 // grab react app environment variables
@@ -25,6 +28,16 @@ const REACT_ENV = Object.keys(process.env)
   );
 
 module.exports = {
+  resolve: {
+    fallback: {
+      process: require.resolve("process/browser"),
+      zlib: require.resolve("browserify-zlib"),
+      stream: require.resolve("stream-browserify"),
+      util: require.resolve("util"),
+      buffer: require.resolve("buffer"),
+      asset: require.resolve("assert"),
+    }
+  },
   entry: {
     'bundle.js': glob
       .sync('build/static/?(js|css)/*.?(js|css)')
@@ -54,5 +67,9 @@ module.exports = {
       preload: /\.js$/,
     }),
     new InterpolateHtmlPlugin(REACT_ENV),
+    new webpack.ProvidePlugin({
+      Buffer: ["buffer", "Buffer"],
+      process: "process/browser",
+    }),
   ],
 };

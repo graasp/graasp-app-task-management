@@ -74,8 +74,8 @@ const Modal = ({ task, updateTask }) => {
       onDragOver={(e) => onDragOver(e)}
       onDrop={(e) => onDrop(e)}
     >
-      <div className="other-column" style={{justifyContent:'center'}}>
-        <div className="row" style={{justifyContent:'center'}}>
+      <div className="other-column" style={{ justifyContent: 'center' }}>
+        <div className="row" style={{ justifyContent: 'center' }}>
           <div>
             <br />
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
@@ -141,16 +141,16 @@ const Modal = ({ task, updateTask }) => {
             </div>
           </div>
         </div>
-        <div className='row' style={{justifyContent:'center'}}>
+        <div className="row" style={{ justifyContent: 'center' }}>
           <div className="col-md-6">
             <div className="col-md-12">
               <div> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </div>
-              <div >
+              <div>
                 <div
                   className={
                     members.length ? 'members-text ' : 'no-members-text'
                   }
-                  style={{display:'inline'}}
+                  style={{ display: 'inline' }}
                 >
                   {members.length
                     ? members.map((member) => (
