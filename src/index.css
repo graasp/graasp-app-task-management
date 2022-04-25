@@ -232,6 +232,12 @@ input:focus {
 .task-details:hover {
   color: rgb(79, 79, 235);
 }
+.edit-title {
+  color: rgb(229, 214, 84);
+}
+.edit-title:hover {
+  color: rgb(237, 198, 4);
+}
 
 .description-text-box {
   border-radius: 5px;
