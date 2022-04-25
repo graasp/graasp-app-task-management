@@ -14,7 +14,7 @@ const ChartsArea = ({
 }) => {
   return (
     <Grid container>
-      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
+      <Grid item xs={12} sm={12} md={9} lg={9} xl={9}>
         <MembersProgress
           tasks={tasks}
           students={students}
