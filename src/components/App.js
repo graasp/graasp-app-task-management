@@ -59,7 +59,7 @@ const App = () => {
     postAction({
       type: ACTION_TYPES.ADD,
       data: {
-        note: newTask.data,
+        ...newTask.data,
         id: newTask.id,
       },
     });
@@ -70,7 +70,7 @@ const App = () => {
     postAction({
       type: ACTION_TYPES.EDIT,
       data: {
-        note: newTask.data,
+        ...newTask.data,
         id: newTask.id,
       },
     });
