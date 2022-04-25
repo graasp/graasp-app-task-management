@@ -37,7 +37,6 @@ const Footer = ({
     );
   }
 
-
   let text = legend.map((user) => `${user.description}`);
   text = text.join('<br>');
 
@@ -69,12 +68,16 @@ const Footer = ({
             {totalNumberOfTasks / numberOfCompletedTasks === 1
               ? 'Done!  '
               : 'Tasks Progress  '}
-            
-                <small style={{ color: 'rgb(201, 59, 59)' }}>{Math.floor(
-                  (numberOfCompletedTasks / totalNumberOfTasks) * 100,
-                )}%</small>
+
+            <small style={{ color: 'green' }}>
+              {totalNumberOfTasks === 0
+                ? 0
+                : Math.floor(
+                    (numberOfCompletedTasks / totalNumberOfTasks) * 100,
+                  )}
+              %
+            </small>
           </h4>
-              
 
           {showUserShare && (
             <>
@@ -84,7 +87,6 @@ const Footer = ({
                 multiline="true"
                 textColor="black"
               />
-              &nbsp;&nbsp;
 
               <ProgressBar
                 numberOfCompletedTasks={numberOfCompletedTasks}

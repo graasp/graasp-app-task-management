@@ -13,12 +13,11 @@ const ProgressBar = ({
   contributions,
   tasks,
 }) => {
-
   const completionRatio = Number.isNaN(
     Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
   )
     ? 0
-    :  Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
+    : Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
 
   const membersContributions = contributions.map((cont) =>
     Number.isNaN(cont.memberContribution) ? 0 : cont.memberContribution,
@@ -29,12 +28,9 @@ const ProgressBar = ({
   membersContributions.map((cont) => data.push(cont));
   contributions.map((cont) => back.push(cont.color));
 
-
-
   let total = membersContributions.reduce((a, b) => a + b, 0);
   total = Number.isNaN(total) ? 0 : total;
 
-  
   const isNotAssigned = (task) => {
     if (task.data.label === 'completed') {
       if (task.data.members.length === 0) {
@@ -62,7 +58,14 @@ const ProgressBar = ({
   }
 
   return (
-    <div style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}>
+    <div
+      style={{
+        width: '50%',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '50',
+      }}
+    >
       <StackedHorizontalBarChart
         height={10}
         ranges={data}
@@ -71,7 +74,6 @@ const ProgressBar = ({
     </div>
   );
 };
-
 
 ProgressBar.propTypes = {
   totalNumberOfTasks: PropTypes.number.isRequired,
