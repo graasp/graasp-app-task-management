@@ -3477,6 +3477,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sentry/react@npm:6.19.6":
+  version: 6.19.6
+  resolution: "@sentry/react@npm:6.19.6"
+  dependencies:
+    "@sentry/browser": 6.19.6
+    "@sentry/minimal": 6.19.6
+    "@sentry/types": 6.19.6
+    "@sentry/utils": 6.19.6
+    hoist-non-react-statics: ^3.3.2
+    tslib: ^1.9.3
+  peerDependencies:
+    react: 15.x || 16.x || 17.x || 18.x
+  checksum: 5e6c5b995f2e3b4bba36a458249477e8aaf464d314d4eb26214e1b69a1f26aa734244c67ae4a012bab1b098fc93a101f2243883e4eca429c23d68f33b3091ba9
+  languageName: node
+  linkType: hard
+
 "@sentry/tracing@npm:6.19.6":
   version: 6.19.6
   resolution: "@sentry/tracing@npm:6.19.6"
@@ -20115,6 +20131,7 @@ __metadata:
     "@react-md/form": ^5.0.0
     "@react-pdf/renderer": 2.1.1
     "@sentry/browser": 6.19.6
+    "@sentry/react": 6.19.6
     "@sentry/tracing": 6.19.6
     "@testing-library/jest-dom": ^5.14.1
     "@testing-library/react": ^12.0.0
