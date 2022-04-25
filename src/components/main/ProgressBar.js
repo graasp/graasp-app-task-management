@@ -15,13 +15,13 @@ const ProgressBar = ({
   // const data = [{ name: 'Graasp', contribution: 0.33,help:0.2 }];
 
   const completionRatio = Number.isNaN(
-    (numberOfCompletedTasks / totalNumberOfTasks) * 100,
+    Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
   )
     ? 0
-    : (numberOfCompletedTasks / totalNumberOfTasks) * 100;
+    :  Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
 
   const membersContributions = contributions.map((cont) =>
-    Number.isNaN(cont.contribution) ? 0 : cont.contribution,
+    Number.isNaN(cont.flooredContribution) ? 0 : cont.flooredContribution,
   );
   console.log('contr', membersContributions);
 
@@ -31,7 +31,14 @@ const ProgressBar = ({
   contributions.map((cont) => back.push(cont.color));
   console.log('back', back);
 
+
+  const rawContributions = contributions.map((cont) =>
+  Number.isNaN(cont.contribution) ? 0 : cont.contribution,
+);
+console.log('contr', rawContributions);
+
   let total = membersContributions.reduce((a, b) => a + b, 0);
+  console.log(contributions)
   total = Number.isNaN(total) ? 0 : total;
 
   console.log(total);
@@ -58,6 +65,7 @@ const ProgressBar = ({
     data.push(Math.floor(completionRatio - total));
     back.push('GrayText');
     data.push(Math.floor(100 - completionRatio));
+    console.log('rest',100 - completionRatio)
     back.push(completionRatio === 100 ? 'GrayText' : 'whitesmoke');
   }
   console.log('data', data);

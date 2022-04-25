@@ -175,10 +175,10 @@ const App = () => {
     '#FFDFD3',
     '#B6EECF',
     '#E0BBE4',
-    '#D5D6EA',
+    '#A5D6EA',
     '#D7ECD9',
     '#B4C6DD',
-    '#FEC8D8',
+    '#AE88F9',
     '#DDF1FF',
     '#D3EAFF',
   ];

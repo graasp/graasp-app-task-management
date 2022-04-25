@@ -23,7 +23,7 @@ const Footer = ({
   if (contributions) {
     contributions.map((cont) =>
       legend.push({
-        description: `${cont.name}: ${cont.contribution}%`,
+        description: `${cont.name}: ${cont.flooredContribution}%`,
       }),
     );
   }
