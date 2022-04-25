@@ -7,6 +7,7 @@ import { REACT_APP_GRAASP_APP_ID } from './env';
 import { mockContext } from '../data/db';
 import { MOCK_API } from './settings';
 
+// eslint-disable-next-line no-console
 console.log(REACT_APP_GRAASP_APP_ID);
 
 const {

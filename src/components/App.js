@@ -103,12 +103,12 @@ const App = () => {
       ...tasks.filter(({ data }) => data.label === source.droppableId),
     ];
 
-    console.debug('The relevant tasks are:', labelledTasks);
+    // console.debug('The relevant tasks are:', labelledTasks);
 
     const draggedTask = labelledTasks[source.index];
 
-    console.debug('Destination: ', destination);
-    console.debug('Source: ', source);
+    // console.debug('Destination: ', destination);
+    // console.debug('Source: ', source);
 
     const newTask = {
       ...draggedTask,
@@ -118,7 +118,7 @@ const App = () => {
       },
     };
 
-    console.debug('Newtask: ', newTask);
+    // console.debug('Newtask: ', newTask);
 
     updateTask(newTask);
   };
@@ -134,7 +134,7 @@ const App = () => {
 
     completedTasks = completedTasksArray[0].size;
 
-    console.debug('The tasks in ', label, ' are: ', tasksArray);
+    // console.debug('The tasks in ', label, ' are: ', tasksArray);
     return (
       <div>
         <TasksList

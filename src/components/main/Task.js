@@ -94,7 +94,8 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
             />
           ) : (
             // TODO: DELETE
-            /* eslint-disable-next-line jsx-a11y/no-static-element-interactions */
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <span
               className="text-task"
               onClick={() => setIsEditingTitle(id)}

@@ -86,7 +86,7 @@ TasksList.propTypes = {
 
 TasksList.defaultProps = {
   addTask: () => {
-    console.warn('The task could not be added. [addTask not defined]');
+    // console.warn('The task could not be added. [addTask not defined]');
   },
   addComponent: false,
 };

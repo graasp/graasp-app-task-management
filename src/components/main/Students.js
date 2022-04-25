@@ -4,7 +4,7 @@ import { t } from 'i18next';
 import { MdSupervisedUserCircle } from 'react-icons/md';
 import { useAppContext } from '../context/appData';
 
-const Students = ({ students, setStudents, contributions }) => {
+const Students = ({ setStudents, contributions }) => {
 
   const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
 
@@ -13,7 +13,6 @@ const Students = ({ students, setStudents, contributions }) => {
       setStudents(appContext?.get('members'));
     }
   }, [appContext, isAppContextSuccess]);
-  console.log('stds', students);
 
   const onDragStart = (ev, member) => {
     ev.dataTransfer.setData('member', member);

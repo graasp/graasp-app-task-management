@@ -23,13 +23,11 @@ const ProgressBar = ({
   const membersContributions = contributions.map((cont) =>
     Number.isNaN(cont.memberContribution) ? 0 : cont.memberContribution,
   );
-  console.log('contr', membersContributions);
 
   const data = [0];
   const back = ['whitesmoke'];
   membersContributions.map((cont) => data.push(cont));
   contributions.map((cont) => back.push(cont.color));
-  console.log('back', back);
 
 
 
@@ -60,11 +58,8 @@ const ProgressBar = ({
     data.push(Math.floor(completionRatio - total));
     back.push('GrayText');
     data.push(Math.floor(100 - completionRatio));
-    console.log('rest',100 - completionRatio)
     back.push(completionRatio === 100 ? 'GrayText' : 'whitesmoke');
   }
-  console.log('data', data);
-  console.log(back);
 
   return (
     <div style={{ width: '50%', marginLeft: 'auto', marginRight: 'auto' }}>

@@ -59,7 +59,7 @@ const Modal = ({ task, updateTask }) => {
         members: [...members.filter((m) => m !== member)],
       },
     };
-    console.debug('The task with a member removed is: ', newTask);
+    // console.debug('The task with a member removed is: ', newTask);
     updateTask(newTask);
   };
 

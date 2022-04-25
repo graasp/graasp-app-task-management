@@ -10,8 +10,6 @@ const MyProgress = ({
   completedTasks,
   totalNumberOfTasks,
 }) => {
-  // number of tasks assigned to the user
-  let nbOfAssignements = 0;
 
   // percentage of contribution of the user per task
   let contribution = 0;
@@ -20,7 +18,6 @@ const MyProgress = ({
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
       if (arr.includes(member.name)) {
-        nbOfAssignements += 1;
         contribution = 1 / arr.length;
         contributions += contribution;
       }
@@ -31,16 +28,6 @@ const MyProgress = ({
       incrementCount(task.data.label, task.data.members, students[0]);
     });
   }
-  console.log(
-    'ass',
-    nbOfAssignements,
-    'conts',
-    contributions,
-    'comp',
-    completedTasks,
-    'total',
-    totalNumberOfTasks,
-  );
   let percentage = Math.floor((contributions / totalNumberOfTasks) * 100);
 
   if (totalNumberOfTasks === 0 || completedTasks === 0) {

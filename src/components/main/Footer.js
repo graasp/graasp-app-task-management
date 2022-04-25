@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { useState, useEffect } from 'react';
@@ -36,11 +37,9 @@ const Footer = ({
     );
   }
 
-  console.log(legend);
 
   let text = legend.map((user) => `${user.description}`);
   text = text.join('<br>');
-  console.log('txt', text);
 
   useEffect(() => {
     if (isSuccess) {
@@ -68,9 +67,15 @@ const Footer = ({
             }}
           >
             {totalNumberOfTasks / numberOfCompletedTasks === 1
-              ? 'Done!'
-              : 'Tasks Progress'}
+              ? 'Done!  '
+              : 'Tasks Progress  '}
+            
+                <small style={{ color: 'rgb(201, 59, 59)' }}>{Math.floor(
+                  (numberOfCompletedTasks / totalNumberOfTasks) * 100,
+                )}%</small>
           </h4>
+              
+
           {showUserShare && (
             <>
               <ReactTooltip
@@ -79,7 +84,7 @@ const Footer = ({
                 multiline="true"
                 textColor="black"
               />
-              <br />
+              &nbsp;&nbsp;
 
               <ProgressBar
                 numberOfCompletedTasks={numberOfCompletedTasks}
