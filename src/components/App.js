@@ -200,67 +200,68 @@ const App = () => {
 
   return (
     <div className="row">
-
-        {!toggle ? (
-          <div className="members-column column">
-              <Students
-                students={students}
-                setStudents={setStudents}
-                contributions={contributions}
-              />
-          </div>
-        ) : (
-          ' '
-        )}
-        <div className="App column" style={{ paddingLeft: '13em' }}>
-          {!toggle ? (
-            // <div className="row" style={{ paddingLeft: '13em' }}>
-              <DragDropContext onDragEnd={handleDragEnd}>
-                <Grid container>
-                <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
-                  {renderTasksList('To Do', TASK_LABELS.TODO, true)}
-                </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
-                  {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
-                </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
-                  {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
-                </Grid>
-                </Grid>
-              </DragDropContext>
-            // </div>
-          ) : (
-            <div className="row" style={{ paddingLeft: '13em' }}>
-              <ChartsArea
-                tasks={tasks}
-                students={students}
-                completedTasks={completedTasks}
-                totalNumberOfTasks={totalNumberOfTasks}
-                contributions={contributions}
-              />
-            </div>
-          )}
-          <div className="clear" />
+      {!toggle ? (
+        <div className="members-column column">
+          <Students
+            students={students}
+            setStudents={setStudents}
+            contributions={contributions}
+          />
         </div>
-        <Footer
-          numberOfCompletedTasks={completedTasks}
-          totalNumberOfTasks={totalNumberOfTasks}
-          setToggle={setToggle}
-          toggle={toggle}
-          contributions={contributions}
-          tasks={tasks}
-        />
+      ) : (
+        ' '
+      )}
+      <div className="App column" style={{ paddingLeft: '13em' }}>
+        {!toggle ? (
+          // <div className="row" style={{ paddingLeft: '13em' }}>
+          <DragDropContext onDragEnd={handleDragEnd}>
+            <Grid
+              container
+              rowSpacing={{ md: 2 }}
+              columnSpacing={{ xs: 1, sm: 2, md: 1 }}
+            >
+              <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+                {renderTasksList('To Do', TASK_LABELS.TODO, true)}
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+                {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
+              </Grid>
+              <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+                {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
+              </Grid>
+            </Grid>
+          </DragDropContext>
+        ) : (
+          // </div>
+          <div className="row" style={{ paddingLeft: '13em' }}>
+            <ChartsArea
+              tasks={tasks}
+              students={students}
+              completedTasks={completedTasks}
+              totalNumberOfTasks={totalNumberOfTasks}
+              contributions={contributions}
+            />
+          </div>
+        )}
+        <div className="clear" />
+      </div>
+      <Footer
+        numberOfCompletedTasks={completedTasks}
+        totalNumberOfTasks={totalNumberOfTasks}
+        setToggle={setToggle}
+        toggle={toggle}
+        contributions={contributions}
+        tasks={tasks}
+      />
 
-        {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
-          permissionLevel,
-        ) && <Settings setToggle={setToggle} toggle={toggle} tasks={tasks} />}
+      {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
+        permissionLevel,
+      ) && <Settings setToggle={setToggle} toggle={toggle} tasks={tasks} />}
     </div>
   );
 };
 
 export default App;
-
-
 
 // @media only screen and (max-width: 600px) {
 //   .delete-icon {
@@ -332,7 +333,7 @@ export default App;
 //     text-align: start;
 //     align-items: center;
 //   }
-  
+
 // }
 
 // @media only screen and (max-width: 600px) and (max-height: 600px){
@@ -405,6 +406,128 @@ export default App;
 //     text-align: start;
 //     align-items: center;
 //   }
-  
+
 // }
 
+// @media only screen and (max-width: 2600px) and (min-width: 1500px) {
+//   .droppable-col {
+//     width: 27em;
+//     background-color: #ebecf0;
+//     border-radius: 1.5625em;
+//     display: flex;
+//     flex-direction: column;
+//     min-height: 50vh;
+//     min-width: 50vh;
+//     text-align: center;
+//     color: white;
+//     justify-content: flex-start;
+//     align-items: center;
+//     padding: 1.875em 1.25em;
+//     margin-left: 3em;
+//     margin-right: 3em;
+//   }
+
+//   .app-background {
+//     display: flex;
+//     min-height: 100vh;
+//     flex-direction: column;
+//     text-align: center;
+//     color: white;
+//     justify-content: flex-start;
+//     align-items: center;
+//   }
+//   .row {
+//     display: flex;
+//     flex-direction: row;
+//   }
+
+//   .column {
+//     display: flex;
+//     flex-direction: column;
+//   }
+
+//   .jc-space-between {
+//     justify-content: space-between;
+//   }
+
+//   .text-task {
+//     color: black;
+//     font-weight: 500;
+//   }
+//   .text-task:hover {
+//     font-weight: 700;
+//   }
+
+//   .add-button {
+//     outline: none;
+//     border: none;
+//     color: #201328;
+//     font-size: 1.0625em;
+//     font-weight: bolder;
+//     padding: 10px 0.9375em;
+//     border-radius: 0.5em;
+//     text-align: center;
+//     margin: 0 0.9375em 0.9375em 0.9375em;
+//     cursor: pointer;
+//   }
+
+//   .text-input {
+//     border: #c3c9ca 1px solid;
+//     outline: none;
+//     border-radius: 1.5625em;
+//     width: 17em;
+//     font-size: 1.125em;
+//     padding: 10px 0.9375em;
+//     margin: 0 0.9375em 0.9375em 0.9375em;
+//     font-weight: bold;
+//     font-weight: 500;
+//   }
+//   .text-input-out {
+//     border: #c3c9ca 1px solid;
+//     box-shadow: 0 0 0.4375em #c3c9ca;
+//     outline: none;
+//     border-radius: 1.5625em;
+//     width: 17em;
+//     font-size: 1.125em;
+//     padding: 10px 0.9375em;
+//     margin: 0 0.9375em 0.9375em 0.9375em;
+//     font-weight: bold;
+//     font-weight: 500;
+//   }
+
+//   .list-item {
+//     background-color: white;
+//     border: none;
+//     border-radius: 1.5625em;
+//     width: 22em;
+//     font-size: 1.125em;
+//     padding: 0.625em 0.9375em;
+//     margin: 10px 0;
+//     color: black;
+//     font-weight: bold;
+//     text-align: start;
+//     align-items: center;
+//     height: 2em;
+//   }
+
+//   .list-item:hover {
+//     border-color: #8ea3b4;
+//     box-shadow: 0 0 0.625em #8ea3b4;
+//   }
+
+//   .list-item-out {
+//     background-color: white;
+//     border-color: #8ea3b4;
+//     box-shadow: 0 0 0.625em #8ea3b4;
+//     border-radius: 1.5625em;
+//     width: 22em;
+//     font-size: 1.125em;
+//     padding: 0.625em 0.9375em;
+//     margin: 0.625em 0;
+//     color: black;
+//     font-weight: bold;
+//     text-align: start;
+//     align-items: center;
+//     height: 2em;
+//   }
+// }
