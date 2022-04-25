@@ -22,6 +22,7 @@ export const CONTAINER_HEIGHT = 450;
 export const DRAWER_WIDTH = 300;
 export const DEFAULT_LOCALE = 'en-US';
 export const DEFAULT_LANG = 'en';
+export const DEFAULT_SHOW_USER_SHARE_SETTING = true;
 
 export const HEADER_HEIGHT = 64;
 export const FILE_UPLOAD_MAX_FILES = 5;

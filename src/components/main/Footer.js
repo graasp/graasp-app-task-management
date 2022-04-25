@@ -1,13 +1,15 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Button } from '@material-ui/core';
 // import ProgressBar2 from './ProgressBar2';
 import ProgressBar from './ProgressBar';
-
+import { DEFAULT_SHOW_USER_SHARE_SETTING } from '../../config/constants';
+import { APP_SETTINGS } from '../../constants/constants';
+import { useAppSettings } from '../context/appData';
 
 const Footer = ({
   totalNumberOfTasks,
@@ -18,6 +20,12 @@ const Footer = ({
   tasks,
 }) => {
   const [toggleFooter, setToggleFooter] = useState(false);
+
+  const [showUserShare, setShowUserShare] = useState(
+    DEFAULT_SHOW_USER_SHARE_SETTING,
+  );
+
+  const { data: appSettings, isSuccess } = useAppSettings();
 
   const legend = [];
   if (contributions) {
@@ -33,6 +41,18 @@ const Footer = ({
   let text = legend.map((user) => `${user.description}`);
   text = text.join('<br>');
   console.log('txt', text);
+
+  useEffect(() => {
+    if (isSuccess) {
+      setShowUserShare(
+        Boolean(
+          appSettings?.find(
+            ({ name }) => name === APP_SETTINGS.PROGRESS_BAR_DISPLAY,
+          )?.data?.showUserShare ?? DEFAULT_SHOW_USER_SHARE_SETTING,
+        ),
+      );
+    }
+  });
 
   return (
     <div className="main-footer">
@@ -51,23 +71,26 @@ const Footer = ({
               ? 'Done!'
               : 'Tasks Progress'}
           </h4>
-          <ReactTooltip
-            id="test"
-            backgroundColor="whitesmoke"
-            multiline="true"
-            textColor="black"
-          />
+          {showUserShare && (
+            <>
+              <ReactTooltip
+                id="test"
+                backgroundColor="whitesmoke"
+                multiline="true"
+                textColor="black"
+              />
 
-          <ProgressBar
-            numberOfCompletedTasks={numberOfCompletedTasks}
-            totalNumberOfTasks={totalNumberOfTasks}
-            contributions={contributions}
-            tasks={tasks}
-          />
+              <ProgressBar
+                numberOfCompletedTasks={numberOfCompletedTasks}
+                totalNumberOfTasks={totalNumberOfTasks}
+                contributions={contributions}
+                tasks={tasks}
+              />
+            </>
+          )}
         </div>
       ) : (
-        
-          <FormControlLabel
+        <FormControlLabel
           control={
             <Button
               variant="contained"
@@ -81,7 +104,6 @@ const Footer = ({
             </Button>
           }
         />
-        
       )}
     </div>
   );

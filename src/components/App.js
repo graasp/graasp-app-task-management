@@ -150,7 +150,7 @@ const App = () => {
   };
 
   const contributionMap = new Map();
- 
+
   students.map((student) => contributionMap.set(student.name, 0));
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
@@ -189,14 +189,16 @@ const App = () => {
       return {
         name: key,
         contribution: (contribution / totalNumberOfTasks) * 100,
-        flooredContribution:Math.floor((contribution / totalNumberOfTasks) * 100),
+        flooredContribution: Math.floor(
+          (contribution / totalNumberOfTasks) * 100,
+        ),
         color: availableColors[index % availableColors.length],
       };
     },
   );
 
   return (
-    <div className="row" >
+    <div className="row">
       {!toggle ? (
         <div className="members-column column">
           <Students

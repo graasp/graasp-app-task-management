@@ -19,7 +19,7 @@ const Students = ({ students, setStudents, contributions }) => {
   const onDragStart = (ev, member) => {
     ev.dataTransfer.setData('member', member);
   };
-// Check other names: Graciana, Jeremy, Denis... OR emails
+  // Check other names: Graciana, Jeremy, Denis... OR emails
   // const isChecked = (name) => {
   //   if (name === 'Jason') {
   //     return false;
@@ -27,7 +27,11 @@ const Students = ({ students, setStudents, contributions }) => {
   //   return true;
   // };
 
- const emails=['gracianaaad@hotmail.com','denis.gillet@epfl.ch','jeremy.lascala@epfl.ch']
+  const emails = [
+    'gracianaaad@hotmail.com',
+    'denis.gillet@epfl.ch',
+    'jeremy.lascala@epfl.ch',
+  ];
   const isChecked = (email) => {
     if (emails.includes(email)) {
       return false;
@@ -65,7 +69,6 @@ const Students = ({ students, setStudents, contributions }) => {
               <br />
             </li>
           ) : null}
-          
         </div>
       ))}
     </div>

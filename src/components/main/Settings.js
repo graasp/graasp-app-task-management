@@ -99,7 +99,7 @@ const Settings = ({ toggle, setToggle, tasks }) => {
             <br />
 
             {/* <Data handleModalClose={handleModalClose} tasks={tasks} /> */}
-            
+
             <Divider className={classes.divider} />
 
             <div className={classes.buttonContainer}>

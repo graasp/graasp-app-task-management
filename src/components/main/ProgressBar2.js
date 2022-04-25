@@ -30,7 +30,7 @@ const ProgressBar = ({
   };
 
   const completionRatio = Number.isNaN(
-   (numberOfCompletedTasks / totalNumberOfTasks) * 100,
+    (numberOfCompletedTasks / totalNumberOfTasks) * 100,
   )
     ? 0
     : Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
