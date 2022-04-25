@@ -215,11 +215,11 @@ const App = () => {
       ) : (
         ' '
       )}
-      <div className="App column" style={{ paddingLeft: '13em' }}>
+      <div className="App column" style={{ paddingLeft: '17em' }}>
         {!toggle ? (
           // <div className="row" style={{ paddingLeft: '13em' }}>
           <DragDropContext onDragEnd={handleDragEnd}>
-            <Grid container>
+            <Grid container spacing={3}>
               <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
                 {renderTasksList('To Do', TASK_LABELS.TODO, true)}
               </Grid>
