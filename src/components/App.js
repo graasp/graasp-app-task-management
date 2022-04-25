@@ -4,6 +4,7 @@
 import React, { useContext, useState, useEffect } from 'react';
 import '../index.css';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { Grid } from '@material-ui/core';
 import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { useAppData } from './context/appData';
@@ -175,10 +176,10 @@ const App = () => {
     '#FFDFD3',
     '#B6EECF',
     '#E0BBE4',
-    '#D5D6EA',
+    '#A5D6EA',
     '#D7ECD9',
     '#B4C6DD',
-    '#FEC8D8',
+    '#AE88F9',
     '#DDF1FF',
     '#D3EAFF',
   ];
@@ -199,51 +200,60 @@ const App = () => {
 
   return (
     <div className="row">
-      {!toggle ? (
-        <div className="members-column column">
-          <Students
-            students={students}
-            setStudents={setStudents}
-            contributions={contributions}
-          />
-        </div>
-      ) : (
-        ' '
-      )}
-      <div className="App column">
+
         {!toggle ? (
-          <div className="row" style={{ paddingLeft: '13em' }}>
-            <DragDropContext onDragEnd={handleDragEnd}>
-              {renderTasksList('To Do', TASK_LABELS.TODO, true)}
-              {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
-              {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
-            </DragDropContext>
+          <div className="members-column column">
+              <Students
+                students={students}
+                setStudents={setStudents}
+                contributions={contributions}
+              />
           </div>
         ) : (
-          <div className="row" style={{ paddingLeft: '13em' }}>
-            <ChartsArea
-              tasks={tasks}
-              students={students}
-              completedTasks={completedTasks}
-              totalNumberOfTasks={totalNumberOfTasks}
-              contributions={contributions}
-            />
-          </div>
+          ' '
         )}
-        <div className="clear" />
-      </div>
-      <Footer
-        numberOfCompletedTasks={completedTasks}
-        totalNumberOfTasks={totalNumberOfTasks}
-        setToggle={setToggle}
-        toggle={toggle}
-        contributions={contributions}
-        tasks={tasks}
-      />
+        <div className="App column" style={{ paddingLeft: '13em' }}>
+          {!toggle ? (
+            // <div className="row" style={{ paddingLeft: '13em' }}>
+              <DragDropContext onDragEnd={handleDragEnd}>
+                <Grid container>
+                <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+                  {renderTasksList('To Do', TASK_LABELS.TODO, true)}
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+                  {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
+                </Grid>
+                <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+                  {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
+                </Grid>
+                </Grid>
+              </DragDropContext>
+            // </div>
+          ) : (
+            <div className="row" style={{ paddingLeft: '13em' }}>
+              <ChartsArea
+                tasks={tasks}
+                students={students}
+                completedTasks={completedTasks}
+                totalNumberOfTasks={totalNumberOfTasks}
+                contributions={contributions}
+              />
+            </div>
+          )}
+          <div className="clear" />
+        </div>
+        <Footer
+          numberOfCompletedTasks={completedTasks}
+          totalNumberOfTasks={totalNumberOfTasks}
+          setToggle={setToggle}
+          toggle={toggle}
+          contributions={contributions}
+          tasks={tasks}
+        />
 
-      {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
-        permissionLevel,
-      ) && <Settings setToggle={setToggle} toggle={toggle} tasks={tasks} />}
+        {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
+          permissionLevel,
+        ) && <Settings setToggle={setToggle} toggle={toggle} tasks={tasks} />}
     </div>
   );
 };
