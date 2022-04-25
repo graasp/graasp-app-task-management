@@ -23,7 +23,9 @@ const AddTask = ({ addTask, label }) => {
 
   const inputKeyDown = (event) => {
     if (event.keyCode === 13) {
-      handleAddTask();
+      if(newTaskTitle.trim().length!==0){
+      handleAddTask()
+      }
     }
   };
 
