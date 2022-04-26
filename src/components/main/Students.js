@@ -4,8 +4,7 @@ import { t } from 'i18next';
 import { MdSupervisedUserCircle } from 'react-icons/md';
 import { useAppContext } from '../context/appData';
 
-const Students = ({ students, setStudents, contributions }) => {
-
+const Students = ({ setStudents, contributions }) => {
   const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
 
   useEffect(() => {
@@ -17,27 +16,14 @@ const Students = ({ students, setStudents, contributions }) => {
   const onDragStart = (ev, member) => {
     ev.dataTransfer.setData('member', member);
   };
-  // Check other names: Graciana, Jeremy, Denis... OR emails
-  // const isChecked = (name) => {
-  //   if (name === 'Jason') {
-  //     return false;
-  //   }
-  //   return true;
-  // };
 
-  const names = [
-    'Graciana Aad',
-    'Denis Gillet',
-    'Jérémy La Scala',
-  ];
+  const names = ['Graciana Aad', 'Denis Gillet', 'Jérémy La Scala'];
   const isChecked = (name) => {
     if (names.includes(name)) {
       return false;
     }
-    console.log(name)
     return true;
   };
-  console.log(students)
 
   return (
     <div
