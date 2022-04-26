@@ -63,7 +63,7 @@ const ProgressBar = ({
         width: '50%',
         marginLeft: 'auto',
         marginRight: 'auto',
-        paddingTop:'15px'
+        paddingTop:'18px'
       }}
     >
       <StackedHorizontalBarChart
