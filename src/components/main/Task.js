@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MdCreate, MdDelete, MdOutlineSubject } from 'react-icons/md';
+import { MdDelete, MdOutlineSubject } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import Modal from './Modal';
 import { taskProp } from '../../types/props_types';
@@ -95,8 +95,15 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
           ) : (
             // TODO: DELETE
            
+            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <span
               className="text-task"
+              style={{
+                cursor: 'pointer',
+                alignContent: 'center',
+              }}
+              onClick={() => setIsEditingTitle(id)}
             >
               {title}
             </span>
@@ -104,20 +111,7 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
 
           <div className="content">
             <div className="row" style={{ alignItems: 'center' }}>
-            <MdCreate
-                size="1.3em"
-                data-toggle="tooltip"
-                data-placement="left"
-                title={t('Edit Title')}
-                alt="edit-title"
-                style={{
-                  cursor: 'pointer',
-                  alignContent: 'center',
-                }}
-                className="edit-title"
-                onClick={() => setIsEditingTitle(id)}
-              
-              />
+            
               <MdOutlineSubject
                 size="1.3em"
                 data-toggle="tooltip"
