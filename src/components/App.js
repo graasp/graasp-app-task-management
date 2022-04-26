@@ -153,6 +153,8 @@ const App = () => {
   const contributionMap = new Map();
 
   students.map((student) => contributionMap.set(student.name, 0));
+  students.map((student) => console.log(student.email));
+
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
       if (arr.includes(member.name)) {
@@ -207,7 +209,6 @@ const App = () => {
       {!toggle ? (
         <div className="members-column column">
           <Students
-            students={students}
             setStudents={setStudents}
             contributions={contributions}
           />

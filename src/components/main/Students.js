@@ -4,7 +4,7 @@ import { t } from 'i18next';
 import { MdSupervisedUserCircle } from 'react-icons/md';
 import { useAppContext } from '../context/appData';
 
-const Students = ({ setStudents, contributions }) => {
+const Students = ({ students, setStudents, contributions }) => {
 
   const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
 
@@ -25,17 +25,19 @@ const Students = ({ setStudents, contributions }) => {
   //   return true;
   // };
 
-  const emails = [
-    'gracianaaad@hotmail.com',
-    'denis.gillet@epfl.ch',
-    'jeremy.lascala@epfl.ch',
+  const names = [
+    'Graciana Aad',
+    'Denis Gillet',
+    'Jérémy La Scala',
   ];
-  const isChecked = (email) => {
-    if (emails.includes(email)) {
+  const isChecked = (name) => {
+    if (names.includes(name)) {
       return false;
     }
+    console.log(name)
     return true;
   };
+  console.log(students)
 
   return (
     <div
@@ -51,7 +53,7 @@ const Students = ({ setStudents, contributions }) => {
 
       {contributions.map((student) => (
         <div>
-          {isChecked(student.email) ? (
+          {isChecked(student.name) ? (
             <li
               className="draggable"
               key={student.name}
