@@ -18,7 +18,7 @@ const TasksList = ({
 }) => {
   return (
     <div>
-      <div key={label} className="column" style={{ alignItems: 'center' }}>
+      <div key={label} className="column" style={{ alignItems: 'center'}}>
         <div style={{ alignItems: 'center' }}>
           <h3 style={{ color: 'black', textAlign: 'center' }}>
             {title}&nbsp;

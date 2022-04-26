@@ -17,7 +17,14 @@ const Students = ({ setStudents, contributions }) => {
     ev.dataTransfer.setData('member', member);
   };
 
-  const names = ['Graciana Aad', 'Denis Gillet', 'Jérémy La Scala'];
+  const names = [
+    'Graciana Aad',
+    'Denis Gillet',
+    'Jérémy La Scala',
+    'Kimiya Behbahani Zadeh',
+    'Zoubida Squalli Houssaini',
+    'Margot Romelli',
+  ];
   const isChecked = (name) => {
     if (names.includes(name)) {
       return false;

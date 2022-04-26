@@ -207,19 +207,20 @@ const App = () => {
     <div className="row">
       {!toggle ? (
         <div className="members-column column">
-          <Students
-            setStudents={setStudents}
-            contributions={contributions}
-          />
+          <Students setStudents={setStudents} contributions={contributions} />
         </div>
       ) : (
         ' '
       )}
-      <div className="App column" style={{ paddingLeft: '17em' }}>
+      <div className="App" style={{ paddingLeft: '17em' }}>
         {!toggle ? (
           // <div className="row" style={{ paddingLeft: '13em' }}>
           <DragDropContext onDragEnd={handleDragEnd}>
-            <Grid container spacing={3}>
+            {/* {renderTasksList('To Do', TASK_LABELS.TODO, true)}
+            {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
+            {renderTasksList('Completed', TASK_LABELS.COMPLETED)} */}
+
+            <Grid container columnSpacing={3}>
               <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
                 {renderTasksList('To Do', TASK_LABELS.TODO, true)}
               </Grid>
@@ -232,13 +233,13 @@ const App = () => {
             </Grid>
           </DragDropContext>
         ) : (
-            <ChartsArea
-              tasks={tasks}
-              students={students}
-              completedTasks={completedTasks}
-              totalNumberOfTasks={totalNumberOfTasks}
-              contributions={contributions}
-            />
+          <ChartsArea
+            tasks={tasks}
+            students={students}
+            completedTasks={completedTasks}
+            totalNumberOfTasks={totalNumberOfTasks}
+            contributions={contributions}
+          />
         )}
         <div className="clear" />
       </div>

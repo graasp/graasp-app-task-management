@@ -1,3 +1,4 @@
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -33,7 +34,8 @@ input:focus {
   justify-content: flex-start;
   align-items: center;
   padding: 1.875em 1.25em;
-  
+  margin-left: 1em;
+  margin-right: 1em;
 }
 
 .app-background {
@@ -379,10 +381,45 @@ sup {
   background-color: #fff;
 }
 .label {
-    font-family: sans-serif
+  font-family: sans-serif;
 }
 .container {
-    border: 1px solid #f4f4f4;
-    width: 400px;
-    height: 40px;
+  border: 1px solid #f4f4f4;
+  width: 400px;
+  height: 40px;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: row;
+}
+.flex-item{
+  flex:33%;
+}
+/* Responsive layout - makes a one column layout instead of a two-column layout */
+@media (max-width: 1000px) {
+  .flex-container {
+    flex-direction: column;
+  }
+  .flex-item{
+    flex:50%;
+  }
+}
+
+@media (max-width: 1500px) {
+  .flex-container {
+    flex-direction: column;
+  }
+  
+}
+.flex-item-left {
+  background-color: #f1f1f1;
+  padding: 10px;
+  flex: 50%;
+}
+
+.flex-item-right {
+  background-color: dodgerblue;
+  padding: 10px;
+  flex: 50%;
 }
