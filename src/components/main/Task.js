@@ -121,7 +121,7 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
             </span>
           )}
 
-          <div className="content" style={{ flexDirection: 'column' }}>
+          <div className="content" style={{ flexDirection: 'column'}}>
             <div className="row" style={{ alignItems: 'center' }}>
               <MdOutlineSubject
                 size="1.3em"
@@ -153,13 +153,13 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
                 style={{
                   alignItems: 'center',
                   justifyContent: 'center',
-                  display: 'flex',
+                  // display: 'flex',
                   height: '0.2em',
                 }}
               >
                 {members.map((member) => (
                   <small style={{ color: `${getMemberColor(member)}` }}>
-                    <MdCircle size="0.5em" data-tip="hey" data-for="test" />
+                    <MdCircle size="0.4em" data-tip="hey" data-for="test" />
                   </small>
                 ))}
               </div>
