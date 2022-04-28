@@ -15,6 +15,8 @@ const TasksList = ({
   updateTask,
   deleteTask,
   addComponent,
+  // eslint-disable-next-line react/prop-types
+  contributions
 }) => {
   return (
     <div>
@@ -57,6 +59,8 @@ const TasksList = ({
                           task={task}
                           updateTask={updateTask}
                           deleteTask={deleteTask}
+                          contributions={contributions}
+
                         />
                       </div>
                     )}
@@ -82,6 +86,7 @@ TasksList.propTypes = {
   deleteTask: PropTypes.func.isRequired,
   addTask: PropTypes.func,
   addComponent: PropTypes.bool,
+
 };
 
 TasksList.defaultProps = {

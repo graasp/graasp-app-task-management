@@ -7,10 +7,15 @@ import { Container, Box } from './HomeStyles';
 // eslint-disable-next-line react/prop-types
 export default function Home({ boxData }) {
   return (
-    <Container>
-      {boxData.map((box) => (
-        <Box key={box.id} bgColor={box.bgColor} />
-      ))}
-    </Container>
+    <div>
+      
+      <Container>
+        {boxData.map((box) => (
+          <Box key={box.id} bgColor={box.bgColor}>
+            <span>Hello</span>
+          </Box>
+        ))}
+      </Container>
+    </div>
   );
 }

@@ -12,6 +12,7 @@ import { Context } from './context/ContextContext';
 import Students from './main/Students';
 import Footer from './main/Footer';
 import TasksList from './main/TasksList';
+// import Demo from './main/Demo';
 import {
   TASK_LABELS,
   DEFAULT_PERMISSION,
@@ -145,6 +146,8 @@ const App = () => {
           addTask={addTask}
           updateTask={updateTask}
           deleteTask={deleteTask}
+          // eslint-disable-next-line no-use-before-define
+          contributions={contributions}
         />
       </div>
     );
@@ -240,6 +243,9 @@ const App = () => {
             totalNumberOfTasks={totalNumberOfTasks}
             contributions={contributions}
           />
+          // <Demo
+          // setStudents={setStudents} contributions={contributions} 
+          // />
         )}
         <div className="clear" />
       </div>

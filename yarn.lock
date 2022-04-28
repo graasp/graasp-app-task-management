@@ -2522,9 +2522,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:5.6.1":
-  version: 5.6.1
-  resolution: "@mui/icons-material@npm:5.6.1"
+"@mui/icons-material@npm:5.6.2":
+  version: 5.6.2
+  resolution: "@mui/icons-material@npm:5.6.2"
   dependencies:
     "@babel/runtime": ^7.17.2
   peerDependencies:
@@ -2534,7 +2534,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 5bb1dade531eea1e1debd0ccdecc1f6deb4fb08f4807e26b69696d37081ec31980ae69607197dec3fd85b2384792338584af77d22eadb83e6516ea07bb1dad21
+  checksum: eef561fc68c01f103a8edde897b95628d179f4b79bf59a8cfa005db3dde1c473b13a803534018e901d5df287820bf6d62097dcad1c10db531ef237b407cfb51e
   languageName: node
   linkType: hard
 
@@ -20243,7 +20243,7 @@ __metadata:
     "@material-ui/core": 4.12.4
     "@material-ui/icons": 4.11.3
     "@material-ui/lab": 4.0.0-alpha.61
-    "@mui/icons-material": 5.6.1
+    "@mui/icons-material": 5.6.2
     "@progress/kendo-react-dropdowns": ^5.1.0
     "@progress/kendo-react-progressbars": 5.2.0
     "@ramonak/react-progress-bar": 4.4.0
