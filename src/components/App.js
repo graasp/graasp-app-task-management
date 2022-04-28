@@ -152,10 +152,26 @@ const App = () => {
       </div>
     );
   };
+  const names = [
+    'Graciana Aad',
+    'Denis Gillet',
+    'Jérémy La Scala',
+    'Kimiya Behbahani Zadeh',
+    'Zoubida Squalli Houssaini',
+    'Margot Romelli',
+  ];
+  const isChecked = (name) => {
+    if (names.includes(name)) {
+      return false;
+    }
+    return true;
+  };
 
   const contributionMap = new Map();
 
-  students.map((student) => contributionMap.set(student.name, 0));
+  students.map((student) =>
+    isChecked(student.name) ? contributionMap.set(student.name, 0) : null,
+  );
 
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
@@ -210,7 +226,11 @@ const App = () => {
     <div className="row">
       {!toggle ? (
         <div className="members-column column">
-          <Students setStudents={setStudents} contributions={contributions} />
+          <Students
+            setStudents={setStudents}
+            contributions={contributions}
+            isChecked={isChecked}
+          />
         </div>
       ) : (
         ' '
@@ -244,7 +264,7 @@ const App = () => {
             contributions={contributions}
           />
           // <Demo
-          // setStudents={setStudents} contributions={contributions} 
+          // setStudents={setStudents} contributions={contributions}
           // />
         )}
         <div className="clear" />
@@ -257,6 +277,7 @@ const App = () => {
         toggle={toggle}
         contributions={contributions}
         tasks={tasks}
+        isChecked={isChecked}
       />
 
       {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
