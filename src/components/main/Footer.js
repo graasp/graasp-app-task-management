@@ -28,12 +28,28 @@ const Footer = ({
 
   const { data: appSettings, isSuccess } = useAppSettings();
 
+
+  const names = [
+    'Graciana Aad',
+    'Denis Gillet',
+    'Jérémy La Scala',
+    'Kimiya Behbahani Zadeh',
+    'Zoubida Squalli Houssaini',
+    'Margot Romelli',
+  ];
+  const isChecked = (name) => {
+    if (names.includes(name)) {
+      return false;
+    }
+    return true;
+  };
+
   const legend = [];
   if (contributions) {
-    contributions.map((cont) =>
+    contributions.map((cont) => isChecked(cont.name)?
       legend.push({
         description: `${cont.name}: ${cont.memberContribution}%`,
-      }),
+      }):null,
     );
   }
 
