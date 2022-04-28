@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import px2vw from "../../utils/px2vw";
+import styled from 'styled-components';
+import px2vw from '../../utils/px2vw';
 
 export const Container = styled.div`
   display: flex;
@@ -20,7 +20,7 @@ export const Box = styled.div`
   flex-direction: column;
   padding: ${px2vw(20)};
   margin: ${px2vw(20)};
-  background-color: ${props => props.bgColor};
+  background-color: ${(props) => props.bgColor};
   height: 100%;
   border-radius: 1.5625em;
   display: flex;
@@ -29,7 +29,6 @@ export const Box = styled.div`
   color: white;
   justify-content: flex-start;
   align-items: center;
- 
 
   @media (min-width: 768px) {
     width: ${px2vw(320, 768)};
@@ -43,4 +42,3 @@ export const Box = styled.div`
     height: 100%;
   }
 `;
-

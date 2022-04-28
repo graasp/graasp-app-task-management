@@ -1,11 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MdDelete, MdOutlineSubject } from 'react-icons/md';
+import { MdDelete, MdOutlineSubject, MdCircle } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import Modal from './Modal';
 import { taskProp } from '../../types/props_types';
 
-const Task = ({ task, updateTask, deleteTask, className }) => {
+// eslint-disable-next-line react/prop-types
+const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
   const { t } = useTranslation();
 
   const { id, data } = task;
@@ -73,8 +74,19 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
     <div>{seen ? <Modal task={task} updateTask={updateTask} /> : null}</div>
   );
 
+  const getMemberColor = (memberName) => {
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [key, value] of Object.entries(contributions)) {
+      console.log(key);
+      if (value.name === memberName) {
+        return value.color;
+      }
+    }
+    return null;
+  };
+
   return (
-    <div>
+    <div style={{ flexDirection: 'column' }}>
       <div className="row">
         <div
           className={
@@ -94,7 +106,7 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
             />
           ) : (
             // TODO: DELETE
-           
+
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions
             <span
@@ -109,9 +121,8 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
             </span>
           )}
 
-          <div className="content">
+          <div className="content" style={{ flexDirection: 'column'}}>
             <div className="row" style={{ alignItems: 'center' }}>
-            
               <MdOutlineSubject
                 size="1.3em"
                 data-toggle="tooltip"
@@ -136,6 +147,23 @@ const Task = ({ task, updateTask, deleteTask, className }) => {
                 onClick={() => deleteTask(id)}
               />
             </div>
+            {members.length !== 0 ? (
+              <div
+                className="row"
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  // display: 'flex',
+                  height: '0.2em',
+                }}
+              >
+                {members.map((member) => (
+                  <small style={{ color: `${getMemberColor(member)}` }}>
+                    <MdCircle size="0.4em" data-tip="hey" data-for="test" />
+                  </small>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
