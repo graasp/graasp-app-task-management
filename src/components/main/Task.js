@@ -147,21 +147,23 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
                 onClick={() => deleteTask(id)}
               />
             </div>
-            <div
-              className="row"
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                display: 'flex',
-                height: '0.2em',
-              }}
-            >
-              {members.map((member) => (
-                <small style={{ color: `${getMemberColor(member)}` }}>
-                  <MdCircle size="0.5em" data-tip='hey' data-for="test" />
-                </small>
-              ))}
-            </div>
+            {members.length !== 0 ? (
+              <div
+                className="row"
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  display: 'flex',
+                  height: '0.2em',
+                }}
+              >
+                {members.map((member) => (
+                  <small style={{ color: `${getMemberColor(member)}` }}>
+                    <MdCircle size="0.5em" data-tip="hey" data-for="test" />
+                  </small>
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
