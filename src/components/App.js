@@ -263,9 +263,6 @@ const App = () => {
             totalNumberOfTasks={totalNumberOfTasks}
             contributions={contributions}
           />
-          // <Demo
-          // setStudents={setStudents} contributions={contributions}
-          // />
         )}
         <div className="clear" />
       </div>
