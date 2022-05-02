@@ -21,7 +21,8 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const DownloadActions = () => {
+// eslint-disable-next-line react/prop-types
+const DownloadActions = ({members}) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -60,6 +61,7 @@ const DownloadActions = () => {
             datetime,
           },
           actions,
+          members,
         }),
       ],
       {
