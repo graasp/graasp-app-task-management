@@ -159,7 +159,7 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
               >
                 {members.map((member) => (
                   <small style={{ color: `${getMemberColor(member)}` }}>
-                    <MdCircle size="0.4em" data-tip="hey" data-for="test" />
+                    <MdCircle size="0.6em" />
                   </small>
                 ))}
               </div>
