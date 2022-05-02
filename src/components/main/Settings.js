@@ -55,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // eslint-disable-next-line no-unused-vars
-const Settings = ({ toggle, setToggle, tasks }) => {
+const Settings = ({ toggle, setToggle, tasks, members }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
@@ -94,7 +94,7 @@ const Settings = ({ toggle, setToggle, tasks }) => {
               handleModalClose={handleModalClose}
             />
             <br />
-            <DownloadActions />
+            <DownloadActions members={members}/>
             <SettingsProgressBar />
             <br />
 

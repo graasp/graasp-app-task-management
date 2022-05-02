@@ -279,7 +279,7 @@ const App = () => {
 
       {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
         permissionLevel,
-      ) && <Settings setToggle={setToggle} toggle={toggle} tasks={tasks} />}
+      ) && <Settings setToggle={setToggle} toggle={toggle} tasks={tasks} members={contributions} />}
     </div>
   );
 };
