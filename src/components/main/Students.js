@@ -4,7 +4,7 @@ import { t } from 'i18next';
 import { MdSupervisedUserCircle } from 'react-icons/md';
 import { useAppContext } from '../context/appData';
 
-const Students = ({ setStudents, contributions }) => {
+const Students = ({ setStudents, contributions, isChecked }) => {
   const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
 
   useEffect(() => {
@@ -17,20 +17,6 @@ const Students = ({ setStudents, contributions }) => {
     ev.dataTransfer.setData('member', member);
   };
 
-  const names = [
-    'Graciana Aad',
-    'Denis Gillet',
-    'Jérémy La Scala',
-    'Kimiya Behbahani Zadeh',
-    'Zoubida Squalli Houssaini',
-    'Margot Romelli',
-  ];
-  const isChecked = (name) => {
-    if (names.includes(name)) {
-      return false;
-    }
-    return true;
-  };
 
   return (
     <div

@@ -66,7 +66,6 @@ const SettingsProgressBar = () => {
         showUserShare: Boolean(value),
       },
     };
-
     postAppSetting(newSetting);
   };
 
@@ -87,7 +86,7 @@ const SettingsProgressBar = () => {
               disabled={disable}
               variant="contained"
               color="secondary"
-              onClick={show}
+              onClick={progressBarDisplaySetting ? show : null}
             >
               {t('Show')}
             </Button>
@@ -95,7 +94,7 @@ const SettingsProgressBar = () => {
               disabled={disable}
               variant="contained"
               color="secondary"
-              onClick={hide}
+              onClick={progressBarDisplaySetting ? hide : null}
             >
               {t('Hide')}
             </Button>

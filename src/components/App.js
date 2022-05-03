@@ -12,6 +12,7 @@ import { Context } from './context/ContextContext';
 import Students from './main/Students';
 import Footer from './main/Footer';
 import TasksList from './main/TasksList';
+// import Demo from './main/Demo';
 import {
   TASK_LABELS,
   DEFAULT_PERMISSION,
@@ -24,6 +25,8 @@ import ChartsArea from './main/ChartsArea';
 let completedTasks = 0;
 
 const App = () => {
+
+
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
@@ -145,14 +148,32 @@ const App = () => {
           addTask={addTask}
           updateTask={updateTask}
           deleteTask={deleteTask}
+          // eslint-disable-next-line no-use-before-define
+          contributions={contributions}
         />
       </div>
     );
   };
+  const names = [
+    'Graciana Aad',
+    'Denis Gillet',
+    'Jérémy La Scala',
+    'Kimiya Behbahani Zadeh',
+    'Zoubida Squalli Houssaini',
+    'Margot Romelli',
+  ];
+  const isChecked = (name) => {
+    if (names.includes(name)) {
+      return false;
+    }
+    return true;
+  };
 
   const contributionMap = new Map();
 
-  students.map((student) => contributionMap.set(student.name, 0));
+  students.map((student) =>
+    isChecked(student.name) ? contributionMap.set(student.name, 0) : null,
+  );
 
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
@@ -207,7 +228,11 @@ const App = () => {
     <div className="row">
       {!toggle ? (
         <div className="members-column column">
-          <Students setStudents={setStudents} contributions={contributions} />
+          <Students
+            setStudents={setStudents}
+            contributions={contributions}
+            isChecked={isChecked}
+          />
         </div>
       ) : (
         ' '
@@ -251,11 +276,12 @@ const App = () => {
         toggle={toggle}
         contributions={contributions}
         tasks={tasks}
+        isChecked={isChecked}
       />
 
       {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
         permissionLevel,
-      ) && <Settings setToggle={setToggle} toggle={toggle} tasks={tasks} />}
+      ) && <Settings setToggle={setToggle} toggle={toggle} tasks={tasks} members={contributions} />}
     </div>
   );
 };

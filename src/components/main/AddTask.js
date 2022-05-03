@@ -55,7 +55,7 @@ const AddTask = ({ addTask, label }) => {
           title={t('Add Task')}
           alt="add-task"
           className={`${newTaskTitle.trim() ? 'active-add-icon' : 'add-icon'}`}
-          onClick={handleAddTask}
+          onClick={newTaskTitle.trim().length !== 0? handleAddTask:null}
         />
       </div>
       <br />

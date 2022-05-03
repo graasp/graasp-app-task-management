@@ -19,6 +19,7 @@ const Footer = ({
   setToggle,
   contributions,
   tasks,
+  isChecked
 }) => {
   const [toggleFooter, setToggleFooter] = useState(false);
 
@@ -28,12 +29,13 @@ const Footer = ({
 
   const { data: appSettings, isSuccess } = useAppSettings();
 
+
   const legend = [];
   if (contributions) {
-    contributions.map((cont) =>
+    contributions.map((cont) => isChecked(cont.name)?
       legend.push({
         description: `${cont.name}: ${cont.memberContribution}%`,
-      }),
+      }):null,
     );
   }
 
