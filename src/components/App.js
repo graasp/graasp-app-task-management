@@ -25,6 +25,8 @@ import ChartsArea from './main/ChartsArea';
 let completedTasks = 0;
 
 const App = () => {
+
+
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);

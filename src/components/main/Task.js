@@ -76,10 +76,9 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
 
   const getMemberColor = (memberName) => {
     // eslint-disable-next-line no-restricted-syntax
-    for (const [key, value] of Object.entries(contributions)) {
-      console.log(key);
-      if (value.name === memberName) {
-        return value.color;
+    for (const object of Object.entries(contributions)) {
+      if (object[1].name === memberName) {
+        return object[1].color;
       }
     }
     return null;
