@@ -38,11 +38,12 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
 
   const onEditKeyDown = (event) => {
     if (event.keyCode === 13) {
+      console.log('heeey',editedTitle.length)
       const newTask = {
         ...task,
         data: {
           ...data,
-          title: editedTitle,
+          title: editedTitle.length !== 0 ? editedTitle : title,
         },
       };
       updateTask(newTask);
@@ -120,7 +121,7 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
             </span>
           )}
 
-          <div className="content" style={{ flexDirection: 'column'}}>
+          <div className="content" style={{ flexDirection: 'column' }}>
             <div className="row" style={{ alignItems: 'center' }}>
               <MdOutlineSubject
                 size="1.3em"
