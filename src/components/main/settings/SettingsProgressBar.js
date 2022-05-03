@@ -87,7 +87,7 @@ const SettingsProgressBar = () => {
               disabled={disable}
               variant="contained"
               color="secondary"
-              onClick={show}
+              onClick={progressBarDisplaySetting.data ? show : null}
             >
               {t('Show')}
             </Button>
@@ -95,7 +95,7 @@ const SettingsProgressBar = () => {
               disabled={disable}
               variant="contained"
               color="secondary"
-              onClick={hide}
+              onClick={progressBarDisplaySetting.data ? hide : null}
             >
               {t('Hide')}
             </Button>
