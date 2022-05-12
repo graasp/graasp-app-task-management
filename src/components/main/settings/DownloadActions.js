@@ -50,12 +50,10 @@ const DownloadActions = ({members}) => {
         appSettings?.find(
           ({ name }) => name === APP_SETTINGS.PROGRESS_BAR_DISPLAY,
         ) || DEFAULT_PROGRESS_BAR_DISPLAY_SETTING;
-        console.log('hellooooo',s)
       setProgressBarDisplaySetting(s);
     }
   }, [appSettings, isSuccess]);
 
-  console.log('hiiii',progressBarDisplaySetting)
 
   const {
     data: appActions,
