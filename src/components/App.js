@@ -25,8 +25,6 @@ import ChartsArea from './main/ChartsArea';
 let completedTasks = 0;
 
 const App = () => {
-
-
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
   const { mutate: patchAppData } = useMutation(MUTATION_KEYS.PATCH_APP_DATA);
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
@@ -281,7 +279,14 @@ const App = () => {
 
       {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
         permissionLevel,
-      ) && <Settings setToggle={setToggle} toggle={toggle} tasks={tasks} members={contributions} />}
+      ) && (
+        <Settings
+          setToggle={setToggle}
+          toggle={toggle}
+          tasks={tasks}
+          members={contributions}
+        />
+      )}
     </div>
   );
 };

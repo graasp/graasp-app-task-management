@@ -5,7 +5,7 @@ import Typography from '@material-ui/core/Typography';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import { Button } from '@graasp/ui';
 import { saveAs } from 'file-saver';
-import { useAppActions,useAppSettings } from '../../context/appData';
+import { useAppActions, useAppSettings } from '../../context/appData';
 import { showErrorToast } from '../../../utils/toasts';
 import { Context } from '../../context/ContextContext';
 import { APP_SETTINGS } from '../../../constants/constants';
@@ -30,7 +30,7 @@ const DEFAULT_PROGRESS_BAR_DISPLAY_SETTING = {
 };
 
 // eslint-disable-next-line react/prop-types
-const DownloadActions = ({members}) => {
+const DownloadActions = ({ members }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -54,7 +54,6 @@ const DownloadActions = ({members}) => {
     }
   }, [appSettings, isSuccess]);
 
-
   const {
     data: appActions,
     isSuccess: isAppActionsSuccess,
@@ -76,7 +75,7 @@ const DownloadActions = ({members}) => {
   const handleDownload = () => {
     const datetime = new Date().toJSON();
 
-    const status=progressBarDisplaySetting.data
+    const status = progressBarDisplaySetting.data;
     const blob = new Blob(
       [
         JSON.stringify({
@@ -86,7 +85,7 @@ const DownloadActions = ({members}) => {
           },
           actions,
           members,
-         status,
+          status,
         }),
       ],
       {

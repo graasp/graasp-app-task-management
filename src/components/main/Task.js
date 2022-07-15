@@ -38,7 +38,6 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
 
   const onEditKeyDown = (event) => {
     if (event.keyCode === 13) {
-      console.log('heeey',editedTitle.length)
       const newTask = {
         ...task,
         data: {
@@ -108,7 +107,7 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
             // TODO: DELETE
 
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
             <span
               className="text-task"
               style={{

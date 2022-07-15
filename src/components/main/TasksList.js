@@ -16,11 +16,11 @@ const TasksList = ({
   deleteTask,
   addComponent,
   // eslint-disable-next-line react/prop-types
-  contributions
+  contributions,
 }) => {
   return (
     <div>
-      <div key={label} className="column" style={{ alignItems: 'center'}}>
+      <div key={label} className="column" style={{ alignItems: 'center' }}>
         <div style={{ alignItems: 'center' }}>
           <h3 style={{ color: 'black', textAlign: 'center' }}>
             {title}&nbsp;
@@ -60,7 +60,6 @@ const TasksList = ({
                           updateTask={updateTask}
                           deleteTask={deleteTask}
                           contributions={contributions}
-
                         />
                       </div>
                     )}
@@ -86,7 +85,6 @@ TasksList.propTypes = {
   deleteTask: PropTypes.func.isRequired,
   addTask: PropTypes.func,
   addComponent: PropTypes.bool,
-
 };
 
 TasksList.defaultProps = {

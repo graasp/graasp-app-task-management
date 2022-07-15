@@ -17,7 +17,6 @@ const Students = ({ setStudents, contributions, isChecked }) => {
     ev.dataTransfer.setData('member', member);
   };
 
-
   return (
     <div
       style={{

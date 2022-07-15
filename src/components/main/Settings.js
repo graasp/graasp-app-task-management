@@ -94,7 +94,7 @@ const Settings = ({ toggle, setToggle, tasks, members }) => {
               handleModalClose={handleModalClose}
             />
             <br />
-            <DownloadActions members={members}/>
+            <DownloadActions members={members} />
             <SettingsProgressBar />
             <br />
 

@@ -10,7 +10,6 @@ const MyProgress = ({
   completedTasks,
   totalNumberOfTasks,
 }) => {
-
   // percentage of contribution of the user per task
   let contribution = 0;
   let contributions = 0;
