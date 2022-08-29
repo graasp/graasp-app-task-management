@@ -13,6 +13,8 @@ import Button from '@material-ui/core/Button';
 import Divider from '@material-ui/core/Divider';
 import DownloadActions from './settings/DownloadActions';
 import ShowProgress from './ShowProgress';
+import FilterMembers from './settings/FilterMembers';
+import FilterModal from './FilterModal';
 // import Data from './Data';
 import SettingsProgressBar from './settings/SettingsProgressBar';
 
@@ -55,10 +57,11 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // eslint-disable-next-line no-unused-vars
-const Settings = ({ toggle, setToggle, tasks, members }) => {
+const Settings = ({ toggle, setToggle, tasks, members, students, filteredNames, setFilteredNames }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
+  const [toggleFilter, setToggleFilter] = useState(false);
 
   const handleModalOpen = () => {
     setModalOpen(true);
@@ -82,38 +85,55 @@ const Settings = ({ toggle, setToggle, tasks, members }) => {
         >
           <SettingsIcon />
         </Fab>
-        <Modal
-          open={modalOpen}
-          onClose={handleModalClose}
-          className={classes.modal}
-        >
-          <div className={classes.modalContainer}>
-            <ShowProgress
-              setToggle={setToggle}
-              toggle={toggle}
-              handleModalClose={handleModalClose}
-            />
-            <br />
-            <DownloadActions members={members} />
-            <SettingsProgressBar />
-            <br />
+        {!toggleFilter ? (
+          <Modal
+            open={modalOpen}
+            onClose={handleModalClose}
+            className={classes.modal}
+          >
+            <div className={classes.modalContainer}>
+              <ShowProgress
+                setToggle={setToggle}
+                toggle={toggle}
+                handleModalClose={handleModalClose}
+              />
+              <br />
+              <DownloadActions members={members} />
+              <SettingsProgressBar />
+              <FilterMembers
+                setToggle={setToggleFilter}
+                toggle={toggleFilter}
+              />
+              <br />
 
-            {/* <Data handleModalClose={handleModalClose} tasks={tasks} /> */}
+              {/* <Data handleModalClose={handleModalClose} tasks={tasks} /> */}
 
-            <Divider className={classes.divider} />
+              <Divider className={classes.divider} />
 
-            <div className={classes.buttonContainer}>
-              <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleModalClose}
-                className={classes.closeButton}
-              >
-                {t('Close')}
-              </Button>
+              <div className={classes.buttonContainer}>
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  onClick={handleModalClose}
+                  className={classes.closeButton}
+                >
+                  {t('Close')}
+                </Button>
+              </div>
             </div>
-          </div>
-        </Modal>
+          </Modal>
+        ) : (
+          <FilterModal
+            setToggle={setToggleFilter}
+            toggle={toggleFilter}
+            handleModalClose={handleModalClose}
+            modalOpen={modalOpen}
+            filteredNames={filteredNames}
+            setFilteredNames={setFilteredNames}
+            students={students}
+
+          />
+        )}
       </div>
     </>
   );

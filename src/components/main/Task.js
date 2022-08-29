@@ -1,9 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete, MdOutlineSubject, MdCircle } from 'react-icons/md';
 import PropTypes from 'prop-types';
+import Avatar from '@mui/material/Avatar';
 import Modal from './Modal';
 import { taskProp } from '../../types/props_types';
+
 
 // eslint-disable-next-line react/prop-types
 const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
@@ -87,6 +90,28 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
   return (
     <div style={{ flexDirection: 'column' }}>
       <div className="row">
+        {/* <div className="row">
+        {members.length !== 0 ? (
+              <div
+                className="row"
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  // display: 'flex',
+                  height: '0.2em',
+                }}
+              >
+                {members.map((member)=>console.log(member))}
+                {members.map((member) => (
+                  // <small style={{ color: `${getMemberColor(member)}` }}>
+                  //   <MdCircle size="0.6em" />
+                  // </small>
+                  <Avatar sx={{ bgcolor: `${getMemberColor(member)}`, width: 17, height: 17 }} style={{color:'black'}}>{member[0]}</Avatar>
+                ))}
+              </div>
+            ) : null}
+
+        </div> */}
         <div
           className={
             focused
@@ -119,6 +144,25 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
               {title}
             </span>
           )}
+          &nbsp;
+             {members.length !== 0 ? (
+              <div
+                className="row"
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  // display: 'flex',
+                  height: '0.2em',
+                }}
+              >
+                {members.map((member) => (
+                  // <small style={{ color: `${getMemberColor(member)}` }}>
+                  //   <MdCircle size="0.6em" />
+                  // </small>
+                  <Avatar sx={{ bgcolor: `${getMemberColor(member)}`, width: 17, height: 17 }} style={{color:'gray', fontSize:'9px'}}>{member[0]}</Avatar>
+                ))}
+              </div>
+            ) : null}
 
           <div className="content" style={{ flexDirection: 'column' }}>
             <div className="row" style={{ alignItems: 'center' }}>
@@ -146,7 +190,7 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
                 onClick={() => deleteTask(id)}
               />
             </div>
-            {members.length !== 0 ? (
+            {/* {members.length !== 0 ? (
               <div
                 className="row"
                 style={{
@@ -156,13 +200,15 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
                   height: '0.2em',
                 }}
               >
+                {members.map((member)=>console.log(member))}
                 {members.map((member) => (
-                  <small style={{ color: `${getMemberColor(member)}` }}>
-                    <MdCircle size="0.6em" />
-                  </small>
+                  // <small style={{ color: `${getMemberColor(member)}` }}>
+                  //   <MdCircle size="0.6em" />
+                  // </small>
+                  <Avatar sx={{ bgcolor: `${getMemberColor(member)}`, width: 17, height: 17 }} style={{color:'black'}}>{member[0]}</Avatar>
                 ))}
               </div>
-            ) : null}
+            ) : null} */}
           </div>
         </div>
       </div>

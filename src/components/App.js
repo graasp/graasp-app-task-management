@@ -1,3 +1,14 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable prefer-template */
+/* eslint-disable no-cond-assign */
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-plusplus */
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable global-require */
+/* eslint-disable camelcase */
+/* eslint-disable react/no-unknown-property */
+/* eslint-disable react/button-has-type */
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-restricted-syntax */
 /* eslint-disable no-shadow */
@@ -33,10 +44,19 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [students, setStudents] = useState([]);
+  const [filteredNames, setFilteredNames] = useState([
+    'Graciana Aad',
+    'Denis Gillet',
+    'Jérémy La Scala',
+    'Kimiya Behbahani Zadeh',
+    'Zoubida Squalli Houssaini',
+    'Margot Romelli',
+  ]);
 
   const context = useContext(Context);
 
   const permissionLevel = context?.get('permission', DEFAULT_PERMISSION);
+  const keyword_extractor = require('keyword-extractor');
 
   const {
     data: appData,
@@ -152,26 +172,30 @@ const App = () => {
       </div>
     );
   };
-  const names = [
-    'Graciana Aad',
-    'Denis Gillet',
-    'Jérémy La Scala',
-    'Kimiya Behbahani Zadeh',
-    'Zoubida Squalli Houssaini',
-    'Margot Romelli',
-  ];
+
   const isChecked = (name) => {
-    if (names.includes(name)) {
+    if (filteredNames.includes(name)) {
       return false;
     }
     return true;
   };
-
+console.log(filteredNames)
   const contributionMap = new Map();
 
   students.map((student) =>
     isChecked(student.name) ? contributionMap.set(student.name, 0) : null,
   );
+
+  const sentences = [];
+  let sentence = '';
+  console.log(tasks);
+  if (tasks.length !== 0) {
+    if (tasks._tail) {
+      tasks._tail.array.map((task) => sentences.push(task.data.title));
+      tasks._tail.array.map((task) => sentences.push(task.data.description));
+      sentence = sentences.join(' ');
+    }
+  }
 
   const incrementCount = (label, arr, member) => {
     if (label === 'completed') {
@@ -220,7 +244,76 @@ const App = () => {
         color: availableColors[index % availableColors.length],
       };
     },
-  );
+  )
+  const result = keyword_extractor.extract(sentence, {
+    language: 'english',
+    remove_digits: true,
+    return_changed_case: true,
+    remove_duplicates: true,
+  });
+
+  const extraction = result.sort(() => 0.5 - Math.random());
+
+  // Get sub-array of first n elements after shuffled
+  const extraction_result = extraction.slice(0, 10);
+
+  const commonWords = [
+    'i',
+    'a',
+    'about',
+    'an',
+    'and',
+    'are',
+    'as',
+    'at',
+    'be',
+    'by',
+    'com',
+    'de',
+    'en',
+    'for',
+    'from',
+    'how',
+    'in',
+    'is',
+    'it',
+    'la',
+    'of',
+    'on',
+    'or',
+    'that',
+    'the',
+    'this',
+    'to',
+    'was',
+    'what',
+    'when',
+    'where',
+    'who',
+    'will',
+    'with',
+    'und',
+    'the',
+    'www',
+  ];
+
+  // Convert to lowercase
+  sentence = sentence.toLowerCase();
+
+  // replace unnesessary chars. leave only chars, numbers and space
+  sentence = sentence.replace(/[^\w\d ]/g, '');
+
+  let result1 = sentence.split(' ');
+
+  // remove $commonWords
+  result1 = result.filter(function (word) {
+    return commonWords.indexOf(word) === -1;
+  });
+
+  // Unique words
+  result1 = [...new Set(result1)];
+
+  console.log('result', result1);
 
   return (
     <div className="row">
@@ -244,13 +337,13 @@ const App = () => {
             {renderTasksList('Completed', TASK_LABELS.COMPLETED)} */}
 
             <Grid container columnSpacing={3}>
-              <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+              <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
                 {renderTasksList('To Do', TASK_LABELS.TODO, true)}
               </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+              <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
                 {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
               </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={6} xl={4}>
+              <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
                 {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
               </Grid>
             </Grid>
@@ -262,6 +355,8 @@ const App = () => {
             completedTasks={completedTasks}
             totalNumberOfTasks={totalNumberOfTasks}
             contributions={contributions}
+            extraction_result={extraction_result}
+            sentence={sentence}
           />
         )}
         <div className="clear" />
@@ -285,6 +380,9 @@ const App = () => {
           toggle={toggle}
           tasks={tasks}
           members={contributions}
+          students={contributions}
+          filteredNames={filteredNames}
+          setFilteredNames={setFilteredNames}
         />
       )}
     </div>
