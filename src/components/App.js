@@ -381,6 +381,7 @@ console.log(filteredNames)
           tasks={tasks}
           members={contributions}
           students={contributions}
+          setStudents={setStudents}
           filteredNames={filteredNames}
           setFilteredNames={setFilteredNames}
         />

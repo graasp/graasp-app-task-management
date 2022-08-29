@@ -82,6 +82,7 @@ const FilterModal = ({
   modalOpen,
   setToggle,
   students,
+  setStudents,
   filteredNames,
   setFilteredNames,
 }) => {
@@ -98,6 +99,7 @@ const FilterModal = ({
       typeof value === 'string' ? value.split(',') : value,
     );
   };
+  const arr = filteredNames;
 
   const removeStudent = (studentName, array) => {
     const index = array.indexOf(studentName);
@@ -109,7 +111,6 @@ const FilterModal = ({
     return array;
   };
 
-  const arr = students;
 
   return (
     <Modal
@@ -158,6 +159,21 @@ const FilterModal = ({
               <DeleteIcon fontSize="inherit" />
             </IconButton>
             {std.name}
+          </div>
+        ))}
+        {filteredNames.map((std) => (
+          <div style={{color:'blue'}}>
+            <IconButton
+              aria-label="delete"
+              size="small"
+              onClick={() => {
+                setFilteredNames([removeStudent(std,arr)])
+                console.log(filteredNames);
+              }}
+            >
+              <DeleteIcon fontSize="inherit" />
+            </IconButton>
+            {std}
           </div>
         ))}
 
