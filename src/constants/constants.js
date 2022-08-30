@@ -29,6 +29,15 @@ export const DEFAULT_TASK = {
   visibility: 'item',
   data: DEFAULT_TASK_DATA,
 };
+export const DEFAULT_STD_DATA = {
+  name:''
+};
+
+export const DEFAULT_STD= {
+  type: APP_DATA_TYPES.FILTERED_MEMBER,
+  visibility: 'item',
+  data: DEFAULT_STD_DATA,
+};
 
 export const APP_SETTINGS = {
   PROGRESS_BAR_DISPLAY: 'progress_bar_display',

@@ -44,14 +44,7 @@ const App = () => {
   const [tasks, setTasks] = useState([]);
   const [toggle, setToggle] = useState(false);
   const [students, setStudents] = useState([]);
-  const [filteredNames, setFilteredNames] = useState([
-    'Graciana Aad',
-    'Denis Gillet',
-    'Jérémy La Scala',
-    'Kimiya Behbahani Zadeh',
-    'Zoubida Squalli Houssaini',
-    'Margot Romelli',
-  ]);
+  const [filteredNames, setFilteredNames] = useState([]);
 
   const context = useContext(Context);
 
@@ -76,6 +69,17 @@ const App = () => {
     }
   }, [appData, isAppDataSuccess, isAppDataLoading]);
 
+  useEffect(() => {
+    if (isAppDataSuccess && !isAppDataLoading) {
+      const newMembers = appData.filter(
+        ({ type }) => type === APP_DATA_TYPES.FILTERED_MEMBER,
+      );
+      if (newMembers) {
+        setFilteredNames(newMembers);
+      }
+    }
+  }, [appData, isAppDataSuccess, isAppDataLoading]);
+
   const addTask = (newTask) => {
     postAppData(newTask);
     postAction({
@@ -86,6 +90,18 @@ const App = () => {
       },
     });
   };
+  const addStd = (newStd) => {
+    postAppData(newStd);
+    console.log(newStd)
+    postAction({
+      type: ACTION_TYPES.ADD,
+      data: {
+        ...newStd.data,
+        id: newStd.name,
+      },
+    });
+  };
+
 
   const updateTask = (newTask) => {
     patchAppData(newTask);
@@ -179,7 +195,6 @@ const App = () => {
     }
     return true;
   };
-console.log(filteredNames)
   const contributionMap = new Map();
 
   students.map((student) =>
@@ -188,7 +203,6 @@ console.log(filteredNames)
 
   const sentences = [];
   let sentence = '';
-  console.log(tasks);
   if (tasks.length !== 0) {
     if (tasks._tail) {
       tasks._tail.array.map((task) => sentences.push(task.data.title));
@@ -252,7 +266,6 @@ console.log(filteredNames)
     remove_duplicates: true,
   });
 
-  console.log(filteredNames)
   const extraction = result.sort(() => 0.5 - Math.random());
 
   // Get sub-array of first n elements after shuffled
@@ -314,7 +327,6 @@ console.log(filteredNames)
   // Unique words
   result1 = [...new Set(result1)];
 
-  console.log('result', result1);
 
   return (
     <div className="row">
@@ -385,6 +397,7 @@ console.log(filteredNames)
           setStudents={setStudents}
           filteredNames={filteredNames}
           setFilteredNames={setFilteredNames}
+          addStd={addStd}
         />
       )}
     </div>

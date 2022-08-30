@@ -9,6 +9,9 @@ import Divider from '@material-ui/core/Divider';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ReplayIcon from '@mui/icons-material/Replay';
+import Tooltip from '@mui/material/Tooltip';
+import { MUTATION_KEYS, useMutation } from '../../config/queryClient';
+import { DEFAULT_STD, DEFAULT_STD_DATA } from '../../constants/constants';
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -79,21 +82,27 @@ const FilterModal = ({
   setStudents,
   filteredNames,
   setFilteredNames,
+  addStd
 }) => {
-  const [personName, setPersonName] = useState([]);
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a stringified value.
-      typeof value === 'string' ? value.split(',') : value,
-    );
-  };
+  const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
+
   const arr = filteredNames;
+
+  const handleRemoveStudent = (name) => {
+    const newStd = {
+      ...DEFAULT_STD,
+      data: {
+        ...DEFAULT_STD_DATA,
+        name
+      
+      },
+    };
+    addStd(newStd);
+  
+  };
 
   const removeStudent = (studentName, array) => {
     const index = array.indexOf(studentName);
@@ -101,6 +110,7 @@ const FilterModal = ({
       // only splice array when item is found
       array.splice(index, 1); // 2nd parameter means remove one item only
     }
+    handleRemoveStudent(studentName);
 
     return array;
   };
@@ -112,33 +122,35 @@ const FilterModal = ({
       className={classes.modal}
     >
       <div className={classes.modalContainer}>
-
         {students.map((std) => (
           <div>
-            <IconButton
-              aria-label="delete"
-              size="small"
-              onClick={() => {
-                setFilteredNames([...filteredNames, std.name]);
-                console.log(filteredNames);
-              }}
-            >
-              <DeleteIcon fontSize="inherit" />
-            </IconButton>
+            <Tooltip title="Filter Member">
+              <IconButton
+                aria-label="delete"
+                size="small"
+                onClick={() => {
+                  setFilteredNames([...filteredNames, std.name]);
+                }}
+              >
+                <DeleteIcon fontSize="inherit" />
+              </IconButton>
+            </Tooltip>
             {std.name}
           </div>
         ))}
         {filteredNames.map((std) => (
           <div style={{ color: 'GrayText' }}>
-            <IconButton
-              aria-label="delete"
-              size="small"
-              onClick={() => {
-                setFilteredNames([...removeStudent(std, arr)]);
-              }}
-            >
-              <ReplayIcon fontSize="inherit"/>
-            </IconButton>
+            <Tooltip title="Recover Member">
+              <IconButton
+                aria-label="delete"
+                size="small"
+                onClick={() => {
+                  setFilteredNames([...removeStudent(std, arr)]);
+                }}
+              >
+                <ReplayIcon fontSize="inherit" />
+              </IconButton>
+            </Tooltip>
             {std}
           </div>
         ))}
