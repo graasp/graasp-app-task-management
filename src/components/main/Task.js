@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { MdDelete, MdOutlineSubject, MdCircle } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import Avatar from '@mui/material/Avatar';
+import Tooltip from '@mui/material/Tooltip';
 import Modal from './Modal';
 import { taskProp } from '../../types/props_types';
 
@@ -159,7 +160,9 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
                   // <small style={{ color: `${getMemberColor(member)}` }}>
                   //   <MdCircle size="0.6em" />
                   // </small>
+                  <Tooltip title={member}>
                   <Avatar sx={{ bgcolor: `${getMemberColor(member)}`, width: 17, height: 17 }} style={{color:'gray', fontSize:'9px'}}>{member[0]}</Avatar>
+                  </Tooltip>
                 ))}
               </div>
             ) : null}
