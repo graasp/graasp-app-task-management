@@ -252,6 +252,7 @@ console.log(filteredNames)
     remove_duplicates: true,
   });
 
+  console.log(filteredNames)
   const extraction = result.sort(() => 0.5 - Math.random());
 
   // Get sub-array of first n elements after shuffled
