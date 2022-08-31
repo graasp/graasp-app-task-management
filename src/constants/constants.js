@@ -30,11 +30,12 @@ export const DEFAULT_TASK = {
   data: DEFAULT_TASK_DATA,
 };
 export const DEFAULT_STD_DATA = {
-  name:''
+  name:'',
+  filtered:false
 };
 
 export const DEFAULT_STD= {
-  type: APP_DATA_TYPES.FILTERED_MEMBER,
+  type: APP_DATA_TYPES.FILTERED_MEMBERS,
   visibility: 'item',
   data: DEFAULT_STD_DATA,
 };
