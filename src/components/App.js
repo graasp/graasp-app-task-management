@@ -23,7 +23,7 @@ import { Context } from './context/ContextContext';
 import Students from './main/Students';
 import Footer from './main/Footer';
 import TasksList from './main/TasksList';
-// import Demo from './main/Demo';
+
 import {
   TASK_LABELS,
   DEFAULT_PERMISSION,
@@ -66,22 +66,23 @@ const App = () => {
       if (newTasks) {
         setTasks(newTasks);
       }
-    }
-  }, [appData, isAppDataSuccess, isAppDataLoading]);
-
-  useEffect(() => {
-    if (isAppDataSuccess && !isAppDataLoading) {
-      const newMembers = appData.filter(
-        ({ type }) => type === APP_DATA_TYPES.FILTERED_MEMBER,
-      );
-      if (newMembers) {
-        setFilteredNames(newMembers);
-      }
+      // const filteredMembers = appData.filter(
+      //   ({ type }) => type === APP_DATA_TYPES.FILTERED_MEMBERS,
+      // );
+      // if (filteredMembers) {
+      //   setFilteredNames(filteredMembers);
+      // } else {
+      //   postAppData({
+      //     type: 'filtered_members',
+      //     data: { names: filteredNames },
+      //   });
+      // }
     }
   }, [appData, isAppDataSuccess, isAppDataLoading]);
 
   const addTask = (newTask) => {
     postAppData(newTask);
+
     postAction({
       type: ACTION_TYPES.ADD,
       data: {
@@ -90,18 +91,6 @@ const App = () => {
       },
     });
   };
-  const addStd = (newStd) => {
-    postAppData(newStd);
-    console.log(newStd)
-    postAction({
-      type: ACTION_TYPES.ADD,
-      data: {
-        ...newStd.data,
-        id: newStd.name,
-      },
-    });
-  };
-
 
   const updateTask = (newTask) => {
     patchAppData(newTask);
@@ -160,7 +149,7 @@ const App = () => {
     updateTask(newTask);
   };
 
-  const totalNumberOfTasks = tasks.size;
+  const totalNumberOfTasks = tasks.size ? tasks.size : 0;
 
   const renderTasksList = (title, label, add = false) => {
     const tasksArray = [...tasks.filter(({ data }) => data.label === label)];
@@ -169,7 +158,9 @@ const App = () => {
       tasks.filter(({ data }) => data.label === 'completed'),
     ];
 
-    completedTasks = completedTasksArray[0].size;
+    completedTasks = completedTasksArray[0].size
+      ? completedTasksArray[0].size
+      : 0;
 
     // console.debug('The tasks in ', label, ' are: ', tasksArray);
     return (
@@ -258,7 +249,7 @@ const App = () => {
         color: availableColors[index % availableColors.length],
       };
     },
-  )
+  );
   const result = keyword_extractor.extract(sentence, {
     language: 'english',
     remove_digits: true,
@@ -327,7 +318,6 @@ const App = () => {
   // Unique words
   result1 = [...new Set(result1)];
 
-
   return (
     <div className="row">
       {!toggle ? (
@@ -391,13 +381,10 @@ const App = () => {
         <Settings
           setToggle={setToggle}
           toggle={toggle}
-          tasks={tasks}
           members={contributions}
           students={contributions}
-          setStudents={setStudents}
           filteredNames={filteredNames}
           setFilteredNames={setFilteredNames}
-          addStd={addStd}
         />
       )}
     </div>
@@ -405,272 +392,3 @@ const App = () => {
 };
 
 export default App;
-
-// @media only screen and (max-width: 600px) {
-//   .delete-icon {
-//     height: 1.125em;
-//   }
-//   .droppable-col {
-//     width: 22em;
-//     background-color: #ebecf0;
-//     border-radius: 1.5625em;
-//     display: flex;
-//     flex-direction: column;
-//     text-align: center;
-//     color: white;
-//     min-height: 50vh;
-//     min-width: 10vh;
-//     justify-content: flex-start;
-//     align-items: center;
-//     padding: 30px 20px;
-//     margin-left: 20px;
-//     margin-right: 50px;
-//   }
-//   .text-input {
-//     outline: none;
-//     border-radius: 1.5625em;
-//     width: 13em;
-//     font-size: 1em;
-//     padding: 0.em 0.75em;
-//     margin: auto 0.5em;
-//     font-weight: bold;
-//   }
-
-//   .text-input-out {
-//     border: #b8ced1 1px solid;
-//     box-shadow: 0 0 0.4375em #b8ced1;
-//     outline: none;
-//     border-radius: 1.5625em;
-//     width: 13em;
-//     font-size: 1em;
-//     padding: 0.5em 0.75em;
-//     margin: auto 0.5em;
-
-//     font-weight: bold;
-//   }
-
-//   .list-item {
-//     border: none;
-//     border-radius: 1.5625em;
-//     width: 17em;
-//     height: 1.5625em;
-//     font-size: 1.125em;
-//     padding: 0.625em 0.9375em;
-//     margin: 0.em 0;
-//     color: #131a28;
-//     font-weight: bold;
-//     text-align: start;
-//     align-items: center;
-//   }
-//   .list-item-out {
-//     border-color: #8ea3b4;
-//     box-shadow: 0 0 0.625em #8ea3b4;
-//     border-radius: 1.5625em;
-//     width: 17em;
-//     height: 1.5625em;
-//     font-size: 1.125em;
-//     padding: 0.625em 0.9375em;
-//     margin: 0.625em 0;
-//     color: #131a28;
-//     font-weight: bold;
-//     text-align: start;
-//     align-items: center;
-//   }
-
-// }
-
-// @media only screen and (max-width: 600px) and (max-height: 600px){
-//   .delete-icon {
-//     height: 1.125em;
-//   }
-//   .droppable-col {
-//     width: 22em;
-//     background-color: #ebecf0;
-//     border-radius: 1.5625em;
-//     display: flex;
-//     flex-direction: column;
-//     text-align: center;
-//     color: white;
-//     min-height: 50vh;
-//     min-width: 10vh;
-//     justify-content: flex-start;
-//     align-items: center;
-//     padding: 30px 20px;
-//     margin-left: 3em;
-//     margin-right: 3em;
-//   }
-//   .text-input {
-//     outline: none;
-//     border-radius: 1.5625em;
-//     width: 13em;
-//     font-size: 1em;
-//     padding: 0.em 0.75em;
-//     margin: auto 0.5em;
-//     font-weight: bold;
-//   }
-
-//   .text-input-out {
-//     border: #b8ced1 1px solid;
-//     box-shadow: 0 0 0.4375em #b8ced1;
-//     outline: none;
-//     border-radius: 1.5625em;
-//     width: 13em;
-//     font-size: 1em;
-//     padding: 0.5em 0.75em;
-//     margin: auto 0.5em;
-
-//     font-weight: bold;
-//   }
-
-//   .list-item {
-//     border: none;
-//     border-radius: 1.5625em;
-//     width: 17em;
-//     height: 1.5625em;
-//     font-size: 1.125em;
-//     padding: 0.625em 0.9375em;
-//     margin: 0.em 0;
-//     color: #131a28;
-//     font-weight: bold;
-//     text-align: start;
-//     align-items: center;
-//   }
-//   .list-item-out {
-//     border-color: #8ea3b4;
-//     box-shadow: 0 0 0.625em #8ea3b4;
-//     border-radius: 1.5625em;
-//     width: 17em;
-//     height: 1.5625em;
-//     font-size: 1.125em;
-//     padding: 0.625em 0.9375em;
-//     margin: 0.625em 0;
-//     color: #131a28;
-//     font-weight: bold;
-//     text-align: start;
-//     align-items: center;
-//   }
-
-// }
-
-// @media only screen and (max-width: 2600px) and (min-width: 1500px) {
-//   .droppable-col {
-//     width: 27em;
-//     background-color: #ebecf0;
-//     border-radius: 1.5625em;
-//     display: flex;
-//     flex-direction: column;
-//     min-height: 50vh;
-//     min-width: 50vh;
-//     text-align: center;
-//     color: white;
-//     justify-content: flex-start;
-//     align-items: center;
-//     padding: 1.875em 1.25em;
-//     margin-left: 3em;
-//     margin-right: 3em;
-//   }
-
-//   .app-background {
-//     display: flex;
-//     min-height: 100vh;
-//     flex-direction: column;
-//     text-align: center;
-//     color: white;
-//     justify-content: flex-start;
-//     align-items: center;
-//   }
-//   .row {
-//     display: flex;
-//     flex-direction: row;
-//   }
-
-//   .column {
-//     display: flex;
-//     flex-direction: column;
-//   }
-
-//   .jc-space-between {
-//     justify-content: space-between;
-//   }
-
-//   .text-task {
-//     color: black;
-//     font-weight: 500;
-//   }
-//   .text-task:hover {
-//     font-weight: 700;
-//   }
-
-//   .add-button {
-//     outline: none;
-//     border: none;
-//     color: #201328;
-//     font-size: 1.0625em;
-//     font-weight: bolder;
-//     padding: 10px 0.9375em;
-//     border-radius: 0.5em;
-//     text-align: center;
-//     margin: 0 0.9375em 0.9375em 0.9375em;
-//     cursor: pointer;
-//   }
-
-//   .text-input {
-//     border: #c3c9ca 1px solid;
-//     outline: none;
-//     border-radius: 1.5625em;
-//     width: 17em;
-//     font-size: 1.125em;
-//     padding: 10px 0.9375em;
-//     margin: 0 0.9375em 0.9375em 0.9375em;
-//     font-weight: bold;
-//     font-weight: 500;
-//   }
-//   .text-input-out {
-//     border: #c3c9ca 1px solid;
-//     box-shadow: 0 0 0.4375em #c3c9ca;
-//     outline: none;
-//     border-radius: 1.5625em;
-//     width: 17em;
-//     font-size: 1.125em;
-//     padding: 10px 0.9375em;
-//     margin: 0 0.9375em 0.9375em 0.9375em;
-//     font-weight: bold;
-//     font-weight: 500;
-//   }
-
-//   .list-item {
-//     background-color: white;
-//     border: none;
-//     border-radius: 1.5625em;
-//     width: 22em;
-//     font-size: 1.125em;
-//     padding: 0.625em 0.9375em;
-//     margin: 10px 0;
-//     color: black;
-//     font-weight: bold;
-//     text-align: start;
-//     align-items: center;
-//     height: 2em;
-//   }
-
-//   .list-item:hover {
-//     border-color: #8ea3b4;
-//     box-shadow: 0 0 0.625em #8ea3b4;
-//   }
-
-//   .list-item-out {
-//     background-color: white;
-//     border-color: #8ea3b4;
-//     box-shadow: 0 0 0.625em #8ea3b4;
-//     border-radius: 1.5625em;
-//     width: 22em;
-//     font-size: 1.125em;
-//     padding: 0.625em 0.9375em;
-//     margin: 0.625em 0;
-//     color: black;
-//     font-weight: bold;
-//     text-align: start;
-//     align-items: center;
-//     height: 2em;
-//   }
-// }
