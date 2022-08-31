@@ -57,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 // eslint-disable-next-line no-unused-vars
-const Settings = ({ toggle, setToggle, tasks, members, students,setStudents, filteredNames, setFilteredNames, addStd }) => {
+const Settings = ({ toggle, setToggle, members, students, filteredNames, setFilteredNames }) => {
   const classes = useStyles();
   const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
@@ -131,9 +131,6 @@ const Settings = ({ toggle, setToggle, tasks, members, students,setStudents, fil
             filteredNames={filteredNames}
             setFilteredNames={setFilteredNames}
             students={students}
-            setStudents={setStudents}
-            addStd={addStd}
-
           />
         )}
       </div>
