@@ -11,31 +11,10 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ReplayIcon from '@mui/icons-material/Replay';
 import Tooltip from '@mui/material/Tooltip';
 import { MUTATION_KEYS, useMutation } from '../../config/queryClient';
-import { DEFAULT_STD, DEFAULT_STD_DATA } from '../../constants/constants';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
+// This is the window where the user can filter members
 
-// const names = [
-//   'Oliver Hansen',
-//   'Van Henry',
-//   'April Tucker',
-//   'Ralph Hubbard',
-//   'Omar Alexander',
-//   'Carlos Abbott',
-//   'Miriam Wagner',
-//   'Bradley Wilkerson',
-//   'Virginia Andrews',
-//   'Kelly Snyder',
-// ];
+
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -79,41 +58,27 @@ const FilterModal = ({
   modalOpen,
   setToggle,
   students,
-  setStudents,
   filteredNames,
   setFilteredNames,
-  addStd
 }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
-  const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
 
   const arr = filteredNames;
 
-  const handleRemoveStudent = (name) => {
-    const newStd = {
-      ...DEFAULT_STD,
-      data: {
-        ...DEFAULT_STD_DATA,
-        name
-      
-      },
-    };
-    addStd(newStd);
-  
-  };
 
-  const removeStudent = (studentName, array) => {
+  const filterOutMember = (studentName, array) => {
+    // This function filters out the specific member's name from the members' array
     const index = array.indexOf(studentName);
     if (index > -1) {
-      // only splice array when item is found
-      array.splice(index, 1); // 2nd parameter means remove one item only
+      array.splice(index, 1); 
     }
-    handleRemoveStudent(studentName);
 
     return array;
   };
+
+
 
   return (
     <Modal
@@ -130,6 +95,7 @@ const FilterModal = ({
                 size="small"
                 onClick={() => {
                   setFilteredNames([...filteredNames, std.name]);
+
                 }}
               >
                 <DeleteIcon fontSize="inherit" />
@@ -145,7 +111,8 @@ const FilterModal = ({
                 aria-label="delete"
                 size="small"
                 onClick={() => {
-                  setFilteredNames([...removeStudent(std, arr)]);
+                  setFilteredNames([...filterOutMember(std, arr)]);
+
                 }}
               >
                 <ReplayIcon fontSize="inherit" />
