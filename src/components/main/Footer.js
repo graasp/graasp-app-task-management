@@ -55,6 +55,20 @@ const Footer = ({
     }
   });
 
+  const displayPercentage = () => {
+    if (totalNumberOfTasks === 0) {
+      return 0;
+    }
+    if (
+      Number.isNaN(
+        Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100),
+      )
+    ) {
+      return 0;
+    }
+    return Math.floor((numberOfCompletedTasks / totalNumberOfTasks) * 100);
+  };
+
   return (
     <div className="main-footer">
       {!toggleFooter ? (
@@ -73,12 +87,12 @@ const Footer = ({
               : 'Tasks Progress  '}
 
             <small style={{ color: 'green' }}>
-              {totalNumberOfTasks === 0
+              {/* {totalNumberOfTasks === 0
                 ? 0
                 : Math.floor(
                     (numberOfCompletedTasks / totalNumberOfTasks) * 100,
-                  )}
-              %
+                  )} */}
+              {displayPercentage()}%
             </small>
           </h4>
 
