@@ -33,6 +33,7 @@
     "buffer": "6.0.3",
     "file-saver": "2.0.5",
     "i18next": "~21.9.1",
+    "immutable": "4.1.0",
     "jspdf": "~2.5.1",
     "keyword-extractor": "0.0.23",
     "lodash": "~4.17.21",

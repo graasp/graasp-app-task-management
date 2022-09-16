@@ -1,26 +1,24 @@
 import React, { useContext, useState, useEffect } from 'react';
 import '../index.css';
-import { DragDropContext } from 'react-beautiful-dnd';
-import { Grid } from '@material-ui/core';
 // eslint-disable-next-line camelcase
 import keyword_extractor from 'keyword-extractor';
+import { List } from 'immutable';
 import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { useAppData } from './context/appData';
 import { Context } from './context/ContextContext';
 import Students from './main/Students';
 import Footer from './main/Footer';
-import TasksList from './main/TasksList';
 import {
-  TASK_LABELS,
   DEFAULT_PERMISSION,
   PERMISSION_LEVELS,
+  TASK_LABELS,
 } from '../config/settings';
 import { ACTION_TYPES } from '../config/actionTypes';
 import Settings from './main/Settings';
 import ChartsArea from './main/ChartsArea';
-
-let completedTasks = 0;
+import TasksManager from './views/TasksManager';
+import { COLORS } from '../constants/constants';
 
 const App = () => {
   const { mutate: postAppData } = useMutation(MUTATION_KEYS.POST_APP_DATA);
@@ -28,7 +26,7 @@ const App = () => {
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: deleteAppData } = useMutation(MUTATION_KEYS.DELETE_APP_DATA);
 
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(List());
   const [toggle, setToggle] = useState(false);
   const [students, setStudents] = useState([]);
   const [filteredNames, setFilteredNames] = useState([]);
@@ -87,71 +85,10 @@ const App = () => {
     });
   };
 
-  const handleDragEnd = ({ destination, source }) => {
-    if (!destination) {
-      return;
-    }
-
-    if (
-      destination.index === source.index &&
-      destination.droppableId === source.droppableId
-    ) {
-      return;
-    }
-
-    const labelledTasks = [
-      ...tasks.filter(({ data }) => data.label === source.droppableId),
-    ];
-
-    // console.debug('The relevant tasks are:', labelledTasks);
-
-    const draggedTask = labelledTasks[source.index];
-
-    // console.debug('Destination: ', destination);
-    // console.debug('Source: ', source);
-
-    const newTask = {
-      ...draggedTask,
-      data: {
-        ...draggedTask.data,
-        label: destination.droppableId,
-      },
-    };
-
-    // console.debug('Newtask: ', newTask);
-
-    updateTask(newTask);
-  };
-
   const totalNumberOfTasks = tasks.size ? tasks.size : 0;
-
-  const renderTasksList = (title, label, add = false) => {
-    const tasksArray = [...tasks.filter(({ data }) => data.label === label)];
-
-    const completedTasksArray = [
-      tasks.filter(({ data }) => data.label === 'completed'),
-    ];
-
-    completedTasks = completedTasksArray[0].size
-      ? completedTasksArray[0].size
-      : 0;
-
-    return (
-      <div>
-        <TasksList
-          title={title}
-          label={label}
-          tasks={tasksArray}
-          addComponent={add}
-          addTask={addTask}
-          updateTask={updateTask}
-          deleteTask={deleteTask}
-          // eslint-disable-next-line no-use-before-define
-          contributions={contributions}
-        />
-      </div>
-    );
-  };
+  const completedTasks = tasks.filter(
+    (task) => task?.data?.label === TASK_LABELS.IN_PROGRESS,
+  ).size;
 
   const isChecked = (name) => {
     if (filteredNames.includes(name)) {
@@ -190,19 +127,6 @@ const App = () => {
       });
     }
   });
-
-  const availableColors = [
-    '#CAF0F6',
-    '#FFDFD3',
-    '#B6EECF',
-    '#E0BBE4',
-    '#A5D6EA',
-    '#D7ECD9',
-    '#B4C6DD',
-    '#AE88F9',
-    '#DDF1FF',
-    '#D3EAFF',
-  ];
   const contributions = Array.from(
     contributionMap,
     // eslint-disable-next-line arrow-body-style
@@ -217,7 +141,7 @@ const App = () => {
           totalNumberOfTasks === 0
             ? 0
             : Math.floor((contribution / totalNumberOfTasks) * 100),
-        color: availableColors[index % availableColors.length],
+        color: COLORS[index % COLORS.length],
       };
     },
   );
@@ -255,20 +179,13 @@ const App = () => {
       )}
       <div className="App" style={{ paddingLeft: '17em' }}>
         {!toggle ? (
-          // <div className="row" style={{ paddingLeft: '13em' }}>
-          <DragDropContext onDragEnd={handleDragEnd}>
-            <Grid container columnSpacing={3}>
-              <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
-                {renderTasksList('To Do', TASK_LABELS.TODO, true)}
-              </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
-                {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
-              </Grid>
-              <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
-                {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
-              </Grid>
-            </Grid>
-          </DragDropContext>
+          <TasksManager
+            tasks={tasks}
+            addTask={addTask}
+            updateTask={updateTask}
+            deleteTask={deleteTask}
+            members={students}
+          />
         ) : (
           <ChartsArea
             tasks={tasks}

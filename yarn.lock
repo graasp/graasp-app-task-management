@@ -18106,6 +18106,7 @@ __metadata:
     html-webpack-plugin: ~5.5.0
     husky: ~8.0.1
     i18next: ~21.9.1
+    immutable: 4.1.0
     interpolate-html-plugin: ~4.0.0
     json-server: ~0.17.0
     jspdf: ~2.5.1

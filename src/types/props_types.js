@@ -22,3 +22,9 @@ export const itemsListProp = PropTypes.shape({
   inProgress: listInItemsListProp,
   completed: listInItemsListProp,
 });
+
+export const memberProp = PropTypes.shape({
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string,
+  email: PropTypes.string,
+});
