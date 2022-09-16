@@ -18,8 +18,6 @@ const MyCloud = ({ sentence }) => {
   const data = [];
   sentence.map((word) => data.push(word));
 
-
-
   const customRenderer = (tag, size, color) => (
     <span
       key={tag}

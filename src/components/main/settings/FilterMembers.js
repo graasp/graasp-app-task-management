@@ -27,9 +27,7 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-
-
-const FilterMembers = ({setToggle}) => {
+const FilterMembers = ({ setToggle }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -44,7 +42,7 @@ const FilterMembers = ({setToggle}) => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={()=>setToggle(true)}
+              onClick={() => setToggle(true)}
             >
               {t('Filter')}
             </Button>

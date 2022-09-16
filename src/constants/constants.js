@@ -30,11 +30,11 @@ export const DEFAULT_TASK = {
   data: DEFAULT_TASK_DATA,
 };
 export const DEFAULT_STD_DATA = {
-  name:'',
-  filtered:false
+  name: '',
+  filtered: false,
 };
 
-export const DEFAULT_STD= {
+export const DEFAULT_STD = {
   type: APP_DATA_TYPES.FILTERED_MEMBERS,
   visibility: 'item',
   data: DEFAULT_STD_DATA,
@@ -43,3 +43,16 @@ export const DEFAULT_STD= {
 export const APP_SETTINGS = {
   PROGRESS_BAR_DISPLAY: 'progress_bar_display',
 };
+
+export const COLORS = [
+  '#CAF0F6',
+  '#FFDFD3',
+  '#B6EECF',
+  '#E0BBE4',
+  '#A5D6EA',
+  '#D7ECD9',
+  '#B4C6DD',
+  '#AE88F9',
+  '#DDF1FF',
+  '#D3EAFF',
+];

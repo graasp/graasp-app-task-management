@@ -30,10 +30,10 @@ const Data = ({ tasks, handleModalClose }) => {
     // TODO: also validate this.
     // eslint-disable-next-line react/prop-types
     tasks?.forEach((task, index) => {
-        doc.setFont('Helvertica', 'bold');
-        doc.text(60, 60 + index * 20, `Task: ${task.data.title}`);
-        doc.setFont('Helvertica', 'Normal');
-        doc.text(300, 60 + index * 20, `Members: ${task.data.members}`);
+      doc.setFont('Helvertica', 'bold');
+      doc.text(60, 60 + index * 20, `Task: ${task.data.title}`);
+      doc.setFont('Helvertica', 'Normal');
+      doc.text(300, 60 + index * 20, `Members: ${task.data.members}`);
     });
     doc.save('a.pdf');
   };

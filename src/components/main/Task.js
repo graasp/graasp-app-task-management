@@ -8,7 +8,6 @@ import Tooltip from '@mui/material/Tooltip';
 import Modal from './Modal';
 import { taskProp } from '../../types/props_types';
 
-
 // eslint-disable-next-line react/prop-types
 const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
   const { t } = useTranslation();
@@ -146,27 +145,35 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
             </span>
           )}
           &nbsp;
-             {members.length !== 0 ? (
-              <div
-                className="row"
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  // display: 'flex',
-                  height: '0.2em',
-                }}
-              >
-                {members.map((member) => (
-                  // <small style={{ color: `${getMemberColor(member)}` }}>
-                  //   <MdCircle size="0.6em" />
-                  // </small>
-                  <Tooltip title={member}>
-                  <Avatar sx={{ bgcolor: `${getMemberColor(member)}`, width: 17, height: 17 }} style={{color:'gray', fontSize:'9px'}}>{member[0]}</Avatar>
-                  </Tooltip>
-                ))}
-              </div>
-            ) : null}
-
+          {members.length !== 0 ? (
+            <div
+              className="row"
+              style={{
+                alignItems: 'center',
+                justifyContent: 'center',
+                // display: 'flex',
+                height: '0.2em',
+              }}
+            >
+              {members.map((member) => (
+                // <small style={{ color: `${getMemberColor(member)}` }}>
+                //   <MdCircle size="0.6em" />
+                // </small>
+                <Tooltip title={member}>
+                  <Avatar
+                    sx={{
+                      bgcolor: `${getMemberColor(member)}`,
+                      width: 17,
+                      height: 17,
+                    }}
+                    style={{ color: 'gray', fontSize: '9px' }}
+                  >
+                    {member[0]}
+                  </Avatar>
+                </Tooltip>
+              ))}
+            </div>
+          ) : null}
           <div className="content" style={{ flexDirection: 'column' }}>
             <div className="row" style={{ alignItems: 'center' }}>
               <MdOutlineSubject

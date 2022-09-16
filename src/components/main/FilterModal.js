@@ -12,7 +12,6 @@ import Tooltip from '@mui/material/Tooltip';
 
 // This is the window where the user can filter members
 
-
 const useStyles = makeStyles((theme) => ({
   modal: {
     display: 'flex',
@@ -62,21 +61,17 @@ const FilterModal = ({
   const classes = useStyles();
   const { t } = useTranslation();
 
-
   const arr = filteredNames;
-
 
   const filterOutMember = (studentName, array) => {
     // This function filters out the specific member's name from the members' array
     const index = array.indexOf(studentName);
     if (index > -1) {
-      array.splice(index, 1); 
+      array.splice(index, 1);
     }
 
     return array;
   };
-
-
 
   return (
     <Modal
@@ -93,7 +88,6 @@ const FilterModal = ({
                 size="small"
                 onClick={() => {
                   setFilteredNames([...filteredNames, std.name]);
-
                 }}
               >
                 <DeleteIcon fontSize="inherit" />
@@ -110,7 +104,6 @@ const FilterModal = ({
                 size="small"
                 onClick={() => {
                   setFilteredNames([...filterOutMember(std, arr)]);
-
                 }}
               >
                 <ReplayIcon fontSize="inherit" />

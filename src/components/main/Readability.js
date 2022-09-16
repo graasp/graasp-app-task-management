@@ -17,7 +17,6 @@ import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { CONTAINER_HEIGHT } from '../../config/constants';
 import 'react-circular-progressbar/dist/styles.css';
 
-
 const useStyles = makeStyles(() => ({
   typography: { textAlign: 'center' },
 }));
@@ -174,7 +173,7 @@ const Readability = ({ sentence }) => {
     return fleschReadingEase(text);
   };
 
-  const percentage = sentence.length !== 0 ? getScores(sentence) : 0
+  const percentage = sentence.length !== 0 ? getScores(sentence) : 0;
 
   return (
     <>
@@ -182,7 +181,7 @@ const Readability = ({ sentence }) => {
         {t(`Readability`)}
       </Typography>
       <ResponsiveContainer width="95%" height={CONTAINER_HEIGHT}>
-      <CircularProgressbar
+        <CircularProgressbar
           value={percentage}
           text={`${percentage}%`} // customize text: hard, grade 5....
           styles={buildStyles({
@@ -204,6 +203,3 @@ const Readability = ({ sentence }) => {
 };
 
 export default Readability;
-
-
-

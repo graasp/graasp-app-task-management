@@ -11,7 +11,6 @@ import { Context } from './context/ContextContext';
 import Students from './main/Students';
 import Footer from './main/Footer';
 import TasksList from './main/TasksList';
-
 import {
   TASK_LABELS,
   DEFAULT_PERMISSION,
@@ -41,7 +40,6 @@ const App = () => {
   const {
     data: appData,
     isSuccess: isAppDataSuccess,
-    // isStale: isAppDataStale,
     isLoading: isAppDataLoading,
   } = useAppData();
 
@@ -170,9 +168,9 @@ const App = () => {
   const sentences = [];
   let sentence = '';
   if (!tasks?.isEmpty) {
-      tasks.map((task) => sentences.push(task.data.title));
-      tasks.map((task) => sentences.push(task.data.description));
-      sentence = sentences.join(' ');
+    tasks.map((task) => sentences.push(task.data.title));
+    tasks.map((task) => sentences.push(task.data.description));
+    sentence = sentences.join(' ');
   }
 
   const incrementCount = (label, arr, member) => {
@@ -185,7 +183,7 @@ const App = () => {
       }
     }
   };
-  students.forEach(student => {
+  students.forEach((student) => {
     if (!tasks?.isEmpty) {
       tasks.forEach((task) => {
         incrementCount(task.data.label, task.data.members, student);
@@ -259,7 +257,6 @@ const App = () => {
         {!toggle ? (
           // <div className="row" style={{ paddingLeft: '13em' }}>
           <DragDropContext onDragEnd={handleDragEnd}>
-
             <Grid container columnSpacing={3}>
               <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
                 {renderTasksList('To Do', TASK_LABELS.TODO, true)}
