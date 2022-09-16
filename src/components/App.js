@@ -311,9 +311,7 @@ const App = () => {
   let result1 = sentence.split(' ');
 
   // remove $commonWords
-  result1 = result.filter(function (word) {
-    return commonWords.indexOf(word) === -1;
-  });
+  result1 = result.filter((word) => commonWords.indexOf(word) === -1);
 
   // Unique words
   result1 = [...new Set(result1)];

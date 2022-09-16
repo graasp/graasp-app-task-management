@@ -40,7 +40,7 @@ const AddTask = ({ addTask, label }) => {
       >
         <input
           className={`${newTaskTitle.trim() ? 'text-input-out' : 'text-input'}`}
-          InputProps={{ disableUnderline: true }}
+          // InputProps={{ disableUnderline: true }}
           value={newTaskTitle}
           placeholder={t('New Task')}
           onKeyDown={inputKeyDown}

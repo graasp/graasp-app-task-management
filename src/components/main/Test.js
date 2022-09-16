@@ -27,7 +27,7 @@ const { memberId } = qs.parse(window.location.search, {
 });
 
 
-console.log('memberId: ',memberId)
+console.log('memberId: ',memberId);
 const DashboardView =({students})=>{
 
 
