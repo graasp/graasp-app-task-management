@@ -1,6 +1,3 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable react/prop-types */
-/* eslint-disable new-cap */
 import React from 'react';
 import { Button } from '@material-ui/core';
 import { useTranslation } from 'react-i18next';
@@ -21,30 +18,23 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+// TODO: validate props
+// eslint-disable-next-line react/prop-types
 const Data = ({ tasks, handleModalClose }) => {
   const classes = useStyles();
   const { t } = useTranslation();
 
   const pdfGenerate = () => {
+    // eslint-disable-next-line new-cap
     const doc = new jsPDF('landscape', 'px', 'a4', 'false');
-    // doc.addPage();
-    // eslint-disable-next-line arrow-body-style
-    tasks?._tail.array.map((task, index) => {
-      return (
-        doc.setFont('Helvertica', 'bold'),
-        doc.text(60, 60 + index * 20, `Task: ${task.data.title}`),
-        // doc.text(60+task.data.title.length*20, 60 + index * 20, `Members: ${task.data.members}`)
-        doc.setFont('Helvertica', 'Normal'),
-        doc.text(300, 60 + index * 20, `Members: ${task.data.members}`)
-      );
+    // TODO: also validate this.
+    // eslint-disable-next-line react/prop-types
+    tasks?.forEach((task, index) => {
+        doc.setFont('Helvertica', 'bold');
+        doc.text(60, 60 + index * 20, `Task: ${task.data.title}`);
+        doc.setFont('Helvertica', 'Normal');
+        doc.text(300, 60 + index * 20, `Members: ${task.data.members}`);
     });
-
-    //
-    // doc.text(60,100,'Mob.No.')
-    // doc.setFont('Helvertica','Normal')
-    // doc.text(100,60,': ABC')
-    // doc.text(100,80,': abc@gmail.com')
-    // doc.text(120,100,': 54645656')
     doc.save('a.pdf');
   };
 

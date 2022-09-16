@@ -1,12 +1,11 @@
-/* eslint-disable camelcase */
-/* eslint-disable arrow-body-style */
+// TODO: clean this...
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import MembersProgress from './MembersProgressDetail';
 import TeamProgressDetail from './TeamProgressDetail';
 import MyCloud from './MyCloud';
-import DashboardView from './Test';
+// import DashboardView from './Test';
 // import Readability from './Readability';
 
 const ChartsArea = ({
@@ -15,10 +14,9 @@ const ChartsArea = ({
   totalNumberOfTasks,
   completedTasks,
   contributions,
-  extraction_result,
+  extractionResult,
   // sentence,
-}) => {
-  return (
+}) => (
     <Grid container>
       <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
         <MembersProgress
@@ -56,18 +54,13 @@ const ChartsArea = ({
       </Grid>
 
       <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-          <MyCloud sentence={extraction_result} />
+          <MyCloud sentence={extractionResult} />
       </Grid>
-
       {/* <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-        <Readability sentence={sentence} />
-      </Grid> */}
-      <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
         <DashboardView students={students} />
-      </Grid>
+      </Grid> */}
     </Grid>
   );
-};
 
 export default ChartsArea;
 

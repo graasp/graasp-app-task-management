@@ -279,7 +279,7 @@ const App = () => {
             completedTasks={completedTasks}
             totalNumberOfTasks={totalNumberOfTasks}
             contributions={contributions}
-            extraction_result={extractionResult}
+            extractionResult={extractionResult}
             sentence={sentence}
           />
         )}
