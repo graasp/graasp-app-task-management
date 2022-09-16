@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable prefer-template */
 /* eslint-disable no-cond-assign */
 /* eslint-disable no-prototype-builtins */
@@ -262,59 +261,11 @@ const App = () => {
   // Get sub-array of first n elements after shuffled
   const extraction_result = extraction.slice(0, 10);
 
-  const commonWords = [
-    'i',
-    'a',
-    'about',
-    'an',
-    'and',
-    'are',
-    'as',
-    'at',
-    'be',
-    'by',
-    'com',
-    'de',
-    'en',
-    'for',
-    'from',
-    'how',
-    'in',
-    'is',
-    'it',
-    'la',
-    'of',
-    'on',
-    'or',
-    'that',
-    'the',
-    'this',
-    'to',
-    'was',
-    'what',
-    'when',
-    'where',
-    'who',
-    'will',
-    'with',
-    'und',
-    'the',
-    'www',
-  ];
-
   // Convert to lowercase
   sentence = sentence.toLowerCase();
 
   // replace unnesessary chars. leave only chars, numbers and space
   sentence = sentence.replace(/[^\w\d ]/g, '');
-
-  let result1 = sentence.split(' ');
-
-  // remove $commonWords
-  result1 = result.filter((word) => commonWords.indexOf(word) === -1);
-
-  // Unique words
-  result1 = [...new Set(result1)];
 
   return (
     <div className="row">
