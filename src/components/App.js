@@ -1,20 +1,9 @@
-/* eslint-disable prefer-template */
-/* eslint-disable no-cond-assign */
-/* eslint-disable no-prototype-builtins */
-/* eslint-disable no-plusplus */
-/* eslint-disable prefer-arrow-callback */
-/* eslint-disable global-require */
-/* eslint-disable camelcase */
-/* eslint-disable react/no-unknown-property */
-/* eslint-disable react/button-has-type */
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable no-restricted-syntax */
-/* eslint-disable no-shadow */
 import React, { useContext, useState, useEffect } from 'react';
 import '../index.css';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Grid } from '@material-ui/core';
+// eslint-disable-next-line camelcase
+import keyword_extractor from 'keyword-extractor';
 import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { useAppData } from './context/appData';
@@ -48,7 +37,6 @@ const App = () => {
   const context = useContext(Context);
 
   const permissionLevel = context?.get('permission', DEFAULT_PERMISSION);
-  const keyword_extractor = require('keyword-extractor');
 
   const {
     data: appData,
@@ -65,17 +53,6 @@ const App = () => {
       if (newTasks) {
         setTasks(newTasks);
       }
-      // const filteredMembers = appData.filter(
-      //   ({ type }) => type === APP_DATA_TYPES.FILTERED_MEMBERS,
-      // );
-      // if (filteredMembers) {
-      //   setFilteredNames(filteredMembers);
-      // } else {
-      //   postAppData({
-      //     type: 'filtered_members',
-      //     data: { names: filteredNames },
-      //   });
-      // }
     }
   }, [appData, isAppDataSuccess, isAppDataLoading]);
 
@@ -161,7 +138,6 @@ const App = () => {
       ? completedTasksArray[0].size
       : 0;
 
-    // console.debug('The tasks in ', label, ' are: ', tasksArray);
     return (
       <div>
         <TasksList
@@ -193,12 +169,10 @@ const App = () => {
 
   const sentences = [];
   let sentence = '';
-  if (tasks.length !== 0) {
-    if (tasks._tail) {
-      tasks._tail.array.map((task) => sentences.push(task.data.title));
-      tasks._tail.array.map((task) => sentences.push(task.data.description));
+  if (!tasks?.isEmpty) {
+      tasks.map((task) => sentences.push(task.data.title));
+      tasks.map((task) => sentences.push(task.data.description));
       sentence = sentences.join(' ');
-    }
   }
 
   const incrementCount = (label, arr, member) => {
@@ -211,13 +185,13 @@ const App = () => {
       }
     }
   };
-  for (const student of students) {
-    if (tasks._tail) {
-      tasks._tail.array.forEach((task) => {
+  students.forEach(student => {
+    if (!tasks?.isEmpty) {
+      tasks.forEach((task) => {
         incrementCount(task.data.label, task.data.members, student);
       });
     }
-  }
+  });
 
   const availableColors = [
     '#CAF0F6',
@@ -249,6 +223,7 @@ const App = () => {
       };
     },
   );
+  // eslint-disable-next-line camelcase
   const result = keyword_extractor.extract(sentence, {
     language: 'english',
     remove_digits: true,
@@ -259,7 +234,7 @@ const App = () => {
   const extraction = result.sort(() => 0.5 - Math.random());
 
   // Get sub-array of first n elements after shuffled
-  const extraction_result = extraction.slice(0, 10);
+  const extractionResult = extraction.slice(0, 10);
 
   // Convert to lowercase
   sentence = sentence.toLowerCase();
@@ -284,9 +259,6 @@ const App = () => {
         {!toggle ? (
           // <div className="row" style={{ paddingLeft: '13em' }}>
           <DragDropContext onDragEnd={handleDragEnd}>
-            {/* {renderTasksList('To Do', TASK_LABELS.TODO, true)}
-            {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
-            {renderTasksList('Completed', TASK_LABELS.COMPLETED)} */}
 
             <Grid container columnSpacing={3}>
               <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
@@ -307,7 +279,7 @@ const App = () => {
             completedTasks={completedTasks}
             totalNumberOfTasks={totalNumberOfTasks}
             contributions={contributions}
-            extraction_result={extraction_result}
+            extraction_result={extractionResult}
             sentence={sentence}
           />
         )}
