@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Button } from '@graasp/ui';
@@ -9,6 +8,7 @@ import { useAppActions, useAppSettings } from '../../context/appData';
 import { showErrorToast } from '../../../utils/toasts';
 import { Context } from '../../context/ContextContext';
 import { APP_SETTINGS } from '../../../constants/constants';
+import ToggleContainer from '../../common/ToggleContainer';
 
 const DEFAULT_PROGRESS_BAR_DISPLAY_SETTING = {
   name: APP_SETTINGS.PROGRESS_BAR_DISPLAY,
@@ -16,13 +16,6 @@ const DEFAULT_PROGRESS_BAR_DISPLAY_SETTING = {
     showUserShare: false,
   },
 };
-
-const ToggleContainer = styled('div')(() => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  width: '100%',
-}));
 
 // eslint-disable-next-line react/prop-types
 const DownloadActions = ({ members }) => {
