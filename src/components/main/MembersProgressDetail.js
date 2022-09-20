@@ -4,7 +4,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@mui/material/styles';
 import {
   BarChart,
   Bar,
@@ -17,10 +16,6 @@ import {
 } from 'recharts';
 import Typography from '@mui/material/Typography';
 import { CONTAINER_HEIGHT } from '../../config/constants';
-
-const useStyles = makeStyles(() => ({
-  typography: { textAlign: 'center' },
-}));
 
 const CustomTooltip = ({ active, payload, label }) => {
   if (active && payload && payload.length) {
@@ -36,11 +31,10 @@ const CustomTooltip = ({ active, payload, label }) => {
 
 const MembersProgressDetail = ({ contributions }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   return (
     <>
-      <Typography variant="h6" className={classes.typography}>
+      <Typography variant="h6" sx={{ textAlign: 'center' }}>
         {t(`Members' Contribution`)}
       </Typography>
 
