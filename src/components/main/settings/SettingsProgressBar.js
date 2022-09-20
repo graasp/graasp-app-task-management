@@ -1,34 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Button } from '@graasp/ui';
 import { MUTATION_KEYS, useMutation } from '../../../config/queryClient';
 import { APP_SETTINGS } from '../../../constants/constants';
 import { useAppSettings } from '../../context/appData';
-
-
-const useStyles = makeStyles(() => ({
-  toggleContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-
-  headerText: {
-    fontSize: '1.05vw',
-  },
-  headerDisabled: {
-    color: 'grey',
-  },
-  rightContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    flexDirection: 'column',
-  },
-}));
+import ToggleContainer from '../../common/ToggleContainer';
 
 const DEFAULT_PROGRESS_BAR_DISPLAY_SETTING = {
   name: APP_SETTINGS.PROGRESS_BAR_DISPLAY,
@@ -38,7 +16,6 @@ const DEFAULT_PROGRESS_BAR_DISPLAY_SETTING = {
 };
 
 const SettingsProgressBar = () => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const { mutate: postAppSetting } = useMutation(
@@ -76,8 +53,10 @@ const SettingsProgressBar = () => {
   const disable = progressBarDisplaySetting && progressBarDisplaySetting?.id;
 
   return (
-    <div className={classes.toggleContainer}>
-      <Typography className={classes.headerText}>
+    <ToggleContainer>
+      <Typography sx={{
+    fontSize: '1.05vw',
+  }}>
         {t('Display user share in progress bar ?')}
       </Typography>
       <FormControlLabel
@@ -102,7 +81,7 @@ const SettingsProgressBar = () => {
           </span>
         }
       />
-    </div>
+    </ToggleContainer>
   );
 };
 
