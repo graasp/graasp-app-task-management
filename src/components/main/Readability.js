@@ -12,18 +12,12 @@ import React from 'react';
 import Typography from '@mui/material/Typography';
 import { ResponsiveContainer } from 'recharts';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@mui/material/styles';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { CONTAINER_HEIGHT } from '../../config/constants';
 import 'react-circular-progressbar/dist/styles.css';
 
-const useStyles = makeStyles(() => ({
-  typography: { textAlign: 'center' },
-}));
-
 const Readability = ({ sentence }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   const getScores = function (text) {
     /*
@@ -177,7 +171,7 @@ const Readability = ({ sentence }) => {
 
   return (
     <>
-      <Typography variant="h6" className={classes.typography}>
+      <Typography variant="h6" sx={{ textAlign: 'center' }}>
         {t(`Readability`)}
       </Typography>
       <ResponsiveContainer width="95%" height={CONTAINER_HEIGHT}>
