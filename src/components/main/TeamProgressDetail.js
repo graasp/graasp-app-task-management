@@ -3,21 +3,15 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { ResponsiveContainer } from 'recharts';
 import { CONTAINER_HEIGHT } from '../../config/constants';
 import 'react-circular-progressbar/dist/styles.css';
 
-const useStyles = makeStyles(() => ({
-  typography: { textAlign: 'center' },
-}));
-
 // eslint-disable-next-line no-unused-vars
 const TeamProgressDetail = ({ completedTasks, totalNumberOfTasks }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
 
   let percentage = Math.floor((completedTasks / totalNumberOfTasks) * 100);
 
@@ -26,7 +20,7 @@ const TeamProgressDetail = ({ completedTasks, totalNumberOfTasks }) => {
   }
   return (
     <>
-      <Typography variant="h6" className={classes.typography}>
+      <Typography variant="h6" sx={{ textAlign: 'center' }}>
         {t(`Team's Progress`)}
       </Typography>
       <ResponsiveContainer width="95%" height={CONTAINER_HEIGHT}>
