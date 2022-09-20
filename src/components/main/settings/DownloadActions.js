@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { Button } from '@graasp/ui';
@@ -10,18 +10,6 @@ import { showErrorToast } from '../../../utils/toasts';
 import { Context } from '../../context/ContextContext';
 import { APP_SETTINGS } from '../../../constants/constants';
 
-const useStyles = makeStyles(() => ({
-  toggleContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  headerText: {
-    fontSize: '1.05vw',
-  },
-}));
-
 const DEFAULT_PROGRESS_BAR_DISPLAY_SETTING = {
   name: APP_SETTINGS.PROGRESS_BAR_DISPLAY,
   data: {
@@ -29,9 +17,15 @@ const DEFAULT_PROGRESS_BAR_DISPLAY_SETTING = {
   },
 };
 
+const ToggleContainer = styled('div')(() => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  width: '100%',
+}));
+
 // eslint-disable-next-line react/prop-types
 const DownloadActions = ({ members }) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const [actions, setActions] = useState([]);
@@ -97,8 +91,10 @@ const DownloadActions = ({ members }) => {
   };
 
   return (
-    <div className={classes.toggleContainer}>
-      <Typography className={classes.headerText}>
+    <ToggleContainer>
+      <Typography sx={{
+    fontSize: '1.05vw',
+  }}>
         {t('Download learning analytics.')}
       </Typography>
       <FormControlLabel
@@ -113,7 +109,7 @@ const DownloadActions = ({ members }) => {
           </Button>
         }
       />
-    </div>
+    </ToggleContainer>
   );
 };
 
