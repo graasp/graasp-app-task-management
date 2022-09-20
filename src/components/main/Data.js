@@ -1,27 +1,14 @@
 import React from 'react';
 import { Button } from '@graasp/ui';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@mui/material/styles';
 import Typography from '@mui/material/Typography';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import jsPDF from 'jspdf';
-
-const useStyles = makeStyles(() => ({
-  toggleContainer: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  headerText: {
-    fontSize: '1.05vw',
-  },
-}));
+import ToggleContainer from '../common/ToggleContainer';
 
 // TODO: validate props
 // eslint-disable-next-line react/prop-types
 const Data = ({ tasks, handleModalClose }) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const pdfGenerate = () => {
@@ -39,8 +26,10 @@ const Data = ({ tasks, handleModalClose }) => {
   };
 
   return (
-    <div className={classes.toggleContainer}>
-      <Typography className={classes.headerText}>
+    <ToggleContainer>
+      <Typography sx={{
+    fontSize: '1.05vw',
+  }}>
         {t('Generate PDF.')}
       </Typography>
       <FormControlLabel
@@ -57,7 +46,7 @@ const Data = ({ tasks, handleModalClose }) => {
           </Button>
         }
       />
-    </div>
+    </ToggleContainer>
   );
 };
 
