@@ -4,13 +4,13 @@
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Fab from '@material-ui/core/Fab';
-import SettingsIcon from '@material-ui/icons/Settings';
-// import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@mui/material/styles';
+import Modal from '@mui/material/Modal';
+import Fab from '@mui/material/Fab';
+import SettingsIcon from '@mui/icons-material/Settings';
+// import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import DownloadActions from './settings/DownloadActions';
 import ShowProgress from './ShowProgress';
 import FilterMembers from './settings/FilterMembers';

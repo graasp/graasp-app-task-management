@@ -4,7 +4,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 import {
   BarChart,
   Bar,
@@ -15,7 +15,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { CONTAINER_HEIGHT } from '../../config/constants';
 
 const useStyles = makeStyles(() => ({

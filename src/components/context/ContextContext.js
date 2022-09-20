@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import qs from 'qs';
 import { toast } from 'react-toastify';
+import { Loader } from '@graasp/ui';
 import { hooks } from '../../config/queryClient';
-import Loader from '../common/Loader';
 import i18n from '../../config/i18n';
 import { DEFAULT_LANG, DEFAULT_LOCAL_CONTEXT } from '../../config/settings';
 

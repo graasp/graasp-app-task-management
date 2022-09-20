@@ -2,7 +2,7 @@ import React, { useCallback, useState } from 'react';
 import { MdCancel, MdOutlineDone } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
-import TextField from '@material-ui/core/TextField';
+import TextField from '@mui/material/TextField';
 import { taskProp } from '../../types/props_types';
 
 const Modal = ({ task, updateTask }) => {

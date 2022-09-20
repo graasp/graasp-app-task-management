@@ -21,6 +21,7 @@ input {
 input:focus {
   outline: none;
 }
+
 .droppable-col {
   width: 27em;
   background-color: #ebecf0;

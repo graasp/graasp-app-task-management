@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
+import { Button } from '@graasp/ui';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
+import { makeStyles } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import FormControlLabel from '@mui/material/FormControlLabel';
 import jsPDF from 'jspdf';
 
 const useStyles = makeStyles(() => ({

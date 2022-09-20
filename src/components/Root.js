@@ -2,15 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { I18nextProvider } from 'react-i18next';
 import {
-  MuiThemeProvider,
+  ThemeProvider,
   createTheme,
-  makeStyles,
-  withStyles,
-} from '@material-ui/core/styles';
+  styled,
+} from '@mui/material/styles';
 import { ToastContainer } from 'react-toastify';
-import pink from '@material-ui/core/colors/pink';
-import grey from '@material-ui/core/colors/grey';
-import orange from '@material-ui/core/colors/orange';
+import { pink, grey, orange } from '@mui/material/colors';
 import 'react-toastify/dist/ReactToastify.css';
 import i18nConfig from '../config/i18n';
 import App from './App';
@@ -24,13 +21,6 @@ import {
 } from '../config/queryClient';
 
 import { AppProvider } from './context/AppContext';
-
-const useStyles = makeStyles({
-  root: {
-    flexGrow: 1,
-    height: '100%',
-  },
-});
 
 const theme = createTheme({
   palette: {
@@ -54,12 +44,14 @@ const theme = createTheme({
   },
 });
 
-const Root = () => {
-  const classes = useStyles();
+const RootDiv = styled('div')(() => ({
+  flexGrow: 1,
+  height: '100%',
+}));
 
-  return (
-    <div className={classes.root}>
-      <MuiThemeProvider theme={theme}>
+const Root = () => (
+    <RootDiv>
+      <ThemeProvider theme={theme}>
         <I18nextProvider i18n={i18nConfig}>
           <QueryClientProvider client={queryClient}>
             <ContextProvider>
@@ -75,10 +67,9 @@ const Root = () => {
           </QueryClientProvider>
           <ToastContainer />
         </I18nextProvider>
-      </MuiThemeProvider>
-    </div>
+      </ThemeProvider>
+    </RootDiv>
   );
-};
 
 Root.propTypes = {
   classes: PropTypes.shape({
@@ -86,6 +77,4 @@ Root.propTypes = {
   }).isRequired,
 };
 
-const StyledComponent = withStyles(useStyles)(Root);
-
-export default StyledComponent;
+export default Root;

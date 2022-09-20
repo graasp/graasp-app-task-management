@@ -9,10 +9,10 @@
 /* eslint-disable no-restricted-properties */
 /* eslint-disable prefer-exponentiation-operator */
 import React from 'react';
-import Typography from '@material-ui/core/Typography';
+import Typography from '@mui/material/Typography';
 import { ResponsiveContainer } from 'recharts';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { CONTAINER_HEIGHT } from '../../config/constants';
 import 'react-circular-progressbar/dist/styles.css';

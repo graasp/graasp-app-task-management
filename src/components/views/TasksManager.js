@@ -38,6 +38,7 @@ const TasksManager = ({ tasks, addTask, updateTask, deleteTask, members }) => {
     const tasksArray = [...tasks.filter(({ data }) => data.label === label)];
 
     return (
+      <Grid item md={12} lg={4}>
       <div>
         <TasksList
           title={title}
@@ -51,6 +52,7 @@ const TasksManager = ({ tasks, addTask, updateTask, deleteTask, members }) => {
           contributions={contributions}
         />
       </div>
+      </Grid>
     );
   };
 
@@ -86,16 +88,10 @@ const TasksManager = ({ tasks, addTask, updateTask, deleteTask, members }) => {
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
-      <Grid container columnSpacing={3}>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
+      <Grid container columnSpacing={1}>
           {renderTasksList('To Do', TASK_LABELS.TODO, true)}
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
           {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
-        </Grid>
-        <Grid item xs={12} sm={12} md={12} lg={12} xl={4}>
           {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
-        </Grid>
       </Grid>
     </DragDropContext>
   );

@@ -3,8 +3,8 @@
 
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
 import { ResponsiveContainer } from 'recharts';
 import { CONTAINER_HEIGHT } from '../../config/constants';

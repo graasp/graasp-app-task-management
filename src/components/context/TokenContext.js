@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import qs from 'qs';
 import { toast } from 'react-toastify';
 import PropTypes from 'prop-types';
-import Loader from '../common/Loader';
+import { Loader } from '@graasp/ui';
 import { hooks } from '../../config/queryClient';
 
 const TokenContext = createContext();

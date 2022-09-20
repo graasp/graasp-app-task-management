@@ -1,10 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
-import Modal from '@material-ui/core/Modal';
-import Button from '@material-ui/core/Button';
-import Divider from '@material-ui/core/Divider';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ReplayIcon from '@mui/icons-material/Replay';

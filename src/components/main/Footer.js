@@ -4,8 +4,8 @@
 import React, { useState, useEffect } from 'react';
 import ReactTooltip from 'react-tooltip';
 import PropTypes from 'prop-types';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import { Button } from '@material-ui/core';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import { Button } from '@mui/material';
 // import ProgressBar2 from './ProgressBar2';
 import ProgressBar from './ProgressBar';
 import { DEFAULT_SHOW_USER_SHARE_SETTING } from '../../config/constants';
