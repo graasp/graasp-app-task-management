@@ -4,57 +4,18 @@
 
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@mui/material/styles';
 import Modal from '@mui/material/Modal';
 import Fab from '@mui/material/Fab';
 import SettingsIcon from '@mui/icons-material/Settings';
-// import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
 import DownloadActions from './settings/DownloadActions';
 import ShowProgress from './ShowProgress';
 import FilterMembers from './settings/FilterMembers';
 import FilterModal from './FilterModal';
-// import Data from './Data';
 import SettingsProgressBar from './settings/SettingsProgressBar';
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContainer: {
-    width: '30%',
-    maxHeight: '50%',
-    padding: theme.spacing(3),
-    backgroundColor: 'white',
-    borderRadius: '5px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  header: {
-    fontSize: '1.5vw',
-  },
-  fab: {
-    position: 'fixed',
-    bottom: theme.spacing(1),
-    right: theme.spacing(1),
-  },
-  divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  closeButton: {
-    width: '20%',
-    fontSize: '1vw',
-  },
-}));
+import ModalContainer from '../common/ModalContainer';
+import ButtonContainer from '../common/ButtonContainer';
 
 // eslint-disable-next-line no-unused-vars
 const Settings = ({
@@ -65,7 +26,6 @@ const Settings = ({
   filteredNames,
   setFilteredNames,
 }) => {
-  const classes = useStyles();
   const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
   const [toggleFilter, setToggleFilter] = useState(false);
@@ -84,7 +44,11 @@ const Settings = ({
       <div onClick={(event) => event.stopPropagation()}>
         <Fab
           color="primary"
-          className={classes.fab}
+          sx={{
+            position: 'fixed',
+            bottom: 1,
+            right: 1,
+          }}
           onClick={(event) => {
             event.stopPropagation();
             handleModalOpen();
@@ -96,9 +60,13 @@ const Settings = ({
           <Modal
             open={modalOpen}
             onClose={handleModalClose}
-            className={classes.modal}
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
           >
-            <div className={classes.modalContainer}>
+            <ModalContainer>
               <ShowProgress
                 setToggle={setToggle}
                 toggle={toggle}
@@ -115,19 +83,25 @@ const Settings = ({
 
               {/* <Data handleModalClose={handleModalClose} tasks={tasks} /> */}
 
-              <Divider className={classes.divider} />
+              <Divider sx={{
+    marginTop: 2,
+    marginBottom: 2,
+  }} />
 
-              <div className={classes.buttonContainer}>
+              <ButtonContainer>
                 <Button
                   variant="contained"
                   color="secondary"
                   onClick={handleModalClose}
-                  className={classes.closeButton}
+                  sx={{
+                    width: '20%',
+                    fontSize: '1vw',
+                  }}
                 >
                   {t('Close')}
                 </Button>
-              </div>
-            </div>
+              </ButtonContainer>
+            </ModalContainer>
           </Modal>
         ) : (
           <FilterModal
