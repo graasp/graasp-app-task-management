@@ -3,11 +3,11 @@ import '../index.css';
 // eslint-disable-next-line camelcase
 import keyword_extractor from 'keyword-extractor';
 import { List } from 'immutable';
+import { useTheme } from '@mui/material/styles';
 import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
-import { useAppData } from './context/appData';
+import { useAppData, useAppContext } from './context/appData';
 import { Context } from './context/ContextContext';
-import Students from './main/Students';
 import Footer from './main/Footer';
 import {
   DEFAULT_PERMISSION,
@@ -26,6 +26,8 @@ const App = () => {
   const { mutate: postAction } = useMutation(MUTATION_KEYS.POST_APP_ACTION);
   const { mutate: deleteAppData } = useMutation(MUTATION_KEYS.DELETE_APP_DATA);
 
+  const theme = useTheme();
+
   const [tasks, setTasks] = useState(List());
   const [toggle, setToggle] = useState(false);
   const [students, setStudents] = useState([]);
@@ -40,6 +42,14 @@ const App = () => {
     isSuccess: isAppDataSuccess,
     isLoading: isAppDataLoading,
   } = useAppData();
+
+  const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
+
+  useEffect(() => {
+    if (isAppContextSuccess) {
+      setStudents(appContext?.get('members'));
+    }
+  }, [appContext, isAppContextSuccess]);
 
   useEffect(() => {
     if (isAppDataSuccess && !isAppDataLoading) {
@@ -166,18 +176,8 @@ const App = () => {
 
   return (
     <div className="row">
-      {!toggle ? (
-        <div className="members-column column">
-          <Students
-            setStudents={setStudents}
-            contributions={contributions}
-            isChecked={isChecked}
-          />
-        </div>
-      ) : (
-        ' '
-      )}
-      <div className="App" style={{ paddingLeft: '17em' }}>
+      {/* <div className="App" style={{ paddingLeft: '17em' }}> */}
+      <div className="App" style={{ paddingLeft: theme.spacing(1)}}>
         {!toggle ? (
           <TasksManager
             tasks={tasks}
@@ -197,7 +197,6 @@ const App = () => {
             sentence={sentence}
           />
         )}
-        <div className="clear" />
       </div>
 
       <Footer

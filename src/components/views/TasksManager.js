@@ -6,8 +6,9 @@ import { COLORS } from '../../constants/constants';
 import { TASK_LABELS } from '../../config/settings';
 import TasksList from '../main/TasksList';
 import { taskProp, memberProp } from '../../types/props_types';
+import Students from '../main/Students';
 
-const TasksManager = ({ tasks, addTask, updateTask, deleteTask, members }) => {
+const TasksManager = ({ tasks, addTask, updateTask, deleteTask, members, filteredNames }) => {
   const contributionMap = new Map();
   // eslint-disable-next-line react/destructuring-assignment
   const totalNumberOfTasks = tasks.size || 0;
@@ -87,6 +88,14 @@ const TasksManager = ({ tasks, addTask, updateTask, deleteTask, members }) => {
   };
 
   return (
+    <Grid container columnSpacing={1}>
+      <Grid item md={12} lg={2}>
+          <Students
+            contributions={contributions}
+            filteredNames={filteredNames}
+          />
+      </Grid>
+      <Grid item md={12} lg={10}>
     <DragDropContext onDragEnd={handleDragEnd}>
       <Grid container columnSpacing={1}>
           {renderTasksList('To Do', TASK_LABELS.TODO, true)}
@@ -94,6 +103,8 @@ const TasksManager = ({ tasks, addTask, updateTask, deleteTask, members }) => {
           {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
       </Grid>
     </DragDropContext>
+    </Grid>
+    </Grid>
   );
 };
 
@@ -103,6 +114,7 @@ TasksManager.propTypes = {
   updateTask: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
   members: PropTypes.arrayOf(memberProp).isRequired,
+  filteredNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TasksManager;

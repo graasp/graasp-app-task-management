@@ -23,7 +23,7 @@ input:focus {
 }
 
 .droppable-col {
-  width: 27em;
+  /* width: 27em; */
   background-color: #ebecf0;
   border-radius: 1.5625em;
   display: flex;
@@ -35,8 +35,8 @@ input:focus {
   justify-content: flex-start;
   align-items: center;
   padding: 1.875em 1.25em;
-  margin-left: 1em;
-  margin-right: 1em;
+  /* margin-left: 1em;
+  margin-right: 1em; */
 }
 
 .app-background {
@@ -87,8 +87,8 @@ input:focus {
   border: #c3c9ca 1px solid;
   outline: none;
   border-radius: 1.5625em;
-  width: 17em;
-  font-size: 1.125em;
+  /* width: 17em; */
+  /* font-size: 1.125em; */
   padding: 10px 0.9375em;
   margin: 0 0.9375em 0.9375em 0.9375em;
   font-weight: bold;
@@ -99,7 +99,7 @@ input:focus {
   box-shadow: 0 0 0.4375em #c3c9ca;
   outline: none;
   border-radius: 1.5625em;
-  width: 17em;
+  /* width: 17em; */
   font-size: 1.125em;
   padding: 10px 0.9375em;
   margin: 0 0.9375em 0.9375em 0.9375em;
@@ -111,7 +111,7 @@ input:focus {
   background-color: white;
   border: none;
   border-radius: 1.5625em;
-  width: 22em;
+  /* width: 22em; */
   font-size: 1.125em;
   padding: 0.625em 0.9375em;
   margin: 10px 0;
@@ -132,7 +132,7 @@ input:focus {
   border-color: #8ea3b4;
   box-shadow: 0 0 0.625em #8ea3b4;
   border-radius: 1.5625em;
-  width: 22em;
+  /* width: 22em; */
   font-size: 1.125em;
   padding: 0.625em 0.9375em;
   margin: 0.625em 0;
@@ -248,7 +248,7 @@ input:focus {
   border: 1px rgb(175, 173, 173);
   border: 1px solid rgb(218, 213, 213);
   background: transparent;
-  width: 18.75em;
+  /* width: 18.75em; */
   height: 6.5em;
 }
 .description-text-box:hover {
@@ -270,7 +270,7 @@ input[type='text'] {
 
 .parent {
   position: relative;
-  width: 1280px;
+  /* width: 1280px; */
   max-width: 100%;
   margin: 0 auto;
   padding: 30px;
@@ -297,9 +297,6 @@ input[type='text'] {
   justify-content: space-around;
 }
 
-.App .column {
-  width: 30%;
-}
 .other-column {
   width: 100%;
 }
@@ -386,7 +383,7 @@ sup {
 }
 .container {
   border: 1px solid #f4f4f4;
-  width: 400px;
+  /* width: 400px; */
   height: 40px;
 }
 

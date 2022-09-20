@@ -1,30 +1,35 @@
 /* eslint-disable react/prop-types */
-import React, { useEffect } from 'react';
+import React from 'react';
 import { t } from 'i18next';
 import { MdSupervisedUserCircle } from 'react-icons/md';
-import { useAppContext } from '../context/appData';
+import { styled } from '@mui/material/styles';
 
-const Students = ({ setStudents, contributions, isChecked }) => {
-  const { data: appContext, isSuccess: isAppContextSuccess } = useAppContext();
+const StyledContainer = styled('div')(() => ({
+  color: 'black',
+  backgroundColor: 'white',
+  border: '1px solid rgb(209, 200, 200)',
+  padding: '10px',
+  borderRadius: '1.5625em',
+  textAlign: 'center',
+  verticalAlign: 'middle',
+  listStyleType: 'none',
+}));
 
-  useEffect(() => {
-    if (isAppContextSuccess) {
-      setStudents(appContext?.get('members'));
-    }
-  }, [appContext, isAppContextSuccess]);
+const Students = ({ contributions, filteredNames }) => {
 
   const onDragStart = (ev, member) => {
     ev.dataTransfer.setData('member', member);
   };
 
+  const isChecked = (name) => {
+    if (filteredNames?.includes(name)) {
+      return false;
+    }
+    return true;
+  };
+
   return (
-    <div
-      style={{
-        textAlign: 'center',
-        verticalAlign: 'middle',
-        listStyleType: 'none',
-      }}
-    >
+    <StyledContainer>
       <h3>
         <MdSupervisedUserCircle title={t('Students')} />
       </h3>
@@ -49,7 +54,7 @@ const Students = ({ setStudents, contributions, isChecked }) => {
           ) : null}
         </div>
       ))}
-    </div>
+    </StyledContainer>
   );
 };
 
