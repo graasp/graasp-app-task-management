@@ -54,9 +54,11 @@ const SettingsProgressBar = () => {
 
   return (
     <ToggleContainer>
-      <Typography sx={{
-    fontSize: '1.05vw',
-  }}>
+      <Typography
+        sx={{
+          fontSize: '1.05vw',
+        }}
+      >
         {t('Display user share in progress bar ?')}
       </Typography>
       <FormControlLabel

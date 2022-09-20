@@ -16,7 +16,6 @@ const StyledContainer = styled('div')(() => ({
 }));
 
 const Students = ({ contributions, filteredNames }) => {
-
   const onDragStart = (ev, member) => {
     ev.dataTransfer.setData('member', member);
   };

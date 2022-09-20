@@ -27,9 +27,11 @@ const Data = ({ tasks, handleModalClose }) => {
 
   return (
     <ToggleContainer>
-      <Typography sx={{
-    fontSize: '1.05vw',
-  }}>
+      <Typography
+        sx={{
+          fontSize: '1.05vw',
+        }}
+      >
         {t('Generate PDF.')}
       </Typography>
       <FormControlLabel

@@ -11,9 +11,11 @@ const ShowProgress = ({ setToggle, toggle, handleModalClose }) => {
 
   return (
     <ToggleContainer>
-      <Typography sx={{
-    fontSize: '1.05vw',
-  }}>
+      <Typography
+        sx={{
+          fontSize: '1.05vw',
+        }}
+      >
         {t('Track your progress.')}
       </Typography>
       <FormControlLabel

@@ -75,12 +75,9 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
   };
 
   const onDrop = (ev) => {
-    // console.log('⚙️ A member is being added...');
     setFocused(false);
     const member = ev.dataTransfer.getData('member');
-    // console.debug('🧑 The added member is:', member);
     addMembers(member);
-    // console.log('☑️ A member was added: ', task.members);
   };
 
   const renderConditional = () => (
@@ -98,64 +95,59 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
   };
 
   return (
-    <TaskCard
-    onDragOver={(e) => onDragOver(e)}
-    onDrop={(e) => onDrop(e)}
-    >
+    <TaskCard onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e)}>
       <CardContent>
-        {/* <div
-          className={
-            focused
-              ? `list-item-out row jc-space-between ${className} droppable`
-              : `list-item row jc-space-between ${className} droppable`
-          }
-        > */}
-          {id === isEditingTitle ? (
-            <input
-              type="text"
-              onChange={handleTitleChange}
-              defaultValue={title}
-              onKeyDown={onEditKeyDown}
-            />
-          ) : (
-            // TODO: DELETE
+        {id === isEditingTitle ? (
+          <input
+            type="text"
+            onChange={handleTitleChange}
+            defaultValue={title}
+            onKeyDown={onEditKeyDown}
+          />
+        ) : (
+          // TODO: DELETE
 
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-            // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-            <Typography variant='h4'
-              sx={{
-                cursor: 'pointer',
-                alignContent: 'center',
-                fontSize: '1.5em',
-              }}
-              gutterBottom
-              onClick={() => setIsEditingTitle(id)}
-            >
-              {title}
-            </Typography>
-          )}
-          {members.length !== 0 ? (
-            <Stack direction='row'>
-              {members.map((member) => (
-                // <small style={{ color: `${getMemberColor(member)}` }}>
-                //   <MdCircle size="0.6em" />
-                // </small>
-                <Tooltip title={member}>
-                  <Avatar
-                    sx={{
-                      bgcolor: `${getMemberColor(member)}`,
-                      width: 17,
-                      height: 17,
-                    }}
-                    style={{ color: 'gray', fontSize: '9px' }}
-                  >
-                    {member[0]}
-                  </Avatar>
-                </Tooltip>
-              ))}
-            </Stack>
-          ) : <Typography variant='caption'>{t('No member has been assigned to this task.')}</Typography>}
-          <CardActions>
+          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
+          // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
+          <Typography
+            variant="h4"
+            sx={{
+              cursor: 'pointer',
+              alignContent: 'center',
+              fontSize: '1.5em',
+            }}
+            gutterBottom
+            onClick={() => setIsEditingTitle(id)}
+          >
+            {title}
+          </Typography>
+        )}
+        {members.length !== 0 ? (
+          <Stack direction="row">
+            {members.map((member) => (
+              // <small style={{ color: `${getMemberColor(member)}` }}>
+              //   <MdCircle size="0.6em" />
+              // </small>
+              <Tooltip title={member}>
+                <Avatar
+                  sx={{
+                    bgcolor: `${getMemberColor(member)}`,
+                    width: 17,
+                    height: 17,
+                  }}
+                  style={{ color: 'gray', fontSize: '9px' }}
+                >
+                  {member[0]}
+                </Avatar>
+              </Tooltip>
+            ))}
+          </Stack>
+        ) : (
+          <Typography variant="caption">
+            {t('No member has been assigned to this task.')}
+          </Typography>
+        )}
+        <CardActions>
           <div className="content" style={{ flexDirection: 'column' }}>
             <div className="row" style={{ alignItems: 'center' }}>
               <MdOutlineSubject
@@ -183,8 +175,7 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
               />
             </div>
           </div>
-          </CardActions>
-        {/* </div> */}
+        </CardActions>
       </CardContent>
       {completed ? ' ' : renderConditional()}
     </TaskCard>

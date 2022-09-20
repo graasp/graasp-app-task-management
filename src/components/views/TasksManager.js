@@ -8,7 +8,14 @@ import TasksList from '../main/TasksList';
 import { taskProp, memberProp } from '../../types/props_types';
 import Students from '../main/Students';
 
-const TasksManager = ({ tasks, addTask, updateTask, deleteTask, members, filteredNames }) => {
+const TasksManager = ({
+  tasks,
+  addTask,
+  updateTask,
+  deleteTask,
+  members,
+  filteredNames,
+}) => {
   const contributionMap = new Map();
   // eslint-disable-next-line react/destructuring-assignment
   const totalNumberOfTasks = tasks.size || 0;
@@ -40,19 +47,19 @@ const TasksManager = ({ tasks, addTask, updateTask, deleteTask, members, filtere
 
     return (
       <Grid item md={12} lg={4}>
-      <div>
-        <TasksList
-          title={title}
-          label={label}
-          tasks={tasksArray}
-          addComponent={add}
-          addTask={addTask}
-          updateTask={updateTask}
-          deleteTask={deleteTask}
-          // eslint-disable-next-line no-use-before-define
-          contributions={contributions}
-        />
-      </div>
+        <div>
+          <TasksList
+            title={title}
+            label={label}
+            tasks={tasksArray}
+            addComponent={add}
+            addTask={addTask}
+            updateTask={updateTask}
+            deleteTask={deleteTask}
+            // eslint-disable-next-line no-use-before-define
+            contributions={contributions}
+          />
+        </div>
       </Grid>
     );
   };
@@ -90,20 +97,17 @@ const TasksManager = ({ tasks, addTask, updateTask, deleteTask, members, filtere
   return (
     <Grid container columnSpacing={1}>
       <Grid item md={12} lg={2}>
-          <Students
-            contributions={contributions}
-            filteredNames={filteredNames}
-          />
+        <Students contributions={contributions} filteredNames={filteredNames} />
       </Grid>
       <Grid item md={12} lg={10}>
-    <DragDropContext onDragEnd={handleDragEnd}>
-      <Grid container columnSpacing={1}>
-          {renderTasksList('To Do', TASK_LABELS.TODO, true)}
-          {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
-          {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
+        <DragDropContext onDragEnd={handleDragEnd}>
+          <Grid container columnSpacing={1}>
+            {renderTasksList('To Do', TASK_LABELS.TODO, true)}
+            {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
+            {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
+          </Grid>
+        </DragDropContext>
       </Grid>
-    </DragDropContext>
-    </Grid>
     </Grid>
   );
 };

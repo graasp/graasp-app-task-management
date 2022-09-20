@@ -83,10 +83,12 @@ const Settings = ({
 
               {/* <Data handleModalClose={handleModalClose} tasks={tasks} /> */}
 
-              <Divider sx={{
-    marginTop: 2,
-    marginBottom: 2,
-  }} />
+              <Divider
+                sx={{
+                  marginTop: 2,
+                  marginBottom: 2,
+                }}
+              />
 
               <ButtonContainer>
                 <Button

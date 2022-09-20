@@ -11,7 +11,6 @@ import { taskProp } from '../../types/props_types';
 import AddTask from './AddTask';
 import Task from './Task';
 
-
 const TasksList = ({
   title,
   label,
@@ -24,7 +23,7 @@ const TasksList = ({
   contributions,
 }) => {
   return (
-    <Paper sx={{p:1,  pt:2}}>
+    <Paper sx={{ p: 1, pt: 2 }}>
       <div key={label} className="column" style={{ alignItems: 'center' }}>
         {/* <div style={{ alignItems: 'center' }}>
           <h3 style={{ color: 'black', textAlign: 'center' }}>
@@ -36,9 +35,8 @@ const TasksList = ({
         </div> */}
 
         <Badge badgeContent={tasks.length} color="primary">
-          <Typography variant='h2'>{title}</Typography>
+          <Typography variant="h2">{title}</Typography>
         </Badge>
-
 
         <Droppable droppableId={label}>
           {(provided) => (
@@ -48,39 +46,43 @@ const TasksList = ({
               /* eslint-disable-next-line react/jsx-props-no-spreading */
               {...provided.droppableProps}
               // className="droppable-col"
-              style={{width:'100%'}}
+              style={{ width: '100%' }}
             >
-              <Stack spacing={1} sx={{m: 1}}>
-              {addComponent && <AddTask addTask={addTask} label={label} />}
+              <Stack spacing={1} sx={{ m: 1 }}>
+                {addComponent && <AddTask addTask={addTask} label={label} />}
 
-              {tasks.length ? (
-                tasks.map((task, index) => (
-                  <Draggable key={task.id} index={index} draggableId={task.id}>
-                    {(provided2, snapshot) => (
-                      <div
-                        ref={provided2.innerRef}
-                        // TODO: DELETE
-                        /* eslint-disable-next-line react/jsx-props-no-spreading */
-                        {...provided2.draggableProps}
-                        // TODO: DELETE
-                        /* eslint-disable-next-line react/jsx-props-no-spreading */
-                        {...provided2.dragHandleProps}
-                      >
-                        <Task
-                          className={snapshot.isDragging && 'dragging'}
-                          task={task}
-                          updateTask={updateTask}
-                          deleteTask={deleteTask}
-                          contributions={contributions}
-                        />
-                      </div>
-                    )}
-                  </Draggable>
-                ))
-              ) : (
-                <Typography variant='subtitle1'>No Tasks {title}</Typography>
-              )}
-              {provided.placeholder}
+                {tasks.length ? (
+                  tasks.map((task, index) => (
+                    <Draggable
+                      key={task.id}
+                      index={index}
+                      draggableId={task.id}
+                    >
+                      {(provided2, snapshot) => (
+                        <div
+                          ref={provided2.innerRef}
+                          // TODO: DELETE
+                          /* eslint-disable-next-line react/jsx-props-no-spreading */
+                          {...provided2.draggableProps}
+                          // TODO: DELETE
+                          /* eslint-disable-next-line react/jsx-props-no-spreading */
+                          {...provided2.dragHandleProps}
+                        >
+                          <Task
+                            className={snapshot.isDragging && 'dragging'}
+                            task={task}
+                            updateTask={updateTask}
+                            deleteTask={deleteTask}
+                            contributions={contributions}
+                          />
+                        </div>
+                      )}
+                    </Draggable>
+                  ))
+                ) : (
+                  <Typography variant="subtitle1">No Tasks {title}</Typography>
+                )}
+                {provided.placeholder}
               </Stack>
             </div>
           )}

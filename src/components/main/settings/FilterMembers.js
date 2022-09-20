@@ -11,9 +11,11 @@ const FilterMembers = ({ setToggle }) => {
 
   return (
     <ToggleContainer>
-      <Typography sx={{
-    fontSize: '1.05vw',
-  }}>
+      <Typography
+        sx={{
+          fontSize: '1.05vw',
+        }}
+      >
         {t('Filter Members')}
       </Typography>
       <FormControlLabel

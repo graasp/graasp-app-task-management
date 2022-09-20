@@ -177,7 +177,7 @@ const App = () => {
   return (
     <div className="row">
       {/* <div className="App" style={{ paddingLeft: '17em' }}> */}
-      <div className="App" style={{ paddingLeft: theme.spacing(1)}}>
+      <div className="App" style={{ paddingLeft: theme.spacing(1) }}>
         {!toggle ? (
           <TasksManager
             tasks={tasks}

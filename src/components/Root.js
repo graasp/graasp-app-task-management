@@ -1,11 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { I18nextProvider } from 'react-i18next';
-import {
-  ThemeProvider,
-  createTheme,
-  styled,
-} from '@mui/material/styles';
+import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
 import { ToastContainer } from 'react-toastify';
 import { pink, grey, orange } from '@mui/material/colors';
 import 'react-toastify/dist/ReactToastify.css';
@@ -50,26 +46,26 @@ const RootDiv = styled('div')(() => ({
 }));
 
 const Root = () => (
-    <RootDiv>
-      <ThemeProvider theme={theme}>
-        <I18nextProvider i18n={i18nConfig}>
-          <QueryClientProvider client={queryClient}>
-            <ContextProvider>
-              <TokenProvider>
-                <AppProvider>
-                  <App />
-                </AppProvider>
-              </TokenProvider>
-            </ContextProvider>
-            {process.env.NODE_ENV === 'development' && (
-              <ReactQueryDevtools initialIsOpen />
-            )}
-          </QueryClientProvider>
-          <ToastContainer />
-        </I18nextProvider>
-      </ThemeProvider>
-    </RootDiv>
-  );
+  <RootDiv>
+    <ThemeProvider theme={theme}>
+      <I18nextProvider i18n={i18nConfig}>
+        <QueryClientProvider client={queryClient}>
+          <ContextProvider>
+            <TokenProvider>
+              <AppProvider>
+                <App />
+              </AppProvider>
+            </TokenProvider>
+          </ContextProvider>
+          {process.env.NODE_ENV === 'development' && (
+            <ReactQueryDevtools initialIsOpen />
+          )}
+        </QueryClientProvider>
+        <ToastContainer />
+      </I18nextProvider>
+    </ThemeProvider>
+  </RootDiv>
+);
 
 Root.propTypes = {
   classes: PropTypes.shape({
