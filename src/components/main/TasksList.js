@@ -3,9 +3,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Droppable, Draggable } from 'react-beautiful-dnd';
+import Paper from '@mui/material/Paper';
+import Badge from '@mui/material/Badge';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import { taskProp } from '../../types/props_types';
 import AddTask from './AddTask';
 import Task from './Task';
+
 
 const TasksList = ({
   title,
@@ -19,16 +24,21 @@ const TasksList = ({
   contributions,
 }) => {
   return (
-    <div>
+    <Paper sx={{p:1,  pt:2}}>
       <div key={label} className="column" style={{ alignItems: 'center' }}>
-        <div style={{ alignItems: 'center' }}>
+        {/* <div style={{ alignItems: 'center' }}>
           <h3 style={{ color: 'black', textAlign: 'center' }}>
             {title}&nbsp;
             <sup style={{ color: 'rgb(201, 59, 59)' }}>
               <small>{tasks.length}</small>
             </sup>
           </h3>
-        </div>
+        </div> */}
+
+        <Badge badgeContent={tasks.length} color="primary">
+          <Typography variant='h2'>{title}</Typography>
+        </Badge>
+
 
         <Droppable droppableId={label}>
           {(provided) => (
@@ -37,8 +47,10 @@ const TasksList = ({
               // TODO: DELETE
               /* eslint-disable-next-line react/jsx-props-no-spreading */
               {...provided.droppableProps}
-              className="droppable-col"
+              // className="droppable-col"
+              style={{width:'100%'}}
             >
+              <Stack spacing={1} sx={{m: 1}}>
               {addComponent && <AddTask addTask={addTask} label={label} />}
 
               {tasks.length ? (
@@ -66,14 +78,15 @@ const TasksList = ({
                   </Draggable>
                 ))
               ) : (
-                <p className="no-item-text">&nbsp;No Tasks {title} </p>
+                <Typography variant='subtitle1'>No Tasks {title}</Typography>
               )}
               {provided.placeholder}
+              </Stack>
             </div>
           )}
         </Droppable>
       </div>
-    </div>
+    </Paper>
   );
 };
 

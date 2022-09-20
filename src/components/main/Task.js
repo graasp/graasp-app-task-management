@@ -3,10 +3,20 @@ import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { MdDelete, MdOutlineSubject, MdCircle } from 'react-icons/md';
 import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Tooltip from '@mui/material/Tooltip';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
 import Modal from './Modal';
 import { taskProp } from '../../types/props_types';
+
+const TaskCard = styled(Card)(() => ({
+  width: '100%',
+}));
 
 // eslint-disable-next-line react/prop-types
 const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
@@ -40,7 +50,7 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
   };
 
   const onEditKeyDown = (event) => {
-    if (event.keyCode === 13) {
+    if (event.key === 'Enter') {
       const newTask = {
         ...task,
         data: {
@@ -88,39 +98,18 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
   };
 
   return (
-    <div style={{ flexDirection: 'column' }}>
-      <div className="row">
-        {/* <div className="row">
-        {members.length !== 0 ? (
-              <div
-                className="row"
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  // display: 'flex',
-                  height: '0.2em',
-                }}
-              >
-                {members.map((member)=>console.log(member))}
-                {members.map((member) => (
-                  // <small style={{ color: `${getMemberColor(member)}` }}>
-                  //   <MdCircle size="0.6em" />
-                  // </small>
-                  <Avatar sx={{ bgcolor: `${getMemberColor(member)}`, width: 17, height: 17 }} style={{color:'black'}}>{member[0]}</Avatar>
-                ))}
-              </div>
-            ) : null}
-
-        </div> */}
-        <div
+    <TaskCard
+    onDragOver={(e) => onDragOver(e)}
+    onDrop={(e) => onDrop(e)}
+    >
+      <CardContent>
+        {/* <div
           className={
             focused
               ? `list-item-out row jc-space-between ${className} droppable`
               : `list-item row jc-space-between ${className} droppable`
           }
-          onDragOver={(e) => onDragOver(e)}
-          onDrop={(e) => onDrop(e)}
-        >
+        > */}
           {id === isEditingTitle ? (
             <input
               type="text"
@@ -133,28 +122,20 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
 
             // eslint-disable-next-line jsx-a11y/click-events-have-key-events
             // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-            <span
-              className="text-task"
-              style={{
+            <Typography variant='h4'
+              sx={{
                 cursor: 'pointer',
                 alignContent: 'center',
+                fontSize: '1.5em',
               }}
+              gutterBottom
               onClick={() => setIsEditingTitle(id)}
             >
               {title}
-            </span>
+            </Typography>
           )}
-          &nbsp;
           {members.length !== 0 ? (
-            <div
-              className="row"
-              style={{
-                alignItems: 'center',
-                justifyContent: 'center',
-                // display: 'flex',
-                height: '0.2em',
-              }}
-            >
+            <Stack direction='row'>
               {members.map((member) => (
                 // <small style={{ color: `${getMemberColor(member)}` }}>
                 //   <MdCircle size="0.6em" />
@@ -172,8 +153,9 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
                   </Avatar>
                 </Tooltip>
               ))}
-            </div>
-          ) : null}
+            </Stack>
+          ) : <Typography variant='caption'>{t('No member has been assigned to this task.')}</Typography>}
+          <CardActions>
           <div className="content" style={{ flexDirection: 'column' }}>
             <div className="row" style={{ alignItems: 'center' }}>
               <MdOutlineSubject
@@ -200,30 +182,12 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
                 onClick={() => deleteTask(id)}
               />
             </div>
-            {/* {members.length !== 0 ? (
-              <div
-                className="row"
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  // display: 'flex',
-                  height: '0.2em',
-                }}
-              >
-                {members.map((member)=>console.log(member))}
-                {members.map((member) => (
-                  // <small style={{ color: `${getMemberColor(member)}` }}>
-                  //   <MdCircle size="0.6em" />
-                  // </small>
-                  <Avatar sx={{ bgcolor: `${getMemberColor(member)}`, width: 17, height: 17 }} style={{color:'black'}}>{member[0]}</Avatar>
-                ))}
-              </div>
-            ) : null} */}
           </div>
-        </div>
-      </div>
+          </CardActions>
+        {/* </div> */}
+      </CardContent>
       {completed ? ' ' : renderConditional()}
-    </div>
+    </TaskCard>
   );
 };
 
