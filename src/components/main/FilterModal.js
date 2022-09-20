@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { styled } from '@mui/material/styles';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -9,24 +8,10 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import ReplayIcon from '@mui/icons-material/Replay';
 import Tooltip from '@mui/material/Tooltip';
+import ModalContainer from '../common/ModalContainer';
+import ButtonContainer from '../common/ButtonContainer';
 
 // This is the window where the user can filter members
-
-const ModalContainer = styled('div')(({theme}) => ({
-  width: '30%',
-  maxHeight: '50%',
-  padding: theme.spacing(3),
-  backgroundColor: 'white',
-  borderRadius: '5px',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'space-between',
-}));
-
-const ButtonContainer = styled('div')(() => ({
-  display: 'flex',
-  justifyContent: 'flex-end',
-}));
 
 const FilterModal = ({
   handleModalClose,
