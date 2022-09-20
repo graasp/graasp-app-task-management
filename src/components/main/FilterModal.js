@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
-import { makeStyles } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
+import { styled } from '@mui/material/styles';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
 import Divider from '@mui/material/Divider';
@@ -12,42 +12,20 @@ import Tooltip from '@mui/material/Tooltip';
 
 // This is the window where the user can filter members
 
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  modalContainer: {
-    width: '30%',
-    maxHeight: '50%',
-    padding: theme.spacing(3),
-    backgroundColor: 'white',
-    borderRadius: '5px',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-  },
-  header: {
-    fontSize: '1.5vw',
-  },
-  fab: {
-    position: 'fixed',
-    bottom: theme.spacing(1),
-    right: theme.spacing(1),
-  },
-  divider: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
-  },
-  buttonContainer: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
-  closeButton: {
-    width: '20%',
-    fontSize: '1vw',
-  },
+const ModalContainer = styled('div')(({theme}) => ({
+  width: '30%',
+  maxHeight: '50%',
+  padding: theme.spacing(3),
+  backgroundColor: 'white',
+  borderRadius: '5px',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'space-between',
+}));
+
+const ButtonContainer = styled('div')(() => ({
+  display: 'flex',
+  justifyContent: 'flex-end',
 }));
 
 const FilterModal = ({
@@ -58,7 +36,6 @@ const FilterModal = ({
   filteredNames,
   setFilteredNames,
 }) => {
-  const classes = useStyles();
   const { t } = useTranslation();
 
   const arr = filteredNames;
@@ -77,9 +54,13 @@ const FilterModal = ({
     <Modal
       open={modalOpen}
       onClose={handleModalClose}
-      className={classes.modal}
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
     >
-      <div className={classes.modalContainer}>
+      <ModalContainer>
         {students.map((std) => (
           <div>
             <Tooltip title="Filter Member">
@@ -113,9 +94,12 @@ const FilterModal = ({
           </div>
         ))}
 
-        <Divider className={classes.divider} />
+        <Divider sx={{
+    marginTop: 2,
+    marginBottom: 2,
+  }} />
 
-        <div className={classes.buttonContainer}>
+        <ButtonContainer>
           <Button
             variant="contained"
             color="secondary"
@@ -123,12 +107,15 @@ const FilterModal = ({
               handleModalClose();
               setToggle(false);
             }}
-            className={classes.closeButton}
+            sx={{
+              width: '20%',
+              fontSize: '1vw',
+            }}
           >
             {t('Close')}
           </Button>
-        </div>
-      </div>
+        </ButtonContainer>
+      </ModalContainer>
     </Modal>
   );
 };
