@@ -5,16 +5,10 @@ import { TagCloud } from 'react-tagcloud';
 import Typography from '@mui/material/Typography';
 import { ResponsiveContainer } from 'recharts';
 import { useTranslation } from 'react-i18next';
-import { makeStyles } from '@mui/material/styles';
 import { CONTAINER_HEIGHT } from '../../config/constants';
-
-const useStyles = makeStyles(() => ({
-  typography: { textAlign: 'center' },
-}));
 
 const MyCloud = ({ sentence }) => {
   const { t } = useTranslation();
-  const classes = useStyles();
   const data = [];
   sentence.map((word) => data.push(word));
 
@@ -55,7 +49,7 @@ const MyCloud = ({ sentence }) => {
     //   hello hey
     // </TagCloud>
     <>
-      <Typography variant="h6" className={classes.typography}>
+      <Typography variant="h6" sx={{ textAlign: 'center' }}>
         {t(`Keywords`)}
       </Typography>
       <ResponsiveContainer width="95%" height={CONTAINER_HEIGHT}>
