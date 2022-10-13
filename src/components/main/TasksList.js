@@ -25,14 +25,6 @@ const TasksList = ({
   return (
     <Paper sx={{ p: 1, pt: 2 }}>
       <div key={label} className="column" style={{ alignItems: 'center' }}>
-        {/* <div style={{ alignItems: 'center' }}>
-          <h3 style={{ color: 'black', textAlign: 'center' }}>
-            {title}&nbsp;
-            <sup style={{ color: 'rgb(201, 59, 59)' }}>
-              <small>{tasks.length}</small>
-            </sup>
-          </h3>
-        </div> */}
 
         <Badge badgeContent={tasks.length} color="primary">
           <Typography variant="h2">{title}</Typography>

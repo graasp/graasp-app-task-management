@@ -1,21 +1,37 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { MdDelete, MdOutlineSubject, MdCircle } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
-import Tooltip from '@mui/material/Tooltip';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import Stack from '@mui/material/Stack';
-import Modal from './Modal';
+import Collapse from '@mui/material/Collapse';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import CardHeader from '@mui/material/CardHeader';
+import EditIcon from '@mui/icons-material/Edit';
 import { taskProp } from '../../types/props_types';
+import TaskEditDialog from './TaskEditDialog';
 
 const TaskCard = styled(Card)(() => ({
   width: '100%',
+}));
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  // eslint-disable-next-line react/jsx-props-no-spreading
+  return <IconButton {...other} />;
+})(({ theme, expand }) => ({
+  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
 }));
 
 // eslint-disable-next-line react/prop-types
@@ -24,13 +40,23 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
 
   const { id, data } = task;
 
-  const { title, members, completed } = data;
+  const { title, members, completed, description } = data;
 
   const [focused, setFocused] = useState(false);
   const [seen, setSeen] = useState(false);
   const [editedTitle, setEditedTitle] = useState('');
   const [isEditingTitle, setIsEditingTitle] = useState(null);
   // const { isEditingTitle, setIsEditingTitle } = useContext(AppContext);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+
+  const editTask = () => {
+    setDialogOpen(true);
+    console.debug('Edit task!');
+  };
 
   const addMembers = (member) => {
     const newMembers = [...members, member];
@@ -62,13 +88,6 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
       setIsEditingTitle(false);
     }
   };
-
-  const handleTitleChange = useCallback(
-    (event) => {
-      setEditedTitle(event.target.value);
-    },
-    [setEditedTitle],
-  );
   const onDragOver = (ev) => {
     setFocused(true);
     ev.preventDefault();
@@ -79,10 +98,6 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
     const member = ev.dataTransfer.getData('member');
     addMembers(member);
   };
-
-  const renderConditional = () => (
-    <div>{seen ? <Modal task={task} updateTask={updateTask} /> : null}</div>
-  );
 
   const getMemberColor = (memberName) => {
     // eslint-disable-next-line no-restricted-syntax
@@ -96,88 +111,44 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
 
   return (
     <TaskCard onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e)}>
-      <CardContent>
-        {id === isEditingTitle ? (
-          <input
-            type="text"
-            onChange={handleTitleChange}
-            defaultValue={title}
-            onKeyDown={onEditKeyDown}
-          />
-        ) : (
-          // TODO: DELETE
-
-          // eslint-disable-next-line jsx-a11y/click-events-have-key-events
-          // eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events
-          <Typography
-            variant="h4"
-            sx={{
-              cursor: 'pointer',
-              alignContent: 'center',
-              fontSize: '1.5em',
-            }}
-            gutterBottom
-            onClick={() => setIsEditingTitle(id)}
-          >
-            {title}
-          </Typography>
-        )}
-        {members.length !== 0 ? (
-          <Stack direction="row">
+      <CardHeader
+        avatar={
+          <AvatarGroup max={4}>
             {members.map((member) => (
-              // <small style={{ color: `${getMemberColor(member)}` }}>
-              //   <MdCircle size="0.6em" />
-              // </small>
-              <Tooltip title={member}>
-                <Avatar
-                  sx={{
-                    bgcolor: `${getMemberColor(member)}`,
-                    width: 17,
-                    height: 17,
-                  }}
-                  style={{ color: 'gray', fontSize: '9px' }}
-                >
-                  {member[0]}
-                </Avatar>
-              </Tooltip>
-            ))}
-          </Stack>
-        ) : (
-          <Typography variant="caption">
-            {t('No member has been assigned to this task.')}
-          </Typography>
-        )}
-        <CardActions>
-          <div className="content" style={{ flexDirection: 'column' }}>
-            <div className="row" style={{ alignItems: 'center' }}>
-              <MdOutlineSubject
-                size="1.3em"
-                data-toggle="tooltip"
-                data-placement="left"
-                title={t('Task Details')}
-                alt="task-details"
-                style={{
-                  cursor: 'pointer',
-                  alignContent: 'center',
+              <Avatar
+                sx={{
+                  bgcolor: `${getMemberColor(member)}`,
                 }}
-                className="task-details"
-                onClick={togglePop}
-              />
-
-              <MdDelete
-                className="delete-icon"
-                size="1.3em"
-                data-toggle="tooltip"
-                data-placement="left"
-                title={t('Delete Task')}
-                alt="delete-task"
-                onClick={() => deleteTask(id)}
-              />
-            </div>
-          </div>
-        </CardActions>
+                alt={member}
+              >
+                {member[0]}
+              </Avatar>
+            ))}
+          </AvatarGroup>
+        }
+        title={title}
+        titleTypographyProps={{ variant: 'h5' }}
+      />
+      <CardContent>
+        <Typography>{description}</Typography>
       </CardContent>
-      {completed ? ' ' : renderConditional()}
+      <CardActions>
+        <IconButton
+          aria-label={t('Delete task')}
+          onClick={() => deleteTask(id)}
+        >
+          <DeleteIcon />
+        </IconButton>
+        <IconButton aria-label={t('Edit task')} onClick={editTask}>
+          <EditIcon />
+        </IconButton>
+      </CardActions>
+      <TaskEditDialog
+        task={task}
+        updateTask={updateTask}
+        open={dialogOpen}
+        onClose={handleDialogClose}
+      />
     </TaskCard>
   );
 };
