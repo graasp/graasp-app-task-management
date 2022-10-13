@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@mui/material/Dialog';
@@ -20,6 +20,12 @@ const TaskEditDialog = (props) => {
   const { task: inputTask, updateTask, open, onClose } = props;
 
   const [task, setTask] = useState(inputTask);
+
+  useEffect(() => {
+    if (!open) {
+      setTask(inputTask);
+    }
+  }, [inputTask]);
 
   const handleChange = (prop) => (event) => {
     setTask({

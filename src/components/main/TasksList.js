@@ -20,12 +20,11 @@ const TasksList = ({
   deleteTask,
   addComponent,
   // eslint-disable-next-line react/prop-types
-  contributions,
+  members,
 }) => {
   return (
     <Paper sx={{ p: 1, pt: 2 }}>
       <div key={label} className="column" style={{ alignItems: 'center' }}>
-
         <Badge badgeContent={tasks.length} color="primary">
           <Typography variant="h2">{title}</Typography>
         </Badge>
@@ -65,7 +64,7 @@ const TasksList = ({
                             task={task}
                             updateTask={updateTask}
                             deleteTask={deleteTask}
-                            contributions={contributions}
+                            members={members}
                           />
                         </div>
                       )}

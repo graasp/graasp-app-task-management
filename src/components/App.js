@@ -1,22 +1,15 @@
 import React, { useContext, useState, useEffect } from 'react';
 import '../index.css';
 // eslint-disable-next-line camelcase
-import keyword_extractor from 'keyword-extractor';
 import { List } from 'immutable';
 import { useTheme } from '@mui/material/styles';
 import { MUTATION_KEYS, useMutation } from '../config/queryClient';
 import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { useAppData, useAppContext } from './context/appData';
 import { Context } from './context/ContextContext';
-import Footer from './main/Footer';
-import {
-  DEFAULT_PERMISSION,
-  PERMISSION_LEVELS,
-  TASK_LABELS,
-} from '../config/settings';
+import { DEFAULT_PERMISSION, PERMISSION_LEVELS } from '../config/settings';
 import { ACTION_TYPES } from '../config/actionTypes';
 import Settings from './main/Settings';
-import ChartsArea from './main/ChartsArea';
 import TasksManager from './views/TasksManager';
 import { COLORS } from '../constants/constants';
 
@@ -30,7 +23,7 @@ const App = () => {
 
   const [tasks, setTasks] = useState(List());
   const [toggle, setToggle] = useState(false);
-  const [students, setStudents] = useState([]);
+  const [members, setMembers] = useState([]);
   const [filteredNames, setFilteredNames] = useState([]);
 
   const context = useContext(Context);
@@ -47,7 +40,11 @@ const App = () => {
 
   useEffect(() => {
     if (isAppContextSuccess) {
-      setStudents(appContext?.get('members'));
+      const membersTmp = appContext?.get('members').map((member, index) => ({
+        ...member,
+        color: COLORS[index],
+      }));
+      setMembers(membersTmp);
     }
   }, [appContext, isAppContextSuccess]);
 
@@ -95,111 +92,20 @@ const App = () => {
     });
   };
 
-  const totalNumberOfTasks = tasks.size ? tasks.size : 0;
-  const completedTasks = tasks.filter(
-    (task) => task?.data?.label === TASK_LABELS.IN_PROGRESS,
-  ).size;
-
-  const isChecked = (name) => {
-    if (filteredNames.includes(name)) {
-      return false;
-    }
-    return true;
-  };
-  const contributionMap = new Map();
-
-  students.map((student) =>
-    isChecked(student.name) ? contributionMap.set(student.name, 0) : null,
-  );
-
-  const sentences = [];
-  let sentence = '';
-  if (!tasks?.isEmpty) {
-    tasks.map((task) => sentences.push(task.data.title));
-    tasks.map((task) => sentences.push(task.data.description));
-    sentence = sentences.join(' ');
-  }
-
-  const incrementCount = (label, arr, member) => {
-    if (label === 'completed') {
-      if (arr.includes(member.name)) {
-        contributionMap.set(
-          member.name,
-          contributionMap.get(member.name) + 1 / arr.length,
-        );
-      }
-    }
-  };
-  students.forEach((student) => {
-    if (!tasks?.isEmpty) {
-      tasks.forEach((task) => {
-        incrementCount(task.data.label, task.data.members, student);
-      });
-    }
-  });
-  const contributions = Array.from(
-    contributionMap,
-    // eslint-disable-next-line arrow-body-style
-    ([key, contribution], index) => {
-      return {
-        name: key,
-        contribution:
-          totalNumberOfTasks === 0
-            ? 0
-            : (contribution / totalNumberOfTasks) * 100,
-        memberContribution:
-          totalNumberOfTasks === 0
-            ? 0
-            : Math.floor((contribution / totalNumberOfTasks) * 100),
-        color: COLORS[index % COLORS.length],
-      };
-    },
-  );
-  // eslint-disable-next-line camelcase
-  const result = keyword_extractor.extract(sentence, {
-    language: 'english',
-    remove_digits: true,
-    return_changed_case: true,
-    remove_duplicates: true,
-  });
-
-  const extraction = result.sort(() => 0.5 - Math.random());
-
-  // Get sub-array of first n elements after shuffled
-  const extractionResult = extraction.slice(0, 10);
-
-  // Convert to lowercase
-  sentence = sentence.toLowerCase();
-
-  // replace unnesessary chars. leave only chars, numbers and space
-  sentence = sentence.replace(/[^\w\d ]/g, '');
-
   return (
     <div className="row">
       {/* <div className="App" style={{ paddingLeft: '17em' }}> */}
       <div className="App" style={{ paddingLeft: theme.spacing(1) }}>
-        {!toggle ? (
-          <TasksManager
-            tasks={tasks}
-            addTask={addTask}
-            updateTask={updateTask}
-            deleteTask={deleteTask}
-            members={students}
-          />
-        ) : (
-          <ChartsArea
-            tasks={tasks}
-            students={students}
-            completedTasks={completedTasks}
-            totalNumberOfTasks={totalNumberOfTasks}
-            contributions={contributions}
-            extractionResult={extractionResult}
-            sentence={sentence}
-          />
-        )}
+        <TasksManager
+          tasks={tasks}
+          addTask={addTask}
+          updateTask={updateTask}
+          deleteTask={deleteTask}
+          members={members}
+        />
       </div>
 
-      <Footer
+      {/* <Footer
         numberOfCompletedTasks={completedTasks}
         totalNumberOfTasks={totalNumberOfTasks}
         setToggle={setToggle}
@@ -207,7 +113,7 @@ const App = () => {
         contributions={contributions}
         tasks={tasks}
         isChecked={isChecked}
-      />
+      /> */}
 
       {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
         permissionLevel,
@@ -215,8 +121,7 @@ const App = () => {
         <Settings
           setToggle={setToggle}
           toggle={toggle}
-          members={contributions}
-          students={contributions}
+          members={members}
           filteredNames={filteredNames}
           setFilteredNames={setFilteredNames}
         />

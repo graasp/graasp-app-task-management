@@ -8,13 +8,12 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Typography from '@mui/material/Typography';
-import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import CardHeader from '@mui/material/CardHeader';
 import EditIcon from '@mui/icons-material/Edit';
+import { Collection } from 'immutable';
 import { taskProp } from '../../types/props_types';
 import TaskEditDialog from './TaskEditDialog';
 
@@ -35,7 +34,13 @@ const ExpandMore = styled((props) => {
 }));
 
 // eslint-disable-next-line react/prop-types
-const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
+const Task = ({
+  task,
+  updateTask,
+  deleteTask,
+  className,
+  members: membersList,
+}) => {
   const { t } = useTranslation();
 
   const { id, data } = task;
@@ -55,7 +60,6 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
 
   const editTask = () => {
     setDialogOpen(true);
-    console.debug('Edit task!');
   };
 
   const addMembers = (member) => {
@@ -99,15 +103,11 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
     addMembers(member);
   };
 
-  const getMemberColor = (memberName) => {
-    // eslint-disable-next-line no-restricted-syntax
-    for (const object of Object.entries(contributions)) {
-      if (object[1].name === memberName) {
-        return object[1].color;
-      }
-    }
-    return null;
-  };
+  const getMemberColor = (m) =>
+    membersList.find((memberInList) => m === memberInList.id)?.color;
+
+  const getMemberName = (m) =>
+    membersList.find((memberInList) => m === memberInList.id)?.name || '?';
 
   return (
     <TaskCard onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e)}>
@@ -119,9 +119,9 @@ const Task = ({ task, updateTask, deleteTask, className, contributions }) => {
                 sx={{
                   bgcolor: `${getMemberColor(member)}`,
                 }}
-                alt={member}
+                alt={getMemberName(member)}
               >
-                {member[0]}
+                {getMemberName(member)[0]}
               </Avatar>
             ))}
           </AvatarGroup>
@@ -158,6 +158,7 @@ Task.propTypes = {
   updateTask: PropTypes.func.isRequired,
   deleteTask: PropTypes.func.isRequired,
   className: PropTypes.oneOf([PropTypes.bool, PropTypes.string]).isRequired,
+  members: PropTypes.objectOf(Collection).isRequired,
 };
 
 export default Task;

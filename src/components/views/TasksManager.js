@@ -2,11 +2,10 @@ import React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 import { Grid } from '@mui/material';
 import PropTypes from 'prop-types';
-import { COLORS } from '../../constants/constants';
 import { TASK_LABELS } from '../../config/settings';
 import TasksList from '../main/TasksList';
 import { taskProp, memberProp } from '../../types/props_types';
-import Students from '../main/Students';
+import MembersList from '../main/MembersList';
 
 const TasksManager = ({
   tasks,
@@ -16,31 +15,6 @@ const TasksManager = ({
   members,
   filteredNames,
 }) => {
-  const contributionMap = new Map();
-  // eslint-disable-next-line react/destructuring-assignment
-  const totalNumberOfTasks = tasks.size || 0;
-
-  members?.forEach((student) => contributionMap.set(student.name, 0));
-
-  const contributions = Array.from(
-    contributionMap,
-    // eslint-disable-next-line arrow-body-style
-    ([key, contribution], index) => {
-      return {
-        name: key,
-        contribution:
-          totalNumberOfTasks === 0
-            ? 0
-            : (contribution / totalNumberOfTasks) * 100,
-        memberContribution:
-          totalNumberOfTasks === 0
-            ? 0
-            : Math.floor((contribution / totalNumberOfTasks) * 100),
-        color: COLORS[index % COLORS.length],
-      };
-    },
-  );
-
   const renderTasksList = (title, label, add = false) => {
     // eslint-disable-next-line react/destructuring-assignment
     const tasksArray = [...tasks.filter(({ data }) => data.label === label)];
@@ -57,7 +31,7 @@ const TasksManager = ({
             updateTask={updateTask}
             deleteTask={deleteTask}
             // eslint-disable-next-line no-use-before-define
-            contributions={contributions}
+            members={members}
           />
         </div>
       </Grid>
@@ -97,7 +71,7 @@ const TasksManager = ({
   return (
     <Grid container columnSpacing={1}>
       <Grid item md={12} lg={2}>
-        <Students contributions={contributions} filteredNames={filteredNames} />
+        <MembersList members={members} filteredNames={filteredNames} />
       </Grid>
       <Grid item md={12} lg={10}>
         <DragDropContext onDragEnd={handleDragEnd}>
