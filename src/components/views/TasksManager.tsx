@@ -1,28 +1,36 @@
 import React from 'react';
-import { DragDropContext, DropResult, ResponderProvided } from 'react-beautiful-dnd';
+import {
+  DragDropContext,
+  DropResult,
+  ResponderProvided,
+} from 'react-beautiful-dnd';
 import { Grid } from '@mui/material';
-import PropTypes from 'prop-types';
+import { List } from 'immutable';
 import { TASK_LABELS } from '../../config/settings';
 import TasksList from '../main/TasksList';
-import { taskProp, memberProp } from '../../types/props_types';
 import MembersList from '../main/MembersList';
 import { ExistingTaskType, TaskType } from '../../config/appDataTypes';
-import { List } from 'immutable';
-import { Member } from '@graasp/apps-query-client';
+import { Member } from '../../types/member';
 
 type TasksManagerProps = {
   tasks: List<ExistingTaskType>;
   addTask: (task: TaskType) => void;
   updateTask: (task: ExistingTaskType) => void;
   deleteTask: (id: string) => void;
-  members: Array<Member>;
+  members: List<Member>;
 };
 
 const TasksManager = (props: TasksManagerProps): JSX.Element => {
   const { tasks, addTask, updateTask, deleteTask, members } = props;
-  const renderTasksList = (title: string, label: string, add = false) => {
+  const renderTasksList = (
+    title: string,
+    label: string,
+    add = false,
+  ): JSX.Element => {
     // eslint-disable-next-line react/destructuring-assignment
-    const tasksArray = [...tasks.filter(({ data }) => data.label === label)];
+    const tasksArray = tasks
+      .filter(({ data }) => data.label === label)
+      .toArray();
 
     return (
       <Grid item md={12} lg={4}>
@@ -43,8 +51,8 @@ const TasksManager = (props: TasksManagerProps): JSX.Element => {
     );
   };
 
-  const handleDragEnd = (result: DropResult) => {
-    const {destination, source} = result;
+  const handleDragEnd = (result: DropResult): void => {
+    const { destination, source } = result;
     if (!destination) {
       return;
     }
@@ -56,10 +64,9 @@ const TasksManager = (props: TasksManagerProps): JSX.Element => {
       return;
     }
 
-    const labelledTasks = [
-      // eslint-disable-next-line react/destructuring-assignment
-      ...tasks.filter(({ data }) => data.label === source.droppableId),
-    ];
+    const labelledTasks = tasks
+      .filter(({ data }) => data.label === source.droppableId)
+      .toArray();
 
     const draggedTask = labelledTasks[source.index];
 
@@ -77,7 +84,7 @@ const TasksManager = (props: TasksManagerProps): JSX.Element => {
   return (
     <Grid container columnSpacing={1}>
       <Grid item md={12} lg={2}>
-        <MembersList members={members}/>
+        <MembersList members={members} />
       </Grid>
       <Grid item md={12} lg={10}>
         <DragDropContext onDragEnd={handleDragEnd}>
@@ -90,15 +97,6 @@ const TasksManager = (props: TasksManagerProps): JSX.Element => {
       </Grid>
     </Grid>
   );
-};
-
-TasksManager.propTypes = {
-  tasks: PropTypes.arrayOf(taskProp).isRequired,
-  addTask: PropTypes.func.isRequired,
-  updateTask: PropTypes.func.isRequired,
-  deleteTask: PropTypes.func.isRequired,
-  members: PropTypes.arrayOf(memberProp).isRequired,
-  filteredNames: PropTypes.arrayOf(PropTypes.string).isRequired,
 };
 
 export default TasksManager;

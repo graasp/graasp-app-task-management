@@ -8,15 +8,11 @@ import 'react-toastify/dist/ReactToastify.css';
 import i18nConfig from '../config/i18n';
 import App from './App';
 
-import { ContextProvider } from './context/ContextContext';
-import { TokenProvider } from './context/TokenContext';
 import {
   queryClient,
   QueryClientProvider,
   ReactQueryDevtools,
 } from '../config/queryClient';
-
-import { AppProvider } from './context/AppContext';
 
 // declare the module to enable theme modification
 declare module '@mui/material/styles' {
@@ -67,13 +63,7 @@ const Root: FC = () => (
     <ThemeProvider theme={theme}>
       <I18nextProvider i18n={i18nConfig}>
         <QueryClientProvider client={queryClient}>
-          <ContextProvider>
-            <TokenProvider>
-              <AppProvider>
-                <App />
-              </AppProvider>
-            </TokenProvider>
-          </ContextProvider>
+          <App />
           {process.env.NODE_ENV === 'development' && (
             <ReactQueryDevtools initialIsOpen />
           )}

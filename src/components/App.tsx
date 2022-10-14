@@ -43,7 +43,10 @@ const App: FC = () => {
   const [filteredNames, setFilteredNames] = useState([]);
 
   // get the members having access to the space
-  const members = useMembersContext();
+  const members = useMembersContext().map((member, index) => ({
+    ...member,
+    color: COLORS[index],
+  }));
 
   const permissionLevel: string =
     context?.get('permission', DEFAULT_PERMISSION) || DEFAULT_PERMISSION;
@@ -61,13 +64,13 @@ const App: FC = () => {
   useEffect(() => {
     const newTasks = appDataArray.filter(
       ({ type }) => type === APP_DATA_TYPES.TASK,
-    );
+    ) as List<ExistingTaskType>;
     if (newTasks) {
       setTasks(newTasks);
     }
   }, [appDataArray]);
 
-  const addTask = (newTask: TaskType) => {
+  const addTask = (newTask: TaskType): void => {
     postAppData(newTask);
 
     postAppAction({
@@ -78,7 +81,7 @@ const App: FC = () => {
     });
   };
 
-  const updateTask = (newTask: ExistingTaskType) => {
+  const updateTask = (newTask: ExistingTaskType): void => {
     patchAppData(newTask);
     postAppAction({
       type: ACTION_TYPES.EDIT,
@@ -89,7 +92,7 @@ const App: FC = () => {
     });
   };
 
-  const deleteTask = (id: string) => {
+  const deleteTask = (id: string): void => {
     deleteAppData({ id });
     postAppAction({
       type: ACTION_TYPES.DELETE,

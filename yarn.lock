@@ -1900,6 +1900,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@cypress/instrument-cra@npm:1.4.0":
+  version: 1.4.0
+  resolution: "@cypress/instrument-cra@npm:1.4.0"
+  dependencies:
+    babel-plugin-istanbul: 6.0.0
+    debug: 4.2.0
+    find-yarn-workspace-root: ^2.0.0
+  checksum: 1c404f1887add886acf4abaa92830da01345ed928c044366b6082a48e06be9e91ec81cb1ed2ed21f690aa6f011e0ec9d608b69febf4ad30a157ff9dea6c56665
+  languageName: node
+  linkType: hard
+
 "@cypress/request@npm:^2.88.10":
   version: 2.88.10
   resolution: "@cypress/request@npm:2.88.10"
@@ -5429,6 +5440,19 @@ __metadata:
   languageName: node
   linkType: hard
 
+"babel-plugin-istanbul@npm:6.0.0":
+  version: 6.0.0
+  resolution: "babel-plugin-istanbul@npm:6.0.0"
+  dependencies:
+    "@babel/helper-plugin-utils": ^7.0.0
+    "@istanbuljs/load-nyc-config": ^1.0.0
+    "@istanbuljs/schema": ^0.1.2
+    istanbul-lib-instrument: ^4.0.0
+    test-exclude: ^6.0.0
+  checksum: bc586cf088ec471a98a474ef0e9361ace61947da2a3e54162f1e1ab712a1a81a88007639e8aff7db2fc8678ae7c671e696e6edd6ccf72db8e6af86f0628d5a08
+  languageName: node
+  linkType: hard
+
 "babel-plugin-istanbul@npm:^6.1.1":
   version: 6.1.1
   resolution: "babel-plugin-istanbul@npm:6.1.1"
@@ -7641,6 +7665,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debug@npm:4.2.0":
+  version: 4.2.0
+  resolution: "debug@npm:4.2.0"
+  dependencies:
+    ms: 2.1.2
+  peerDependenciesMeta:
+    supports-color:
+      optional: true
+  checksum: f901c2a64e5db14068145ebc82ff263aa484d2285fe11ff7c561827df2024d05dcaf3f320c85b519b7b77369e513eb0a46e206c6364ae6819a87d29b0284403b
+  languageName: node
+  linkType: hard
+
 "debug@npm:^3.1.0, debug@npm:^3.2.7":
   version: 3.2.7
   resolution: "debug@npm:3.2.7"
@@ -9504,6 +9540,15 @@ __metadata:
     locate-path: ^6.0.0
     path-exists: ^4.0.0
   checksum: 07955e357348f34660bde7920783204ff5a26ac2cafcaa28bace494027158a97b9f56faaf2d89a6106211a8174db650dd9f503f9c0d526b1202d5554a00b9095
+  languageName: node
+  linkType: hard
+
+"find-yarn-workspace-root@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "find-yarn-workspace-root@npm:2.0.0"
+  dependencies:
+    micromatch: ^4.0.2
+  checksum: fa5ca8f9d08fe7a54ce7c0a5931ff9b7e36f9ee7b9475fb13752bcea80ec6b5f180fa5102d60b376d5526ce924ea3fc6b19301262efa0a5d248dd710f3644242
   languageName: node
   linkType: hard
 
@@ -18707,6 +18752,7 @@ __metadata:
     "@commitlint/cli": ~17.1.2
     "@commitlint/config-conventional": ~17.1.0
     "@coreui/react": ~4.3.1
+    "@cypress/instrument-cra": 1.4.0
     "@emotion/react": ~11.10.4
     "@emotion/styled": ~11.10.4
     "@fortawesome/free-solid-svg-icons": ~6.2.0
