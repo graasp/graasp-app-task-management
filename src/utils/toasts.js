@@ -5,7 +5,7 @@ import {
   FAILED_TO_FETCH_MESSAGE_PRETTY,
   UNEXPECTED_ERROR_MESSAGE,
   SUCCESS_MESSAGE,
-} from '../constants/messages';
+} from '../config/messages';
 
 const showErrorToast = (payload) => {
   let message = UNEXPECTED_ERROR_MESSAGE;

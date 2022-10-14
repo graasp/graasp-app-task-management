@@ -19,7 +19,7 @@ import { DEFAULT_PERMISSION, PERMISSION_LEVELS } from '../config/settings';
 import { ACTION_TYPES } from '../config/actionTypes';
 import Settings from './main/Settings';
 import TasksManager from './views/TasksManager';
-import { COLORS } from '../constants/constants';
+import { COLORS } from '../config/constants';
 import { MembersProvider, useMembersContext } from './context/MembersContext';
 import { AppDataProvider, useAppDataContext } from './context/AppDataContext';
 import { useAppActionContext } from './context/AppActionContext';

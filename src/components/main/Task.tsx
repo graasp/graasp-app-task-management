@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import PropTypes from 'prop-types';
 import { styled } from '@mui/material/styles';
 import Avatar from '@mui/material/Avatar';
 import Card from '@mui/material/Card';
@@ -13,100 +12,78 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import CardHeader from '@mui/material/CardHeader';
 import EditIcon from '@mui/icons-material/Edit';
-import { Collection } from 'immutable';
-import { taskProp } from '../../types/props_types';
+import { List } from 'immutable';
 import TaskEditDialog from './TaskEditDialog';
+import { ExistingTaskType } from '../../config/appDataTypes';
+import { Member } from '../../types/member';
 
 const TaskCard = styled(Card)(() => ({
   width: '100%',
 }));
 
-const ExpandMore = styled((props) => {
-  const { expand, ...other } = props;
-  // eslint-disable-next-line react/jsx-props-no-spreading
-  return <IconButton {...other} />;
-})(({ theme, expand }) => ({
-  transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-  marginLeft: 'auto',
-  transition: theme.transitions.create('transform', {
-    duration: theme.transitions.duration.shortest,
-  }),
-}));
+// const ExpandMore = styled((props) => {
+//   const { expand, ...other } = props;
+//   // eslint-disable-next-line react/jsx-props-no-spreading
+//   return <IconButton {...other} />;
+// })(({ theme, expand }) => ({
+//   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
+//   marginLeft: 'auto',
+//   transition: theme.transitions.create('transform', {
+//     duration: theme.transitions.duration.shortest,
+//   }),
+// }));
 
-// eslint-disable-next-line react/prop-types
-const Task = ({
-  task,
-  updateTask,
-  deleteTask,
-  className,
-  members: membersList,
-}) => {
+type TaskProps = {
+  task: ExistingTaskType;
+  updateTask: (t: ExistingTaskType) => void;
+  deleteTask: (id: string) => void;
+  members: List<Member>;
+};
+
+const Task = (props: TaskProps): JSX.Element => {
+  const { task, updateTask, deleteTask, members: membersList } = props;
   const { t } = useTranslation();
 
   const { id, data } = task;
 
-  const { title, members, completed, description } = data;
+  const { title, members, description } = data;
 
-  const [focused, setFocused] = useState(false);
-  const [seen, setSeen] = useState(false);
-  const [editedTitle, setEditedTitle] = useState('');
-  const [isEditingTitle, setIsEditingTitle] = useState(null);
   // const { isEditingTitle, setIsEditingTitle } = useContext(AppContext);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  const handleDialogClose = () => {
+  const handleDialogClose = (): void => {
     setDialogOpen(false);
   };
 
-  const editTask = () => {
+  const editTask = (): void => {
     setDialogOpen(true);
   };
 
-  const addMembers = (member) => {
+  const addMembers = (member: string): void => {
     const newMembers = [...members, member];
     const newTask = {
       ...task,
       data: {
         ...data,
-        members: [...new Set(newMembers)],
+        members: newMembers,
       },
     };
     updateTask(newTask);
   };
 
-  const togglePop = () => {
-    setSeen(!seen);
-    setFocused(!focused);
-  };
-
-  const onEditKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      const newTask = {
-        ...task,
-        data: {
-          ...data,
-          title: editedTitle.length !== 0 ? editedTitle : title,
-        },
-      };
-      updateTask(newTask);
-      setIsEditingTitle(false);
-    }
-  };
-  const onDragOver = (ev) => {
-    setFocused(true);
+  const onDragOver = (ev: React.DragEvent): void => {
     ev.preventDefault();
   };
 
-  const onDrop = (ev) => {
-    setFocused(false);
+  const onDrop = (ev: React.DragEvent): void => {
     const member = ev.dataTransfer.getData('member');
     addMembers(member);
   };
 
-  const getMemberColor = (m) =>
+  const getMemberColor = (m: string): string | undefined =>
     membersList.find((memberInList) => m === memberInList.id)?.color;
 
-  const getMemberName = (m) =>
+  const getMemberName = (m: string): string =>
     membersList.find((memberInList) => m === memberInList.id)?.name || '?';
 
   return (
@@ -116,6 +93,7 @@ const Task = ({
           <AvatarGroup max={4}>
             {members.map((member) => (
               <Avatar
+                key={member}
                 sx={{
                   bgcolor: `${getMemberColor(member)}`,
                 }}
@@ -151,14 +129,6 @@ const Task = ({
       />
     </TaskCard>
   );
-};
-
-Task.propTypes = {
-  task: taskProp.isRequired,
-  updateTask: PropTypes.func.isRequired,
-  deleteTask: PropTypes.func.isRequired,
-  className: PropTypes.oneOf([PropTypes.bool, PropTypes.string]).isRequired,
-  members: PropTypes.objectOf(Collection).isRequired,
 };
 
 export default Task;

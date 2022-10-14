@@ -11,3 +11,8 @@ export const MISSING_APP_INSTANCE_RESOURCE_ID_MESSAGE =
   'No app instance resource id specified.';
 
 export const SUCCESS_MESSAGE = 'Success!';
+
+export const CONTEXT_FETCHING_ERROR_MESSAGE =
+  'An error occurred while fetching the context.';
+export const TOKEN_REQUEST_ERROR_MESSAGE =
+  'An error occurred while requesting the token.';

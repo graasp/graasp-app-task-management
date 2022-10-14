@@ -8,12 +8,17 @@ enum APP_DATA_TYPES {
   MOCK_TYPE = 'mock_type',
 }
 
-type TaskDataType = {
+enum APP_DATA_VISIBILITY {
+  MEMBER = 'member',
+  ITEM = 'item',
+}
+
+export type TaskDataType = {
   title: string;
   description: string;
   members: Array<string>;
   label: string;
-  tag?: string;
+  tags?: string;
 };
 
 export type TaskType = PostAppDataType & {
@@ -23,4 +28,4 @@ export type ExistingTaskType = AppData & {
   data: TaskDataType;
 };
 
-export { APP_DATA_TYPES };
+export { APP_DATA_TYPES, APP_DATA_VISIBILITY };
