@@ -12,7 +12,7 @@ import Divider from '@mui/material/Divider';
 import DownloadActions from './settings/DownloadActions';
 import ShowProgress from './ShowProgress';
 import FilterMembers from './settings/FilterMembers';
-import FilterModal from './FilterModal';
+// import FilterModal from './FilterModal';
 import SettingsProgressBar from './settings/SettingsProgressBar';
 import ModalContainer from '../common/ModalContainer';
 import ButtonContainer from '../common/ButtonContainer';
@@ -22,9 +22,7 @@ const Settings = ({
   toggle,
   setToggle,
   members,
-  students,
-  filteredNames,
-  setFilteredNames,
+  // filteredNames,
 }) => {
   const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
@@ -106,15 +104,14 @@ const Settings = ({
             </ModalContainer>
           </Modal>
         ) : (
-          <FilterModal
-            setToggle={setToggleFilter}
-            toggle={toggleFilter}
-            handleModalClose={handleModalClose}
-            modalOpen={modalOpen}
-            filteredNames={filteredNames}
-            setFilteredNames={setFilteredNames}
-            students={students}
-          />
+          // <FilterModal
+          //   setToggle={setToggleFilter}
+          //   toggle={toggleFilter}
+          //   handleModalClose={handleModalClose}
+          //   modalOpen={modalOpen}
+          //   filteredNames={filteredNames}
+          // />
+          <p>Nothing.</p>
         )}
       </div>
     </>
