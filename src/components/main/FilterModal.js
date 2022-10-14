@@ -17,9 +17,8 @@ const FilterModal = ({
   handleModalClose,
   modalOpen,
   setToggle,
-  students,
+  members,
   filteredNames,
-  setFilteredNames,
 }) => {
   const { t } = useTranslation();
 

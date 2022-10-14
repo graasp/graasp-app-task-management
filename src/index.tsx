@@ -1,13 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
 import '@graasp/ui/dist/bundle.css';
-import { buildMockLocalContext, mockServer } from '@graasp/apps-query-client';
+import { mockApi } from '@graasp/apps-query-client';
 import Root from './components/Root';
 import './index.css';
-import buildDatabase from './data/db';
-import * as serviceWorker from './registerServiceWorker';
+import buildDatabase, { mockContext, mockMembers } from './data/db';
 import { MOCK_API } from './config/constants';
 import {
   SENTRY_DSN,
@@ -27,23 +26,22 @@ Sentry.init({
 });
 
 // setup mocked api for cypress or standalone app
+/* istanbul ignore next */
 if (MOCK_API) {
-  const appContext = buildMockLocalContext(window.appContext);
-  // automatically append item id as a query string
-  const searchParams = new URLSearchParams(window.location.search);
-  if (!searchParams.get('itemId')) {
-    searchParams.set('itemId', appContext.itemId);
-    window.location.search = searchParams.toString();
-  }
-  const database = window.Cypress ? window.database : buildDatabase(appContext);
-  const errors = window.apiErrors;
-  mockServer({ database, appContext, errors });
+  mockApi({
+    appContext: window.Cypress ? window.appContext : mockContext,
+    database: window.Cypress
+      ? window.database
+      : buildDatabase(mockContext, mockMembers),
+  });
 }
 
-ReactDOM.render(
+const root = ReactDOM.createRoot(
+  document.getElementById('root') as HTMLElement,
+);
+
+root.render(
   <React.StrictMode>
     <Root />
   </React.StrictMode>,
-  document.getElementById('root'),
 );
-serviceWorker.unregister();

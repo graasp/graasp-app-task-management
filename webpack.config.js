@@ -1,75 +1,21 @@
 const path = require('path');
-const glob = require('glob');
-const webpack = require("webpack");
-
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const InterpolateHtmlPlugin = require('interpolate-html-plugin');
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-
-
-// from: https://github.com/facebook/create-react-app/blob/master/packages/react-scripts/config/env.js
-// grab react app environment variables
-const REACT_APP = /^REACT_APP_/i;
-const REACT_ENV = Object.keys(process.env)
-  .filter(key => REACT_APP.test(key))
-  .reduce(
-    (env, key) => {
-      // eslint-disable-next-line no-param-reassign
-      env[key] = process.env[key];
-      return env;
-    },
-    {
-      // minified version should always be in production
-      NODE_ENV: 'production',
-      // minified version should always relative base
-      PUBLIC_URL: '.',
-    },
-  );
 
 module.exports = {
-  resolve: {
-    fallback: {
-      process: require.resolve("process/browser"),
-      zlib: require.resolve("browserify-zlib"),
-      stream: require.resolve("stream-browserify"),
-      util: require.resolve("util"),
-      buffer: require.resolve("buffer"),
-      asset: require.resolve("assert"),
-    }
-  },
-  entry: {
-    'bundle.js': glob
-      .sync('build/static/?(js|css)/*.?(js|css)')
-      .map(f => path.resolve(__dirname, f)),
-  },
-  output: {
-    filename: 'dist/bundle.min.js',
-    publicPath: `${__dirname}`,
-  },
+  entry: './src/index.tsx',
   module: {
     rules: [
       {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        test: /\.tsx?$/,
+        use: 'ts-loader',
+        exclude: /node_modules/,
       },
     ],
   },
-  plugins: [
-    new UglifyJsPlugin(),
-    new HtmlWebpackPlugin({
-      filename: 'index.html',
-      template: 'public/index.html',
-      inlineSource: '.(js|css)$',
-    }),
-    new ScriptExtHtmlWebpackPlugin({
-      inline: 'bundle',
-      preload: /\.js$/,
-    }),
-    new InterpolateHtmlPlugin(REACT_ENV),
-    new webpack.ProvidePlugin({
-      Buffer: ["buffer", "Buffer"],
-      process: "process/browser",
-    }),
-  ],
+  resolve: {
+    extensions: ['.tsx', '.ts', '.js'],
+  },
+  output: {
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+  },
 };

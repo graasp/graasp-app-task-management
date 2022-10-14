@@ -1,21 +1,26 @@
 import React from 'react';
-import { DragDropContext } from 'react-beautiful-dnd';
+import { DragDropContext, DropResult, ResponderProvided } from 'react-beautiful-dnd';
 import { Grid } from '@mui/material';
 import PropTypes from 'prop-types';
 import { TASK_LABELS } from '../../config/settings';
 import TasksList from '../main/TasksList';
 import { taskProp, memberProp } from '../../types/props_types';
 import MembersList from '../main/MembersList';
+import { ExistingTaskType, TaskType } from '../../config/appDataTypes';
+import { List } from 'immutable';
+import { Member } from '@graasp/apps-query-client';
 
-const TasksManager = ({
-  tasks,
-  addTask,
-  updateTask,
-  deleteTask,
-  members,
-  filteredNames,
-}) => {
-  const renderTasksList = (title, label, add = false) => {
+type TasksManagerProps = {
+  tasks: List<ExistingTaskType>;
+  addTask: (task: TaskType) => void;
+  updateTask: (task: ExistingTaskType) => void;
+  deleteTask: (id: string) => void;
+  members: Array<Member>;
+};
+
+const TasksManager = (props: TasksManagerProps): JSX.Element => {
+  const { tasks, addTask, updateTask, deleteTask, members } = props;
+  const renderTasksList = (title: string, label: string, add = false) => {
     // eslint-disable-next-line react/destructuring-assignment
     const tasksArray = [...tasks.filter(({ data }) => data.label === label)];
 
@@ -38,7 +43,8 @@ const TasksManager = ({
     );
   };
 
-  const handleDragEnd = ({ destination, source }) => {
+  const handleDragEnd = (result: DropResult) => {
+    const {destination, source} = result;
     if (!destination) {
       return;
     }
@@ -71,7 +77,7 @@ const TasksManager = ({
   return (
     <Grid container columnSpacing={1}>
       <Grid item md={12} lg={2}>
-        <MembersList members={members} filteredNames={filteredNames} />
+        <MembersList members={members}/>
       </Grid>
       <Grid item md={12} lg={10}>
         <DragDropContext onDragEnd={handleDragEnd}>
