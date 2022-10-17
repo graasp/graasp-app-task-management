@@ -6,8 +6,12 @@
   "license": "AGPL-3.0-only",
   "author": "Graasp",
   "contributors": [
-    "Graciana Aad",
-    "Jérémy La Scala"
+    { "name": "Graciana Aad",
+      "email": "graciana.aad@epfl.ch",
+      "url": "https://github.com/Gracianaaad"},
+      { "name": "Jérémy La Scala",
+      "email": "jeremy.lascala@epfl.ch",
+      "url": "https://github.com/swouf"}
   ],
   "dependencies": {
     "@coreui/react": "~4.3.1",
