@@ -7,7 +7,11 @@ import {
   SUCCESS_MESSAGE,
 } from '../config/messages';
 
-const showErrorToast = (payload) => {
+type Payload = {
+  message: string;
+};
+
+const showErrorToast = (payload: string | Payload): void => {
   let message = UNEXPECTED_ERROR_MESSAGE;
   if (_.isString(payload)) {
     message = payload;
@@ -23,12 +27,11 @@ const showErrorToast = (payload) => {
 
   toast.error(message, {
     toastId: message,
-    autoClose: true,
     position: 'bottom-right',
   });
 };
 
-const showSuccessToast = (payload) => {
+const showSuccessToast = (payload: string | Payload): void => {
   let message = SUCCESS_MESSAGE;
   if (_.isString(payload)) {
     message = payload;
@@ -40,7 +43,6 @@ const showSuccessToast = (payload) => {
 
   toast.success(message, {
     toastId: message,
-    autoClose: true,
     position: 'bottom-right',
   });
 };

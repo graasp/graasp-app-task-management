@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useTranslation } from 'react-i18next';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
@@ -11,9 +10,16 @@ import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
-import { taskProp } from '../../types/props_types';
+import { ExistingTaskType } from '../../config/appDataTypes';
 
-const TaskEditDialog = (props) => {
+type TaskEditDialogProps = {
+  task: ExistingTaskType;
+  updateTask: (t: ExistingTaskType) => void;
+  open: boolean;
+  onClose: () => void;
+};
+
+const TaskEditDialog = (props: TaskEditDialogProps): JSX.Element => {
   const { t } = useTranslation();
 
   const { task: inputTask, updateTask, open, onClose } = props;
@@ -24,19 +30,21 @@ const TaskEditDialog = (props) => {
     if (!open) {
       setTask(inputTask);
     }
-  }, [inputTask]);
+  }, [inputTask, open]);
 
-  const handleChange = (prop) => (event) => {
-    setTask({
-      ...task,
-      data: {
-        ...task.data,
-        [prop]: event.target.value,
-      },
-    });
-  };
+  const handleChange =
+    (prop: string) =>
+    (event: React.ChangeEvent<HTMLInputElement>): void => {
+      setTask({
+        ...task,
+        data: {
+          ...task.data,
+          [prop]: event.target.value,
+        },
+      });
+    };
 
-  const handleClose = () => {
+  const handleClose = (): void => {
     updateTask({
       ...task,
       id: inputTask.id,
@@ -78,13 +86,6 @@ const TaskEditDialog = (props) => {
       </DialogActions>
     </Dialog>
   );
-};
-
-TaskEditDialog.propTypes = {
-  task: taskProp.isRequired,
-  updateTask: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
 };
 
 export default TaskEditDialog;
