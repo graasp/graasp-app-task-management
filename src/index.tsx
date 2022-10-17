@@ -1,28 +1,24 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
+import { mockApi } from '@graasp/apps-query-client';
+
 import * as Sentry from '@sentry/react';
 import { BrowserTracing } from '@sentry/tracing';
-import '@graasp/ui/dist/bundle.css';
-import { mockApi } from '@graasp/apps-query-client';
+
 import Root from './components/Root';
-import './index.css';
+import { MOCK_API } from './config/env';
+import { generateSentryConfig } from './config/sentry';
 import buildDatabase, { mockContext, mockMembers } from './data/db';
-import { MOCK_API } from './config/constants';
-import {
-  SENTRY_DSN,
-  SENTRY_TRACE_SAMPLE_RATE,
-  SENTRY_ENVIRONMENT,
-} from './config/sentry';
+import './index.css';
 
 Sentry.init({
-  dsn: SENTRY_DSN,
   integrations: [new BrowserTracing()],
-  environment: SENTRY_ENVIRONMENT,
 
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
-  tracesSampleRate: SENTRY_TRACE_SAMPLE_RATE,
+  ...generateSentryConfig(),
 });
 
 // setup mocked api for cypress or standalone app

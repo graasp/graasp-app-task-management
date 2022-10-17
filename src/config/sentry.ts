@@ -1,7 +1,10 @@
-export const SENTRY_DSN =
-  'https://4651bae3d7804c168aa2a05b67ab1d9b@o244065.ingest.sentry.io/6353193';
+type SentryConfigType = {
+  dsn: string;
+  environment: string;
+  tracesSampleRate: number;
+};
 
-const generateSentryConfig = () => {
+export const generateSentryConfig = (): SentryConfigType => {
   let SENTRY_ENVIRONMENT = 'development';
   let SENTRY_TRACE_SAMPLE_RATE = 1.0;
   switch (process.env.NODE_ENV) {
@@ -18,8 +21,9 @@ const generateSentryConfig = () => {
     default:
   }
 
-  return { SENTRY_ENVIRONMENT, SENTRY_TRACE_SAMPLE_RATE };
+  return {
+    dsn: (!window.Cypress && process.env.SENTRY_DSN) || '',
+    environment: SENTRY_ENVIRONMENT,
+    tracesSampleRate: SENTRY_TRACE_SAMPLE_RATE,
+  };
 };
-
-export const { SENTRY_ENVIRONMENT, SENTRY_TRACE_SAMPLE_RATE } =
-  generateSentryConfig();

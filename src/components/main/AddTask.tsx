@@ -26,6 +26,7 @@ const AddTask = (props: AddTaskProps): JSX.Element => {
     };
     addTask(newTask);
     setNewTaskTitle('');
+    console.debug('New task added: ', newTaskTitle);
   };
 
   const inputKeyDown = (event: React.KeyboardEvent): void => {

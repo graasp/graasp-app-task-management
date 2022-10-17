@@ -1,25 +1,26 @@
 import React, { FC } from 'react';
-import PropTypes from 'prop-types';
 import { I18nextProvider } from 'react-i18next';
-import { ThemeProvider, createTheme, styled } from '@mui/material/styles';
-import { ToastContainer } from 'react-toastify';
-import { pink, grey, orange } from '@mui/material/colors';
-import { Loader } from '@graasp/ui';
+
 import { withContext, withToken } from '@graasp/apps-query-client';
-import 'react-toastify/dist/ReactToastify.css';
+
+import { CssBaseline, ThemeProvider, createTheme, styled } from '@mui/material';
+import { grey, orange, pink } from '@mui/material/colors';
+import { StyledEngineProvider } from '@mui/material/styles';
+
 import i18nConfig from '../config/i18n';
-import App from './App';
-import {
-  hooks,
-  queryClient,
-  QueryClientProvider,
-  ReactQueryDevtools,
-} from '../config/queryClient';
-import { showErrorToast } from '../utils/toasts';
 import {
   CONTEXT_FETCHING_ERROR_MESSAGE,
   TOKEN_REQUEST_ERROR_MESSAGE,
 } from '../config/messages';
+import {
+  QueryClientProvider,
+  ReactQueryDevtools,
+  hooks,
+  queryClient,
+} from '../config/queryClient';
+import { showErrorToast } from '../utils/toasts';
+import App from './App';
+import Loader from './common/Loader';
 
 // declare the module to enable theme modification
 declare module '@mui/material/styles' {
@@ -60,10 +61,10 @@ const theme = createTheme({
   },
 });
 
-const RootDiv = styled('div')(() => ({
+const RootDiv = styled('div')({
   flexGrow: 1,
   height: '100%',
-}));
+});
 
 const Root: FC = () => {
   const AppWithContext = withToken(App, {
@@ -86,25 +87,20 @@ const Root: FC = () => {
   });
   return (
     <RootDiv>
-      <ThemeProvider theme={theme}>
-        <I18nextProvider i18n={i18nConfig}>
-          <QueryClientProvider client={queryClient}>
-            <App />
-            {process.env.NODE_ENV === 'development' && (
-              <ReactQueryDevtools initialIsOpen />
-            )}
-          </QueryClientProvider>
-          <ToastContainer />
-        </I18nextProvider>
-      </ThemeProvider>
+      {/* Used to define the order of injected properties between JSS and emotion */}
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={theme}>
+          <CssBaseline enableColorScheme />
+          <I18nextProvider i18n={i18nConfig}>
+            <QueryClientProvider client={queryClient}>
+              <AppWithContextAndToken />
+              {process.env.NODE_ENV === 'development' && <ReactQueryDevtools />}
+            </QueryClientProvider>
+          </I18nextProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
     </RootDiv>
   );
-};
-
-Root.propTypes = {
-  classes: PropTypes.shape({
-    root: PropTypes.string,
-  }).isRequired,
 };
 
 export default Root;

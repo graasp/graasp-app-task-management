@@ -7,25 +7,39 @@ import Paper from '@mui/material/Paper';
 import Badge from '@mui/material/Badge';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import { List } from 'immutable';
 import { taskProp } from '../../types/props_types';
 import AddTask from './AddTask';
 import Task from './Task';
+import { ExistingTaskType, TaskType } from '../../config/appDataTypes';
+import { Member } from '../../types/member';
 
-const TasksList = ({
-  title,
-  label,
-  tasks,
-  addTask,
-  updateTask,
-  deleteTask,
-  addComponent,
-  // eslint-disable-next-line react/prop-types
-  members,
-}) => {
+type TasksListProps = {
+  title: string;
+  tasks: List<ExistingTaskType>;
+  label: string;
+  addTask: (task: TaskType) => void;
+  updateTask: (task: ExistingTaskType) => void;
+  deleteTask: (id: string) => void;
+  members: List<Member>;
+  addComponent: boolean;
+};
+
+const TasksList = (props: TasksListProps): JSX.Element => {
+  const {
+    title,
+    label,
+    tasks,
+    addTask,
+    updateTask,
+    deleteTask,
+    addComponent,
+    members,
+  } = props;
   return (
     <Paper sx={{ p: 1, pt: 2 }}>
       <div key={label} className="column" style={{ alignItems: 'center' }}>
-        <Badge badgeContent={tasks.length} color="primary">
+        <Badge badgeContent={tasks.size} color="primary">
           <Typography variant="h2">{title}</Typography>
         </Badge>
 
@@ -42,7 +56,7 @@ const TasksList = ({
               <Stack spacing={1} sx={{ m: 1 }}>
                 {addComponent && <AddTask addTask={addTask} label={label} />}
 
-                {tasks.length ? (
+                {tasks.size ? (
                   tasks.map((task, index) => (
                     <Draggable
                       key={task.id}
@@ -60,7 +74,6 @@ const TasksList = ({
                           {...provided2.dragHandleProps}
                         >
                           <Task
-                            className={snapshot.isDragging && 'dragging'}
                             task={task}
                             updateTask={updateTask}
                             deleteTask={deleteTask}

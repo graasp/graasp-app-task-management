@@ -1900,7 +1900,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cypress/instrument-cra@npm:1.4.0":
+"@cypress/instrument-cra@npm:~1.4.0":
   version: 1.4.0
   resolution: "@cypress/instrument-cra@npm:1.4.0"
   dependencies:
@@ -2221,7 +2221,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/apps-query-client@github:graasp/graasp-apps-query-client.git":
+"@graasp/apps-query-client@github:graasp/graasp-apps-query-client":
   version: 0.2.0
   resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=393d61cca45d06be40f277b9877ca378277ef2b3"
   dependencies:
@@ -2258,7 +2258,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@graasp/ui@github:graasp/graasp-ui.git":
+"@graasp/ui@github:graasp/graasp-ui":
   version: 0.2.0
   resolution: "@graasp/ui@https://github.com/graasp/graasp-ui.git#commit=13ae642e8cfbb9e23404a540b168331a32fe6c8a"
   dependencies:
@@ -18752,14 +18752,14 @@ __metadata:
     "@commitlint/cli": ~17.1.2
     "@commitlint/config-conventional": ~17.1.0
     "@coreui/react": ~4.3.1
-    "@cypress/instrument-cra": 1.4.0
+    "@cypress/instrument-cra": ~1.4.0
     "@emotion/react": ~11.10.4
     "@emotion/styled": ~11.10.4
     "@fortawesome/free-solid-svg-icons": ~6.2.0
     "@fortawesome/react-fontawesome": ~0.2.0
-    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client.git"
+    "@graasp/apps-query-client": "github:graasp/graasp-apps-query-client"
     "@graasp/sdk": "github:graasp/graasp-sdk"
-    "@graasp/ui": "github:graasp/graasp-ui.git"
+    "@graasp/ui": "github:graasp/graasp-ui"
     "@jridgewell/trace-mapping": ~0.3.15
     "@material-ui/core": ~4.12.4
     "@material-ui/icons": ~4.11.3

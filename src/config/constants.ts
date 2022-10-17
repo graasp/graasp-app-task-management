@@ -1,7 +1,10 @@
 import { REACT_APP_MOCK_API } from './env';
-import { APP_DATA_VISIBILITY } from './appDataTypes';
-import { APP_DATA_TYPES, TaskDataType, TaskType } from './appDataTypes';
-import { TASK_LABELS } from './settings';
+import {
+  APP_DATA_TYPES,
+  TaskDataType,
+  TaskType,
+  APP_DATA_VISIBILITY,
+} from './appDataTypes';
 
 export const APP_NAME = 'Graasp';
 
@@ -41,6 +44,12 @@ export const PERMISSION_LEVELS = {
   ADMIN: 'admin',
 };
 
+export const CONTEXTS = {
+  BUILDER: 'builder',
+  PLAYER: 'player',
+  ANALYZER: 'analyzer',
+};
+
 // strings used in components/custom/CustomTooltip to generate added tooltip text in ActionsByTimeOfDay
 export const LATE_NIGHT = 'Late night';
 export const EARLY_MORNING = 'Early morning';
@@ -51,6 +60,12 @@ export const NIGHT = 'Night';
 
 /* eslint-disable import/prefer-default-export */
 export const RE_FETCH_INTERVAL = 60000; // Default: 1500
+
+export const TASK_LABELS = {
+  TODO: 'todo',
+  IN_PROGRESS: 'in_progress',
+  COMPLETED: 'completed',
+};
 
 export const DEFAULT_TASK_DATA: TaskDataType = {
   title: '',
