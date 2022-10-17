@@ -59,7 +59,7 @@ const TaskEditDialog = (props: TaskEditDialogProps): JSX.Element => {
         <Box sx={{ width: '100%', mt: 2 }}>
           <Stack spacing={2}>
             <FormControl>
-              <InputLabel>Title</InputLabel>
+              <InputLabel>{t('Title')}</InputLabel>
               <Input
                 value={task.data.title}
                 onChange={handleChange('title')}
@@ -69,7 +69,7 @@ const TaskEditDialog = (props: TaskEditDialogProps): JSX.Element => {
               />
             </FormControl>
             <FormControl>
-              <InputLabel>Description</InputLabel>
+              <InputLabel>{t('Description')}</InputLabel>
               <Input
                 value={task.data.description}
                 onChange={handleChange('description')}
