@@ -112,6 +112,7 @@ const Task = (props: TaskProps): JSX.Element => {
         onDragOver={(e) => onDragOver(e)}
         onDrop={(e) => onDrop(e)}
         raised={isDragging}
+        key={key}
       >
         <CardHeader
           avatar={

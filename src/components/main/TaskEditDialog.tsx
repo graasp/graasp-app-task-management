@@ -76,6 +76,7 @@ const TaskEditDialog = (props: TaskEditDialogProps): JSX.Element => {
                 inputProps={{
                   'aria-label': 'description',
                 }}
+                multiline
               />
             </FormControl>
           </Stack>
