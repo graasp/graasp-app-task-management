@@ -19,8 +19,9 @@ const App: FC = () => {
 
   const theme = useTheme();
 
-  const permissionLevel: string =
-    context?.get('permission', DEFAULT_PERMISSION) || DEFAULT_PERMISSION;
+  const permissionLevel =
+    (context?.get('permission', DEFAULT_PERMISSION) as PERMISSION_LEVELS) ||
+    DEFAULT_PERMISSION;
 
   useEffect(() => {
     // handle a change of language
