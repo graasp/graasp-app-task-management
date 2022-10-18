@@ -1,25 +1,14 @@
+import React, { FC, PropsWithChildren, createContext, useMemo } from 'react';
+import { AppSetting } from '@graasp/apps-query-client';
+import { Loader } from '@graasp/ui';
 import { List } from 'immutable';
 
-import React, { FC, PropsWithChildren, createContext, useMemo } from 'react';
-
-import { AppSetting } from '@graasp/apps-query-client';
-
 import { MUTATION_KEYS, hooks, useMutation } from '../../config/queryClient';
-import Loader from '../common/Loader';
-
-type PostAppSettingType = {
-  data: { [key: string]: unknown };
-  name: string;
-};
-
-type PatchAppSettingType = {
-  data: { [key: string]: unknown };
-  id: string;
-};
-
-type DeleteAppSettingType = {
-  id: string;
-};
+import {
+  DeleteAppSettingType,
+  PatchAppSettingType,
+  PostAppSettingType,
+} from '../../types/appSettings';
 
 export type AppSettingContextType = {
   postAppSetting: (payload: PostAppSettingType) => void;

@@ -20,7 +20,7 @@ export const MembersProvider: FC<Prop> = ({ children }) => {
   const appContext = hooks.useAppContext();
 
   const members = useMemo(() => {
-    const updatedMembers = appContext.data?.get('members');
+    const updatedMembers = List(appContext.data?.get('members'));
 
     return updatedMembers ?? defaultContextValue;
   }, [appContext.data]);

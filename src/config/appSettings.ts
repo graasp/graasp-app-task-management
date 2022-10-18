@@ -1,6 +1,6 @@
 import { Context, PermissionLevel } from '@graasp/sdk';
 
-// todo: use graasp-sdk
+// TODO: use graasp-sdk
 export const CONTEXTS = {
   BUILDER: 'builder',
   PLAYER: 'player',
