@@ -8,9 +8,9 @@ import { BrowserTracing } from '@sentry/tracing';
 
 import Root from './components/Root';
 import { MOCK_API } from './config/env';
-import { generateSentryConfig } from './config/sentry';
 import buildDatabase, { mockContext, mockMembers } from './data/db';
 import './index.css';
+import { generateSentryConfig } from './config/sentry';
 
 Sentry.init({
   integrations: [new BrowserTracing()],

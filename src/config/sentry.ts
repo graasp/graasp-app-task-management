@@ -1,10 +1,10 @@
-type SentryConfigType = {
+interface SentryConfigType {
   dsn: string;
   environment: string;
   tracesSampleRate: number;
-};
+}
 
-export const generateSentryConfig = (): SentryConfigType => {
+const generateSentryConfig = (): SentryConfigType => {
   let SENTRY_ENVIRONMENT = 'development';
   let SENTRY_TRACE_SAMPLE_RATE = 1.0;
   switch (process.env.NODE_ENV) {
@@ -27,3 +27,5 @@ export const generateSentryConfig = (): SentryConfigType => {
     tracesSampleRate: SENTRY_TRACE_SAMPLE_RATE,
   };
 };
+
+export { generateSentryConfig };
