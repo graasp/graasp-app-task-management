@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { List } from 'immutable';
 import { AppSetting, Member } from '@graasp/apps-query-client';
-import { Autocomplete, Box, Checkbox, TextField } from '@mui/material';
+import { Autocomplete, Checkbox, TextField } from '@mui/material';
 import {
   PatchAppSettingType,
   PostAppSettingType,
@@ -44,6 +44,7 @@ const FilterMembers = (fcProps: FilterMembersProps): JSX.Element => {
         setFilteredMembers(fm.toArray());
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [settings, members]);
 
   const handleInputChange = (
@@ -82,7 +83,7 @@ const FilterMembers = (fcProps: FilterMembersProps): JSX.Element => {
         </li>
       )}
       renderInput={(params) => (
-        <TextField {...params} label="Filtered members" placeholder="Member" />
+        <TextField {...params} label={t('Filtered members')} />
       )}
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value={filteredMembers}

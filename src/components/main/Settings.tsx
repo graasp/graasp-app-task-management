@@ -10,7 +10,6 @@ import {
 import Fab from '@mui/material/Fab';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Button from '@mui/material/Button';
-import Divider from '@mui/material/Divider';
 import { Member } from '@graasp/apps-query-client';
 import { List } from 'immutable';
 import FilterMembers from './settings/FilterMembers';
@@ -35,7 +34,7 @@ const Settings = (): JSX.Element => {
     appSettingArray: settings,
     postAppSetting,
     patchAppSetting,
-    deleteAppSetting,
+    // deleteAppSetting,
   } = useAppSettingContext();
 
   return (
