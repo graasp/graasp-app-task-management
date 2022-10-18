@@ -62,8 +62,6 @@ const TasksManager = (): JSX.Element => {
   const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
   const addTask = (newTask: TaskType): void => {
-    console.debug('Post app data (newTask): ', newTask);
-    console.debug('postAppData: ', postAppData);
     postAppData(newTask);
 
     postAppAction({

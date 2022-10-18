@@ -23,18 +23,6 @@ const TaskCard = styled(Card)(() => ({
   width: '100%',
 }));
 
-// const ExpandMore = styled((props) => {
-//   const { expand, ...other } = props;
-//   // eslint-disable-next-line react/jsx-props-no-spreading
-//   return <IconButton {...other} />;
-// })(({ theme, expand }) => ({
-//   transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
-//   marginLeft: 'auto',
-//   transition: theme.transitions.create('transform', {
-//     duration: theme.transitions.duration.shortest,
-//   }),
-// }));
-
 type TaskProps = {
   task: ExistingTaskType;
   updateTask: (t: ExistingTaskType) => void;

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { MdAddCircle } from 'react-icons/md';
 import { useTranslation } from 'react-i18next';
+import TextField from '@mui/material/TextField';
+import { Container } from '@mui/material';
 import { DEFAULT_TASK, DEFAULT_TASK_DATA } from '../../config/constants';
 import { TaskType } from '../../config/appDataTypes';
 
@@ -26,7 +27,6 @@ const AddTask = (props: AddTaskProps): JSX.Element => {
     };
     addTask(newTask);
     setNewTaskTitle('');
-    console.debug('New task added: ', newTaskTitle);
   };
 
   const inputKeyDown = (event: React.KeyboardEvent): void => {
@@ -38,34 +38,19 @@ const AddTask = (props: AddTaskProps): JSX.Element => {
   };
 
   return (
-    <div>
-      <div
-        className="row"
-        style={{
-          alignSelf: 'center',
-          marginTop: '10px',
+    <Container>
+      <TextField
+        id="new-task"
+        label={t('New task')}
+        variant="outlined"
+        value={newTaskTitle}
+        onKeyDown={inputKeyDown}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setNewTaskTitle(event.target.value);
         }}
-      >
-        <input
-          className={`${newTaskTitle.trim() ? 'text-input-out' : 'text-input'}`}
-          // InputProps={{ disableUnderline: true }}
-          value={newTaskTitle}
-          placeholder={t('New Task')}
-          onKeyDown={inputKeyDown}
-          onChange={(event) => {
-            setNewTaskTitle(event.target.value);
-          }}
-        />
-        <MdAddCircle
-          type="submit"
-          data-toggle="tooltip"
-          data-placement="left"
-          title={t('Add Task')}
-          className={`${newTaskTitle.trim() ? 'active-add-icon' : 'add-icon'}`}
-        />
-      </div>
-      <br />
-    </div>
+        fullWidth
+      />
+    </Container>
   );
 };
 

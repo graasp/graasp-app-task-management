@@ -40,24 +40,13 @@ const TasksList = (props: TasksListProps): JSX.Element => {
     id: label,
   });
 
+  // TODO: Doesn't work. Refactor.
   const showSkeleton = (): boolean => {
     let isTaskHere = false;
     if (active) {
       isTaskHere =
         tasks.find((t) => t.data.id === active.id)?.data.label === label;
     }
-    console.log(
-      'label: ',
-      label,
-      ' isTaskHere: ',
-      isTaskHere,
-      ', isOver: ',
-      isOver,
-      ' active: ',
-      active,
-      'tasks: ',
-      tasks,
-    );
     return isOver && !isTaskHere;
   };
 
