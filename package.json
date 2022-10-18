@@ -6,15 +6,22 @@
   "license": "AGPL-3.0-only",
   "author": "Graasp",
   "contributors": [
-    { "name": "Graciana Aad",
+    {
+      "name": "Graciana Aad",
       "email": "graciana.aad@epfl.ch",
-      "url": "https://github.com/Gracianaaad"},
-      { "name": "Jérémy La Scala",
+      "url": "https://github.com/Gracianaaad"
+    },
+    {
+      "name": "Jérémy La Scala",
       "email": "jeremy.lascala@epfl.ch",
-      "url": "https://github.com/swouf"}
+      "url": "https://github.com/swouf"
+    }
   ],
   "dependencies": {
     "@coreui/react": "~4.3.1",
+    "@dnd-kit/core": "6.0.5",
+    "@dnd-kit/sortable": "7.0.1",
+    "@dnd-kit/utilities": "3.2.0",
     "@emotion/react": "~11.10.4",
     "@emotion/styled": "~11.10.4",
     "@fortawesome/free-solid-svg-icons": "~6.2.0",
@@ -45,7 +52,6 @@
     "prop-types": "~15.8.1",
     "qs": "~6.11.0",
     "react": "~18.2.0",
-    "react-beautiful-dnd": "~13.1.1",
     "react-circular-progressbar": "~2.1.0",
     "react-dom": "~18.2.0",
     "react-i18next": "^11.15.7",

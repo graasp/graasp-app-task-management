@@ -1,7 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { Grid } from '@mui/material';
 import { List } from 'immutable';
+import {
+  DndContext,
+  DragEndEvent,
+  MouseSensor,
+  TouchSensor,
+  KeyboardSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import TasksList from '../main/TasksList';
 import MembersList from '../main/MembersList';
 import {
@@ -14,6 +22,10 @@ import { useAppActionContext } from '../context/AppActionContext';
 import { useMembersContext } from '../context/MembersContext';
 import { COLORS, TASK_LABELS } from '../../config/constants';
 import { APP_ACTION_TYPES } from '../../config/appActionTypes';
+import {
+  mouseActivationConstraint,
+  touchActivationConstraint,
+} from '../../config/dndActivationConstraints';
 
 const TasksManager = (): JSX.Element => {
   // get the appData array and a callback to post new appData
@@ -35,9 +47,19 @@ const TasksManager = (): JSX.Element => {
       ({ type }) => type === APP_DATA_TYPES.TASK,
     ) as List<ExistingTaskType>;
     if (newTasks) {
+      // TODO: Add sorting strategy.
       setTasks(newTasks);
     }
   }, [appDataArray]);
+
+  const mouseSensor = useSensor(MouseSensor, {
+    activationConstraint: mouseActivationConstraint,
+  });
+  const touchSensor = useSensor(TouchSensor, {
+    activationConstraint: touchActivationConstraint,
+  });
+  const keyboardSensor = useSensor(KeyboardSensor, {});
+  const sensors = useSensors(mouseSensor, touchSensor, keyboardSensor);
 
   const addTask = (newTask: TaskType): void => {
     console.debug('Post app data (newTask): ', newTask);
@@ -73,34 +95,27 @@ const TasksManager = (): JSX.Element => {
     });
   };
 
-  const handleDragEnd = (result: DropResult): void => {
-    const { destination, source } = result;
+  const handleDragEnd = (result: DragEndEvent): void => {
+    const { over: destination, active: source } = result;
+
     if (!destination) {
       return;
     }
 
-    if (
-      destination.index === source.index &&
-      destination.droppableId === source.droppableId
-    ) {
-      return;
+    const droppedTask = tasks.find((t) => t.id === source.id);
+
+    if (droppedTask) {
+      if (destination.id !== droppedTask.data.label) {
+        const newTask = {
+          ...droppedTask,
+          data: {
+            ...droppedTask.data,
+            label: destination.id as string,
+          },
+        };
+        updateTask(newTask);
+      }
     }
-
-    const labelledTasks = tasks
-      .filter(({ data }) => data.label === source.droppableId)
-      .toArray();
-
-    const draggedTask = labelledTasks[source.index];
-
-    const newTask = {
-      ...draggedTask,
-      data: {
-        ...draggedTask.data,
-        label: destination.droppableId,
-      },
-    };
-
-    updateTask(newTask);
   };
 
   const renderTasksList = (
@@ -112,37 +127,34 @@ const TasksManager = (): JSX.Element => {
     const tasksArray = tasks.filter(({ data }) => data.label === label);
 
     return (
-      <Grid item md={12} lg={4}>
-        <div>
-          <TasksList
-            title={title}
-            label={label}
-            tasks={tasksArray}
-            addComponent={add}
-            addTask={addTask}
-            updateTask={updateTask}
-            deleteTask={deleteTask}
-            // eslint-disable-next-line no-use-before-define
-            members={members}
-          />
-        </div>
+      <Grid item sm={12} md={4}>
+        <TasksList
+          title={title}
+          label={label}
+          tasks={tasksArray}
+          addComponent={add}
+          addTask={addTask}
+          updateTask={updateTask}
+          deleteTask={deleteTask}
+          members={members}
+        />
       </Grid>
     );
   };
 
   return (
-    <Grid container columnSpacing={1}>
-      <Grid item md={12} lg={2}>
+    <Grid container spacing={4}>
+      <Grid item sm={12} md={2}>
         <MembersList members={members} />
       </Grid>
-      <Grid item md={12} lg={10}>
-        <DragDropContext onDragEnd={handleDragEnd}>
-          <Grid container columnSpacing={1}>
+      <Grid item sm={12} md={10}>
+        <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
+          <Grid container spacing={2}>
             {renderTasksList('To Do', TASK_LABELS.TODO, true)}
             {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
             {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
           </Grid>
-        </DragDropContext>
+        </DndContext>
       </Grid>
     </Grid>
   );

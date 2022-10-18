@@ -13,6 +13,8 @@ import AvatarGroup from '@mui/material/AvatarGroup';
 import CardHeader from '@mui/material/CardHeader';
 import EditIcon from '@mui/icons-material/Edit';
 import { List } from 'immutable';
+import { CSS } from '@dnd-kit/utilities';
+import { useDraggable } from '@dnd-kit/core';
 import TaskEditDialog from './TaskEditDialog';
 import { ExistingTaskType } from '../../config/appDataTypes';
 import { Member } from '../../types/member';
@@ -38,13 +40,14 @@ type TaskProps = {
   updateTask: (t: ExistingTaskType) => void;
   deleteTask: (id: string) => void;
   members: List<Member>;
+  key: number;
 };
 
 const Task = (props: TaskProps): JSX.Element => {
-  const { task, updateTask, deleteTask, members: membersList } = props;
+  const { task, updateTask, deleteTask, members: membersList, key } = props;
   const { t } = useTranslation();
 
-  const { id, data } = task;
+  const { id, data, type } = task;
 
   const { title, members, description } = data;
 
@@ -86,48 +89,83 @@ const Task = (props: TaskProps): JSX.Element => {
   const getMemberName = (m: string): string =>
     membersList.find((memberInList) => m === memberInList.id)?.name || '?';
 
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id,
+      data: {
+        type,
+      },
+      disabled: dialogOpen,
+    });
+
+  const style: React.CSSProperties = {
+    background: 'none',
+    color: 'inherit',
+    border: 'none',
+    padding: '0',
+    font: 'inherit',
+    cursor: 'grab',
+    outline: 'inherit',
+    appearance: 'none',
+    textAlign: 'inherit',
+    transform: CSS.Translate.toString(transform),
+  };
+
   return (
-    <TaskCard onDragOver={(e) => onDragOver(e)} onDrop={(e) => onDrop(e)}>
-      <CardHeader
-        avatar={
-          <AvatarGroup max={4}>
-            {members.map((member) => (
-              <Avatar
-                key={member}
-                sx={{
-                  bgcolor: `${getMemberColor(member)}`,
-                }}
-                alt={getMemberName(member)}
-              >
-                {getMemberName(member)[0]}
-              </Avatar>
-            ))}
-          </AvatarGroup>
-        }
-        title={title}
-        titleTypographyProps={{ variant: 'h5' }}
-      />
-      <CardContent>
-        <Typography>{description}</Typography>
-      </CardContent>
-      <CardActions>
-        <IconButton
-          aria-label={t('Delete task')}
-          onClick={() => deleteTask(id)}
-        >
-          <DeleteIcon />
-        </IconButton>
-        <IconButton aria-label={t('Edit task')} onClick={editTask}>
-          <EditIcon />
-        </IconButton>
-      </CardActions>
-      <TaskEditDialog
-        task={task}
-        updateTask={updateTask}
-        open={dialogOpen}
-        onClose={handleDialogClose}
-      />
-    </TaskCard>
+    <button
+      type="button"
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      disabled={dialogOpen}
+    >
+      <TaskCard
+        onDragOver={(e) => onDragOver(e)}
+        onDrop={(e) => onDrop(e)}
+        raised={isDragging}
+      >
+        <CardHeader
+          avatar={
+            <AvatarGroup max={4}>
+              {members.map((member) => (
+                <Avatar
+                  key={member}
+                  sx={{
+                    bgcolor: `${getMemberColor(member)}`,
+                  }}
+                  alt={getMemberName(member)}
+                >
+                  {getMemberName(member)[0]}
+                </Avatar>
+              ))}
+            </AvatarGroup>
+          }
+          title={title}
+          titleTypographyProps={{ variant: 'h5' }}
+        />
+        <CardContent>
+          <Typography>{description}</Typography>
+        </CardContent>
+        <CardActions>
+          <IconButton
+            aria-label={t('Delete task')}
+            onClick={() => deleteTask(id)}
+          >
+            <DeleteIcon />
+          </IconButton>
+          <IconButton aria-label={t('Edit task')} onClick={editTask}>
+            <EditIcon />
+          </IconButton>
+        </CardActions>
+        <TaskEditDialog
+          task={task}
+          updateTask={updateTask}
+          open={dialogOpen}
+          onClose={handleDialogClose}
+        />
+      </TaskCard>
+    </button>
   );
 };
 
