@@ -1,4 +1,4 @@
-enum APP_DATA_VISIBILITY {
+export enum APP_DATA_VISIBILITY {
   MEMBER = 'member',
   ITEM = 'item',
 }

@@ -1,9 +1,5 @@
-import {
-  APP_DATA_TYPES,
-  APP_DATA_VISIBILITY,
-  TaskDataType,
-  TaskType,
-} from './appDataTypes';
+import { APP_DATA_VISIBILITY } from '../types/appData';
+import { APP_DATA_TYPES, TaskDataType, TaskType } from './appDataTypes';
 import { REACT_APP_MOCK_API } from './env';
 
 export const APP_NAME = 'Graasp';
