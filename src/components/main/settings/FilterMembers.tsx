@@ -89,9 +89,7 @@ const FilterMembers = (fcProps: FilterMembersProps): JSX.Element => {
       renderInput={(params) => (
         <TextField {...params} label={t('Filtered members')} />
       )}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       value={filteredMembers}
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       onChange={handleInputChange}
     />
   );
