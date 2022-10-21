@@ -40,7 +40,6 @@ const AddTask = (props: AddTaskProps): JSX.Element => {
   return (
     <Container>
       <TextField
-        id="new-task"
         label={t('New task')}
         variant="outlined"
         value={newTaskTitle}
