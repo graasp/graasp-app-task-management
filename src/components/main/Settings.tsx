@@ -16,7 +16,6 @@ import FilterMembers from './settings/FilterMembers';
 import { useMembersContext } from '../context/MembersContext';
 import { useAppSettingContext } from '../context/AppSettingContext';
 
-// eslint-disable-next-line no-unused-vars
 const Settings = (): JSX.Element => {
   const { t } = useTranslation();
   const [modalOpen, setModalOpen] = useState(false);
@@ -34,7 +33,6 @@ const Settings = (): JSX.Element => {
     appSettingArray: settings,
     postAppSetting,
     patchAppSetting,
-    // deleteAppSetting,
   } = useAppSettingContext();
 
   return (
@@ -62,10 +60,6 @@ const Settings = (): JSX.Element => {
 
           <DialogContent>
             <Stack>
-              {/* <DownloadActions members={members} /> */}
-              {/* <SettingsProgressBar /> */}
-
-              {/* <Data handleModalClose={handleModalClose} tasks={tasks} /> */}
               <FilterMembers
                 members={members}
                 postAppSetting={postAppSetting}
