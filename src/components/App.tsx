@@ -33,20 +33,9 @@ const App: FC = () => {
 
   const renderContent = (): ReactElement => (
     <div className="row">
-      {/* <div className="App" style={{ paddingLeft: '17em' }}> */}
       <div className="App" style={{ paddingLeft: theme.spacing(1) }}>
         <TasksManager />
       </div>
-
-      {/* <Footer
-        numberOfCompletedTasks={completedTasks}
-        totalNumberOfTasks={totalNumberOfTasks}
-        setToggle={setToggle}
-        toggle={toggle}
-        contributions={contributions}
-        tasks={tasks}
-        isChecked={isChecked}
-      /> */}
 
       {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
         permissionLevel,
