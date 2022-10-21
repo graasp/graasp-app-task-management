@@ -26,6 +26,18 @@ const TaskCard = styled(Card)(() => ({
   width: '100%',
 }));
 
+const Draggable = styled('button')(() => ({
+  background: 'none',
+  color: 'inherit',
+  border: 'none',
+  padding: '0',
+  font: 'inherit',
+  cursor: 'grab',
+  outline: 'inherit',
+  appearance: 'none',
+  textAlign: 'inherit',
+}));
+
 type TaskProps = {
   task: ExistingTaskType;
   updateTask: (t: ExistingTaskType) => void;
@@ -89,24 +101,15 @@ const Task = (props: TaskProps): JSX.Element => {
       disabled: dialogOpen,
     });
 
-  const style: React.CSSProperties = {
-    background: 'none',
-    color: 'inherit',
-    border: 'none',
-    padding: '0',
-    font: 'inherit',
-    cursor: 'grab',
-    outline: 'inherit',
-    appearance: 'none',
-    textAlign: 'inherit',
+  const transformation: React.CSSProperties = {
     transform: CSS.Translate.toString(transform),
   };
 
   return (
-    <button
+    <Draggable
       type="button"
       ref={setNodeRef}
-      style={style}
+      style={transformation}
       {...listeners}
       {...attributes}
       disabled={dialogOpen}
@@ -157,7 +160,7 @@ const Task = (props: TaskProps): JSX.Element => {
           onClose={handleDialogClose}
         />
       </TaskCard>
-    </button>
+    </Draggable>
   );
 };
 
