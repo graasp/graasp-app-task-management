@@ -27,9 +27,7 @@ const MembersList = (props: MembersListProps): JSX.Element => {
 
   return (
     <Paper sx={{ p: 1, pt: 2 }}>
-      <Typography variant="h2">
-        <>{t(newLocal)}</>
-      </Typography>
+      <Typography variant="h2">{t(newLocal) as string}</Typography>
       <List>
         {members.map((member) => (
           <ListItem
