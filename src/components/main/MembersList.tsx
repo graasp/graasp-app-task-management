@@ -24,12 +24,6 @@ const MembersList = (props: MembersListProps): JSX.Element => {
   };
 
   const newLocal = 'Members';
-  // const isChecked = (id) => {
-  //   if (filteredMembers?.includes(id)) {
-  //     return false;
-  //   }
-  //   return true;
-  // };
 
   return (
     <Paper sx={{ p: 1, pt: 2 }}>
