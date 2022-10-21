@@ -37,19 +37,6 @@ export const DEFAULT_PERMISSION = 'read';
 
 export const MOCK_API = REACT_APP_MOCK_API === 'true';
 
-// todo: use from graasp constants
-export const PERMISSION_LEVELS = {
-  WRITE: 'write',
-  READ: 'read',
-  ADMIN: 'admin',
-};
-
-export const CONTEXTS = {
-  BUILDER: 'builder',
-  PLAYER: 'player',
-  ANALYZER: 'analyzer',
-};
-
 // strings used in components/custom/CustomTooltip to generate added tooltip text in ActionsByTimeOfDay
 export const LATE_NIGHT = 'Late night';
 export const EARLY_MORNING = 'Early morning';
@@ -79,11 +66,10 @@ export const DEFAULT_TASK: TaskType = {
   visibility: APP_DATA_VISIBILITY.ITEM,
   data: DEFAULT_TASK_DATA,
 };
-export const DEFAULT_STD_DATA = {
-  name: '',
-  filtered: false,
-};
 
+/**
+ * @deprecated This setting will be refactored.
+ */
 export const APP_SETTINGS = {
   PROGRESS_BAR_DISPLAY: 'progress_bar_display',
 };

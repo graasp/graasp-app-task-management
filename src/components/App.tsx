@@ -3,12 +3,13 @@ import { RecordOf } from 'immutable';
 import React, { FC, ReactElement, useContext, useEffect } from 'react';
 
 import { Context, LocalContext } from '@graasp/apps-query-client';
+import { PermissionLevel } from '@graasp/sdk';
 
 import { useTheme } from '@mui/material/styles';
 
 import { DEFAULT_CONTEXT_LANGUAGE } from '../config/appSettings';
 import i18n from '../config/i18n';
-import { DEFAULT_PERMISSION, PERMISSION_LEVELS } from '../config/settings';
+import { DEFAULT_PERMISSION } from '../config/settings';
 import '../index.css';
 import { AppDataProvider } from './context/AppDataContext';
 import { AppSettingProvider } from './context/AppSettingContext';
@@ -24,7 +25,7 @@ const App: FC = () => {
   const theme = useTheme();
 
   const permissionLevel =
-    (context?.get('permission', DEFAULT_PERMISSION) as PERMISSION_LEVELS) ||
+    (context?.get('permission', DEFAULT_PERMISSION) as PermissionLevel) ||
     DEFAULT_PERMISSION;
 
   useEffect(() => {
@@ -41,7 +42,7 @@ const App: FC = () => {
         <TasksManager />
       </div>
 
-      {[PERMISSION_LEVELS.WRITE, PERMISSION_LEVELS.ADMIN].includes(
+      {[PermissionLevel.Write, PermissionLevel.Admin].includes(
         permissionLevel,
       ) && <Settings />}
     </div>

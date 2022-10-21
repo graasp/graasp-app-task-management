@@ -1,21 +1,14 @@
-import { CONTEXTS } from './constants';
+import { Context, PermissionLevel } from '@graasp/sdk';
 
 export const DEFAULT_LANG = 'en';
 
 export const DEFAULT_API_HOST = 'localhost:3000';
 
-// TODO: use from graasp constants
-export enum PERMISSION_LEVELS {
-  WRITE = 'write',
-  READ = 'read',
-  ADMIN = 'admin',
-}
-
-export const DEFAULT_PERMISSION = PERMISSION_LEVELS.READ;
+export const DEFAULT_PERMISSION = PermissionLevel.Read;
 
 export const DEFAULT_LOCAL_CONTEXT = {
-  permission: PERMISSION_LEVELS.READ,
+  permission: PermissionLevel.Read,
   lang: DEFAULT_LANG,
-  context: CONTEXTS.PLAYER,
+  context: Context.PLAYER,
   apiHost: DEFAULT_API_HOST,
 };

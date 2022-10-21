@@ -1,14 +1,15 @@
 import { v4 } from 'uuid';
 
 import type { Database, LocalContext, Member } from '@graasp/apps-query-client';
+import { Context, PermissionLevel } from '@graasp/sdk';
 
 import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { REACT_APP_API_HOST } from '../config/env';
 
 export const mockContext: LocalContext = {
   apiHost: REACT_APP_API_HOST,
-  permission: 'admin',
-  context: 'player',
+  permission: PermissionLevel.Admin,
+  context: Context.BUILDER,
   itemId: '1234-1234-123456-8123-123456',
   memberId: 'mock-member-id',
 };
