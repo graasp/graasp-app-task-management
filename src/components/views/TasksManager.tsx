@@ -1,6 +1,7 @@
 import { List } from 'immutable';
 
 import React, { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Grid } from '@mui/material';
 
@@ -32,6 +33,7 @@ import MembersList from '../main/MembersList';
 import TasksList from '../main/TasksList';
 
 const TasksManager = (): JSX.Element => {
+  const { t } = useTranslation();
   // get the appData array and a callback to post new appData
   const { postAppData, patchAppData, deleteAppData, appDataArray } =
     useAppDataContext();
@@ -104,7 +106,7 @@ const TasksManager = (): JSX.Element => {
       return;
     }
 
-    const droppedTask = tasks.find((t) => t.id === source.id);
+    const droppedTask = tasks.find((ta) => ta.id === source.id);
 
     if (droppedTask) {
       if (destination.id !== droppedTask.data.label) {
@@ -152,9 +154,9 @@ const TasksManager = (): JSX.Element => {
       <Grid item sm={12} md={10}>
         <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
           <Grid container spacing={2}>
-            {renderTasksList('To Do', TASK_LABELS.TODO, true)}
-            {renderTasksList('In Progress', TASK_LABELS.IN_PROGRESS)}
-            {renderTasksList('Completed', TASK_LABELS.COMPLETED)}
+            {renderTasksList(t('To Do'), TASK_LABELS.TODO, true)}
+            {renderTasksList(t('In Progress'), TASK_LABELS.IN_PROGRESS)}
+            {renderTasksList(t('Completed'), TASK_LABELS.COMPLETED)}
           </Grid>
         </DndContext>
       </Grid>
