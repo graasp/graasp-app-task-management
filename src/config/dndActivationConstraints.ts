@@ -1,12 +1,12 @@
 import { PointerActivationConstraint } from '@dnd-kit/core';
 
 const mouseActivationConstraint: PointerActivationConstraint = {
-  delay: 250,
+  delay: 10,
   tolerance: 5,
 };
 
 const touchActivationConstraint: PointerActivationConstraint = {
-  delay: 250,
+  delay: 150,
   tolerance: 20,
 };
 
