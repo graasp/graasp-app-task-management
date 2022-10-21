@@ -1,6 +1,6 @@
 import { AppData } from '@graasp/apps-query-client';
 
-import { APP_DATA_VISIBILITY, PostAppDataType } from '../types/appData';
+import { PostAppDataType } from '../types/appData';
 
 enum APP_DATA_TYPES {
   TASK = 'task',
