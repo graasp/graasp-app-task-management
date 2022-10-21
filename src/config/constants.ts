@@ -84,12 +84,6 @@ export const DEFAULT_STD_DATA = {
   filtered: false,
 };
 
-export const DEFAULT_STD = {
-  type: APP_DATA_TYPES.FILTERED_MEMBERS,
-  visibility: 'item',
-  data: DEFAULT_STD_DATA,
-};
-
 export const APP_SETTINGS = {
   PROGRESS_BAR_DISPLAY: 'progress_bar_display',
 };

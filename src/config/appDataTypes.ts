@@ -4,9 +4,6 @@ import { PostAppDataType } from '../types/appData';
 
 enum APP_DATA_TYPES {
   TASK = 'task',
-  TASKSLIST = 'tasksList',
-  FILTERED_MEMBERS = 'filtered_members',
-  MOCK_TYPE = 'mock_type',
 }
 
 enum APP_DATA_VISIBILITY {

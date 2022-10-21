@@ -3,8 +3,6 @@ import { v4 } from 'uuid';
 import type { Database, LocalContext, Member } from '@graasp/apps-query-client';
 
 import { APP_DATA_TYPES } from '../config/appDataTypes';
-import { MOCK_SETTING_KEY } from '../config/appSettingTypes';
-import { DEFAULT_MOCK_SETTING } from '../config/appSettings';
 import { REACT_APP_API_HOST } from '../config/env';
 
 export const mockContext: LocalContext = {
@@ -62,21 +60,7 @@ const buildDatabase = (
   ],
   appActions: [],
   members: members ?? mockMembers,
-  appSettings: [
-    {
-      id: v4(),
-      name: MOCK_SETTING_KEY,
-      data: {
-        ...DEFAULT_MOCK_SETTING,
-        // todo: place here any setting you would like to overwrite
-        // settingKey: value
-      },
-      itemId: appContext.itemId || '',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      creator: mockMembers[0].id,
-    },
-  ],
+  appSettings: [],
 });
 
 export default buildDatabase;
