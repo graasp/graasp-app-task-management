@@ -1,8 +1,10 @@
 import { List } from 'immutable';
 
 import React, { FC, PropsWithChildren, createContext, useMemo } from 'react';
+
 import { AppData } from '@graasp/apps-query-client';
 import { Loader } from '@graasp/ui';
+
 import { MUTATION_KEYS, hooks, useMutation } from '../../config/queryClient';
 import {
   DeleteAppDataType,

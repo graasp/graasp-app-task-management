@@ -1,23 +1,26 @@
-/* eslint-disable no-unused-vars */
+import { List } from 'immutable';
+
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { styled } from '@mui/material/styles';
-import Avatar from '@mui/material/Avatar';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardActions from '@mui/material/CardActions';
-import Typography from '@mui/material/Typography';
-import IconButton from '@mui/material/IconButton';
+
 import DeleteIcon from '@mui/icons-material/Delete';
-import AvatarGroup from '@mui/material/AvatarGroup';
-import CardHeader from '@mui/material/CardHeader';
 import EditIcon from '@mui/icons-material/Edit';
-import { List } from 'immutable';
-import { CSS } from '@dnd-kit/utilities';
+import Avatar from '@mui/material/Avatar';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardHeader from '@mui/material/CardHeader';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { styled } from '@mui/material/styles';
+
 import { useDraggable } from '@dnd-kit/core';
-import TaskEditDialog from './TaskEditDialog';
+import { CSS } from '@dnd-kit/utilities';
+
 import { ExistingTaskType } from '../../config/appDataTypes';
 import { Member } from '../../types/member';
+import TaskEditDialog from './TaskEditDialog';
 
 const TaskCard = styled(Card)(() => ({
   width: '100%',
@@ -39,7 +42,6 @@ const Task = (props: TaskProps): JSX.Element => {
 
   const { title, members, description } = data;
 
-  // const { isEditingTitle, setIsEditingTitle } = useContext(AppContext);
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const handleDialogClose = (): void => {
@@ -75,7 +77,8 @@ const Task = (props: TaskProps): JSX.Element => {
     membersList.find((memberInList) => m === memberInList.id)?.color;
 
   const getMemberName = (m: string): string =>
-    membersList.find((memberInList) => m === memberInList.id)?.name || '?';
+    membersList.find((memberInList) => m === memberInList.id)?.name ||
+    t('Unknown');
 
   const { attributes, listeners, setNodeRef, transform, isDragging } =
     useDraggable({

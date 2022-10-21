@@ -1,16 +1,20 @@
-import React, { useContext, FC, ReactElement, useEffect } from 'react';
-import '../index.css';
 import { RecordOf } from 'immutable';
-import { useTheme } from '@mui/material/styles';
+
+import React, { FC, ReactElement, useContext, useEffect } from 'react';
+
 import { Context, LocalContext } from '@graasp/apps-query-client';
-import { DEFAULT_PERMISSION, PERMISSION_LEVELS } from '../config/settings';
-import TasksManager from './views/TasksManager';
-import { MembersProvider } from './context/MembersContext';
-import { AppDataProvider } from './context/AppDataContext';
-import { AppSettingProvider } from './context/AppSettingContext';
-import Settings from './main/Settings';
+
+import { useTheme } from '@mui/material/styles';
+
 import { DEFAULT_CONTEXT_LANGUAGE } from '../config/appSettings';
 import i18n from '../config/i18n';
+import { DEFAULT_PERMISSION, PERMISSION_LEVELS } from '../config/settings';
+import '../index.css';
+import { AppDataProvider } from './context/AppDataContext';
+import { AppSettingProvider } from './context/AppSettingContext';
+import { MembersProvider } from './context/MembersContext';
+import Settings from './main/Settings';
+import TasksManager from './views/TasksManager';
 
 const App: FC = () => {
   // context describes the item context, i.e. has the item id, current member id (memberId),

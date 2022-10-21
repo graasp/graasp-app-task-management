@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import TextField from '@mui/material/TextField';
+
 import { Container } from '@mui/material';
-import { DEFAULT_TASK, DEFAULT_TASK_DATA } from '../../config/constants';
+import TextField from '@mui/material/TextField';
+
 import { TaskType } from '../../config/appDataTypes';
+import { DEFAULT_TASK, DEFAULT_TASK_DATA } from '../../config/constants';
 
 type AddTaskProps = {
   addTask: (task: TaskType) => void;

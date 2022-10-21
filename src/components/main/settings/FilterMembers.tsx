@@ -1,14 +1,18 @@
 /* eslint-disable react/prop-types */
+import { List } from 'immutable';
+
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { List } from 'immutable';
+
 import { AppSetting, Member } from '@graasp/apps-query-client';
+
 import { Autocomplete, Checkbox, TextField } from '@mui/material';
+
+import { APP_SETTINGS_TYPES } from '../../../config/appSettingTypes';
 import {
   PatchAppSettingType,
   PostAppSettingType,
 } from '../../../types/appSettings';
-import { APP_SETTINGS_TYPES } from '../../../config/appSettingTypes';
 
 interface FilterMembersProps {
   members: List<Member>;

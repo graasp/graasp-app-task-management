@@ -1,4 +1,5 @@
 import { AppData } from '@graasp/apps-query-client';
+
 import { PostAppDataType } from '../types/appData';
 
 enum APP_DATA_TYPES {

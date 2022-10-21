@@ -1,7 +1,9 @@
+import { List } from 'immutable';
+
 import React, { FC, PropsWithChildren, createContext, useMemo } from 'react';
+
 import { AppSetting } from '@graasp/apps-query-client';
 import { Loader } from '@graasp/ui';
-import { List } from 'immutable';
 
 import { MUTATION_KEYS, hooks, useMutation } from '../../config/queryClient';
 import {

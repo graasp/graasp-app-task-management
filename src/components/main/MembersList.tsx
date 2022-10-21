@@ -1,16 +1,19 @@
 /* eslint-disable react/prop-types */
-import React from 'react';
 import { t } from 'i18next';
+import { List as ImList } from 'immutable';
+
+import React from 'react';
+
 import {
-  Paper,
-  Typography,
   Avatar,
+  List,
   ListItem,
   ListItemAvatar,
   ListItemText,
-  List,
+  Paper,
+  Typography,
 } from '@mui/material';
-import { List as ImList } from 'immutable';
+
 import { Member } from '../../types/member';
 
 type MembersListProps = {

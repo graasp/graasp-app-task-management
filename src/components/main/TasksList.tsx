@@ -1,16 +1,19 @@
 /* eslint-disable arrow-body-style */
+import { List } from 'immutable';
 
 import React from 'react';
-import Paper from '@mui/material/Paper';
+
 import Badge from '@mui/material/Badge';
-import Typography from '@mui/material/Typography';
+import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
-import { List } from 'immutable';
+import Typography from '@mui/material/Typography';
+
 import { useDroppable } from '@dnd-kit/core';
-import AddTask from './AddTask';
-import Task from './Task';
+
 import { ExistingTaskType, TaskType } from '../../config/appDataTypes';
 import { Member } from '../../types/member';
+import AddTask from './AddTask';
+import Task from './Task';
 import TaskSkeleton from './TaskSkeleton';
 
 type TasksListProps = {

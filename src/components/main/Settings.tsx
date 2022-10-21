@@ -1,20 +1,24 @@
+import { List } from 'immutable';
+
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import Dialog from '@mui/material/Dialog';
+
+import { Member } from '@graasp/apps-query-client';
+
+import SettingsIcon from '@mui/icons-material/Settings';
 import {
-  DialogTitle,
-  DialogContent,
   DialogActions,
+  DialogContent,
+  DialogTitle,
   Stack,
 } from '@mui/material';
-import Fab from '@mui/material/Fab';
-import SettingsIcon from '@mui/icons-material/Settings';
 import Button from '@mui/material/Button';
-import { Member } from '@graasp/apps-query-client';
-import { List } from 'immutable';
-import FilterMembers from './settings/FilterMembers';
-import { useMembersContext } from '../context/MembersContext';
+import Dialog from '@mui/material/Dialog';
+import Fab from '@mui/material/Fab';
+
 import { useAppSettingContext } from '../context/AppSettingContext';
+import { useMembersContext } from '../context/MembersContext';
+import FilterMembers from './settings/FilterMembers';
 
 const Settings = (): JSX.Element => {
   const { t } = useTranslation();

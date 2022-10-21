@@ -1,31 +1,35 @@
-import React, { useEffect, useState } from 'react';
-import { Grid } from '@mui/material';
 import { List } from 'immutable';
+
+import React, { useEffect, useState } from 'react';
+
+import { Grid } from '@mui/material';
+
 import {
   DndContext,
   DragEndEvent,
+  KeyboardSensor,
   MouseSensor,
   TouchSensor,
-  KeyboardSensor,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
-import TasksList from '../main/TasksList';
-import MembersList from '../main/MembersList';
+
+import { APP_ACTION_TYPES } from '../../config/appActionTypes';
 import {
   APP_DATA_TYPES,
   ExistingTaskType,
   TaskType,
 } from '../../config/appDataTypes';
-import { useAppDataContext } from '../context/AppDataContext';
-import { useAppActionContext } from '../context/AppActionContext';
-import { useMembersContext } from '../context/MembersContext';
 import { COLORS, TASK_LABELS } from '../../config/constants';
-import { APP_ACTION_TYPES } from '../../config/appActionTypes';
 import {
   mouseActivationConstraint,
   touchActivationConstraint,
 } from '../../config/dndActivationConstraints';
+import { useAppActionContext } from '../context/AppActionContext';
+import { useAppDataContext } from '../context/AppDataContext';
+import { useMembersContext } from '../context/MembersContext';
+import MembersList from '../main/MembersList';
+import TasksList from '../main/TasksList';
 
 const TasksManager = (): JSX.Element => {
   // get the appData array and a callback to post new appData
