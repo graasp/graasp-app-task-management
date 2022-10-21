@@ -1,8 +1,10 @@
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { v4 } from 'uuid';
 
 import type { Database, LocalContext, Member } from '@graasp/apps-query-client';
 import { Context, PermissionLevel } from '@graasp/sdk';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { APP_DATA_TYPES } from '../config/appDataTypes';
 import { REACT_APP_API_HOST } from '../config/env';
 
@@ -33,32 +35,7 @@ const buildDatabase = (
   appContext: Partial<LocalContext>,
   members?: Member[],
 ): Database => ({
-  appData: [
-    {
-      id: v4(),
-      data: {
-        content: '',
-      },
-      memberId: mockMembers[1].id,
-      type: APP_DATA_TYPES.TASK,
-      itemId: appContext.itemId || '',
-      creator: mockMembers[1].id,
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-    },
-    {
-      id: v4(),
-      data: {
-        content: 'Another AppData',
-      },
-      memberId: mockMembers[0].id,
-      type: APP_DATA_TYPES.TASK,
-      itemId: appContext.itemId || '',
-      creator: mockMembers[1].id,
-      createdAt: new Date(Date.now() - 1500).toISOString(),
-      updatedAt: new Date(Date.now() - 1500).toISOString(),
-    },
-  ],
+  appData: [],
   appActions: [],
   members: members ?? mockMembers,
   appSettings: [],
