@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import { List } from 'immutable';
 
 import React, { useEffect, useState } from 'react';

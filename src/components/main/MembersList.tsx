@@ -1,8 +1,7 @@
-/* eslint-disable react/prop-types */
-import { t } from 'i18next';
 import { List as ImList } from 'immutable';
 
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import {
   Avatar,
@@ -21,6 +20,7 @@ type MembersListProps = {
 };
 
 const MembersList = (props: MembersListProps): JSX.Element => {
+  const { t } = useTranslation();
   const { members } = props;
   const onDragStart = (ev: React.DragEvent, member: string): void => {
     ev.dataTransfer.setData('member', member);

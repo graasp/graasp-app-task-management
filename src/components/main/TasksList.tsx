@@ -1,4 +1,3 @@
-/* eslint-disable arrow-body-style */
 import { List } from 'immutable';
 
 import React from 'react';
@@ -48,7 +47,7 @@ const TasksList = (props: TasksListProps): JSX.Element => {
     let isTaskHere = false;
     if (active) {
       isTaskHere =
-        tasks.find((t) => t.data.id === active.id)?.data.label === label;
+        tasks.find((t) => t.data.id === active.id)?.data?.label === label;
     }
     return isOver && !isTaskHere;
   };
