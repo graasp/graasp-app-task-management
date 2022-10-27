@@ -7,7 +7,10 @@ import { AppSetting, Member } from '@graasp/apps-query-client';
 
 import { Autocomplete, Checkbox, TextField, Typography } from '@mui/material';
 
-import { APP_SETTINGS_TYPES } from '../../../config/appSettingTypes';
+import {
+  APP_SETTINGS_TYPES,
+  FilteredMembersSettingType,
+} from '../../../config/appSettingTypes';
 import {
   PatchAppSettingType,
   PostAppSettingType,
@@ -19,12 +22,6 @@ interface FilterMembersProps {
   postAppSetting: (s: PostAppSettingType) => void;
   patchAppSetting: (s: PatchAppSettingType) => void;
 }
-
-type FilteredMembersSettingType = AppSetting & {
-  data: {
-    filteredMembers: Array<string>;
-  };
-};
 
 const FilterMembers = (fcProps: FilterMembersProps): JSX.Element => {
   const { t } = useTranslation();
