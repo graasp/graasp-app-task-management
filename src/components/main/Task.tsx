@@ -61,7 +61,6 @@ const Task = (props: TaskProps): JSX.Element => {
   };
 
   const editTask = (event: React.MouseEvent<HTMLButtonElement>): void => {
-    console.log('BORDEL !');
     event.stopPropagation();
     setDialogOpen(true);
   };

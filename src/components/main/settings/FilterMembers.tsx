@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 
 import { AppSetting, Member } from '@graasp/apps-query-client';
 
-import { Autocomplete, Checkbox, TextField } from '@mui/material';
+import { Autocomplete, Checkbox, TextField, Typography } from '@mui/material';
 
 import { APP_SETTINGS_TYPES } from '../../../config/appSettingTypes';
 import {
@@ -71,26 +71,30 @@ const FilterMembers = (fcProps: FilterMembersProps): JSX.Element => {
   const membersList = members.toArray();
 
   return (
-    <Autocomplete
-      multiple
-      fullWidth
-      id="tags-outlined"
-      options={membersList}
-      getOptionLabel={(option) => option.name}
-      filterSelectedOptions
-      disableCloseOnSelect
-      renderOption={(props, option: Member, { selected }) => (
-        <li {...props}>
-          <Checkbox style={{ marginRight: 8 }} checked={selected} />
-          {option.name}
-        </li>
-      )}
-      renderInput={(params) => (
-        <TextField {...params} label={t('Filtered members')} />
-      )}
-      value={filteredMembers}
-      onChange={handleInputChange}
-    />
+    <>
+      <Autocomplete
+        multiple
+        fullWidth
+        options={membersList}
+        getOptionLabel={(option) => option.name}
+        filterSelectedOptions
+        disableCloseOnSelect
+        renderOption={(props, option: Member, { selected }) => (
+          <li {...props}>
+            <Checkbox style={{ marginRight: 8 }} checked={selected} />
+            {option.name}
+          </li>
+        )}
+        renderInput={(params) => (
+          <TextField {...params} label={t('Filtered members')} />
+        )}
+        value={filteredMembers}
+        onChange={handleInputChange}
+      />
+      <Typography variant="caption">
+        {t('Select the members that you want to remove from the list.')}
+      </Typography>
+    </>
   );
 };
 
