@@ -60,7 +60,8 @@ const Task = (props: TaskProps): JSX.Element => {
     setDialogOpen(false);
   };
 
-  const editTask = (): void => {
+  const editTask = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    event.stopPropagation();
     setDialogOpen(true);
   };
 
@@ -81,8 +82,11 @@ const Task = (props: TaskProps): JSX.Element => {
   };
 
   const onDrop = (ev: React.DragEvent): void => {
+    console.log('BORDEL !!!');
     const member = ev.dataTransfer.getData('member');
-    addMembers(member);
+    if (!members.includes(member)) {
+      addMembers(member);
+    }
   };
 
   const getMemberColor = (m: string): string | undefined =>
