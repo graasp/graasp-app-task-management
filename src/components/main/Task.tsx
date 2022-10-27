@@ -61,6 +61,7 @@ const Task = (props: TaskProps): JSX.Element => {
   };
 
   const editTask = (event: React.MouseEvent<HTMLButtonElement>): void => {
+    console.log('BORDEL !');
     event.stopPropagation();
     setDialogOpen(true);
   };
@@ -82,7 +83,6 @@ const Task = (props: TaskProps): JSX.Element => {
   };
 
   const onDrop = (ev: React.DragEvent): void => {
-    console.log('BORDEL !!!');
     const member = ev.dataTransfer.getData('member');
     if (!members.includes(member)) {
       addMembers(member);
@@ -126,7 +126,7 @@ const Task = (props: TaskProps): JSX.Element => {
       >
         <CardHeader
           avatar={
-            <AvatarGroup max={4}>
+            <AvatarGroup max={3}>
               {members.map((member) => (
                 <Avatar
                   key={member}

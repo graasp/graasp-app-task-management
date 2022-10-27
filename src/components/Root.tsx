@@ -55,7 +55,6 @@ const theme = createTheme({
   typography: {
     h2: {
       fontSize: '2rem',
-      fontWeight: 'bold',
     },
     h3: {
       fontSize: '1.8rem',
