@@ -6,6 +6,7 @@ import Badge from '@mui/material/Badge';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
+import grey from '@mui/material/colors/grey';
 
 import { useDroppable } from '@dnd-kit/core';
 
@@ -53,9 +54,9 @@ const TasksList = (props: TasksListProps): JSX.Element => {
   };
 
   return (
-    <Paper sx={{ p: 1, pt: 2 }}>
+    <Paper sx={{ p: 1, pt: 2, backgroundColor: grey['100'] }}>
       <Stack key={label} alignItems="center">
-        <Badge badgeContent={tasks.size} color="primary">
+        <Badge badgeContent={tasks.size} color="secondary">
           <Typography variant="h2">{title}</Typography>
         </Badge>
 

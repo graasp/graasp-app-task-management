@@ -21,6 +21,10 @@ import {
   ExistingTaskType,
   TaskType,
 } from '../../config/appDataTypes';
+import {
+  APP_SETTINGS_TYPES,
+  FilteredMembersSettingType,
+} from '../../config/appSettingTypes';
 import { COLORS, TASK_LABELS } from '../../config/constants';
 import {
   mouseActivationConstraint,
@@ -28,6 +32,7 @@ import {
 } from '../../config/dndActivationConstraints';
 import { useAppActionContext } from '../context/AppActionContext';
 import { useAppDataContext } from '../context/AppDataContext';
+import { useAppSettingContext } from '../context/AppSettingContext';
 import { useMembersContext } from '../context/MembersContext';
 import MembersList from '../main/MembersList';
 import TasksList from '../main/TasksList';
@@ -40,13 +45,25 @@ const TasksManager = (): JSX.Element => {
 
   const { postAppAction } = useAppActionContext();
 
+  const { appSettingArray } = useAppSettingContext();
+
+  const filteredMembersSetting = appSettingArray.find(
+    ({ name }) => name === APP_SETTINGS_TYPES.FILTERED_MEMBERS,
+  ) as FilteredMembersSettingType;
+
+  const { filteredMembers } = filteredMembersSetting.data || {
+    filteredMembers: [],
+  };
+
   const [tasks, setTasks] = useState<List<ExistingTaskType>>(List());
 
   // get the members having access to the space
-  const members = useMembersContext().map((member, index) => ({
-    ...member,
-    color: COLORS[index],
-  }));
+  const members = useMembersContext()
+    .filter(({ id }) => !filteredMembers.includes(id))
+    .map((member, index) => ({
+      ...member,
+      color: COLORS[index],
+    }));
 
   useEffect(() => {
     const newTasks = appDataArray.filter(

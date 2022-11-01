@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
 import { withContext, withToken } from '@graasp/apps-query-client';
+import { theme as graaspTheme } from '@graasp/ui';
 
 import { CssBaseline, ThemeProvider, createTheme, styled } from '@mui/material';
 import { grey, orange, pink } from '@mui/material/colors';
@@ -43,14 +44,20 @@ declare module '@mui/material/styles' {
 }
 
 const theme = createTheme({
+  ...graaspTheme,
   palette: {
-    primary: {
-      main: '#5050d2',
-    },
     secondary: pink,
     default: grey['500'],
     background: {
       paper: '#fff',
+    },
+  },
+  typography: {
+    h2: {
+      fontSize: '2rem',
+    },
+    h3: {
+      fontSize: '1.8rem',
     },
   },
   status: {

@@ -59,10 +59,10 @@ const Settings = (): JSX.Element => {
         >
           <SettingsIcon />
         </Fab>
-        <Dialog open={modalOpen} onClose={handleModalClose}>
+        <Dialog fullWidth open={modalOpen} onClose={handleModalClose}>
           <DialogTitle>{t('Settings')}</DialogTitle>
 
-          <DialogContent>
+          <DialogContent dividers>
             <Stack>
               <FilterMembers
                 members={members}
