@@ -13,6 +13,7 @@ import {
   Typography,
 } from '@mui/material';
 
+import { MEMBERS_LIST_CARD_CY } from '../../config/selectors';
 import { Member } from '../../types/member';
 
 type MembersListProps = {
@@ -27,8 +28,12 @@ const MembersList = (props: MembersListProps): JSX.Element => {
   };
 
   return (
-    <Paper variant="outlined" sx={{ p: 1, pt: 2 }}>
-      <Typography variant="h2">{t('Members') as string}</Typography>
+    <Paper
+      data-cy={MEMBERS_LIST_CARD_CY}
+      variant="outlined"
+      sx={{ p: 1, pt: 2 }}
+    >
+      <Typography variant="h2">{t('Members')}</Typography>
       <List>
         {members.map((member) => (
           <ListItem
