@@ -19,7 +19,7 @@ jobs:
     with:
       tsc: true
       # Test values
-      enable-mock-api-test: true
+      enable-mock-api-test: "true"
       node-env-test: test
     # Insert required secrets based on repository with the following format: ${{ secrets.SECRET_NAME }}
     secrets:
