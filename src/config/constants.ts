@@ -1,6 +1,5 @@
 import { APP_DATA_VISIBILITY } from '../types/appData';
 import { APP_DATA_TYPES, TaskDataType, TaskType } from './appDataTypes';
-import { REACT_APP_MOCK_API } from './env';
 
 export const APP_NAME = 'Graasp';
 
@@ -14,8 +13,6 @@ export const NODE_ENV =
 
 export const DEFAULT_LOCALE = 'en-US';
 export const DEFAULT_LANG = 'en';
-
-export const MOCK_API = REACT_APP_MOCK_API === 'true';
 
 // strings used in components/custom/CustomTooltip to generate added tooltip text in ActionsByTimeOfDay
 export const LATE_NIGHT = 'Late night';
