@@ -1,3 +1,19 @@
 {
-    "translations": {}
+  "translations": {
+    "Members": "Membres",
+    "Description": "Description",
+    "Title": "Titre",
+    "To Do": "À faire",
+    "Completed": "Terminé",
+    "Save task": "Enregistrer la tâche",
+    "Edit task": "Éditer la tâche",
+    "Delete task": "Supprimer la tâche",
+    "Unknown": "Inconnu",
+    "Select the members that you want to remove from the list.": "Sélectionnez les membres que vous souhaitez enlever de la liste.",
+    "Filtered members": "Membres filtrés",
+    "Close": "Fermer",
+    "Settings": "Paramètres",
+    "New task": "Nouvelle tâche",
+    "In Progress": "En cours"
   }
+}

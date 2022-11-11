@@ -51,7 +51,7 @@ const TasksManager = (): JSX.Element => {
     ({ name }) => name === APP_SETTINGS_TYPES.FILTERED_MEMBERS,
   ) as FilteredMembersSettingType;
 
-  const { filteredMembers } = filteredMembersSetting.data || {
+  const { filteredMembers } = filteredMembersSetting?.data || {
     filteredMembers: [],
   };
 

@@ -9,6 +9,7 @@ import { useTheme } from '@mui/material/styles';
 
 import { DEFAULT_CONTEXT_LANGUAGE } from '../config/appSettings';
 import i18n from '../config/i18n';
+import { MAIN_CONTAINER_CY } from '../config/selectors';
 import { DEFAULT_PERMISSION } from '../config/settings';
 import '../index.css';
 import { AppDataProvider } from './context/AppDataContext';
@@ -37,7 +38,7 @@ const App: FC = () => {
   }, [context]);
 
   const renderContent = (): ReactElement => (
-    <div className="row">
+    <div className="row" data-cy={MAIN_CONTAINER_CY}>
       <div className="App" style={{ paddingLeft: theme.spacing(1) }}>
         <TasksManager />
       </div>
