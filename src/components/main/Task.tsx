@@ -122,6 +122,9 @@ const Task = (props: TaskProps): JSX.Element => {
         onDrop={(e) => onDrop(e)}
         raised={isDragging}
         key={key}
+        onClick={(event) => {
+          event.stopPropagation();
+        }}
       >
         <CardHeader
           avatar={
