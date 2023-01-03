@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+  width: 100%;
+}
 
 body {
   margin: 0;
@@ -6,6 +10,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  height: 100%;
+  width: 100%;
 }
 
 code {
@@ -22,3 +28,7 @@ input:focus {
   outline: none;
 }
 
+#root {
+  height: 100%;
+  width: 100%;
+}

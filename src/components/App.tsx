@@ -12,6 +12,7 @@ import i18n from '../config/i18n';
 import { MAIN_CONTAINER_CY } from '../config/selectors';
 import { DEFAULT_PERMISSION } from '../config/settings';
 import '../index.css';
+import FullDiv from './common/FullDiv';
 import { AppDataProvider } from './context/AppDataContext';
 import { AppSettingProvider } from './context/AppSettingContext';
 import { MembersProvider } from './context/MembersContext';
@@ -38,15 +39,15 @@ const App: FC = () => {
   }, [context]);
 
   const renderContent = (): ReactElement => (
-    <div className="row" data-cy={MAIN_CONTAINER_CY}>
-      <div className="App" style={{ paddingLeft: theme.spacing(1) }}>
+    <FullDiv data-cy={MAIN_CONTAINER_CY}>
+      <FullDiv className="App" style={{ paddingLeft: theme.spacing(1) }}>
         <TasksManager />
-      </div>
+      </FullDiv>
 
       {[PermissionLevel.Write, PermissionLevel.Admin].includes(
         permissionLevel,
       ) && <Settings />}
-    </div>
+    </FullDiv>
   );
 
   return (

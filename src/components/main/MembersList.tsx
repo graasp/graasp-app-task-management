@@ -31,7 +31,7 @@ const MembersList = (props: MembersListProps): JSX.Element => {
     <Paper
       data-cy={MEMBERS_LIST_CARD_CY}
       variant="outlined"
-      sx={{ p: 1, pt: 2 }}
+      sx={{ p: 1, pt: 2, height: '100%' }}
     >
       <Typography variant="h2">{t('Members')}</Typography>
       <List>
