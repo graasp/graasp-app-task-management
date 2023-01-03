@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import { List } from 'immutable';
+
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { Member } from '@graasp/apps-query-client';
+import { Button } from '@graasp/ui';
+
+import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
+import Checkbox from '@mui/material/Checkbox';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
@@ -11,6 +17,7 @@ import FormControl from '@mui/material/FormControl';
 import Input from '@mui/material/Input';
 import InputLabel from '@mui/material/InputLabel';
 import Stack from '@mui/material/Stack';
+import TextField from '@mui/material/TextField';
 
 import { ExistingTaskType } from '../../config/appDataTypes';
 
@@ -19,14 +26,24 @@ type TaskEditDialogProps = {
   updateTask: (t: ExistingTaskType) => void;
   open: boolean;
   onClose: () => void;
+  members: List<Member>;
 };
 
-const TaskEditDialog = (props: TaskEditDialogProps): JSX.Element => {
+const TaskEditDialog: FC<TaskEditDialogProps> = ({
+  task: inputTask,
+  updateTask,
+  open,
+  onClose,
+  members,
+}) => {
   const { t } = useTranslation();
-
-  const { task: inputTask, updateTask, open, onClose } = props;
+  const membersList = members.toArray();
 
   const [task, setTask] = useState(inputTask);
+
+  const { members: taskMembers } = task.data;
+
+  const tM = membersList.filter(({ id }) => taskMembers.includes(id));
 
   useEffect(() => {
     if (!open) {
@@ -45,6 +62,20 @@ const TaskEditDialog = (props: TaskEditDialogProps): JSX.Element => {
         },
       });
     };
+
+  const handleMemberChange = (
+    _event: React.SyntheticEvent<Element, Event>,
+    newMembers: Member[],
+  ): void => {
+    const membersIds = newMembers.map((m) => m.id);
+    setTask({
+      ...task,
+      data: {
+        ...task.data,
+        members: membersIds,
+      },
+    });
+  };
 
   const handleClose = (): void => {
     updateTask({
@@ -81,6 +112,25 @@ const TaskEditDialog = (props: TaskEditDialogProps): JSX.Element => {
                 multiline
               />
             </FormControl>
+            <Autocomplete
+              multiple
+              fullWidth
+              options={membersList}
+              getOptionLabel={(option) => option.name}
+              filterSelectedOptions
+              disableCloseOnSelect
+              renderOption={(props, option: Member, { selected }) => (
+                <li {...props}>
+                  <Checkbox style={{ marginRight: 8 }} checked={selected} />
+                  {option.name}
+                </li>
+              )}
+              renderInput={(params) => (
+                <TextField {...params} label={t('Assigned members')} />
+              )}
+              value={tM}
+              onChange={handleMemberChange}
+            />
           </Stack>
         </Box>
       </DialogContent>
