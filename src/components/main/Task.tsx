@@ -139,12 +139,15 @@ const Task: FC<TaskProps> = ({
       </CardContent>
       <CardActions>
         <IconButton
-          aria-label={t('Delete task')}
+          aria-label={t('Delete task') || 'Delete task'}
           onClick={() => deleteTask(id)}
         >
           <DeleteIcon />
         </IconButton>
-        <IconButton aria-label={t('Edit task')} onClick={editTask}>
+        <IconButton
+          aria-label={t('Edit task') || 'Edit task'}
+          onClick={editTask}
+        >
           <EditIcon />
         </IconButton>
       </CardActions>
@@ -166,10 +169,6 @@ const Task: FC<TaskProps> = ({
     disabled: dialogOpen,
   });
 
-  // const transformation: React.CSSProperties = {
-  //   transform: CSS.Translate.toString(transform),
-  // };
-
   if (isOverlay) {
     return renderTask(true);
   }
@@ -177,7 +176,6 @@ const Task: FC<TaskProps> = ({
     <Draggable
       type="button"
       ref={setNodeRef}
-      // style={transformation}
       {...listeners}
       {...attributes}
       disabled={dialogOpen}
