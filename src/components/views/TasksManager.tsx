@@ -1,13 +1,17 @@
-import { List } from 'immutable';
+import { List, Map } from 'immutable';
 
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TransitionGroup } from 'react-transition-group';
 
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Slide from '@mui/material/Slide';
 
 import {
   DndContext,
   DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
@@ -36,9 +40,11 @@ import { useAppDataContext } from '../context/AppDataContext';
 import { useAppSettingContext } from '../context/AppSettingContext';
 import { useMembersContext } from '../context/MembersContext';
 import MembersList from '../main/MembersList';
+import Task from '../main/Task';
 import TasksList from '../main/TasksList';
+import TasksListMinimized from '../main/TasksListMinimized';
 
-const TasksManager = (): JSX.Element => {
+const TasksManager: FC = () => {
   const { t } = useTranslation();
   // get the appData array and a callback to post new appData
   const { postAppData, patchAppData, deleteAppData, appDataArray } =
@@ -47,6 +53,16 @@ const TasksManager = (): JSX.Element => {
   const { postAppAction } = useAppActionContext();
 
   const { appSettingArray } = useAppSettingContext();
+
+  const [hiddenLists, setHiddenLists] = useState<Map<string, boolean>>(
+    Map([
+      [TASK_LABELS.TODO, false],
+      [TASK_LABELS.IN_PROGRESS, false],
+      [TASK_LABELS.COMPLETED, false],
+    ]),
+  );
+
+  const [activeTask, setActiveTask] = useState<ExistingTaskType | null>(null);
 
   const filteredMembersSetting = appSettingArray.find(
     ({ name }) => name === APP_SETTINGS_TYPES.FILTERED_MEMBERS,
@@ -138,8 +154,12 @@ const TasksManager = (): JSX.Element => {
         updateTask(newTask);
       }
     }
+    setActiveTask(null);
   };
 
+  const handleDragStart = (event: DragStartEvent): void => {
+    setActiveTask(tasks.find((ta) => ta.id === event.active.id) ?? null);
+  };
   const renderTasksList = (
     title: string,
     label: string,
@@ -147,35 +167,109 @@ const TasksManager = (): JSX.Element => {
   ): JSX.Element => {
     // eslint-disable-next-line react/destructuring-assignment
     const tasksArray = tasks.filter(({ data }) => data.label === label);
+    const isHidden = hiddenLists.get(label) ?? false;
+
+    const handleHide = (): void => {
+      setHiddenLists(hiddenLists.set(label, true));
+    };
 
     return (
-      <Grid item sm={12} md={4} height="100%">
-        <TasksList
+      <Slide
+        direction="up"
+        in={!isHidden}
+        mountOnEnter
+        unmountOnExit
+        style={{ height: 'auto' }}
+      >
+        <Grid item sm={12} md={4} height="100%">
+          <TasksList
+            title={title}
+            label={label}
+            tasks={tasksArray}
+            addComponent={add}
+            addTask={addTask}
+            updateTask={updateTask}
+            deleteTask={deleteTask}
+            members={members}
+            onHide={handleHide}
+          />
+        </Grid>
+      </Slide>
+    );
+  };
+
+  const renderTasksListMinimized = (
+    title: string,
+    label: string,
+  ): JSX.Element => {
+    // eslint-disable-next-line react/destructuring-assignment
+    const tasksArray = tasks.filter(({ data }) => data.label === label);
+    const isHidden = hiddenLists.get(label) ?? false;
+
+    const handleShow = (): void => {
+      setHiddenLists(hiddenLists.set(label, false));
+    };
+
+    return (
+      <Slide
+        direction="up"
+        in={isHidden}
+        mountOnEnter
+        unmountOnExit
+        style={{ height: 'auto' }}
+      >
+        <TasksListMinimized
           title={title}
-          label={label}
           tasks={tasksArray}
-          addComponent={add}
-          addTask={addTask}
-          updateTask={updateTask}
-          deleteTask={deleteTask}
-          members={members}
+          onShow={handleShow}
         />
-      </Grid>
+      </Slide>
     );
   };
 
   return (
-    <Grid container spacing={4} height="100%">
+    <Grid
+      container
+      spacing={4}
+      maxHeight="100vh"
+      position="relative"
+      zIndex={0}
+    >
       <Grid item sm={12} md={2} height="100%">
         <MembersList members={members} />
+        {renderTasksListMinimized(t('todo'), TASK_LABELS.TODO)}
+        {renderTasksListMinimized(t('in_progress'), TASK_LABELS.IN_PROGRESS)}
+        {renderTasksListMinimized(t('completed'), TASK_LABELS.COMPLETED)}
       </Grid>
       <Grid item sm={12} md={10}>
-        <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-          <Grid container spacing={2} height="100%">
-            {renderTasksList(t('To Do'), TASK_LABELS.TODO, true)}
-            {renderTasksList(t('In Progress'), TASK_LABELS.IN_PROGRESS)}
-            {renderTasksList(t('Completed'), TASK_LABELS.COMPLETED)}
-          </Grid>
+        <DndContext
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          sensors={sensors}
+        >
+          <TransitionGroup>
+            <Grid container spacing={2}>
+              {renderTasksList(t('todo'), TASK_LABELS.TODO, true)}
+              {renderTasksList(t('in_progress'), TASK_LABELS.IN_PROGRESS)}
+              {renderTasksList(t('completed'), TASK_LABELS.COMPLETED)}
+            </Grid>
+          </TransitionGroup>
+          <DragOverlay dropAnimation={null}>
+            {activeTask ? (
+              <Task
+                key={0}
+                task={activeTask}
+                updateTask={(): void => {
+                  throw new Error('Function not implemented.');
+                }}
+                deleteTask={(): void => {
+                  throw new Error('Function not implemented.');
+                }}
+                members={members}
+                isOverlay
+              />
+            ) : null}
+          </DragOverlay>
         </DndContext>
       </Grid>
     </Grid>

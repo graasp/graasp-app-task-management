@@ -16,6 +16,9 @@
     "New task": "New task",
     "In Progress": "In Progress",
     "Assigned members": "Assigned members",
-    "NO_TASKS": "No Tasks {{ title }}"
+    "NO_TASKS": "No Tasks {{ title }}",
+    "todo": "To Do",
+    "in_progress": "In Progress",
+    "completed": "Completed"
   }
 }

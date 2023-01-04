@@ -1,6 +1,6 @@
 import { List } from 'immutable';
 
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -16,7 +16,6 @@ import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
 import { useDraggable } from '@dnd-kit/core';
-import { CSS } from '@dnd-kit/utilities';
 
 import { ExistingTaskType } from '../../config/appDataTypes';
 import { Member } from '../../types/member';
@@ -44,10 +43,17 @@ type TaskProps = {
   deleteTask: (id: string) => void;
   members: List<Member>;
   key: number;
+  isOverlay?: boolean;
 };
 
-const Task = (props: TaskProps): JSX.Element => {
-  const { task, updateTask, deleteTask, members: membersList, key } = props;
+const Task: FC<TaskProps> = ({
+  task,
+  updateTask,
+  deleteTask,
+  members: membersList,
+  key,
+  isOverlay = false,
+}) => {
   const { t } = useTranslation();
 
   const { id, data, type } = task;
@@ -95,78 +101,88 @@ const Task = (props: TaskProps): JSX.Element => {
     membersList.find((memberInList) => m === memberInList.id)?.name ||
     t('Unknown');
 
-  const { attributes, listeners, setNodeRef, transform, isDragging } =
-    useDraggable({
-      id,
-      data: {
-        type,
-      },
-      disabled: dialogOpen,
-    });
+  const renderTask = (isDragging: boolean): JSX.Element => (
+    <TaskCard
+      onDragOver={(e) => onDragOver(e)}
+      onDrop={(e) => onDrop(e)}
+      raised={isDragging}
+      sx={{
+        position: 'relative',
+        zIndex: isDragging ? 2 : 'auto',
+      }}
+      key={key}
+      onClick={(event) => {
+        event.stopPropagation();
+      }}
+    >
+      <CardHeader
+        avatar={
+          <AvatarGroup max={3}>
+            {members.map((member) => (
+              <Avatar
+                key={member}
+                sx={{
+                  bgcolor: `${getMemberColor(member)}`,
+                }}
+                alt={getMemberName(member)}
+              >
+                {getMemberName(member)[0]}
+              </Avatar>
+            ))}
+          </AvatarGroup>
+        }
+        title={title}
+        titleTypographyProps={{ variant: 'h5' }}
+      />
+      <CardContent>
+        <Typography>{description}</Typography>
+      </CardContent>
+      <CardActions>
+        <IconButton
+          aria-label={t('Delete task')}
+          onClick={() => deleteTask(id)}
+        >
+          <DeleteIcon />
+        </IconButton>
+        <IconButton aria-label={t('Edit task')} onClick={editTask}>
+          <EditIcon />
+        </IconButton>
+      </CardActions>
+      <TaskEditDialog
+        task={task}
+        updateTask={updateTask}
+        open={dialogOpen}
+        onClose={handleDialogClose}
+        members={membersList}
+      />
+    </TaskCard>
+  );
 
-  const transformation: React.CSSProperties = {
-    transform: CSS.Translate.toString(transform),
-  };
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id,
+    data: {
+      type,
+    },
+    disabled: dialogOpen,
+  });
 
+  // const transformation: React.CSSProperties = {
+  //   transform: CSS.Translate.toString(transform),
+  // };
+
+  if (isOverlay) {
+    return renderTask(true);
+  }
   return (
     <Draggable
       type="button"
       ref={setNodeRef}
-      style={transformation}
+      // style={transformation}
       {...listeners}
       {...attributes}
       disabled={dialogOpen}
     >
-      <TaskCard
-        onDragOver={(e) => onDragOver(e)}
-        onDrop={(e) => onDrop(e)}
-        raised={isDragging}
-        key={key}
-        onClick={(event) => {
-          event.stopPropagation();
-        }}
-      >
-        <CardHeader
-          avatar={
-            <AvatarGroup max={3}>
-              {members.map((member) => (
-                <Avatar
-                  key={member}
-                  sx={{
-                    bgcolor: `${getMemberColor(member)}`,
-                  }}
-                  alt={getMemberName(member)}
-                >
-                  {getMemberName(member)[0]}
-                </Avatar>
-              ))}
-            </AvatarGroup>
-          }
-          title={title}
-          titleTypographyProps={{ variant: 'h5' }}
-        />
-        <CardContent>
-          <Typography>{description}</Typography>
-        </CardContent>
-        <CardActions>
-          <IconButton
-            aria-label={t('Delete task')}
-            onClick={() => deleteTask(id)}
-          >
-            <DeleteIcon />
-          </IconButton>
-          <IconButton aria-label={t('Edit task')} onClick={editTask}>
-            <EditIcon />
-          </IconButton>
-        </CardActions>
-        <TaskEditDialog
-          task={task}
-          updateTask={updateTask}
-          open={dialogOpen}
-          onClose={handleDialogClose}
-          members={membersList}
-        />
-      </TaskCard>
+      {renderTask(isDragging)}
     </Draggable>
   );
 };

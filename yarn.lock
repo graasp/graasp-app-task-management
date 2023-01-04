@@ -4082,7 +4082,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-transition-group@npm:^4.4.5":
+"@types/react-transition-group@npm:4.4.5, @types/react-transition-group@npm:^4.4.5":
   version: 4.4.5
   resolution: "@types/react-transition-group@npm:4.4.5"
   dependencies:
@@ -17628,6 +17628,7 @@ __metadata:
     "@types/react": 18.0.14
     "@types/react-beautiful-dnd": 13.1.2
     "@types/react-dom": 18.0.5
+    "@types/react-transition-group": 4.4.5
     "@types/uuid": ^8.3.4
     "@typescript-eslint/eslint-plugin": 5.30.0
     "@typescript-eslint/parser": 5.30.0
