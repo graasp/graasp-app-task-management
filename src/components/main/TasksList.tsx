@@ -1,8 +1,12 @@
 import { List } from 'immutable';
 
-import React from 'react';
+import React, { useState } from 'react';
 
+import { Button } from '@graasp/ui';
+
+import UnfoldLessIcon from '@mui/icons-material/UnfoldLess';
 import Badge from '@mui/material/Badge';
+import Collapse from '@mui/material/Collapse';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -43,6 +47,8 @@ const TasksList = (props: TasksListProps): JSX.Element => {
     id: label,
   });
 
+  const [collapsed, setCollapsed] = useState<boolean>(true);
+
   // TODO: Doesn't work. Refactor.
   const showSkeleton = (): boolean => {
     let isTaskHere = false;
@@ -54,31 +60,43 @@ const TasksList = (props: TasksListProps): JSX.Element => {
   };
 
   return (
-    <Paper sx={{ p: 1, pt: 2, backgroundColor: grey['100'], height: '100%' }}>
-      <Stack key={label} alignItems="center">
-        <Badge badgeContent={tasks.size} color="secondary">
-          <Typography variant="h2">{title}</Typography>
-        </Badge>
+    <Collapse orientation="horizontal" in={collapsed}>
+      <Paper sx={{ p: 1, pt: 2, backgroundColor: grey['100'], height: '100%' }}>
+        <Stack key={label} alignItems="center" position="relative">
+          <Badge badgeContent={tasks.size} color="secondary">
+            <Typography variant="h2">{title}</Typography>
+          </Badge>
+          <Button
+            size="small"
+            variant="text"
+            sx={{ position: 'absolute', right: 1, top: 1 }}
+            onClick={() => {
+              setCollapsed(!collapsed);
+            }}
+          >
+            <UnfoldLessIcon />
+          </Button>
 
-        <Stack ref={setNodeRef} spacing={1} sx={{ m: 1, width: '100%' }}>
-          {addComponent && <AddTask addTask={addTask} label={label} />}
-          {showSkeleton() && <TaskSkeleton />}
-          {tasks.size ? (
-            tasks.map((task: ExistingTaskType, key: number) => (
-              <Task
-                key={key}
-                task={task}
-                updateTask={updateTask}
-                deleteTask={deleteTask}
-                members={members}
-              />
-            ))
-          ) : (
-            <Typography variant="subtitle1">No Tasks {title}</Typography>
-          )}
+          <Stack ref={setNodeRef} spacing={1} sx={{ m: 1, width: '100%' }}>
+            {addComponent && <AddTask addTask={addTask} label={label} />}
+            {showSkeleton() && <TaskSkeleton />}
+            {tasks.size ? (
+              tasks.map((task: ExistingTaskType, key: number) => (
+                <Task
+                  key={key}
+                  task={task}
+                  updateTask={updateTask}
+                  deleteTask={deleteTask}
+                  members={members}
+                />
+              ))
+            ) : (
+              <Typography variant="subtitle1">No Tasks {title}</Typography>
+            )}
+          </Stack>
         </Stack>
-      </Stack>
-    </Paper>
+      </Paper>
+    </Collapse>
   );
 };
 
