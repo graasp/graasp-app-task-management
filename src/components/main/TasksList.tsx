@@ -54,7 +54,7 @@ const TasksList = (props: TasksListProps): JSX.Element => {
   };
 
   return (
-    <Paper sx={{ p: 1, pt: 2, backgroundColor: grey['100'] }}>
+    <Paper sx={{ p: 1, pt: 2, backgroundColor: grey['100'], height: '100%' }}>
       <Stack key={label} alignItems="center">
         <Badge badgeContent={tasks.size} color="secondary">
           <Typography variant="h2">{title}</Typography>

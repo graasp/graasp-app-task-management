@@ -148,7 +148,7 @@ const TasksManager = (): JSX.Element => {
     const tasksArray = tasks.filter(({ data }) => data.label === label);
 
     return (
-      <Grid item sm={12} md={4}>
+      <Grid item sm={12} md={4} height="100%">
         <TasksList
           title={title}
           label={label}
@@ -164,13 +164,13 @@ const TasksManager = (): JSX.Element => {
   };
 
   return (
-    <Grid container spacing={4}>
-      <Grid item sm={12} md={2}>
+    <Grid container spacing={4} height="100%">
+      <Grid item sm={12} md={2} height="100%">
         <MembersList members={members} />
       </Grid>
       <Grid item sm={12} md={10}>
         <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-          <Grid container spacing={2}>
+          <Grid container spacing={2} height="100%">
             {renderTasksList(t('To Do'), TASK_LABELS.TODO, true)}
             {renderTasksList(t('In Progress'), TASK_LABELS.IN_PROGRESS)}
             {renderTasksList(t('Completed'), TASK_LABELS.COMPLETED)}

@@ -164,6 +164,7 @@ const Task = (props: TaskProps): JSX.Element => {
           updateTask={updateTask}
           open={dialogOpen}
           onClose={handleDialogClose}
+          members={membersList}
         />
       </TaskCard>
     </Draggable>

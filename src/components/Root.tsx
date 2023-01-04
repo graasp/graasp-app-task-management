@@ -2,9 +2,9 @@ import React, { FC } from 'react';
 import { I18nextProvider } from 'react-i18next';
 
 import { withContext, withToken } from '@graasp/apps-query-client';
-import { theme as graaspTheme } from '@graasp/ui';
+import { PRIMARY_COLOR, theme as graaspTheme } from '@graasp/ui';
 
-import { CssBaseline, ThemeProvider, createTheme, styled } from '@mui/material';
+import { CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { grey, orange, pink } from '@mui/material/colors';
 import { StyledEngineProvider } from '@mui/material/styles';
 
@@ -21,6 +21,7 @@ import {
 } from '../config/queryClient';
 import { showErrorToast } from '../utils/toasts';
 import App from './App';
+import FullDiv from './common/FullDiv';
 import Loader from './common/Loader';
 
 // declare the module to enable theme modification
@@ -46,6 +47,11 @@ declare module '@mui/material/styles' {
 const theme = createTheme({
   ...graaspTheme,
   palette: {
+    primary: {
+      light: '#7373db',
+      main: PRIMARY_COLOR,
+      dark: '#383893',
+    },
     secondary: pink,
     default: grey['500'],
     background: {
@@ -68,11 +74,6 @@ const theme = createTheme({
   },
 });
 
-const RootDiv = styled('div')({
-  flexGrow: 1,
-  height: '100%',
-});
-
 const Root: FC = () => {
   const AppWithContext = withToken(App, {
     LoadingComponent: <Loader />,
@@ -93,7 +94,7 @@ const Root: FC = () => {
       },
   });
   return (
-    <RootDiv>
+    <FullDiv>
       {/* Used to define the order of injected properties between JSS and emotion */}
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={theme}>
@@ -106,7 +107,7 @@ const Root: FC = () => {
           </I18nextProvider>
         </ThemeProvider>
       </StyledEngineProvider>
-    </RootDiv>
+    </FullDiv>
   );
 };
 
