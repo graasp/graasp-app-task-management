@@ -25,11 +25,12 @@ import {
   APP_SETTINGS_TYPES,
   FilteredMembersSettingType,
 } from '../../config/appSettingTypes';
-import { COLORS, TASK_LABELS } from '../../config/constants';
+import { TASK_LABELS } from '../../config/constants';
 import {
   mouseActivationConstraint,
   touchActivationConstraint,
 } from '../../config/dndActivationConstraints';
+import stringToColor from '../../utils/stringToColor';
 import { useAppActionContext } from '../context/AppActionContext';
 import { useAppDataContext } from '../context/AppDataContext';
 import { useAppSettingContext } from '../context/AppSettingContext';
@@ -60,9 +61,9 @@ const TasksManager = (): JSX.Element => {
   // get the members having access to the space
   const members = useMembersContext()
     .filter(({ id }) => !filteredMembers.includes(id))
-    .map((member, index) => ({
+    .map((member) => ({
       ...member,
-      color: COLORS[index],
+      color: stringToColor(member.name),
     }));
 
   useEffect(() => {
