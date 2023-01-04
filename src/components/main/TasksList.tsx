@@ -1,6 +1,7 @@
 import { List } from 'immutable';
 
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import { Button } from '@graasp/ui';
 
@@ -43,6 +44,8 @@ const TasksList = (props: TasksListProps): JSX.Element => {
     members,
   } = props;
 
+  const { t } = useTranslation();
+
   const { setNodeRef, isOver, active } = useDroppable({
     id: label,
   });
@@ -54,7 +57,7 @@ const TasksList = (props: TasksListProps): JSX.Element => {
     let isTaskHere = false;
     if (active) {
       isTaskHere =
-        tasks.find((t) => t.data.id === active.id)?.data?.label === label;
+        tasks.find((ta) => ta.data.id === active.id)?.data?.label === label;
     }
     return isOver && !isTaskHere;
   };
@@ -91,7 +94,9 @@ const TasksList = (props: TasksListProps): JSX.Element => {
                 />
               ))
             ) : (
-              <Typography variant="subtitle1">No Tasks {title}</Typography>
+              <Typography variant="subtitle1">
+                {t('NO_TASKS', { title })}
+              </Typography>
             )}
           </Stack>
         </Stack>

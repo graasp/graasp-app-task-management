@@ -15,6 +15,7 @@
     "Settings": "Settings",
     "New task": "New task",
     "In Progress": "In Progress",
-    "Assigned members": "Assigned members"
+    "Assigned members": "Assigned members",
+    "NO_TASKS": "No Tasks {{ title }}"
   }
 }
