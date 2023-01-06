@@ -135,6 +135,9 @@ const TaskEditDialog: FC<TaskEditDialogProps> = ({
         </Box>
       </DialogContent>
       <DialogActions>
+        <Button variant="text" onClick={onClose} color="secondary">
+          {t('Cancel')}
+        </Button>
         <Button onClick={handleClose}>{t('Save task')}</Button>
       </DialogActions>
     </Dialog>
