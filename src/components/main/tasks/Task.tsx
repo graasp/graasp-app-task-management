@@ -48,7 +48,9 @@ const Task: FC<TaskProps> = ({
 
   const { id, data } = task;
 
-  const { title, members, description } = data;
+  const { title, members: membersIds, description } = data;
+
+  const members = membersList.filter(({ id: mId }) => membersIds.includes(mId));
 
   const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -64,7 +66,7 @@ const Task: FC<TaskProps> = ({
   };
 
   const addMembers = (member: string): void => {
-    const newMembers = [...members, member];
+    const newMembers = [...membersIds, member];
     const newTask = {
       ...task,
       data: {
@@ -81,17 +83,10 @@ const Task: FC<TaskProps> = ({
 
   const onDrop = (ev: React.DragEvent): void => {
     const member = ev.dataTransfer.getData('member');
-    if (!members.includes(member)) {
+    if (!membersIds.includes(member)) {
       addMembers(member);
     }
   };
-
-  const getMemberColor = (m: string): string | undefined =>
-    membersList.find((memberInList) => m === memberInList.id)?.color;
-
-  const getMemberName = (m: string): string =>
-    membersList.find((memberInList) => m === memberInList.id)?.name ||
-    t('Unknown');
 
   return (
     <TaskCard
@@ -112,13 +107,13 @@ const Task: FC<TaskProps> = ({
           <AvatarGroup max={3}>
             {members.map((member) => (
               <Avatar
-                key={member}
+                key={member.id}
                 sx={{
-                  bgcolor: `${getMemberColor(member)}`,
+                  bgcolor: `${member.color}`,
                 }}
-                alt={getMemberName(member)}
+                alt={member.name}
               >
-                {getMemberName(member)[0]}
+                {member.name[0]}
               </Avatar>
             ))}
           </AvatarGroup>
