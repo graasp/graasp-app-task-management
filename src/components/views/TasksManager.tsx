@@ -1,13 +1,17 @@
 import { List } from 'immutable';
 
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { TransitionGroup } from 'react-transition-group';
 
-import { Grid } from '@mui/material';
+import Grid from '@mui/material/Grid';
+import Slide from '@mui/material/Slide';
 
 import {
   DndContext,
   DragEndEvent,
+  DragOverlay,
+  DragStartEvent,
   KeyboardSensor,
   MouseSensor,
   TouchSensor,
@@ -25,19 +29,22 @@ import {
   APP_SETTINGS_TYPES,
   FilteredMembersSettingType,
 } from '../../config/appSettingTypes';
-import { COLORS, TASK_LABELS } from '../../config/constants';
+import { TASK_LABELS } from '../../config/constants';
 import {
   mouseActivationConstraint,
   touchActivationConstraint,
 } from '../../config/dndActivationConstraints';
+import stringToColor from '../../utils/stringToColor';
 import { useAppActionContext } from '../context/AppActionContext';
 import { useAppDataContext } from '../context/AppDataContext';
 import { useAppSettingContext } from '../context/AppSettingContext';
 import { useMembersContext } from '../context/MembersContext';
 import MembersList from '../main/MembersList';
-import TasksList from '../main/TasksList';
+import Task from '../main/tasks/Task';
+import TasksList from '../main/tasks/TasksList';
+import TasksListMinimized from '../main/tasks/TasksListMinimized';
 
-const TasksManager = (): JSX.Element => {
+const TasksManager: FC = () => {
   const { t } = useTranslation();
   // get the appData array and a callback to post new appData
   const { postAppData, patchAppData, deleteAppData, appDataArray } =
@@ -46,6 +53,14 @@ const TasksManager = (): JSX.Element => {
   const { postAppAction } = useAppActionContext();
 
   const { appSettingArray } = useAppSettingContext();
+
+  const [hiddenLists, setHiddenLists] = useState<{ [key: string]: boolean }>({
+    [TASK_LABELS.TODO]: false,
+    [TASK_LABELS.IN_PROGRESS]: false,
+    [TASK_LABELS.COMPLETED]: false,
+  });
+
+  const [activeTask, setActiveTask] = useState<ExistingTaskType | null>(null);
 
   const filteredMembersSetting = appSettingArray.find(
     ({ name }) => name === APP_SETTINGS_TYPES.FILTERED_MEMBERS,
@@ -60,9 +75,9 @@ const TasksManager = (): JSX.Element => {
   // get the members having access to the space
   const members = useMembersContext()
     .filter(({ id }) => !filteredMembers.includes(id))
-    .map((member, index) => ({
+    .map((member) => ({
       ...member,
-      color: COLORS[index],
+      color: stringToColor(member.name),
     }));
 
   useEffect(() => {
@@ -137,6 +152,18 @@ const TasksManager = (): JSX.Element => {
         updateTask(newTask);
       }
     }
+    setActiveTask(null);
+  };
+
+  const handleDragStart = (event: DragStartEvent): void => {
+    setActiveTask(tasks.find((ta) => ta.id === event.active.id) ?? null);
+  };
+
+  const handleHide = (label: string, hide: boolean): void => {
+    setHiddenLists((prevState) => ({
+      ...prevState,
+      [label]: hide,
+    }));
   };
 
   const renderTasksList = (
@@ -144,37 +171,91 @@ const TasksManager = (): JSX.Element => {
     label: string,
     add = false,
   ): JSX.Element => {
-    // eslint-disable-next-line react/destructuring-assignment
     const tasksArray = tasks.filter(({ data }) => data.label === label);
+    const isHidden = hiddenLists[label] ?? false;
 
     return (
-      <Grid item sm={12} md={4} height="100%">
-        <TasksList
+      <Slide
+        direction="up"
+        in={!isHidden}
+        mountOnEnter
+        unmountOnExit
+        style={{ height: 'auto' }}
+      >
+        <Grid item sm={12} md={4} height="100%">
+          <TasksList
+            title={title}
+            label={label}
+            tasks={tasksArray}
+            addComponent={add}
+            addTask={addTask}
+            updateTask={updateTask}
+            deleteTask={deleteTask}
+            members={members}
+            onHide={() => handleHide(label, true)}
+          />
+        </Grid>
+      </Slide>
+    );
+  };
+
+  const renderTasksListMinimized = (
+    title: string,
+    label: string,
+  ): JSX.Element => {
+    // eslint-disable-next-line react/destructuring-assignment
+    const tasksArray = tasks.filter(({ data }) => data.label === label);
+    const isHidden = hiddenLists[label] ?? false;
+
+    return (
+      <Slide
+        direction="up"
+        in={isHidden}
+        mountOnEnter
+        unmountOnExit
+        style={{ height: 'auto' }}
+      >
+        <TasksListMinimized
           title={title}
-          label={label}
           tasks={tasksArray}
-          addComponent={add}
-          addTask={addTask}
-          updateTask={updateTask}
-          deleteTask={deleteTask}
-          members={members}
+          onShow={() => handleHide(label, false)}
         />
-      </Grid>
+      </Slide>
     );
   };
 
   return (
-    <Grid container spacing={4} height="100%">
+    <Grid
+      container
+      spacing={4}
+      maxHeight="100vh"
+      position="relative"
+      zIndex={0}
+    >
       <Grid item sm={12} md={2} height="100%">
         <MembersList members={members} />
+        {renderTasksListMinimized(t('todo'), TASK_LABELS.TODO)}
+        {renderTasksListMinimized(t('in_progress'), TASK_LABELS.IN_PROGRESS)}
+        {renderTasksListMinimized(t('completed'), TASK_LABELS.COMPLETED)}
       </Grid>
       <Grid item sm={12} md={10}>
-        <DndContext onDragEnd={handleDragEnd} sensors={sensors}>
-          <Grid container spacing={2} height="100%">
-            {renderTasksList(t('To Do'), TASK_LABELS.TODO, true)}
-            {renderTasksList(t('In Progress'), TASK_LABELS.IN_PROGRESS)}
-            {renderTasksList(t('Completed'), TASK_LABELS.COMPLETED)}
-          </Grid>
+        <DndContext
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+          sensors={sensors}
+        >
+          <TransitionGroup>
+            <Grid container spacing={2}>
+              {renderTasksList(t('todo'), TASK_LABELS.TODO, true)}
+              {renderTasksList(t('in_progress'), TASK_LABELS.IN_PROGRESS)}
+              {renderTasksList(t('completed'), TASK_LABELS.COMPLETED)}
+            </Grid>
+          </TransitionGroup>
+          <DragOverlay dropAnimation={null}>
+            {activeTask ? (
+              <Task key={0} task={activeTask} members={members} isDragging />
+            ) : null}
+          </DragOverlay>
         </DndContext>
       </Grid>
     </Grid>

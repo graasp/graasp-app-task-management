@@ -15,6 +15,12 @@
     "Settings": "Settings",
     "New task": "New task",
     "In Progress": "In Progress",
-    "Assigned members": "Assigned members"
+    "Assigned members": "Assigned members",
+    "NO_TASKS": "No Tasks {{ title }}",
+    "todo": "To Do",
+    "in_progress": "In Progress",
+    "completed": "Completed",
+    "TASK_CANNOT_BE_UPDATED": "This task cannot be updated.",
+    "TASK_CANNOT_BE_DELETED": "This task cannot be deleted."
   }
 }
