@@ -258,10 +258,10 @@ const TasksManager: FC = () => {
                 key={0}
                 task={activeTask}
                 updateTask={(): void => {
-                  throw new Error('Function not implemented.');
+                  /* Do nothing. */
                 }}
                 deleteTask={(): void => {
-                  throw new Error('Function not implemented.');
+                  /* Do nothing. */
                 }}
                 members={members}
                 isDragging
