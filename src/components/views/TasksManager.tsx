@@ -253,18 +253,7 @@ const TasksManager: FC = () => {
           </TransitionGroup>
           <DragOverlay dropAnimation={null}>
             {activeTask ? (
-              <Task
-                key={0}
-                task={activeTask}
-                updateTask={(): void => {
-                  /* Do nothing. */
-                }}
-                deleteTask={(): void => {
-                  /* Do nothing. */
-                }}
-                members={members}
-                isDragging
-              />
+              <Task key={0} task={activeTask} members={members} isDragging />
             ) : null}
           </DragOverlay>
         </DndContext>

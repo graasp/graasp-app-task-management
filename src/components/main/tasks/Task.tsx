@@ -1,7 +1,8 @@
 import { List } from 'immutable';
 
 import React, { FC, useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { TFunction, withTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -24,9 +25,10 @@ const TaskCard = styled(Card)(() => ({
 }));
 
 type TaskProps = {
+  t: TFunction;
   task: ExistingTaskType;
-  updateTask: (t: ExistingTaskType) => void;
-  deleteTask: (id: string) => void;
+  updateTask?: (t: ExistingTaskType) => void;
+  deleteTask?: (id: string) => void;
   members: List<Member>;
   key: number;
   isDragging?: boolean;
@@ -35,8 +37,21 @@ type TaskProps = {
 
 const Task: FC<TaskProps> = ({
   task,
-  updateTask,
-  deleteTask,
+  t,
+  updateTask = () => {
+    const message = 'TASK_CANNOT_BE_UPDATED';
+    toast.error(t(message), {
+      toastId: message,
+      position: 'bottom-right',
+    });
+  },
+  deleteTask = () => {
+    const message = 'TASK_CANNOT_BE_DELETED';
+    toast.error(t(message), {
+      toastId: message,
+      position: 'bottom-right',
+    });
+  },
   members: membersList,
   key,
   isDragging = false,
@@ -44,8 +59,6 @@ const Task: FC<TaskProps> = ({
     /* Do nothing */
   },
 }) => {
-  const { t } = useTranslation();
-
   const { id, data } = task;
 
   const { title, members: membersIds, description } = data;
@@ -149,4 +162,4 @@ const Task: FC<TaskProps> = ({
   );
 };
 
-export default Task;
+export default withTranslation()(Task);

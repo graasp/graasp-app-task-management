@@ -19,6 +19,8 @@
     "NO_TASKS": "No Tasks {{ title }}",
     "todo": "To Do",
     "in_progress": "In Progress",
-    "completed": "Completed"
+    "completed": "Completed",
+    "TASK_CANNOT_BE_UPDATED": "This task cannot be updated.",
+    "TASK_CANNOT_BE_DELETED": "This task cannot be deleted."
   }
 }
