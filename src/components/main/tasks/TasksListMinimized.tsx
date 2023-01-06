@@ -3,11 +3,10 @@ import { List } from 'immutable';
 import React, { forwardRef } from 'react';
 
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import Badge from '@mui/material/Badge';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 
 import { ExistingTaskType } from '../../../config/appDataTypes';
+import TasksListTitle from './TasksListTitle';
 
 type TasksListMinimizedProps = {
   title: string;
@@ -26,9 +25,7 @@ const TasksListMinimized = forwardRef<
     onClick={onShow}
     sx={{ width: '100%', mt: 2 }}
   >
-    <Badge badgeContent={tasks.size} color="secondary">
-      <Typography variant="h2">{title}</Typography>
-    </Badge>
+    <TasksListTitle title={title} tasksNumber={tasks.size} />
   </Button>
 ));
 

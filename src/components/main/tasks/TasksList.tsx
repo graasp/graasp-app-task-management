@@ -7,7 +7,6 @@ import { Button } from '@graasp/ui';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useTheme } from '@mui/material';
-import Badge from '@mui/material/Badge';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -19,6 +18,7 @@ import { ExistingTaskType, TaskType } from '../../../config/appDataTypes';
 import { Member } from '../../../types/member';
 import AddTask from './AddTask';
 import DraggableTask from './DraggableTask';
+import TasksListTitle from './TasksListTitle';
 
 type TasksListProps = {
   title: string;
@@ -74,9 +74,7 @@ const TasksList: FC<TasksListProps> = ({
       key={label}
     >
       <Stack alignItems="center" position="relative">
-        <Badge badgeContent={tasks.size} color="secondary">
-          <Typography variant="h2">{title}</Typography>
-        </Badge>
+        <TasksListTitle title={title} tasksNumber={tasks.size} />
         <Button
           size="small"
           variant="text"
