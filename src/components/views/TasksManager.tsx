@@ -40,9 +40,9 @@ import { useAppDataContext } from '../context/AppDataContext';
 import { useAppSettingContext } from '../context/AppSettingContext';
 import { useMembersContext } from '../context/MembersContext';
 import MembersList from '../main/MembersList';
-import Task from '../main/Task';
-import TasksList from '../main/TasksList';
-import TasksListMinimized from '../main/TasksListMinimized';
+import Task from '../main/tasks/Task';
+import TasksList from '../main/tasks/TasksList';
+import TasksListMinimized from '../main/tasks/TasksListMinimized';
 
 const TasksManager: FC = () => {
   const { t } = useTranslation();

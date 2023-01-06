@@ -7,7 +7,7 @@ import Badge from '@mui/material/Badge';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 
-import { ExistingTaskType } from '../../config/appDataTypes';
+import { ExistingTaskType } from '../../../config/appDataTypes';
 
 type TasksListMinimizedProps = {
   title: string;

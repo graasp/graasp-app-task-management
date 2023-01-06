@@ -17,8 +17,8 @@ import { styled } from '@mui/material/styles';
 
 import { useDraggable } from '@dnd-kit/core';
 
-import { ExistingTaskType } from '../../config/appDataTypes';
-import { Member } from '../../types/member';
+import { ExistingTaskType } from '../../../config/appDataTypes';
+import { Member } from '../../../types/member';
 import TaskEditDialog from './TaskEditDialog';
 
 const TaskCard = styled(Card)(() => ({

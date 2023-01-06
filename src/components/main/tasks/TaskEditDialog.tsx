@@ -19,7 +19,7 @@ import InputLabel from '@mui/material/InputLabel';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
-import { ExistingTaskType } from '../../config/appDataTypes';
+import { ExistingTaskType } from '../../../config/appDataTypes';
 
 type TaskEditDialogProps = {
   task: ExistingTaskType;

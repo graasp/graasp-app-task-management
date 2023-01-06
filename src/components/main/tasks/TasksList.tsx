@@ -15,8 +15,8 @@ import grey from '@mui/material/colors/grey';
 
 import { useDroppable } from '@dnd-kit/core';
 
-import { ExistingTaskType, TaskType } from '../../config/appDataTypes';
-import { Member } from '../../types/member';
+import { ExistingTaskType, TaskType } from '../../../config/appDataTypes';
+import { Member } from '../../../types/member';
 import AddTask from './AddTask';
 import Task from './Task';
 
