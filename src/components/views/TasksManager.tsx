@@ -1,4 +1,4 @@
-import { List, Map } from 'immutable';
+import { List } from 'immutable';
 
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -54,13 +54,11 @@ const TasksManager: FC = () => {
 
   const { appSettingArray } = useAppSettingContext();
 
-  const [hiddenLists, setHiddenLists] = useState<Map<string, boolean>>(
-    Map([
-      [TASK_LABELS.TODO, false],
-      [TASK_LABELS.IN_PROGRESS, false],
-      [TASK_LABELS.COMPLETED, false],
-    ]),
-  );
+  const [hiddenLists, setHiddenLists] = useState<{ [key: string]: boolean }>({
+    [TASK_LABELS.TODO]: false,
+    [TASK_LABELS.IN_PROGRESS]: false,
+    [TASK_LABELS.COMPLETED]: false,
+  });
 
   const [activeTask, setActiveTask] = useState<ExistingTaskType | null>(null);
 
@@ -160,18 +158,22 @@ const TasksManager: FC = () => {
   const handleDragStart = (event: DragStartEvent): void => {
     setActiveTask(tasks.find((ta) => ta.id === event.active.id) ?? null);
   };
+
+  const handleHide = (label: string, hide: boolean): void => {
+    const newHiddenLists = {
+      ...hiddenLists,
+      [label]: hide,
+    };
+    setHiddenLists(newHiddenLists);
+  };
+
   const renderTasksList = (
     title: string,
     label: string,
     add = false,
   ): JSX.Element => {
-    // eslint-disable-next-line react/destructuring-assignment
     const tasksArray = tasks.filter(({ data }) => data.label === label);
-    const isHidden = hiddenLists.get(label) ?? false;
-
-    const handleHide = (): void => {
-      setHiddenLists(hiddenLists.set(label, true));
-    };
+    const isHidden = hiddenLists[label] ?? false;
 
     return (
       <Slide
@@ -191,7 +193,7 @@ const TasksManager: FC = () => {
             updateTask={updateTask}
             deleteTask={deleteTask}
             members={members}
-            onHide={handleHide}
+            onHide={() => handleHide(label, true)}
           />
         </Grid>
       </Slide>
@@ -204,11 +206,7 @@ const TasksManager: FC = () => {
   ): JSX.Element => {
     // eslint-disable-next-line react/destructuring-assignment
     const tasksArray = tasks.filter(({ data }) => data.label === label);
-    const isHidden = hiddenLists.get(label) ?? false;
-
-    const handleShow = (): void => {
-      setHiddenLists(hiddenLists.set(label, false));
-    };
+    const isHidden = hiddenLists[label] ?? false;
 
     return (
       <Slide
@@ -221,7 +219,7 @@ const TasksManager: FC = () => {
         <TasksListMinimized
           title={title}
           tasks={tasksArray}
-          onShow={handleShow}
+          onShow={() => handleHide(label, false)}
         />
       </Slide>
     );
