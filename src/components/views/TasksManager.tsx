@@ -160,11 +160,10 @@ const TasksManager: FC = () => {
   };
 
   const handleHide = (label: string, hide: boolean): void => {
-    const newHiddenLists = {
-      ...hiddenLists,
+    setHiddenLists((prevState) => ({
+      ...prevState,
       [label]: hide,
-    };
-    setHiddenLists(newHiddenLists);
+    }));
   };
 
   const renderTasksList = (
