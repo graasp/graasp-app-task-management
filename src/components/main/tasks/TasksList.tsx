@@ -18,7 +18,7 @@ import { useDroppable } from '@dnd-kit/core';
 import { ExistingTaskType, TaskType } from '../../../config/appDataTypes';
 import { Member } from '../../../types/member';
 import AddTask from './AddTask';
-import Task from './Task';
+import DraggableTask from './DraggableTask';
 
 type TasksListProps = {
   title: string;
@@ -90,7 +90,7 @@ const TasksList: FC<TasksListProps> = ({
           {addComponent && <AddTask addTask={addTask} label={label} />}
           {tasks.size ? (
             tasks.map((task: ExistingTaskType, key: number) => (
-              <Task
+              <DraggableTask
                 key={key}
                 task={task}
                 updateTask={updateTask}

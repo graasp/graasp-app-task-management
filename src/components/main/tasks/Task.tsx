@@ -15,8 +15,6 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
-import { useDraggable } from '@dnd-kit/core';
-
 import { ExistingTaskType } from '../../../config/appDataTypes';
 import { Member } from '../../../types/member';
 import TaskEditDialog from './TaskEditDialog';
@@ -25,25 +23,14 @@ const TaskCard = styled(Card)(() => ({
   width: '100%',
 }));
 
-const Draggable = styled('button')(() => ({
-  background: 'none',
-  color: 'inherit',
-  border: 'none',
-  padding: '0',
-  font: 'inherit',
-  cursor: 'grab',
-  outline: 'inherit',
-  appearance: 'none',
-  textAlign: 'inherit',
-}));
-
 type TaskProps = {
   task: ExistingTaskType;
   updateTask: (t: ExistingTaskType) => void;
   deleteTask: (id: string) => void;
   members: List<Member>;
   key: number;
-  isOverlay?: boolean;
+  isDragging?: boolean;
+  onEditDialogOpen?: (isOpen: boolean) => void;
 };
 
 const Task: FC<TaskProps> = ({
@@ -52,11 +39,14 @@ const Task: FC<TaskProps> = ({
   deleteTask,
   members: membersList,
   key,
-  isOverlay = false,
+  isDragging = false,
+  onEditDialogOpen = () => {
+    /* Do nothing */
+  },
 }) => {
   const { t } = useTranslation();
 
-  const { id, data, type } = task;
+  const { id, data } = task;
 
   const { title, members, description } = data;
 
@@ -64,11 +54,13 @@ const Task: FC<TaskProps> = ({
 
   const handleDialogClose = (): void => {
     setDialogOpen(false);
+    onEditDialogOpen(false);
   };
 
   const editTask = (event: React.MouseEvent<HTMLButtonElement>): void => {
     event.stopPropagation();
     setDialogOpen(true);
+    onEditDialogOpen(true);
   };
 
   const addMembers = (member: string): void => {
@@ -101,7 +93,7 @@ const Task: FC<TaskProps> = ({
     membersList.find((memberInList) => m === memberInList.id)?.name ||
     t('Unknown');
 
-  const renderTask = (isDragging: boolean): JSX.Element => (
+  return (
     <TaskCard
       onDragOver={(e) => onDragOver(e)}
       onDrop={(e) => onDrop(e)}
@@ -159,29 +151,6 @@ const Task: FC<TaskProps> = ({
         members={membersList}
       />
     </TaskCard>
-  );
-
-  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
-    id,
-    data: {
-      type,
-    },
-    disabled: dialogOpen,
-  });
-
-  if (isOverlay) {
-    return renderTask(true);
-  }
-  return (
-    <Draggable
-      type="button"
-      ref={setNodeRef}
-      {...listeners}
-      {...attributes}
-      disabled={dialogOpen}
-    >
-      {renderTask(isDragging)}
-    </Draggable>
   );
 };
 

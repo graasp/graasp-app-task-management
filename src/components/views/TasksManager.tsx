@@ -266,7 +266,7 @@ const TasksManager: FC = () => {
                   throw new Error('Function not implemented.');
                 }}
                 members={members}
-                isOverlay
+                isDragging
               />
             ) : null}
           </DragOverlay>
