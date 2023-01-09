@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@graasp/ui';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { useTheme } from '@mui/material';
+import { styled, useTheme } from '@mui/material';
 import Paper from '@mui/material/Paper';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
@@ -19,6 +19,10 @@ import { Member } from '../../../types/member';
 import AddTask from './AddTask';
 import DraggableTask from './DraggableTask';
 import TasksListTitle from './TasksListTitle';
+
+const FullHeightStack = styled(Stack)(() => ({
+  height: '100%',
+}));
 
 type TasksListProps = {
   title: string;
@@ -74,7 +78,7 @@ const TasksList: FC<TasksListProps> = ({
       }}
       key={label}
     >
-      <Stack alignItems="center" position="relative">
+      <FullHeightStack alignItems="center" position="relative">
         <TasksListTitle title={title} tasksNumber={tasks.size} />
         <Button
           size="small"
@@ -85,7 +89,11 @@ const TasksList: FC<TasksListProps> = ({
           <ExpandMoreIcon />
         </Button>
 
-        <Stack ref={setNodeRef} spacing={1} sx={{ m: 1, width: '100%' }}>
+        <FullHeightStack
+          ref={setNodeRef}
+          spacing={1}
+          sx={{ m: 1, width: '100%' }}
+        >
           {addComponent && <AddTask addTask={addTask} label={label} />}
           {tasks.size ? (
             tasks.map((task: ExistingTaskType, key: number) => (
@@ -102,8 +110,8 @@ const TasksList: FC<TasksListProps> = ({
               {t('NO_TASKS', { title })}
             </Typography>
           )}
-        </Stack>
-      </Stack>
+        </FullHeightStack>
+      </FullHeightStack>
     </Paper>
   );
 };
