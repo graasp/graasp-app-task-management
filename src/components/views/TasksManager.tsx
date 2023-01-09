@@ -217,7 +217,7 @@ const TasksManager: FC = () => {
       >
         <TasksListMinimized
           title={title}
-          tasks={tasksArray}
+          tasksNumber={tasksArray.size}
           onShow={() => handleHide(label, false)}
         />
       </Slide>
