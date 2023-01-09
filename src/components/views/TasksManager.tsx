@@ -60,6 +60,13 @@ const TasksManager: FC = () => {
     [TASK_LABELS.COMPLETED]: false,
   });
 
+  const numberOfColumnsInGridForVisibleList =
+    12 /
+    Object.values(hiddenLists).reduce(
+      (total, x) => (x === false ? total + 1 : total),
+      0,
+    );
+
   const [activeTask, setActiveTask] = useState<ExistingTaskType | null>(null);
 
   const filteredMembersSetting = appSettingArray.find(
@@ -182,7 +189,12 @@ const TasksManager: FC = () => {
         unmountOnExit
         style={{ height: 'auto' }}
       >
-        <Grid item sm={12} md={4} height="100%">
+        <Grid
+          item
+          sm={12}
+          md={numberOfColumnsInGridForVisibleList}
+          height="100%"
+        >
           <TasksList
             title={title}
             label={label}

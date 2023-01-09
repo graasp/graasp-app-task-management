@@ -70,6 +70,7 @@ const TasksList: FC<TasksListProps> = ({
         position: 'relative',
         zIndex: 1,
         boxShadow: isOver ? `0 0 1em ${theme.palette.primary.light}` : 'none',
+        maxWidth: '40em',
       }}
       key={label}
     >
