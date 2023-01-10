@@ -22,7 +22,6 @@ const TasksListMinimized = forwardRef<
     onClick={onShow}
     sx={{ width: '100%', mt: 2, pt: 2, pb: 2 }}
   >
-    {/* <TasksListTitle title={title} tasksNumber={tasks.size} /> */}
     <Badge badgeContent={tasksNumber} color="secondary">
       <Typography>{title}</Typography>
     </Badge>
