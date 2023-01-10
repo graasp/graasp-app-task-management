@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/graasp/graasp-app-task-management/compare/v0.2.2...v0.3.0) (2023-01-10)
+
+
+### Features
+
+* adapt list size to number of visible lists ([d0ddfb8](https://github.com/graasp/graasp-app-task-management/commit/d0ddfb8f2561d5335259baf2e3b17b54f229baad))
+* add cancel button in edit dialog ([1eb80e3](https://github.com/graasp/graasp-app-task-management/commit/1eb80e3635c2b51eb6dbe6933b4b3daf0f29e799))
+* add members management in edit dialog ([b25b5b4](https://github.com/graasp/graasp-app-task-management/commit/b25b5b4bc457b4fe75425a1869071ba994f87d84))
+* change members avatars colors ([e7f38c6](https://github.com/graasp/graasp-app-task-management/commit/e7f38c65a521b18816c0ba86e28749f0cc35c241))
+* impl hideable tasks lists ([3f157bd](https://github.com/graasp/graasp-app-task-management/commit/3f157bd6a12d9e73f9de43afd3078794f1bae92e))
+* impl list minimization ([1012fcf](https://github.com/graasp/graasp-app-task-management/commit/1012fcf0799b4d004f7a09a5e3014d7c2d8d41cc))
+
+
+### Bug Fixes
+
+* add translation for no tasks ([cd0b18e](https://github.com/graasp/graasp-app-task-management/commit/cd0b18e4ee469c21044ffc56c38a8ba1954bb20c))
+* dnd tasks on full list area ([74996b3](https://github.com/graasp/graasp-app-task-management/commit/74996b3bdf19d6b741fd53c9144d7f533759f182))
+* hidden lists button style ([a2da251](https://github.com/graasp/graasp-app-task-management/commit/a2da251a0d95f687021e0f234a3127e77f4c0129))
+
 ### 0.2.2 (2022-11-21)
 
 ### 0.2.1 (2022-11-11)
