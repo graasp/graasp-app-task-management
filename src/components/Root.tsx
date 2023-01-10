@@ -60,10 +60,14 @@ const theme = createTheme({
   },
   typography: {
     h2: {
-      fontSize: '2rem',
+      fontSize: '1.5rem',
     },
     h3: {
-      fontSize: '1.8rem',
+      fontSize: '1.2rem',
+      fontWeight: 'bold',
+    },
+    h4: {
+      fontSize: '1.2rem',
     },
   },
   status: {
