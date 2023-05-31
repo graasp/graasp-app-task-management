@@ -3,7 +3,8 @@ import { List } from 'immutable';
 import React, { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { Member } from '@graasp/apps-query-client';
+import { Member } from '@graasp/sdk';
+import { MemberRecord } from '@graasp/sdk/frontend';
 import { Button } from '@graasp/ui';
 
 import Autocomplete from '@mui/material/Autocomplete';
@@ -19,14 +20,14 @@ import InputLabel from '@mui/material/InputLabel';
 import Stack from '@mui/material/Stack';
 import TextField from '@mui/material/TextField';
 
-import { ExistingTaskType } from '../../../config/appDataTypes';
+import { ExistingTaskTypeRecord } from '../../../config/appDataTypes';
 
 type TaskEditDialogProps = {
-  task: ExistingTaskType;
-  updateTask: (t: ExistingTaskType) => void;
+  task: ExistingTaskTypeRecord;
+  updateTask: (t: ExistingTaskTypeRecord) => void;
   open: boolean;
   onClose: () => void;
-  members: List<Member>;
+  members: List<MemberRecord>;
 };
 
 const TaskEditDialog: FC<TaskEditDialogProps> = ({
@@ -34,10 +35,9 @@ const TaskEditDialog: FC<TaskEditDialogProps> = ({
   updateTask,
   open,
   onClose,
-  members,
+  members: membersList,
 }) => {
   const { t } = useTranslation();
-  const membersList = members.toArray();
 
   const [task, setTask] = useState(inputTask);
 
@@ -54,13 +54,7 @@ const TaskEditDialog: FC<TaskEditDialogProps> = ({
   const handleChange =
     (prop: string) =>
     (event: React.ChangeEvent<HTMLInputElement>): void => {
-      setTask({
-        ...task,
-        data: {
-          ...task.data,
-          [prop]: event.target.value,
-        },
-      });
+      setTask(task.setIn(['data', prop], event.target.value));
     };
 
   const handleMemberChange = (
@@ -68,20 +62,11 @@ const TaskEditDialog: FC<TaskEditDialogProps> = ({
     newMembers: Member[],
   ): void => {
     const membersIds = newMembers.map((m) => m.id);
-    setTask({
-      ...task,
-      data: {
-        ...task.data,
-        members: membersIds,
-      },
-    });
+    setTask(task.setIn(['data', 'members'], membersIds));
   };
 
   const handleClose = (): void => {
-    updateTask({
-      ...task,
-      id: inputTask.id,
-    });
+    updateTask(task.set('id', inputTask.id));
     onClose();
   };
 
@@ -115,7 +100,7 @@ const TaskEditDialog: FC<TaskEditDialogProps> = ({
             <Autocomplete
               multiple
               fullWidth
-              options={membersList}
+              options={membersList.toJS() as Member[]}
               getOptionLabel={(option) => option.name}
               filterSelectedOptions
               disableCloseOnSelect
@@ -128,8 +113,9 @@ const TaskEditDialog: FC<TaskEditDialogProps> = ({
               renderInput={(params) => (
                 <TextField {...params} label={t('Assigned members')} />
               )}
-              value={tM}
+              value={tM.toJS() as Member[]}
               onChange={handleMemberChange}
+              isOptionEqualToValue={(a, b) => a.id === b.id}
             />
           </Stack>
         </Box>

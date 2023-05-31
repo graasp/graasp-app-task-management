@@ -1,8 +1,9 @@
 import { List } from 'immutable';
 
-import React, { FC } from 'react';
+import { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 
+import { UUID } from '@graasp/sdk';
 import { Button } from '@graasp/ui';
 
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -14,8 +15,11 @@ import grey from '@mui/material/colors/grey';
 
 import { useDroppable } from '@dnd-kit/core';
 
-import { ExistingTaskType, TaskType } from '../../../config/appDataTypes';
-import { Member } from '../../../types/member';
+import {
+  ExistingTaskType,
+  ExistingTaskTypeRecord,
+  TaskType,
+} from '../../../config/appDataTypes';
 import AddTask from './AddTask';
 import DraggableTask from './DraggableTask';
 import TasksListTitle from './TasksListTitle';
@@ -26,12 +30,12 @@ const FullHeightStack = styled(Stack)(() => ({
 
 type TasksListProps = {
   title: string;
-  tasks: List<ExistingTaskType>;
+  tasks: List<ExistingTaskTypeRecord>;
   label: string;
   addTask: (task: TaskType) => void;
-  updateTask: (task: ExistingTaskType) => void;
+  updateTask: (task: ExistingTaskTypeRecord) => void;
   deleteTask: (id: string) => void;
-  members: List<Member>;
+  membersColor: { [key: UUID]: string };
   addComponent: boolean;
   onHide: () => void;
 };
@@ -44,7 +48,7 @@ const TasksList: FC<TasksListProps> = ({
   updateTask,
   deleteTask,
   addComponent,
-  members,
+  membersColor,
   onHide,
 }) => {
   const { t } = useTranslation();
@@ -96,13 +100,13 @@ const TasksList: FC<TasksListProps> = ({
         >
           {addComponent && <AddTask addTask={addTask} label={label} />}
           {tasks.size ? (
-            tasks.map((task: ExistingTaskType, key: number) => (
+            tasks.map((task: ExistingTaskTypeRecord, key: number) => (
               <DraggableTask
                 key={key}
                 task={task}
                 updateTask={updateTask}
                 deleteTask={deleteTask}
-                members={members}
+                membersColor={membersColor}
               />
             ))
           ) : (

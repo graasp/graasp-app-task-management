@@ -1,8 +1,6 @@
-import { RecordOf } from 'immutable';
+import { FC, ReactElement, useEffect } from 'react';
 
-import React, { FC, ReactElement, useContext, useEffect } from 'react';
-
-import { Context, LocalContext } from '@graasp/apps-query-client';
+import { useLocalContext } from '@graasp/apps-query-client';
 import { PermissionLevel } from '@graasp/sdk';
 
 import { useTheme } from '@mui/material/styles';
@@ -22,7 +20,7 @@ import TasksManager from './views/TasksManager';
 const App: FC = () => {
   // context describes the item context, i.e. has the item id, current member id (memberId),
   // the language and current view (builder, player, ...), the current permission (admin, write, read)
-  const context: RecordOf<LocalContext> = useContext(Context);
+  const context = useLocalContext();
 
   const theme = useTheme();
 

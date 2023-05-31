@@ -1,13 +1,12 @@
-import type { Database, LocalContext, Member } from '@graasp/apps-query-client';
-import { Context, PermissionLevel } from '@graasp/sdk';
+import type { Database, LocalContext } from '@graasp/apps-query-client';
+import { Context, Member, MemberType, PermissionLevel } from '@graasp/sdk';
 
 import { REACT_APP_API_HOST } from '../config/env';
 
-export const mockContext: LocalContext = {
+export const mockContext: Partial<LocalContext> = {
   apiHost: REACT_APP_API_HOST,
   permission: PermissionLevel.Admin,
-  context: Context.BUILDER,
-  itemId: '1234-1234-123456-8123-123456',
+  context: Context.Builder,
   memberId: 'mock-member-id',
 };
 
@@ -17,19 +16,25 @@ export const mockMembers: Member[] = [
     name: 'current-member',
     email: 'current@graasp.org',
     extra: {},
+    type: MemberType.Individual,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
   {
     id: 'mock-member-id-2',
     name: 'mock-member-2',
     email: 'other-member@graasp.org',
     extra: {},
+    type: MemberType.Individual,
+    createdAt: new Date(),
+    updatedAt: new Date(),
   },
 ];
 
 const buildDatabase = (
   appContext: Partial<LocalContext>,
   members?: Member[],
-): Database => ({
+): Partial<Database> => ({
   appData: [],
   appActions: [],
   members: members ?? mockMembers,

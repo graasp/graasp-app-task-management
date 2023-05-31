@@ -1,4 +1,5 @@
-import { AppData } from '@graasp/apps-query-client';
+import { AppData } from '@graasp/sdk';
+import { ImmutableCast } from '@graasp/sdk/frontend';
 
 import { PostAppDataType } from '../types/appData';
 
@@ -9,7 +10,7 @@ enum APP_DATA_TYPES {
 export type TaskDataType = {
   title: string;
   description: string;
-  members: Array<string>;
+  members: string[];
   label: string;
   tags?: string;
 };
@@ -20,5 +21,7 @@ export type TaskType = PostAppDataType & {
 export type ExistingTaskType = AppData & {
   data: TaskDataType;
 };
+
+export type ExistingTaskTypeRecord = ImmutableCast<ExistingTaskType>;
 
 export { APP_DATA_TYPES };
