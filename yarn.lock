@@ -2370,7 +2370,7 @@ __metadata:
 
 "@graasp/apps-query-client@github:graasp/graasp-apps-query-client.git#44-app-key-typeorm":
   version: 1.0.0
-  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=2116882f77fa000fc7a17fd7eb8fea72b2ace45e"
+  resolution: "@graasp/apps-query-client@https://github.com/graasp/graasp-apps-query-client.git#commit=d37edc43ed00ba9ecf228872f900fdae1fa60066"
   dependencies:
     "@graasp/sdk": 1.0.0-rc1
     axios: 0.27.2
@@ -2384,7 +2384,7 @@ __metadata:
     "@tanstack/react-query-devtools": ^4.28.0
     react: ^18.0.0
     react-dom: ^18.0.0
-  checksum: a6fc3a6225ab6c0e4c1bf146de30aae05326b874d3e0e14683ffad6e3c1fa0e0763b537dcfea262ce40788fd60d54509fcf611f7bf1c79bc0a778903e82a31e8
+  checksum: 8b167b9dadc1097199a66ae709aacc96a5b752a1530bbed4af02c7382cdbeb03027e2b556c859a0a5f23aab388a2050f76a45de56a0df948e6db66e5a8752f8a
   languageName: node
   linkType: hard
 
