@@ -16,10 +16,7 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
-import {
-  ExistingTaskType,
-  ExistingTaskTypeRecord,
-} from '../../../config/appDataTypes';
+import { ExistingTaskTypeRecord } from '../../../config/appDataTypes';
 import { useMembersContext } from '../../context/MembersContext';
 import TaskEditDialog from './TaskEditDialog';
 

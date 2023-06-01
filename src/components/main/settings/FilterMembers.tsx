@@ -10,7 +10,6 @@ import { Autocomplete, Checkbox, TextField, Typography } from '@mui/material';
 
 import {
   APP_SETTINGS_TYPES,
-  FilteredMembersSettingType,
   FilteredMembersSettingTypeRecord,
 } from '../../../config/appSettingTypes';
 import {

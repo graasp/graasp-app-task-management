@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import { FC, useState } from 'react';
 
 import { UUID } from '@graasp/sdk';
 
@@ -6,10 +6,7 @@ import { styled } from '@mui/material/styles';
 
 import { useDraggable } from '@dnd-kit/core';
 
-import {
-  ExistingTaskType,
-  ExistingTaskTypeRecord,
-} from '../../../config/appDataTypes';
+import { ExistingTaskTypeRecord } from '../../../config/appDataTypes';
 import Task from './Task';
 
 const Draggable = styled('button')(() => ({

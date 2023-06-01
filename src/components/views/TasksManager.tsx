@@ -1,6 +1,6 @@
 import { List } from 'immutable';
 
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TransitionGroup } from 'react-transition-group';
 
@@ -35,7 +35,6 @@ import {
   mouseActivationConstraint,
   touchActivationConstraint,
 } from '../../config/dndActivationConstraints';
-import { PatchAppDataType } from '../../types/appData';
 import stringToColor from '../../utils/stringToColor';
 import { useAppActionContext } from '../context/AppActionContext';
 import { useAppDataContext } from '../context/AppDataContext';

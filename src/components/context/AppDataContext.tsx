@@ -5,12 +5,7 @@ import React, { FC, PropsWithChildren, createContext, useMemo } from 'react';
 import { AppDataRecord } from '@graasp/sdk/frontend';
 import { Loader } from '@graasp/ui';
 
-import {
-  MUTATION_KEYS,
-  hooks,
-  mutations,
-  useMutation,
-} from '../../config/queryClient';
+import { hooks, mutations } from '../../config/queryClient';
 import {
   DeleteAppDataType,
   PatchAppDataType,
