@@ -1,5 +1,5 @@
-import React, { DragEvent, FC, MouseEvent, useState } from 'react';
-import { TFunction, withTranslation } from 'react-i18next';
+import React, { DragEvent, MouseEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
 import { UUID } from '@graasp/sdk';
@@ -25,7 +25,6 @@ const TaskCard = styled(Card)(() => ({
 }));
 
 type TaskProps = {
-  t: TFunction;
   task: ExistingTaskTypeRecord;
   updateTask?: (t: ExistingTaskTypeRecord) => void;
   deleteTask?: (id: string) => void;
@@ -35,30 +34,18 @@ type TaskProps = {
   onEditDialogOpen?: (isOpen: boolean) => void;
 };
 
-const Task: FC<TaskProps> = ({
+const Task = ({
   task,
-  t,
-  updateTask = () => {
-    const message = 'TASK_CANNOT_BE_UPDATED';
-    toast.error(t(message), {
-      toastId: message,
-      position: 'bottom-right',
-    });
-  },
-  deleteTask = () => {
-    const message = 'TASK_CANNOT_BE_DELETED';
-    toast.error(t(message), {
-      toastId: message,
-      position: 'bottom-right',
-    });
-  },
+  updateTask,
+  deleteTask,
   membersColor,
   key,
   isDragging = false,
   onEditDialogOpen = () => {
     /* Do nothing */
   },
-}) => {
+}: TaskProps): JSX.Element => {
+  const { t } = useTranslation();
   const membersList = useMembersContext();
   const { id, data } = task;
 
@@ -67,6 +54,26 @@ const Task: FC<TaskProps> = ({
   const members = membersList.filter(({ id: mId }) => membersIds.includes(mId));
 
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const updateTaskFn =
+    updateTask ??
+    ((): void => {
+      const message = 'TASK_CANNOT_BE_UPDATED';
+      toast.error(t(message), {
+        toastId: message,
+        position: 'bottom-right',
+      });
+    });
+
+  const deleteTaskFn =
+    deleteTask ??
+    (() => {
+      const message = 'TASK_CANNOT_BE_DELETED';
+      toast.error(t(message), {
+        toastId: message,
+        position: 'bottom-right',
+      });
+    });
 
   const handleDialogClose = (): void => {
     setDialogOpen(false);
@@ -81,7 +88,7 @@ const Task: FC<TaskProps> = ({
 
   const addMembers = (member: string): void => {
     const newMembers = [...membersIds, member];
-    updateTask(task.setIn(['data', 'members'], newMembers));
+    updateTaskFn(task.setIn(['data', 'members'], newMembers));
   };
 
   const onDragOver = (ev: React.DragEvent): void => {
@@ -134,7 +141,7 @@ const Task: FC<TaskProps> = ({
       <CardActions>
         <IconButton
           aria-label={t('Delete task') || 'Delete task'}
-          onClick={() => deleteTask(id)}
+          onClick={() => deleteTaskFn(id)}
         >
           <DeleteIcon />
         </IconButton>
@@ -147,7 +154,7 @@ const Task: FC<TaskProps> = ({
       </CardActions>
       <TaskEditDialog
         task={task}
-        updateTask={updateTask}
+        updateTask={updateTaskFn}
         open={dialogOpen}
         onClose={handleDialogClose}
         members={membersList}
@@ -156,4 +163,4 @@ const Task: FC<TaskProps> = ({
   );
 };
 
-export default withTranslation()(Task);
+export default Task;

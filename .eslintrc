@@ -12,7 +12,8 @@
   ],
   "globals": {
     "cy": true,
-    "Cypress": true
+    "Cypress": true,
+    "JSX": true
   },
   "parser": "@typescript-eslint/parser",
   "parserOptions": {
