@@ -11,6 +11,7 @@ import { MAIN_CONTAINER_CY } from '../config/selectors';
 import { DEFAULT_PERMISSION } from '../config/settings';
 import '../index.css';
 import FullDiv from './common/FullDiv';
+import PublicAlert from './common/PublicAlert';
 import { AppDataProvider } from './context/AppDataContext';
 import { AppSettingProvider } from './context/AppSettingContext';
 import { MembersProvider } from './context/MembersContext';
@@ -24,9 +25,7 @@ const App: FC = () => {
 
   const theme = useTheme();
 
-  const permissionLevel =
-    (context?.get('permission', DEFAULT_PERMISSION) as PermissionLevel) ||
-    DEFAULT_PERMISSION;
+  const permissionLevel = context?.permission || DEFAULT_PERMISSION;
 
   useEffect(() => {
     // handle a change of language
@@ -51,6 +50,7 @@ const App: FC = () => {
   return (
     <MembersProvider>
       <AppDataProvider>
+        <PublicAlert />
         <AppSettingProvider>{renderContent()}</AppSettingProvider>
       </AppDataProvider>
     </MembersProvider>
