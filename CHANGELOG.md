@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0-rc.1](https://github.com/graasp/graasp-app-task-management/compare/v0.3.0...v1.0.0-rc.1) (2023-06-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* apply changes for typeorm ([#48](https://github.com/graasp/graasp-app-task-management/issues/48))
+
+### Features
+
+* apply changes for typeorm ([#48](https://github.com/graasp/graasp-app-task-management/issues/48)) ([a49cd49](https://github.com/graasp/graasp-app-task-management/commit/a49cd49d7891884ec6094d089a7cb4c32c1d27f2))
+
+
+### chore
+
+* release 1.0.0-rc.1 ([6809926](https://github.com/graasp/graasp-app-task-management/commit/680992648b57f3b98bf5fbeccc51cefcbf7122c5))
+
 ## [0.3.0](https://github.com/graasp/graasp-app-task-management/compare/v0.2.2...v0.3.0) (2023-01-10)
 
 
