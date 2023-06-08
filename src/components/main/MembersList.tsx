@@ -1,7 +1,7 @@
-import { List as ImList } from 'immutable';
-
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+
+import { UUID } from '@graasp/sdk';
 
 import {
   Avatar,
@@ -14,15 +14,15 @@ import {
 } from '@mui/material';
 
 import { MEMBERS_LIST_CARD_CY } from '../../config/selectors';
-import { Member } from '../../types/member';
+import { useMembersContext } from '../context/MembersContext';
 
 type MembersListProps = {
-  members: ImList<Member>;
+  membersColor: { [key: UUID]: string };
 };
 
-const MembersList = (props: MembersListProps): JSX.Element => {
+const MembersList = ({ membersColor }: MembersListProps): JSX.Element => {
   const { t } = useTranslation();
-  const { members } = props;
+  const members = useMembersContext();
   const onDragStart = (ev: React.DragEvent, member: string): void => {
     ev.dataTransfer.setData('member', member);
   };
@@ -42,7 +42,9 @@ const MembersList = (props: MembersListProps): JSX.Element => {
             onDragStart={(e) => onDragStart(e, member.id)}
           >
             <ListItemAvatar>
-              <Avatar sx={{ bgcolor: member.color }}>{member.name[0]}</Avatar>
+              <Avatar sx={{ bgcolor: membersColor[member.id] }}>
+                {member.name[0]}
+              </Avatar>
             </ListItemAvatar>
             <ListItemText primary={member.name} />
           </ListItem>

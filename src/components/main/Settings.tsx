@@ -1,9 +1,5 @@
-import { List } from 'immutable';
-
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-
-import { Member } from '@graasp/apps-query-client';
 
 import SettingsIcon from '@mui/icons-material/Settings';
 import {
@@ -32,7 +28,7 @@ const Settings = (): JSX.Element => {
     setModalOpen(false);
   };
 
-  const members: List<Member> = useMembersContext();
+  const members = useMembersContext();
   const {
     appSettingArray: settings,
     postAppSetting,

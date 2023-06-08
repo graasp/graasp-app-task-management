@@ -1,13 +1,12 @@
-import { List } from 'immutable';
+import { FC, useState } from 'react';
 
-import React, { FC, useState } from 'react';
+import { UUID } from '@graasp/sdk';
 
 import { styled } from '@mui/material/styles';
 
 import { useDraggable } from '@dnd-kit/core';
 
-import { ExistingTaskType } from '../../../config/appDataTypes';
-import { Member } from '../../../types/member';
+import { ExistingTaskTypeRecord } from '../../../config/appDataTypes';
 import Task from './Task';
 
 const Draggable = styled('button')(() => ({
@@ -23,10 +22,10 @@ const Draggable = styled('button')(() => ({
 }));
 
 type DraggableTaskProps = {
-  task: ExistingTaskType;
-  updateTask: (t: ExistingTaskType) => void;
+  task: ExistingTaskTypeRecord;
+  updateTask: (t: ExistingTaskTypeRecord) => void;
   deleteTask: (id: string) => void;
-  members: List<Member>;
+  membersColor: { [key: UUID]: string };
   key: number;
 };
 
@@ -34,7 +33,7 @@ const DraggableTask: FC<DraggableTaskProps> = ({
   task,
   updateTask,
   deleteTask,
-  members: membersList,
+  membersColor,
   key,
 }) => {
   const { id, type } = task;
@@ -62,7 +61,7 @@ const DraggableTask: FC<DraggableTaskProps> = ({
         task={task}
         updateTask={updateTask}
         deleteTask={deleteTask}
-        members={membersList}
+        membersColor={membersColor}
         isDragging={isDragging}
         onEditDialogOpen={setDialogOpen}
       />

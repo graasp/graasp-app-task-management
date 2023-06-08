@@ -1,4 +1,5 @@
-import { APP_DATA_VISIBILITY } from '../types/appData';
+import { AppDataVisibility } from '@graasp/sdk';
+
 import { APP_DATA_TYPES, TaskDataType, TaskType } from './appDataTypes';
 
 export const APP_NAME = 'Graasp';
@@ -6,7 +7,6 @@ export const APP_NAME = 'Graasp';
 export const ENV = {
   DEVELOPMENT: 'development',
 };
-export const GRAASP_APP_ID = process.env.REACT_APP_GRAASP_APP_ID;
 
 export const NODE_ENV =
   process.env.REACT_APP_NODE_ENV || process.env.NODE_ENV || ENV.DEVELOPMENT;
@@ -40,7 +40,7 @@ export const DEFAULT_TASK_DATA: TaskDataType = {
 
 export const DEFAULT_TASK: TaskType = {
   type: APP_DATA_TYPES.TASK,
-  visibility: APP_DATA_VISIBILITY.ITEM,
+  visibility: AppDataVisibility.Item,
   data: DEFAULT_TASK_DATA,
 };
 

@@ -1,4 +1,5 @@
-import { AppSetting } from '@graasp/apps-query-client';
+import { AppSetting } from '@graasp/sdk';
+import { ImmutableCast } from '@graasp/sdk/frontend';
 
 enum APP_SETTINGS_TYPES {
   FILTERED_MEMBERS = 'filtered-members',
@@ -6,8 +7,11 @@ enum APP_SETTINGS_TYPES {
 
 export type FilteredMembersSettingType = AppSetting & {
   data: {
-    filteredMembers: Array<string>;
+    filteredMembers: string[];
   };
 };
+
+export type FilteredMembersSettingTypeRecord =
+  ImmutableCast<FilteredMembersSettingType>;
 
 export { APP_SETTINGS_TYPES };

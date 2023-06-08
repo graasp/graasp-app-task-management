@@ -1,6 +1,6 @@
 import { List } from 'immutable';
 
-import React, { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { TransitionGroup } from 'react-transition-group';
 
@@ -23,11 +23,12 @@ import { APP_ACTION_TYPES } from '../../config/appActionTypes';
 import {
   APP_DATA_TYPES,
   ExistingTaskType,
+  ExistingTaskTypeRecord,
   TaskType,
 } from '../../config/appDataTypes';
 import {
   APP_SETTINGS_TYPES,
-  FilteredMembersSettingType,
+  FilteredMembersSettingTypeRecord,
 } from '../../config/appSettingTypes';
 import { TASK_LABELS } from '../../config/constants';
 import {
@@ -67,30 +68,31 @@ const TasksManager: FC = () => {
       0,
     );
 
-  const [activeTask, setActiveTask] = useState<ExistingTaskType | null>(null);
+  const [activeTask, setActiveTask] = useState<ExistingTaskTypeRecord | null>(
+    null,
+  );
 
   const filteredMembersSetting = appSettingArray.find(
     ({ name }) => name === APP_SETTINGS_TYPES.FILTERED_MEMBERS,
-  ) as FilteredMembersSettingType;
+  ) as FilteredMembersSettingTypeRecord;
 
   const { filteredMembers } = filteredMembersSetting?.data || {
     filteredMembers: [],
   };
 
-  const [tasks, setTasks] = useState<List<ExistingTaskType>>(List());
+  const [tasks, setTasks] = useState<List<ExistingTaskTypeRecord>>(List());
 
   // get the members having access to the space
-  const members = useMembersContext()
-    .filter(({ id }) => !filteredMembers.includes(id))
-    .map((member) => ({
-      ...member,
-      color: stringToColor(member.name),
-    }));
+  const membersColor = Object.fromEntries(
+    useMembersContext()
+      .filter(({ id }) => !filteredMembers.includes(id))
+      .map((member) => [member.id, stringToColor(member.name)]),
+  );
 
   useEffect(() => {
     const newTasks = appDataArray.filter(
       ({ type }) => type === APP_DATA_TYPES.TASK,
-    ) as List<ExistingTaskType>;
+    ) as List<ExistingTaskTypeRecord>;
     if (newTasks) {
       // TODO: Add sorting strategy.
       setTasks(newTasks);
@@ -117,12 +119,12 @@ const TasksManager: FC = () => {
     });
   };
 
-  const updateTask = (newTask: ExistingTaskType): void => {
-    patchAppData(newTask);
+  const updateTask = (newTask: ExistingTaskTypeRecord): void => {
+    patchAppData(newTask.toJS() as ExistingTaskType);
     postAppAction({
       type: APP_ACTION_TYPES.EDIT,
       data: {
-        ...newTask.data,
+        ...newTask.data.toJS(),
         id: newTask.id,
       },
     });
@@ -149,13 +151,10 @@ const TasksManager: FC = () => {
 
     if (droppedTask) {
       if (destination.id !== droppedTask.data.label) {
-        const newTask = {
-          ...droppedTask,
-          data: {
-            ...droppedTask.data,
-            label: destination.id as string,
-          },
-        };
+        const newTask = droppedTask.setIn(
+          ['data', 'label'],
+          destination.id as string,
+        );
         updateTask(newTask);
       }
     }
@@ -203,7 +202,7 @@ const TasksManager: FC = () => {
             addTask={addTask}
             updateTask={updateTask}
             deleteTask={deleteTask}
-            members={members}
+            membersColor={membersColor}
             onHide={() => handleHide(label, true)}
           />
         </Grid>
@@ -245,7 +244,7 @@ const TasksManager: FC = () => {
       zIndex={0}
     >
       <Grid item sm={12} md={2} height="100%">
-        <MembersList members={members} />
+        <MembersList membersColor={membersColor} />
         {renderTasksListMinimized(t('todo'), TASK_LABELS.TODO)}
         {renderTasksListMinimized(t('in_progress'), TASK_LABELS.IN_PROGRESS)}
         {renderTasksListMinimized(t('completed'), TASK_LABELS.COMPLETED)}
@@ -265,7 +264,12 @@ const TasksManager: FC = () => {
           </TransitionGroup>
           <DragOverlay dropAnimation={null}>
             {activeTask ? (
-              <Task key={0} task={activeTask} members={members} isDragging />
+              <Task
+                key={0}
+                task={activeTask}
+                membersColor={membersColor}
+                isDragging
+              />
             ) : null}
           </DragOverlay>
         </DndContext>

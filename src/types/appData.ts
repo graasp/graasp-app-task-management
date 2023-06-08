@@ -1,12 +1,9 @@
-export enum APP_DATA_VISIBILITY {
-  MEMBER = 'member',
-  ITEM = 'item',
-}
+import { AppDataVisibility } from '@graasp/sdk';
 
 export type PostAppDataType = {
   data: { [key: string]: unknown };
   type: string;
-  visibility?: APP_DATA_VISIBILITY;
+  visibility?: AppDataVisibility;
 };
 
 export type PatchAppDataType = {

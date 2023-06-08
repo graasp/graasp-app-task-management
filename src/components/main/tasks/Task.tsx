@@ -1,8 +1,8 @@
-import { List } from 'immutable';
-
-import React, { FC, useState } from 'react';
-import { TFunction, withTranslation } from 'react-i18next';
+import React, { DragEvent, MouseEvent, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
+
+import { UUID } from '@graasp/sdk';
 
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -16,8 +16,8 @@ import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import { styled } from '@mui/material/styles';
 
-import { ExistingTaskType } from '../../../config/appDataTypes';
-import { Member } from '../../../types/member';
+import { ExistingTaskTypeRecord } from '../../../config/appDataTypes';
+import { useMembersContext } from '../../context/MembersContext';
 import TaskEditDialog from './TaskEditDialog';
 
 const TaskCard = styled(Card)(() => ({
@@ -25,40 +25,28 @@ const TaskCard = styled(Card)(() => ({
 }));
 
 type TaskProps = {
-  t: TFunction;
-  task: ExistingTaskType;
-  updateTask?: (t: ExistingTaskType) => void;
+  task: ExistingTaskTypeRecord;
+  updateTask?: (t: ExistingTaskTypeRecord) => void;
   deleteTask?: (id: string) => void;
-  members: List<Member>;
+  membersColor: { [key: UUID]: string };
   key: number;
   isDragging?: boolean;
   onEditDialogOpen?: (isOpen: boolean) => void;
 };
 
-const Task: FC<TaskProps> = ({
+const Task = ({
   task,
-  t,
-  updateTask = () => {
-    const message = 'TASK_CANNOT_BE_UPDATED';
-    toast.error(t(message), {
-      toastId: message,
-      position: 'bottom-right',
-    });
-  },
-  deleteTask = () => {
-    const message = 'TASK_CANNOT_BE_DELETED';
-    toast.error(t(message), {
-      toastId: message,
-      position: 'bottom-right',
-    });
-  },
-  members: membersList,
+  updateTask,
+  deleteTask,
+  membersColor,
   key,
   isDragging = false,
   onEditDialogOpen = () => {
     /* Do nothing */
   },
-}) => {
+}: TaskProps): JSX.Element => {
+  const { t } = useTranslation();
+  const membersList = useMembersContext();
   const { id, data } = task;
 
   const { title, members: membersIds, description } = data;
@@ -66,6 +54,26 @@ const Task: FC<TaskProps> = ({
   const members = membersList.filter(({ id: mId }) => membersIds.includes(mId));
 
   const [dialogOpen, setDialogOpen] = useState(false);
+
+  const updateTaskFn =
+    updateTask ??
+    ((): void => {
+      const message = 'TASK_CANNOT_BE_UPDATED';
+      toast.error(t(message), {
+        toastId: message,
+        position: 'bottom-right',
+      });
+    });
+
+  const deleteTaskFn =
+    deleteTask ??
+    (() => {
+      const message = 'TASK_CANNOT_BE_DELETED';
+      toast.error(t(message), {
+        toastId: message,
+        position: 'bottom-right',
+      });
+    });
 
   const handleDialogClose = (): void => {
     setDialogOpen(false);
@@ -80,14 +88,7 @@ const Task: FC<TaskProps> = ({
 
   const addMembers = (member: string): void => {
     const newMembers = [...membersIds, member];
-    const newTask = {
-      ...task,
-      data: {
-        ...data,
-        members: newMembers,
-      },
-    };
-    updateTask(newTask);
+    updateTaskFn(task.setIn(['data', 'members'], newMembers));
   };
 
   const onDragOver = (ev: React.DragEvent): void => {
@@ -103,15 +104,15 @@ const Task: FC<TaskProps> = ({
 
   return (
     <TaskCard
-      onDragOver={(e) => onDragOver(e)}
-      onDrop={(e) => onDrop(e)}
+      onDragOver={(e: DragEvent<HTMLDivElement>) => onDragOver(e)}
+      onDrop={(e: DragEvent<HTMLDivElement>) => onDrop(e)}
       raised={isDragging}
       sx={{
         position: 'relative',
         zIndex: isDragging ? 2 : 'auto',
       }}
       key={key}
-      onClick={(event) => {
+      onClick={(event: MouseEvent) => {
         event.stopPropagation();
       }}
     >
@@ -122,7 +123,7 @@ const Task: FC<TaskProps> = ({
               <Avatar
                 key={member.id}
                 sx={{
-                  bgcolor: `${member.color}`,
+                  bgcolor: `${membersColor[member.id]}`,
                 }}
                 alt={member.name}
               >
@@ -140,7 +141,7 @@ const Task: FC<TaskProps> = ({
       <CardActions>
         <IconButton
           aria-label={t('Delete task') || 'Delete task'}
-          onClick={() => deleteTask(id)}
+          onClick={() => deleteTaskFn(id)}
         >
           <DeleteIcon />
         </IconButton>
@@ -153,7 +154,7 @@ const Task: FC<TaskProps> = ({
       </CardActions>
       <TaskEditDialog
         task={task}
-        updateTask={updateTask}
+        updateTask={updateTaskFn}
         open={dialogOpen}
         onClose={handleDialogClose}
         members={membersList}
@@ -162,4 +163,4 @@ const Task: FC<TaskProps> = ({
   );
 };
 
-export default withTranslation()(Task);
+export default Task;

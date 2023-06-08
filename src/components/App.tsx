@@ -1,8 +1,6 @@
-import { RecordOf } from 'immutable';
+import { FC, ReactElement, useEffect } from 'react';
 
-import React, { FC, ReactElement, useContext, useEffect } from 'react';
-
-import { Context, LocalContext } from '@graasp/apps-query-client';
+import { useLocalContext } from '@graasp/apps-query-client';
 import { PermissionLevel } from '@graasp/sdk';
 
 import { useTheme } from '@mui/material/styles';
@@ -13,6 +11,7 @@ import { MAIN_CONTAINER_CY } from '../config/selectors';
 import { DEFAULT_PERMISSION } from '../config/settings';
 import '../index.css';
 import FullDiv from './common/FullDiv';
+import PublicAlert from './common/PublicAlert';
 import { AppDataProvider } from './context/AppDataContext';
 import { AppSettingProvider } from './context/AppSettingContext';
 import { MembersProvider } from './context/MembersContext';
@@ -22,13 +21,11 @@ import TasksManager from './views/TasksManager';
 const App: FC = () => {
   // context describes the item context, i.e. has the item id, current member id (memberId),
   // the language and current view (builder, player, ...), the current permission (admin, write, read)
-  const context: RecordOf<LocalContext> = useContext(Context);
+  const context = useLocalContext();
 
   const theme = useTheme();
 
-  const permissionLevel =
-    (context?.get('permission', DEFAULT_PERMISSION) as PermissionLevel) ||
-    DEFAULT_PERMISSION;
+  const permissionLevel = context?.permission || DEFAULT_PERMISSION;
 
   useEffect(() => {
     // handle a change of language
@@ -53,6 +50,7 @@ const App: FC = () => {
   return (
     <MembersProvider>
       <AppDataProvider>
+        <PublicAlert />
         <AppSettingProvider>{renderContent()}</AppSettingProvider>
       </AppDataProvider>
     </MembersProvider>

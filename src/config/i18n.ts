@@ -11,16 +11,9 @@ export const resources = {
   fr,
 } as const;
 
-declare module 'react-i18next' {
-  interface CustomTypeOptions {
-    defaultNS: typeof defaultNS;
-    resources: typeof resources['en'];
-  }
-}
-
 i18n.use(initReactI18next).init({
   resources,
-  lng: 'en',
+  fallbackLng: 'en',
   // debug only when not in production
   debug: process.env.NODE_ENV !== 'production',
   ns: [defaultNS],

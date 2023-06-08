@@ -3,13 +3,14 @@ import { List } from 'immutable';
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
-import { AppSetting, Member } from '@graasp/apps-query-client';
+import { Member } from '@graasp/sdk';
+import { AppSettingRecord, MemberRecord } from '@graasp/sdk/frontend';
 
 import { Autocomplete, Checkbox, TextField, Typography } from '@mui/material';
 
 import {
   APP_SETTINGS_TYPES,
-  FilteredMembersSettingType,
+  FilteredMembersSettingTypeRecord,
 } from '../../../config/appSettingTypes';
 import {
   PatchAppSettingType,
@@ -17,8 +18,8 @@ import {
 } from '../../../types/appSettings';
 
 interface FilterMembersProps {
-  members: List<Member>;
-  settings: List<AppSetting>;
+  members: List<MemberRecord>;
+  settings: List<AppSettingRecord>;
   postAppSetting: (s: PostAppSettingType) => void;
   patchAppSetting: (s: PatchAppSettingType) => void;
 }
@@ -31,17 +32,16 @@ const FilterMembers = (fcProps: FilterMembersProps): JSX.Element => {
   const [settingId, setSettingId] = useState<string>();
 
   useEffect(() => {
-    const filteredMembersSetting: FilteredMembersSettingType | undefined =
-      settings.find(
-        (s) => s.name === APP_SETTINGS_TYPES.FILTERED_MEMBERS,
-      ) as FilteredMembersSettingType;
+    const filteredMembersSetting = settings.find(
+      (s) => s.name === APP_SETTINGS_TYPES.FILTERED_MEMBERS,
+    ) as FilteredMembersSettingTypeRecord;
     if (filteredMembersSetting) {
       const fm = members.filter((m) =>
         filteredMembersSetting.data.filteredMembers.includes(m.id),
       );
       setSettingId(filteredMembersSetting.id);
       if (filteredMembers.length === 0) {
-        setFilteredMembers(fm.toArray());
+        setFilteredMembers(fm.toJS() as Member[]);
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -65,7 +65,7 @@ const FilterMembers = (fcProps: FilterMembersProps): JSX.Element => {
     }
   };
 
-  const membersList = members.toArray();
+  const membersList = members.toJS() as Member[];
 
   return (
     <>
