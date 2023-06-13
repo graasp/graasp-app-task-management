@@ -94,7 +94,7 @@
     "stream": false,
     "zlib": false
   },
-  "packageManager": "yarn@3.2.4",
+  "packageManager": "yarn@3.6.0",
   "release": {
     "analyzeCommits": "conventional"
   },
