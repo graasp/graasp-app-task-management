@@ -1488,7 +1488,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/runtime@npm:^7.20.7":
+"@babel/runtime@npm:^7.20.7, @babel/runtime@npm:^7.22.5":
   version: 7.22.5
   resolution: "@babel/runtime@npm:7.22.5"
   dependencies:
@@ -10416,12 +10416,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"i18next@npm:~22.5.0":
-  version: 22.5.0
-  resolution: "i18next@npm:22.5.0"
+"i18next@npm:~23.1.0":
+  version: 23.1.0
+  resolution: "i18next@npm:23.1.0"
   dependencies:
-    "@babel/runtime": ^7.20.6
-  checksum: 291c0e02fda20bd1827b6529dad74c01867892c7ac000befe0f69e10ad97ab074a2ae5b4ce1e0638c28ae1a6f59d1ed8503ea05bd1c324d731a44dd94c43a49a
+    "@babel/runtime": ^7.22.5
+  checksum: 1d2f28869fb2ea6b0387c77aba9da2c5d933df79c5bef240b6637d48c1e8489127af989c0aeeef87dd2b9123aaef27ab5ece2a79f1010720a54742eed2c100ae
   languageName: node
   linkType: hard
 
@@ -17364,7 +17364,7 @@ __metadata:
     eslint-plugin-react-hooks: ~4.6.0
     file-saver: 2.0.5
     husky: ~8.0.3
-    i18next: ~22.5.0
+    i18next: ~23.1.0
     immutable: 4.3.0
     lodash.isobject: ~3.0.2
     lodash.isstring: ~4.0.1
