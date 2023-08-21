@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.0](https://github.com/graasp/graasp-app-task-management/compare/v1.0.0-rc.1...v1.0.0) (2023-08-03)
+
+
+### Bug Fixes
+
+* **deps:** update dependency @emotion/react to v11.11.1 ([8e8f11c](https://github.com/graasp/graasp-app-task-management/commit/8e8f11c316f0d5a807726777d5210e6d584df9f6))
+* **deps:** update dependency @graasp/ui to v3.0.0 ([#79](https://github.com/graasp/graasp-app-task-management/issues/79)) ([c519af4](https://github.com/graasp/graasp-app-task-management/commit/c519af4eaf3d18ff4f265a9ec158a30f4532902e))
+* **deps:** update dependency i18next to ~23.2.0 ([#73](https://github.com/graasp/graasp-app-task-management/issues/73)) ([4cea550](https://github.com/graasp/graasp-app-task-management/commit/4cea55029bea77d5475934a005f99e348b4a2933))
+* **deps:** update dependency i18next to v23 ([#70](https://github.com/graasp/graasp-app-task-management/issues/70)) ([2d347da](https://github.com/graasp/graasp-app-task-management/commit/2d347da908c94818dc7e5d61857a99bd95f4c3cb))
+* **deps:** update dependency react-i18next to v13 ([#75](https://github.com/graasp/graasp-app-task-management/issues/75)) ([f048202](https://github.com/graasp/graasp-app-task-management/commit/f048202f1acfd9e61d5682418a0c76054c656c5e))
+* **deps:** update mui (non-major) ([065f2b3](https://github.com/graasp/graasp-app-task-management/commit/065f2b3d7f82a7ab17e132bf914b627ad382649a))
+* **deps:** update tanstack-query monorepo to v4.29.14 ([#68](https://github.com/graasp/graasp-app-task-management/issues/68)) ([e7125d1](https://github.com/graasp/graasp-app-task-management/commit/e7125d1a63c2d91ad14648210c4c624a20253a31))
+
 ## [1.0.0-rc.1](https://github.com/graasp/graasp-app-task-management/compare/v0.3.0...v1.0.0-rc.1) (2023-06-08)
 
 
