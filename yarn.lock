@@ -15341,20 +15341,20 @@ __metadata:
   linkType: hard
 
 "react-i18next@npm:^13.0.0":
-  version: 13.0.0
-  resolution: "react-i18next@npm:13.0.0"
+  version: 13.5.0
+  resolution: "react-i18next@npm:13.5.0"
   dependencies:
     "@babel/runtime": ^7.22.5
     html-parse-stringify: ^3.0.1
   peerDependencies:
-    i18next: ">= 23.0.1"
+    i18next: ">= 23.2.3"
     react: ">= 16.8.0"
   peerDependenciesMeta:
     react-dom:
       optional: true
     react-native:
       optional: true
-  checksum: f897ebb2570f79d2aee01d3d5cf65c0622a1ef07e2536c2d9206d9fe999ece9abf4b4795be99db4326f18fa3858c69745e21b150254d3da0d1f08c77586b1cc4
+  checksum: 2f68ccd24daf72ddd2d11a526fb3c2b66c11ea4fcd2e24ac7aed42bf57ec7bffa7455ad1dc93679968ff629e9b1896465cdf6d1a61c29b92138ef88098e8dcba
   languageName: node
   linkType: hard
 
