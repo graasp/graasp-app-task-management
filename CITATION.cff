@@ -1,0 +1,67 @@
+cff-version: 1.2.0
+message: If you use this software, please cite it as below.
+authors:
+  - family-names: La Scala
+    given-names: Jérémy
+    email: jeremy.lascala@epfl.ch
+    website: https://github.com/swouf
+    orcid: https://orcid.org/0000-0002-8057-7787
+  - family-names: Aad
+    given-names: Graciana
+    website: https://github.com/Gracianaaad
+    orcid: https://orcid.org/0000-0002-4229-9448
+title: "Task Management"
+version: 1.0.0
+date-released: 2023-08-21
+keywords:
+  - education
+  - react
+  - collaboration
+preferred-citation:
+  type: conference-paper
+  title: "Developing Transversal Skills and Strengthening Collaborative Blended Learning Activities in Engineering Education: a Pilot Study"
+  year: 2022
+  date-published: 2023-02-02
+  doi: 10.1109/ITHET56107.2022.10031948
+  url: https://ieeexplore.ieee.org/document/10031948
+  keywords:
+    - science and engineering education
+    - transversal skills
+    - collaborative learning
+    - learning experience platform
+    - learning analytics
+  conference:
+      name: 20th International Conference on Information Technology Based Higher Education and Training (ITHET 2022)
+      location: Side Prenses Resort Hotel & Spa
+      city: Side
+      region: Antalya
+      country: TR
+      date-start: 2022-11-07
+      date-end: 2022-11-09
+  collection-title: 2022 20th International Conference on Information Technology Based Higher Education and Training (ITHET)
+  collection-doi: 10.1109/ITHET56107.2022
+  authors:
+    - family-names: La Scala
+      given-names: Jérémy
+      orcid: https://orcid.org/0000-0002-8057-7787
+      affiliation: "School of Engineering,
+      École Polytechnique fédérale de Lausanne (EPFL),
+      Lausanne, Switzerland"
+    - family-names: Aad
+      given-names: Graciana
+      orcid: https://orcid.org/0000-0002-4229-9448
+      affiliation: "School of Engineering,
+      École Polytechnique fédérale de Lausanne (EPFL),
+      Lausanne, Switzerland"
+    - family-names: Vonèche-Cardia
+      given-names: Isabelle
+      orcid: https://orcid.org/0000-0003-1534-2567
+      affiliation: "School of Engineering,
+      École Polytechnique fédérale de Lausanne (EPFL),
+      Lausanne, Switzerland"
+    - family-names: Gillet
+      given-names: Denis
+      orcid: https://orcid.org/0000-0002-2570-929X
+      affiliation: "School of Engineering,
+      École Polytechnique fédérale de Lausanne (EPFL),
+      Lausanne, Switzerland"
