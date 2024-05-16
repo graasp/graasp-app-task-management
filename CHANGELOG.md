@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.0.1](https://github.com/graasp/graasp-app-task-management/compare/v1.0.0...v1.0.1) (2024-05-16)
+
+
+### Documentation
+
+* add citations info ([#82](https://github.com/graasp/graasp-app-task-management/issues/82)) ([69d9461](https://github.com/graasp/graasp-app-task-management/commit/69d94617376090c93ed81cc021f150fe99c0689f))
+
 ## [1.0.0](https://github.com/graasp/graasp-app-task-management/compare/v1.0.0-rc.1...v1.0.0) (2023-08-03)
 
 
